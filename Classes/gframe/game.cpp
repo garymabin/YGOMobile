@@ -113,7 +113,16 @@ bool Game::Initialize() {
 	deckManager.LoadLFList();
 	driver = device->getVideoDriver();
 	driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
+#ifdef _IRR_ANDROID_PLATFORM_
+	int quality = android::getCardQuality(app);
+	if (quality == 1) {
+		driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
+	} else {
+		driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_SPEED, true);
+	}
+#else
 	driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
+#endif
 	imageManager.SetDevice(device);
 	if(!imageManager.Initial())
 		return false;

@@ -59,5 +59,6 @@
 -keep class cn.garymb.ygomobile.StaticApplication {
     public java.lang.String getResourcePath();
     public int getOpenglVersion();
+    public int getCardQuality();
     
 }

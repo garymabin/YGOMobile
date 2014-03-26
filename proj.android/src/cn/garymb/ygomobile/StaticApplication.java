@@ -86,6 +86,18 @@ public class StaticApplication extends Application {
 		editor.commit();
 	}
 	
+	public int getCardQuality() {
+		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE);
+		return sp.getInt(Constants.CARD_QUALITY_PATH, 0);
+	}
+	
+	public void setCardQuality(int quality) {
+		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(Constants.CARD_QUALITY_PATH, quality);
+		editor.commit();
+	}
+	
 	/* (non-Javadoc)
 	 * @see android.app.Application#onTerminate()
 	 */
