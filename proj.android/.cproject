@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.android.toolchain.gcc.1250381240">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.android.toolchain.gcc.1250381240" moduleId="org.eclipse.cdt.core.settings" name="Default">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="NativeActivity" buildProperties="" description="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="com.android.toolchain.gcc.1250381240" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
+					<folderInfo id="com.android.toolchain.gcc.1250381240.1590322451" name="/" resourcePath="">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.base.1443272537" name="Linux GCC" resourceTypeBasedDiscovery="true" superClass="cdt.managedbuild.toolchain.gnu.base">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.gnu.platform.base.859058429" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
+							<builder arguments="NDK_DEBUG=1" autoBuildTarget="all" cleanBuildTarget="clean" command="F:\android-ndk-r9-windows-x86_64\android-ndk-r9\ndk-build.cmd" enableAutoBuild="false" enableCleanBuild="true" enabledIncrementalBuild="true" id="cdt.managedbuild.target.gnu.builder.base.576169492" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="false" superClass="cdt.managedbuild.target.gnu.builder.base">
+								<outputEntries>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name=""/>
+								</outputEntries>
+							</builder>
+							<tool id="cdt.managedbuild.tool.gnu.archiver.base.96809676" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.148289893" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
+								<option id="gnu.cpp.compiler.option.include.paths.56799111" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/crack/android-ndk-r9-windows-x86_64/android-ndk-r9/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.6/include"/>
+									<listOptionValue builtIn="false" value="&quot;F:\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;I:\develop\crack\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\include&quot;"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/YGOMobile/irrlicht/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/YGOMobile/proj.android../source/Irrlicht"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.2087951409" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.1589171704" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
+								<option id="gnu.c.compiler.option.include.paths.1759887163" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/crack/android-ndk-r9-windows-x86_64/android-ndk-r9/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/include"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.6/include"/>
+									<listOptionValue builtIn="false" value="&quot;F:\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;I:\develop\crack\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\include&quot;"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/YGOMobile/irrlicht/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobileYGOMobile/proj.android../source/Irrlicht"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1933853726" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.1566440152" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.1779846193" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base">
+								<option id="gnu.cpp.link.option.paths.1170550784" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;F:\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\lib&quot;"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1833764255" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.assembler.base.364408181" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base">
+								<option id="gnu.both.asm.option.include.paths.1880337023" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/src/proj.android../source/Irrlicht"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/crack/android-ndk-r9-windows-x86_64/android-ndk-r9/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/include"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.6/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/source/Irrlicht"/>
+									<listOptionValue builtIn="false" value="&quot;F:\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;I:\develop\crack\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\include&quot;"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1238294712" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<folderInfo id="com.android.toolchain.gcc.1250381240.45097395" name="/" resourcePath="Classes">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.base.1713564762" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.base" unusedChildren="">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.gnu.platform.base" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1012058122" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base.96809676"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.961946826" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base.148289893">
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1729950242" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.441084383" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base.1589171704">
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1962455842" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.1932500828" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base.1566440152"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.1280108345" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base.1779846193"/>
+							<tool id="cdt.managedbuild.tool.gnu.assembler.base.1031306462" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base.364408181">
+								<option id="gnu.both.asm.option.include.paths.1397921085" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/src/proj.android../source/Irrlicht"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/crack/android-ndk-r9-windows-x86_64/android-ndk-r9/platforms/android-18/arch-arm/usr/include"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/sources/android/native_app_glue"/>
+									<listOptionValue builtIn="false" value="F:/android-ndk-r9-windows-x86_64/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.6/include"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/source/Irrlicht"/>
+									<listOptionValue builtIn="false" value="&quot;F:\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;I:\develop\crack\android-ndk-r9-windows-x86_64\android-ndk-r9\platforms\android-18\arch-arm\usr\include&quot;"/>
+									<listOptionValue builtIn="false" value="I:/develop/YGOMobile/src/Irrlicht/include"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1899921887" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Classes"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="android"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="jni"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="NativeActivity.null.2075150926" name="NativeActivity"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/NativeActivity"/>
+		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240;com.android.toolchain.gcc.1250381240.1590322451;com.android.tool.compiler.c.1897421104;com.android.tool.compiler.c.input.178787430">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerFileProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240;com.android.toolchain.gcc.1250381240.1590322451;com.android.tool.compiler.g++.1449273897;com.android.tool.compiler.g++.input.527705320">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerFileProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240;com.android.toolchain.gcc.1250381240.1590322451;com.android.tool.compiler.g++.1220616851;com.android.tool.compiler.g++.input.188560579">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerFileProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240;com.android.toolchain.gcc.1250381240.1590322451;cdt.managedbuild.tool.gnu.cpp.compiler.base.148289893;cdt.managedbuild.tool.gnu.cpp.compiler.input.2087951409">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240;com.android.toolchain.gcc.1250381240.1590322451;com.android.gcc.compiler.953067741;com.android.gcc.inputType.778519251">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.android.AndroidPerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240;com.android.toolchain.gcc.1250381240.1590322451;cdt.managedbuild.tool.gnu.c.compiler.base.1589171704;cdt.managedbuild.tool.gnu.c.compiler.input.1933853726">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240;com.android.toolchain.gcc.1250381240.1590322451;com.android.tool.compiler.c.1446267367;com.android.tool.compiler.c.input.979611311">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerFileProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.android.toolchain.gcc.1250381240;com.android.toolchain.gcc.1250381240.1590322451;com.android.gcc.compiler.111267111;com.android.gcc.inputType.971909135">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.android.AndroidPerProjectProfile"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+</cproject>

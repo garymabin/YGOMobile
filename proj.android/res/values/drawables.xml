@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <item name="ltgray" type="drawable">#fff4f4f4</item>
+    <item name="peopeo_radio_bg" type="drawable">#fffff4db</item>
+    <item name="black" type="drawable">#ff000000</item>
+    <item name="transparent" type="drawable">#00000000</item>
+    <item name="menu_transparent" type="drawable">#22000000</item>
+    <item name="background" type="drawable">#f1f1f1</item>
+    <item name="loading_bg" type="drawable">#ffffff</item>
+    <item name="listitem_normal" type="drawable">#fbfbfb</item>
+    <item name="listitem_press" type="drawable">#f0f0f0</item>
+    <item name="check_unchecked" type="drawable">#b5b5b5</item>
+    <item name="about_update_press" type="drawable">#f79c10</item>
+    <item name="menu_bg_color" type="drawable">#fafafb</item>
+</resources>

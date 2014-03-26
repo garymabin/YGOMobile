@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_savelog">保存日志</string>
+    <string name="menu_advanced_settings">高级设置</string>
+    <string name="app_name">YGOMobile</string>
+    <string name="crash_title">应用程序崩溃</string>
+    <string name="crashed">w(ﾟДﾟ)w.. YGOMobile 崩溃啦！</string>
+    <string name="crash_dialog_comment_prompt">YGOMobile 崩溃了喵，请将错误日志通过邮件发送给俺们喵，有其他想法可以在下面反馈喵!</string>
+    <string name="crash_dialog_ok_toast">感谢喵!</string>
+    <string name="button_cancel">取消</string>
+    <string name="button_ok">确定</string>
+    <string name="combobox_choose_item">请选择一项</string>
+    <string name="choose_resource_dir">请选择资源目录</string>
+    <string name="res_error_sdcard_not_avail">Sdcard卡不可用！</string>
+    <string name="res_error_not_exist">资源目录不可用，请重新指定目录！</string>
+    <string name="res_error_config_not_exist">配置文件不可用，请重新指定目录！</string>
+    <string name="res_error_db_file_not_exist">卡片数据库不可用，请重新指定目录！</string>
+    <string name="res_error_unknown">未知错误！</string>
+    <string name="access_denied">拒绝访问！</string>
+    <string name="file_browser_directory_items">共<xliff>%1$1d</xliff>项</string>
+    <string name="file_navigator_root_dir">根目录</string>
+    <string name="text_select_res">请选择资源目录</string>
+    <string name="advanced_settings">高级设置</string>
+    <string name="cancel">取消</string>
+    <string name="opengl">Opengl</string>
+    <string name="restart_hint">请重启游戏以生效</string>
+    <string name="refresh_texture">R</string>
+    <string name="ignore_chain">S</string>
+    <string name="react_chain">A</string>
+</resources>

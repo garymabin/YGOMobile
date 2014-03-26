@@ -1,0 +1,63 @@
+#ACRA specifics
+# Restore some Source file names and restore approximate line numbers in the stack traces,
+# otherwise the stack traces are pretty useless
+-keepattributes SourceFile,LineNumberTable
+
+# keep this class so that logging will show 'ACRA' and not a obfuscated name like 'a'.
+# Note: if you are removing log messages elsewhere in this file then this isn't necessary
+-keep class org.acra.ACRA {
+    *;
+}
+
+# keep this around for some enums that ACRA needs
+-keep class org.acra.ReportingInteractionMode {
+    *;
+}
+
+-keepnames class org.acra.sender.HttpSender$** {
+    *;
+}
+
+-keepnames class org.acra.ReportField {
+    *;
+}
+
+# keep this otherwise it is removed by ProGuard
+-keep public class org.acra.ErrorReporter
+{
+    public void addCustomData(java.lang.String,java.lang.String);
+    public void putCustomData(java.lang.String,java.lang.String);
+    public void removeCustomData(java.lang.String);
+}
+
+# keep this otherwise it is removed by ProGuard
+-keep public class org.acra.ErrorReporter
+{
+    public void handleSilentException(java.lang.Throwable);
+}
+
+#keep nativehandler class
+-keep class com.github.nativehandler.NativeCrashHandler {
+    *;
+}
+
+-keep class com.github.nativehandler.NativeError {
+    *;
+}
+
+#keep YGOMobileActivity's C++ called method
+-keep class cn.garymb.ygomobile.YGOMobileActivity {
+    public void setNativeHandle(int);
+    public void toggleIME(java.lang.String, boolean);
+    public void showComboBoxCompat(java.lang.String[], boolean, int);
+    public void performHapticFeedback();
+    public void toggleOverlayView(boolean);
+    public byte[] performTrick();
+    
+}
+#keep StaticApplication's C++ called method
+-keep class cn.garymb.ygomobile.StaticApplication {
+    public java.lang.String getResourcePath();
+    public int getOpenglVersion();
+    
+}

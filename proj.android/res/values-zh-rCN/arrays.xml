@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="duel_options">
+        <item>取消</item>
+        <item>R</item>
+        <item>S</item>
+        <item>A</item>
+    </string-array>
+    
+   	<string-array name="opengl_detail">
+        <item>OpenGL ES 1.X （适合比较老的手机，性能较低）</item>
+        <item>OpenGL ES 2.0 fixed shaders（适合比较新的手机，性能较高）</item>
+        <item>OpenGL ES 2.0 builtin shaders（适合比较新的手机，性能较高）</item>
+    </string-array>
+    
+    <string-array name="opengl_version">
+        <item>OpenGL ES 1.X</item>
+        <item>OpenGL ES 2.0 fixed shaders</item>
+        <item>OpenGL ES 2.0 builtin shaders</item>
+    </string-array>
+
+</resources>

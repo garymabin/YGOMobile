@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".CheckActivity" >
+
+    <RelativeLayout
+        android:id="@+id/main_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_title_bar_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/main_title_bar"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/text_select_resource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/text_select_res"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_title_bar_title_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/extra_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_title_bar" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/recent_file_background"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/divider_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.67dip"
+            android:layout_alignParentTop="true"
+            android:background="@color/recent_file_divider_color" >
+        </View>
+
+        <Button
+            android:id="@+id/button_bottom_right"
+            android:layout_width="80dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/divider_bottom"
+            android:background="@drawable/button_back_background"
+            android:scaleType="centerInside"
+            android:text="@string/button_ok"
+            android:textColor="@color/bottom_button_color"
+            android:textColorHighlight="@color/dark_gold"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

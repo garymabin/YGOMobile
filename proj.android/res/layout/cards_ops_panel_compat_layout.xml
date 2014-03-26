@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white" >
+<RelativeLayout 
+    android:id="@+id/level3"
+    android:layout_width="280dip"
+    android:layout_height="140dip"
+    android:background="@drawable/level3" >
+
+    <TextView
+        android:id="@+id/activate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dip"
+        android:layout_marginLeft="12dip"
+        android:text="发动" />
+
+    <TextView
+        android:id="@+id/summon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/activate"
+        android:layout_marginBottom="12dip"
+        android:layout_marginLeft="28dip"
+        android:text="召唤" />
+
+    <TextView
+        android:id="@+id/spsummon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/summon"
+        android:layout_marginBottom="6dip"
+        android:layout_marginLeft="8dip"
+        android:layout_toRightOf="@id/summon"
+        android:text="放置" />
+
+    <TextView
+        android:id="@+id/set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="6dip"
+        android:text="特殊召唤" />
+
+    <TextView
+        android:id="@+id/revertsummon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/attack"
+        android:layout_marginBottom="6dip"
+        android:layout_marginRight="8dip"
+        android:layout_toLeftOf="@id/attack"
+        android:text="反转召唤" />
+
+    <TextView
+        android:id="@id/attack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/defense"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="12dip"
+        android:layout_marginRight="28dip"
+        android:text="攻击表示" />
+
+    <TextView
+        android:id="@+id/defense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="6dip"
+        android:layout_marginRight="12dip"
+        android:text="守备表示" />
+
+</RelativeLayout>
+</RelativeLayout>

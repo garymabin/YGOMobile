@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/item_save_log" android:title="@string/menu_savelog"></item>
+    <item android:id="@+id/item_advanced_settings" android:title="@string/menu_advanced_settings"></item>
+</menu>

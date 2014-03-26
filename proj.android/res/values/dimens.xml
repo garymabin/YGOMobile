@@ -1,0 +1,35 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="main_title_bar_height">41.33dip</dimen>
+    <dimen name="main_title_bar_title_text_size">17.33sp</dimen>
+    
+    <dimen name="recent_file_height">26.67dip</dimen>
+    <dimen name="recent_file_left_padding">8dip</dimen>
+    <dimen name="recent_file_bottom_padding">6.67dip</dimen>
+    <dimen name="recent_file_icon_top_margin">2.33dip</dimen>
+    <dimen name="recent_file_text_left_margin">2dip</dimen>
+    <dimen name="recent_file_text_top_margin">4.67dip</dimen>
+    <dimen name="recent_file_text_size">13.33sp</dimen>
+    <dimen name="recent_file_item_height">80dip</dimen>
+    <dimen name="recent_file_item_width">96.66dip</dimen>
+    <dimen name="recent_file_item_file_name_height">20dip</dimen>
+    <dimen name="recent_file_item_file_name_padding">2dip</dimen>
+    <dimen name="recent_file_item_file_name_text_size">10.67sp</dimen>
+    <dimen name="recent_file_item_checkbox_padding">2dip</dimen>
+    
+    <dimen name="file_category_name_text_size">13.33sp</dimen>
+    <dimen name="file_category_count_text_size">10.67sp</dimen>
+    
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="file_category_colume_width">90dip</dimen>
+    <dimen name="file_category_spacing">6.67dip</dimen>
+    <dimen name="checkmark_area">40dip</dimen>
+    
+    <dimen name= "options_switch_move_threshold">20dip</dimen>
+    
+    <dimen name="space">10dp</dimen>
+    <dimen name="icon_left">16dp</dimen>
+    <dimen name="icon_left_left_margin">6dp</dimen>
+    <dimen name="listitem_details_bottom">12dp</dimen>
+</resources>
