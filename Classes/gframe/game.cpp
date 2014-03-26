@@ -825,7 +825,7 @@ bool Game::Initialize() {
 	btnReplaySwap = env->addButton(rect<s32>(5 * xScale, 140 * yScale, 85 * xScale, 180 * yScale), wReplayControl, BUTTON_REPLAY_SWAP, dataManager.GetSysString(1346));
 	btnReplayExit = env->addButton(rect<s32>(5 * xScale, 185 * yScale, 85 * xScale, 225 * yScale), wReplayControl, BUTTON_REPLAY_EXIT, dataManager.GetSysString(1347));
 	//chat
-	wChat = env->addWindow(rect<s32>(305 * xScale, 600 * yScale, 1020 * xScale, 640 * yScale), false, L"");
+	wChat = env->addWindow(rect<s32>(305 * xScale, 615 * yScale, 1020 * xScale, 640 * yScale), false, L"");
 	wChat->getCloseButton()->setVisible(false);
 	wChat->setDraggable(false);
 	wChat->setDrawTitlebar(false);
