@@ -40,7 +40,7 @@ field::field(duel* pduel) {
 		player[i].disabled_location = 0;
 		player[i].used_location = 0;
 		player[i].list_mzone.reserve(5);
-		player[i].list_szone.reserve(6);
+		player[i].list_szone.reserve(8);
 		player[i].list_main.reserve(45);
 		player[i].list_hand.reserve(10);
 		player[i].list_grave.reserve(30);
@@ -48,7 +48,7 @@ field::field(duel* pduel) {
 		player[i].list_extra.reserve(15);
 		for(int j = 0; j < 5; ++j)
 			player[i].list_mzone.push_back(0);
-		for(int j = 0; j < 6; ++j)
+		for(int j = 0; j < 8; ++j)
 			player[i].list_szone.push_back(0);
 		core.shuffle_deck_check[i] = FALSE;
 		core.shuffle_hand_check[i] = FALSE;
@@ -107,7 +107,7 @@ void field::reload_field_info() {
 				pduel->write_buffer8(0);
 			}
 		}
-		for(uint32 i = 0; i < 6; ++i) {
+		for(uint32 i = 0; i < 8; ++i) {
 			pcard = player[playerid].list_szone[i];
 			if(pcard) {
 				pduel->write_buffer8(1);
@@ -139,8 +139,16 @@ void field::add_card(uint8 playerid, card* pcard, uint8 location, uint8 sequence
 		return;
 	if (!is_location_useable(playerid, location, sequence))
 		return;
-	if ((pcard->data.type & (TYPE_FUSION | TYPE_SYNCHRO | TYPE_XYZ)) && (location == LOCATION_HAND || location == LOCATION_DECK))
+	if ((pcard->data.type & (TYPE_FUSION | TYPE_SYNCHRO | TYPE_XYZ)) && (location == LOCATION_HAND || location == LOCATION_DECK)) {
 		location = LOCATION_EXTRA;
+		pcard->operation_param = (pcard->operation_param & 0x00ffffff) | (POS_FACEDOWN_DEFENCE << 24);
+	}
+	if ((pcard->data.type & TYPE_PENDULUM) && (location == LOCATION_GRAVE)
+	        && (((pcard->previous.location == LOCATION_MZONE) && !pcard->is_status(STATUS_SUMMON_DISABLED))
+	        || ((pcard->previous.location == LOCATION_SZONE) && !pcard->is_status(STATUS_ACTIVATE_DISABLED)))) {
+		location = LOCATION_EXTRA;
+		pcard->operation_param = (pcard->operation_param & 0x00ffffff) | (POS_FACEUP_DEFENCE << 24);
+	}
 	pcard->current.controler = playerid;
 	pcard->current.location = location;
 	switch (location) {
@@ -387,7 +395,7 @@ card* field::get_field_card(uint8 playerid, uint8 location, uint8 sequence) {
 		break;
 	}
 	case LOCATION_SZONE: {
-		if(sequence < 6)
+		if(sequence < 8)
 			return player[playerid].list_szone[sequence];
 		else
 			return 0;
@@ -807,11 +815,28 @@ void field::reset_chain() {
 			(*rm)->handler->remove_effect((*rm));
 	}
 }
+void field::add_effect_code(uint32 code) {
+	core.effect_count_code[code]++;
+}
+uint32 field::get_effect_code(uint32 code) {
+	auto iter = core.effect_count_code.find(code);
+	if(iter == core.effect_count_code.end())
+		return 0;
+	return iter->second;
+}
+void field::dec_effect_code(uint32 code){
+	auto iter = core.effect_count_code.find(code);
+	if(iter == core.effect_count_code.end())
+		return;
+	if(iter->second > 0)
+		iter->second--;
+}
 void field::filter_field_effect(uint32 code, effect_set* eset, uint8 sort) {
 	effect* peffect;
 	auto rg = effects.aura_effect.equal_range(code);
-	for (; rg.first != rg.second; ++rg.first) {
+	for (; rg.first != rg.second; ) {
 		peffect = rg.first->second;
+		++rg.first;
 		if (peffect->is_available())
 			eset->add_item(peffect);
 	}
@@ -836,7 +861,7 @@ void field::filter_affected_cards(effect* peffect, card_set* cset) {
 			}
 		}
 		if (range & LOCATION_SZONE) {
-			for (int i = 0; i < 6; ++i) {
+			for (int i = 0; i < 8; ++i) {
 				pcard = player[self].list_szone[i];
 				if (pcard && peffect->is_target(pcard))
 					cset->insert(pcard);
@@ -903,7 +928,7 @@ int32 field::filter_matching_card(int32 findex, uint8 self, uint32 location1, ui
 			}
 		}
 		if(location & LOCATION_SZONE) {
-			for(uint32 i = 0; i < 6; ++i) {
+			for(uint32 i = 0; i < 8; ++i) {
 				pcard = player[self].list_szone[i];
 				if(pcard && pcard != pexception && pduel->lua->check_matching(pcard, findex, extraargs)
 				        && (!is_target || pcard->is_capable_be_effect_target(core.reason_effect, core.reason_player))) {
@@ -1028,7 +1053,7 @@ int32 field::filter_field_card(uint8 self, uint32 location1, uint32 location2, g
 			}
 		}
 		if(location & LOCATION_SZONE) {
-			for(int i = 0; i < 6; ++i) {
+			for(int i = 0; i < 8; ++i) {
 				pcard = player[self].list_szone[i];
 				if(pcard) {
 					if(pgroup)
@@ -1404,7 +1429,7 @@ uint32 field::get_field_counter(uint8 self, uint8 s, uint8 o, uint16 countertype
 				if(player[self].list_mzone[i])
 					count += player[self].list_mzone[i]->get_counter(countertype);
 			}
-			for(int i = 0; i < 6; ++i) {
+			for(int i = 0; i < 8; ++i) {
 				if(player[self].list_szone[i])
 					count += player[self].list_szone[i]->get_counter(countertype);
 			}

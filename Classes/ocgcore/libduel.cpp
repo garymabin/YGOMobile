@@ -811,6 +811,40 @@ int32 scriptlib::duel_get_environment(lua_State *L) {
 	lua_pushinteger(L, p);
 	return 2;
 }
+int32 scriptlib::duel_is_environment(lua_State *L) {
+	check_param_count(L, 1);
+	uint32 code = lua_tointeger(L, 1);
+	uint32 playerid = PLAYER_ALL;
+	if(lua_gettop(L) >= 2)
+		playerid = lua_tointeger(L, 2);
+	if(playerid != 0 && playerid != 1 && playerid != PLAYER_ALL)
+		return 0;
+	duel* pduel = interpreter::get_duel_info(L);
+	int32 ret = 0, fc = 0;
+	card* pcard = pduel->game_field->player[0].list_szone[5];
+	if(pcard && pcard->is_position(POS_FACEUP) && pcard->get_status(STATUS_EFFECT_ENABLED)) {
+		fc = 1;
+		if(code == pcard->get_code() && (playerid == 0 || playerid == PLAYER_ALL))
+			ret = 1;
+	}
+	pcard = pduel->game_field->player[1].list_szone[5];
+	if(pcard && pcard->is_position(POS_FACEUP) && pcard->get_status(STATUS_EFFECT_ENABLED)) {
+		fc = 1;
+		if(code == pcard->get_code() && (playerid == 1 || playerid == PLAYER_ALL))
+			ret = 1;
+	}
+	if(!fc) {
+		effect_set eset;
+		pduel->game_field->filter_field_effect(EFFECT_CHANGE_ENVIRONMENT, &eset);
+		if(eset.count) {
+			effect* peffect = eset.get_last();
+			if(code == peffect->get_value() && (playerid == peffect->get_handler_player() || playerid == PLAYER_ALL))
+				ret = 1;
+		}
+	}
+	lua_pushboolean(L, ret);
+	return 1;
+}
 int32 scriptlib::duel_win(lua_State *L) {
 	check_param_count(L, 2);
 	uint32 playerid = lua_tointeger(L, 1);
@@ -1234,11 +1268,25 @@ int32 scriptlib::duel_negate_related_chain(lua_State *L) {
 }
 int32 scriptlib::duel_disable_summon(lua_State *L) {
 	check_param_count(L, 1);
-	check_param(L, PARAM_TYPE_CARD, 1);
-	card* target = *(card**)lua_touserdata(L, 1);
-	target->set_status(STATUS_SUMMONING, FALSE);
-	target->set_status(STATUS_SUMMON_DISABLED, TRUE);
-	target->set_status(STATUS_PROC_COMPLETE, FALSE);
+	card* pcard = 0;
+	group* pgroup = 0;
+	if(check_param(L, PARAM_TYPE_CARD, 1, TRUE))
+		pcard = *(card**) lua_touserdata(L, 1);
+	else if(check_param(L, PARAM_TYPE_GROUP, 1, TRUE))
+		pgroup = *(group**) lua_touserdata(L, 1);
+	else
+		luaL_error(L, "Parameter %d should be \"Card\" or \"Group\".", 1);
+	if(pcard) {
+		pcard->set_status(STATUS_SUMMONING, FALSE);
+		pcard->set_status(STATUS_SUMMON_DISABLED, TRUE);
+		pcard->set_status(STATUS_PROC_COMPLETE, FALSE);
+	} else {
+		for(auto cit = pgroup->container.begin(); cit != pgroup->container.end(); ++cit) {
+			(*cit)->set_status(STATUS_SUMMONING, FALSE);
+			(*cit)->set_status(STATUS_SUMMON_DISABLED, TRUE);
+			(*cit)->set_status(STATUS_PROC_COMPLETE, FALSE);
+		}
+	}
 	return 0;
 }
 int32 scriptlib::duel_increase_summon_count(lua_State *L) {
@@ -2341,7 +2389,8 @@ int32 scriptlib::duel_overlay(lua_State *L) {
 		target->xyz_overlay(&cset);
 	} else
 		target->xyz_overlay(&pgroup->container);
-	target->pduel->game_field->adjust_all();
+	if(target->current.location == LOCATION_MZONE)
+		target->pduel->game_field->adjust_all();
 	return lua_yield(L, 0);
 }
 int32 scriptlib::duel_get_overlay_group(lua_State *L) {

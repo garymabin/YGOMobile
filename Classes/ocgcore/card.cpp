@@ -177,6 +177,19 @@ uint32 card::get_infos(byte* buf, int32 query_flag, int32 use_cache) {
 	}
 	if(query_flag & QUERY_IS_PUBLIC)
 		*p++ = (status & STATUS_IS_PUBLIC) ? 1 : 0;
+	if(!use_cache) {
+		if(query_flag & QUERY_LSCALE) q_cache.lscale = *p++ = get_lscale();
+		if(query_flag & QUERY_RSCALE) q_cache.rscale = *p++ = get_rscale();
+	} else {
+		if((query_flag & QUERY_LSCALE) && ((uint32)(tdata = get_lscale()) != q_cache.lscale)) {
+			q_cache.lscale = tdata;
+			*p++ = tdata;
+		} else query_flag &= ~QUERY_LSCALE;
+		if((query_flag & QUERY_RSCALE) && ((uint32)(tdata = get_rscale()) != q_cache.rscale)) {
+			q_cache.rscale = tdata;
+			*p++ = tdata;
+		} else query_flag &= ~QUERY_RSCALE;
+	}
 	*(uint32*)buf = (byte*)p - buf;
 #ifdef _IRR_ANDROID_PLATFORM_
 	memcpy(buf + 4, &query_flag, sizeof(int));
@@ -264,6 +277,8 @@ uint32 card::get_type() {
 		return assume_value;
 	if(!(current.location & 0x1e))
 		return data.type;
+	if((current.location == LOCATION_SZONE) && (current.sequence >= 6))
+		return TYPE_PENDULUM + TYPE_SPELL;
 	if (temp.type != 0xffffffff)
 		return temp.type;
 	effect_set effects;
@@ -636,6 +651,60 @@ uint32 card::get_race() {
 	temp.race = 0xffffffff;
 	return race;
 }
+uint32 card::get_lscale() {
+	if(!(current.location & LOCATION_SZONE))
+		return data.lscale;
+	if (temp.lscale != 0xffffffff)
+		return temp.lscale;
+	effect_set effects;
+	int32 lscale = data.lscale;
+	temp.lscale = data.lscale;
+	int32 up = 0, upc = 0;
+	filter_effect(EFFECT_UPDATE_LSCALE, &effects, FALSE);
+	filter_effect(EFFECT_CHANGE_LSCALE, &effects);
+	for (int32 i = 0; i < effects.count; ++i) {
+		if (effects[i]->code == EFFECT_UPDATE_LSCALE) {
+			if ((effects[i]->type & EFFECT_TYPE_SINGLE) && !(effects[i]->flag & EFFECT_FLAG_SINGLE_RANGE))
+				up += effects[i]->get_value(this);
+			else
+				upc += effects[i]->get_value(this);
+		} else {
+			lscale = effects[i]->get_value(this);
+			up = 0;
+		}
+		temp.lscale = lscale;
+	}
+	lscale += up + upc;
+	temp.lscale = 0xffffffff;
+	return lscale;
+}
+uint32 card::get_rscale() {
+	if(!(current.location & LOCATION_SZONE))
+		return data.rscale;
+	if (temp.rscale != 0xffffffff)
+		return temp.rscale;
+	effect_set effects;
+	int32 rscale = data.rscale;
+	temp.rscale = data.rscale;
+	int32 up = 0, upc = 0;
+	filter_effect(EFFECT_UPDATE_RSCALE, &effects, FALSE);
+	filter_effect(EFFECT_CHANGE_RSCALE, &effects);
+	for (int32 i = 0; i < effects.count; ++i) {
+		if (effects[i]->code == EFFECT_UPDATE_RSCALE) {
+			if ((effects[i]->type & EFFECT_TYPE_SINGLE) && !(effects[i]->flag & EFFECT_FLAG_SINGLE_RANGE))
+				up += effects[i]->get_value(this);
+			else
+				upc += effects[i]->get_value(this);
+		} else {
+			rscale = effects[i]->get_value(this);
+			up = 0;
+		}
+		temp.rscale = rscale;
+	}
+	rscale += up + upc;
+	temp.rscale = 0xffffffff;
+	return rscale;
+}
 int32 card::is_position(int32 pos) {
 	return current.position & pos;
 }
@@ -702,14 +771,14 @@ void card::xyz_overlay(card_set* materials) {
 		xyz_add(pcard, &des);
 	} else {
 		field::card_vector cv;
-		for(auto cit : *materials)
-			cv.push_back(cit);
+		for(auto cit = materials->begin(); cit != materials->end(); ++cit)
+			cv.push_back(*cit);
 		std::sort(cv.begin(), cv.end(), card::card_operation_sort);
-		for(auto pcard : cv) {
-			pcard->reset(RESET_LEAVE + RESET_OVERLAY, RESET_EVENT);
-			if(pcard->unique_code)
-				pduel->game_field->remove_unique_card(pcard);
-			xyz_add(pcard, &des);
+		for(auto cvit = cv.begin(); cvit != cv.end(); ++cvit) {
+			(*cvit)->reset(RESET_LEAVE + RESET_OVERLAY, RESET_EVENT);
+			if((*cvit)->unique_code)
+				pduel->game_field->remove_unique_card(*cvit);
+			xyz_add(*cvit, &des);
 		}
 	}
 	if(des.size())
@@ -1181,8 +1250,6 @@ int32 card::destination_redirect(uint8 destination, uint32 reason) {
 	uint32 redirect;
 	if(data.type & TYPE_TOKEN)
 		return 0;
-	if(data.type & (TYPE_FUSION | TYPE_SYNCHRO | TYPE_XYZ ) && destination == LOCATION_HAND )
-		destination = LOCATION_DECK;
 	if(destination == LOCATION_HAND)
 		filter_effect(EFFECT_TO_HAND_REDIRECT, &es);
 	else if(destination == LOCATION_DECK)
@@ -1452,6 +1519,26 @@ void card::filter_spsummon_procedure(uint8 playerid, effect_set* peset) {
 		if(peffect->is_available() && is_summonable(peffect)
 		        && pduel->game_field->is_player_can_spsummon(peffect, peffect->get_value(this), topos, playerid, toplayer, this))
 			peset->add_item(pr.first->second);
+	}
+}
+void card::filter_spsummon_procedure_g(uint8 playerid, effect_set* peset) {
+	auto pr = field_effect.equal_range(EFFECT_SPSUMMON_PROC_G);
+	for(; pr.first != pr.second; ++pr.first) {
+		effect* peffect = pr.first->second;
+		if(!peffect->is_available())
+			continue;
+		effect* oreason = pduel->game_field->core.reason_effect;
+		uint8 op = pduel->game_field->core.reason_player;
+		pduel->game_field->core.reason_effect = peffect;
+		pduel->game_field->core.reason_player = this->current.controler;
+		pduel->game_field->save_lp_cost();
+		pduel->lua->add_param(peffect, PARAM_TYPE_EFFECT);
+		pduel->lua->add_param(this, PARAM_TYPE_CARD);
+		if(pduel->lua->check_condition(peffect->condition, 2))
+			peset->add_item(pr.first->second);
+		pduel->game_field->restore_lp_cost();
+		pduel->game_field->core.reason_effect = oreason;
+		pduel->game_field->core.reason_player = op;
 	}
 }
 effect* card::is_affected_by_effect(int32 code) {
@@ -1988,6 +2075,8 @@ int32 card::is_capable_cost_to_grave(uint8 playerid) {
 	uint32 redirect = 0;
 	uint32 dest = LOCATION_GRAVE;
 	if(data.type & TYPE_TOKEN)
+		return FALSE;
+	if((data.type & TYPE_PENDULUM) && (current.location & LOCATION_ONFIELD))
 		return FALSE;
 	if(current.location == LOCATION_GRAVE)
 		return FALSE;

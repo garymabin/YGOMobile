@@ -20,7 +20,7 @@
 #include <android/CAndroidGUIListBox.h>
 #endif
 
-const unsigned short PRO_VERSION = 0x1321;
+const unsigned short PRO_VERSION = 0x1330;
 
 namespace ygo {
 
@@ -832,48 +832,48 @@ bool Game::Initialize() {
 	wChat->setVisible(false);
 #else
 	//replay window
-	wReplay = env->addWindow(rect<s32>(220 * xScale, 100 * yScale, 800 * xScale, 520 * yScale), false, dataManager.GetSysString(1202));
+	wReplay = env->addWindow(rect<s32>(220, 100, 800, 520), false, dataManager.GetSysString(1202));
 	wReplay->getCloseButton()->setVisible(false);
 	wReplay->setVisible(false);
-	lstReplayList = env->addListBox(rect<s32>(10 * xScale, 30 * yScale, 350 * xScale, 400 * yScale), wReplay, LISTBOX_REPLAY_LIST, true);
+	lstReplayList = env->addListBox(rect<s32>(10, 30, 350, 400), wReplay, LISTBOX_REPLAY_LIST, true);
 	lstReplayList->setItemHeight(18);
-	btnLoadReplay = env->addButton(rect<s32>(460 * xScale, 355 * yScale, 570 * xScale, 380 * yScale), wReplay, BUTTON_LOAD_REPLAY, dataManager.GetSysString(1348));
-	btnReplayCancel = env->addButton(rect<s32>(460 * xScale, 385 * yScale, 570 * xScale, 410 * yScale), wReplay, BUTTON_CANCEL_REPLAY, dataManager.GetSysString(1347));
-	env->addStaticText(dataManager.GetSysString(1349), rect<s32>(360 * xScale, 30 * yScale, 570 * xScale, 50 * yScale), false, true, wReplay);
-	stReplayInfo = env->addStaticText(L"", rect<s32>(360 * xScale, 60 * yScale, 570 * xScale, 350 * yScale), false, true, wReplay);
-	env->addStaticText(dataManager.GetSysString(1353), rect<s32>(360 * xScale, 275 * yScale, 570 * xScale, 295 * yScale), false, true, wReplay);
+	btnLoadReplay = env->addButton(rect<s32>(460, 355, 570, 380), wReplay, BUTTON_LOAD_REPLAY, dataManager.GetSysString(1348));
+	btnReplayCancel = env->addButton(rect<s32>(460, 385, 570, 410), wReplay, BUTTON_CANCEL_REPLAY, dataManager.GetSysString(1347));
+	env->addStaticText(dataManager.GetSysString(1349), rect<s32>(360, 30, 570, 50), false, true, wReplay);
+	stReplayInfo = env->addStaticText(L"", rect<s32>(360, 60, 570, 350), false, true, wReplay);
+	env->addStaticText(dataManager.GetSysString(1353), rect<s32>(360, 275, 570, 295), false, true, wReplay);
 
-	ebRepStartTurn = env->addEditBox(L"", rect<s32>(360 * xScale, 300 * yScale, 460 * xScale, 320 * yScale), true, wReplay, -1);
+	ebRepStartTurn = env->addEditBox(L"", rect<s32>(360, 300, 460, 320), true, wReplay, -1);
 	ebRepStartTurn->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
 	//single play window
-	wSinglePlay = env->addWindow(rect<s32>(220 * xScale, 100 * yScale, 800 * xScale, 520 * yScale), false, dataManager.GetSysString(1201));
+	wSinglePlay = env->addWindow(rect<s32>(220, 100, 800, 520), false, dataManager.GetSysString(1201));
 	wSinglePlay->getCloseButton()->setVisible(false);
 	wSinglePlay->setVisible(false);
-	lstSinglePlayList = env->addListBox(rect<s32>(10 * xScale, 30 * yScale, 350 * xScale, 400 * yScale), wSinglePlay, LISTBOX_SINGLEPLAY_LIST, true);
+	lstSinglePlayList = env->addListBox(rect<s32>(10, 30, 350, 400), wSinglePlay, LISTBOX_SINGLEPLAY_LIST, true);
 	lstSinglePlayList->setItemHeight(18);
-	btnLoadSinglePlay = env->addButton(rect<s32>(460 * xScale, 355 * yScale, 570 * xScale, 380 * yScale), wSinglePlay, BUTTON_LOAD_SINGLEPLAY, dataManager.GetSysString(1211));
-	btnSinglePlayCancel = env->addButton(rect<s32>(460 * xScale, 385 * yScale, 570 * xScale, 410 * yScale), wSinglePlay, BUTTON_CANCEL_SINGLEPLAY, dataManager.GetSysString(1210));
-	env->addStaticText(dataManager.GetSysString(1352), rect<s32>(360 * xScale, 30 * yScale, 570 * xScale, 50 * yScale), false, true, wSinglePlay);
-	stSinglePlayInfo = env->addStaticText(L"", rect<s32>(360 * xScale, 60 * yScale, 570 * xScale, 350 * yScale), false, true, wSinglePlay);
+	btnLoadSinglePlay = env->addButton(rect<s32>(460, 355, 570, 380), wSinglePlay, BUTTON_LOAD_SINGLEPLAY, dataManager.GetSysString(1211));
+	btnSinglePlayCancel = env->addButton(rect<s32>(460, 385, 570, 410), wSinglePlay, BUTTON_CANCEL_SINGLEPLAY, dataManager.GetSysString(1210));
+	env->addStaticText(dataManager.GetSysString(1352), rect<s32>(360, 30, 570, 50), false, true, wSinglePlay);
+	stSinglePlayInfo = env->addStaticText(L"", rect<s32>(360, 60, 570, 350), false, true, wSinglePlay);
 	//replay save
-	wReplaySave = env->addWindow(rect<s32>(510 * xScale, 200 * yScale, 820 * xScale, 320 * yScale), false, dataManager.GetSysString(1340));
+	wReplaySave = env->addWindow(rect<s32>(510, 200, 820, 320), false, dataManager.GetSysString(1340));
 	wReplaySave->getCloseButton()->setVisible(false);
 	wReplaySave->setVisible(false);
-	env->addStaticText(dataManager.GetSysString(1342), rect<s32>(20 * xScale, 25 * yScale, 290 * xScale, 45 * yScale), false, false, wReplaySave);
-	ebRSName =  env->addEditBox(L"", rect<s32>(20 * xScale, 50 * yScale, 290 * xScale, 70 * yScale), true, wReplaySave, -1);
+	env->addStaticText(dataManager.GetSysString(1342), rect<s32>(20, 25, 290, 45), false, false, wReplaySave);
+	ebRSName =  env->addEditBox(L"", rect<s32>(20, 50, 290, 70), true, wReplaySave, -1);
 	ebRSName->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
-	btnRSYes = env->addButton(rect<s32>(70 * xScale, 80 * yScale, 140 * xScale, 105 * yScale), wReplaySave, BUTTON_REPLAY_SAVE, dataManager.GetSysString(1341));
-	btnRSNo = env->addButton(rect<s32>(170 * xScale, 80 * yScale, 240 * xScale, 105 * yScale), wReplaySave, BUTTON_REPLAY_CANCEL, dataManager.GetSysString(1212));
+	btnRSYes = env->addButton(rect<s32>(70, 80, 140, 105), wReplaySave, BUTTON_REPLAY_SAVE, dataManager.GetSysString(1341));
+	btnRSNo = env->addButton(rect<s32>(170, 80, 240, 105), wReplaySave, BUTTON_REPLAY_CANCEL, dataManager.GetSysString(1212));
 	//replay control
-	wReplayControl = env->addStaticText(L"", rect<s32>(205 * xScale, 143 * yScale, 295 * xScale, 273 * yScale), true, false, 0, -1, true);
+	wReplayControl = env->addStaticText(L"", rect<s32>(205, 143, 295, 273), true, false, 0, -1, true);
 	wReplayControl->setVisible(false);
-	btnReplayStart = env->addButton(rect<s32>(5 * xScale, 5 * yScale, 85 * xScale, 25 * yScale), wReplayControl, BUTTON_REPLAY_START, dataManager.GetSysString(1343));
-	btnReplayPause = env->addButton(rect<s32>(5 * xScale, 30 * yScale, 85 * xScale, 50 * yScale), wReplayControl, BUTTON_REPLAY_PAUSE, dataManager.GetSysString(1344));
-	btnReplayStep = env->addButton(rect<s32>(5 * xScale, 55 * yScale, 85 * xScale, 75 * yScale), wReplayControl, BUTTON_REPLAY_STEP, dataManager.GetSysString(1345));
-	btnReplaySwap = env->addButton(rect<s32>(5 * xScale, 80 * yScale, 85 * xScale, 100 * yScale), wReplayControl, BUTTON_REPLAY_SWAP, dataManager.GetSysString(1346));
-	btnReplayExit = env->addButton(rect<s32>(5 * xScale, 105 * yScale, 85 * xScale, 125 * yScale), wReplayControl, BUTTON_REPLAY_EXIT, dataManager.GetSysString(1347));
+	btnReplayStart = env->addButton(rect<s32>(5, 5, 85, 25), wReplayControl, BUTTON_REPLAY_START, dataManager.GetSysString(1343));
+	btnReplayPause = env->addButton(rect<s32>(5, 30, 85, 50), wReplayControl, BUTTON_REPLAY_PAUSE, dataManager.GetSysString(1344));
+	btnReplayStep = env->addButton(rect<s32>(5, 55, 85, 75), wReplayControl, BUTTON_REPLAY_STEP, dataManager.GetSysString(1345));
+	btnReplaySwap = env->addButton(rect<s32>(5, 80, 85, 100), wReplayControl, BUTTON_REPLAY_SWAP, dataManager.GetSysString(1346));
+	btnReplayExit = env->addButton(rect<s32>(5, 105, 85, 125), wReplayControl, BUTTON_REPLAY_EXIT, dataManager.GetSysString(1347));
 	//chat
-	wChat = env->addWindow(rect<s32>(305 * xScale, 615 * yScale, 1020 * xScale, 640 * yScale), false, L"");
+	wChat = env->addWindow(rect<s32>(305, 615, 1020, 640), false, L"");
 	wChat->getCloseButton()->setVisible(false);
 	wChat->setDraggable(false);
 	wChat->setDrawTitlebar(false);
@@ -882,7 +882,7 @@ bool Game::Initialize() {
 #ifdef _IRR_ANDROID_PLATFORM_
 	ebChatInput = CAndroidGUIEditBox::addAndroidEditBox(L"", true, env, rect<s32>(3 * xScale, 2 * yScale, 710 * xScale, 22 * yScale), wChat, EDITBOX_CHAT);
 #else
-	ebChatInput = env->addEditBox(L"", rect<s32>(3 * xScale, 2 * yScale, 710 * xScale, 22 * yScale), true, wChat, EDITBOX_CHAT);
+	ebChatInput = env->addEditBox(L"", rect<s32>(3, 2, 710, 22), true, wChat, EDITBOX_CHAT);
 #endif
 	//
 	btnLeaveGame = env->addButton(rect<s32>(205 * xScale, 5 * yScale, 295 * xScale, 80 * yScale), 0, BUTTON_LEAVE_GAME, L"");
@@ -910,7 +910,8 @@ void Game::MainLoop() {
 	irr::core::matrix4 mProjection;
 	BuildProjectionMatrix(mProjection, -0.81f, 0.44f, -0.42f, 0.42f, 1.0f, 100.0f);
 	camera->setProjectionMatrix(mProjection);
-	mProjection.buildCameraLookAtMatrixLH(vector3df(3.95f, 8.0f, 7.8f), vector3df(3.95f, 0, 0), vector3df(0, 0, 1));
+
+	mProjection.buildCameraLookAtMatrixLH(vector3df(4.2f, 8.0f, 7.8f), vector3df(4.2f, 0, 0), vector3df(0, 0, 1));
 	camera->setViewMatrixAffector(mProjection);
 	smgr->setAmbientLight(SColorf(1.0f, 1.0f, 1.0f));
 	float atkframe = 0.1f;
@@ -1347,6 +1348,11 @@ void Game::ShowCardInfo(int code) {
 			myswprintf(&formatBuffer[cd.level + 3], L"%d/?", cd.attack);
 		else
 			myswprintf(&formatBuffer[cd.level + 3], L"%d/%d", cd.attack, cd.defence);
+		if(cd.type & TYPE_PENDULUM) {
+			wchar_t scaleBuffer[16];
+			myswprintf(scaleBuffer, L" %d/%d", cd.lscale, cd.rscale);
+			wcscat(formatBuffer, scaleBuffer);
+		}
 		stDataInfo->setText(formatBuffer);
 		stText->setRelativePosition(rect<s32>(15 * xScale, 83  * yScale, 287 * xScale, 324  * yScale));
 		scrCardText->setRelativePosition(rect<s32>(267 * xScale, 83 * yScale, 287 * xScale, 324 * yScale));
