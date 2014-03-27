@@ -88,7 +88,7 @@ public class StaticApplication extends Application {
 	
 	public int getCardQuality() {
 		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE);
-		return sp.getInt(Constants.CARD_QUALITY_PATH, 0);
+		return sp.getInt(Constants.CARD_QUALITY_PATH, 1);
 	}
 	
 	public void setCardQuality(int quality) {
