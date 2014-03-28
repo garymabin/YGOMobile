@@ -60,7 +60,7 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/android/android_tools.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/single_duel.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/single_mode.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/tag_duel.cpp \
-				$(LOCAL_PATH)/jni/cn_garymb_ygomobile_IrrlichtBridge.cpp \
+				$(LOCAL_PATH)/jni/cn_garymb_ygomobile_core_IrrlichtBridge.cpp \
 				$(LOCAL_PATH)/jni/NativeCrashHandler.cpp
 
 LOCAL_LDLIBS := -lEGL -llog -lGLESv1_CM -lGLESv2 -lz -landroid

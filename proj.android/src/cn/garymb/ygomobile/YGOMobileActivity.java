@@ -6,6 +6,10 @@
  */
 package cn.garymb.ygomobile;
 
+import cn.garymb.ygomobile.core.IrrlichtBridge;
+import cn.garymb.ygomobile.core.NetworkController;
+import cn.garymb.ygomobile.core.StaticApplication;
+import cn.garymb.ygomobile.util.Constants;
 import cn.garymb.ygomobile.widget.ComboBoxCompat;
 import cn.garymb.ygomobile.widget.EditWindowCompat;
 import cn.garymb.ygomobile.widget.overlay.DuelOverlayView;
@@ -115,6 +119,7 @@ public class YGOMobileActivity extends NativeActivity implements
 	private View mContentView;
 	private volatile boolean mOverlayShowRequest = false;
 	private DuelOverlayView mOverlayView;
+	private NetworkController mNetController;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -213,6 +218,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		mHandler = new EventHandler();
 		initExtraView();
 		mPM = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		mNetController = new NetworkController(getApplicationContext());
 	}
 	
 	private void initExtraView() {
@@ -295,6 +301,16 @@ public class YGOMobileActivity extends NativeActivity implements
 			mHandler.sendMessage(Message.obtain(null, MSG_ID_TOGGLE_OVERLAY, isShow ? 1
 				: 0, 0));
 		}
+	}
+	
+	/**
+	 * Called from C++ world to fetch Wi-fi ip address.
+	 * @param items
+	 * @param isShow
+	 * @param mode
+	 */
+	public int getLocalAddress() {
+		return mNetController.getIPAddress();
 	}
 	
 	/*

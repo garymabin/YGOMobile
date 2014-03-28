@@ -10,11 +10,11 @@ using namespace irr;
 using namespace gui;
 extern "C" {
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeInsertText
  * Signature: (ILjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeInsertText(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeInsertText(JNIEnv* env, jclass clazz,
 		jint handle, jstring textString) {
 	if (handle) {
 			IrrlichtDevice* device = (IrrlichtDevice*)handle;
@@ -46,11 +46,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeInsertText(
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeSetComboBoxSelection
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeSetComboBoxSelection(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetComboBoxSelection(JNIEnv* env, jclass clazz,
 		jint handle, jint idx) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
@@ -82,11 +82,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeSetComboBox
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeSetCheckBoxesSelection
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeSetCheckBoxesSelection(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetCheckBoxesSelection(JNIEnv* env, jclass clazz,
 		jint handle, jint idx) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
@@ -137,11 +137,11 @@ static void* cancel_chain_thread(void* param) {
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeRefreshTexture
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeRefreshTexture(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeRefreshTexture(JNIEnv* env, jclass clazz,
 		jint handle) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*)handle;
@@ -161,11 +161,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeRefreshText
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeIgnoreChain
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeIgnoreChain(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeIgnoreChain(JNIEnv* env, jclass clazz,
 		jint handle, jboolean begin) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*)handle;
@@ -184,11 +184,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeIgnoreChain
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeReactChain
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeReactChain(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeReactChain(JNIEnv* env, jclass clazz,
 		jint handle, jboolean begin) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*)handle;
@@ -207,11 +207,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeReactChain(
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeCancelChain
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeCancelChain(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeCancelChain(JNIEnv* env, jclass clazz,
 		jint handle) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;

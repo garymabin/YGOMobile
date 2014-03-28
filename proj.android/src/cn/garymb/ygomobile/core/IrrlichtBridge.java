@@ -4,7 +4,7 @@
  *  Created on: 2014年3月18日
  *      Author: mabin
  */
-package cn.garymb.ygomobile;
+package cn.garymb.ygomobile.core;
 
 /**
  * @author mabin

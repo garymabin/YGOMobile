@@ -4,7 +4,7 @@
  *  Created on: 2014年3月2日
  *      Author: mabin
  */
-package cn.garymb.ygomobile;
+package cn.garymb.ygomobile.util;
 
 public final class Constants {
 	/*change this will affect C++ code, be careful!*/

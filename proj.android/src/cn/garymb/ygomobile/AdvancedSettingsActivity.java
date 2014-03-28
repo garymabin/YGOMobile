@@ -6,6 +6,7 @@
  */
 package cn.garymb.ygomobile;
 
+import cn.garymb.ygomobile.core.StaticApplication;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;

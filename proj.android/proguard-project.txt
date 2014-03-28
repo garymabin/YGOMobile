@@ -53,10 +53,11 @@
     public void performHapticFeedback();
     public void toggleOverlayView(boolean);
     public byte[] performTrick();
+    public int getLocalAddress();
     
 }
 #keep StaticApplication's C++ called method
--keep class cn.garymb.ygomobile.StaticApplication {
+-keep class cn.garymb.ygomobile.core.StaticApplication {
     public java.lang.String getResourcePath();
     public int getOpenglVersion();
     public int getCardQuality();

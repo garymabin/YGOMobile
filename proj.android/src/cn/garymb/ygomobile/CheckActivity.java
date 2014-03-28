@@ -8,8 +8,10 @@ package cn.garymb.ygomobile;
 
 import java.io.File;
 
+import cn.garymb.ygomobile.core.StaticApplication;
 import cn.garymb.ygomobile.fragment.NavigatorFragment;
 import cn.garymb.ygomobile.fragment.NavigatorFragment.NavigateItemChangeListener;
+import cn.garymb.ygomobile.util.Constants;
 import cn.garymb.ygomobile.widget.filebrowser.FileBrowser;
 import cn.garymb.ygomobile.widget.filebrowser.SharingItemBase.SharingItemSelectListener;
 import android.app.AlertDialog;

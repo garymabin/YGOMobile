@@ -4,7 +4,7 @@
  *  Created on: 2014年2月24日
  *      Author: mabin
  */
-package cn.garymb.ygomobile;
+package cn.garymb.ygomobile.core;
 
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;
@@ -24,6 +24,9 @@ import org.acra.*;
 import org.acra.annotation.ReportsCrashes;
 
 import static org.acra.ReportField.*;
+import cn.garymb.ygomobile.R;
+import cn.garymb.ygomobile.R.string;
+import cn.garymb.ygomobile.util.Constants;
 
 import com.github.nativehandler.NativeCrashHandler;
 

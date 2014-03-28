@@ -15,7 +15,6 @@ import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import cn.garymb.ygomobile.Constants;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;

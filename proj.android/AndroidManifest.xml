@@ -16,9 +16,11 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name="StaticApplication"
+        android:name=".core.StaticApplication"
         android:allowBackup="false"
         android:hasCode="true"
         android:icon="@drawable/ic_icon"
