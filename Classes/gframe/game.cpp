@@ -112,17 +112,22 @@ bool Game::Initialize() {
 	memset(chatTiming, 0, sizeof(chatTiming));
 	deckManager.LoadLFList();
 	driver = device->getVideoDriver();
-	driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
 #ifdef _IRR_ANDROID_PLATFORM_
+	int quality = android::getCardQuality(app);
 	if (glversion == 0) {
-		int quality = android::getCardQuality(app);
 		if (quality == 1) {
 			driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
 		} else {
 			driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_SPEED, true);
 		}
 	}
+	if (quality == 1) {
+		driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
+	} else {
+		driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, true);
+	}
 #else
+	driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
 	driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
 #endif
 	imageManager.SetDevice(device);
