@@ -51,6 +51,8 @@ void Draw2DImageRotation(video::IVideoDriver* driver, video::ITexture* image, co
 	material.ZWriteEnable = false;
 	material.TextureLayer[0].Texture = image;
 #if defined(_IRR_ANDROID_PLATFORM_)
+	material.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+	material.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	if (useAlphaChannel)
 			material.MaterialType = (video::E_MATERIAL_TYPE)ygo::mainGame->ogles2TrasparentAlpha;
 		else material.MaterialType = (video::E_MATERIAL_TYPE)ygo::mainGame->ogles2Solid;
@@ -97,6 +99,8 @@ void Draw2DImageQuad(video::IVideoDriver* driver, video::ITexture* image, core::
 	material.ZWriteEnable = false;
 	material.TextureLayer[0].Texture = image;
 #if defined(_IRR_ANDROID_PLATFORM_)
+	material.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+	material.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	if (useAlphaChannel)
 			material.MaterialType = (video::E_MATERIAL_TYPE)ygo::mainGame->ogles2TrasparentAlpha;
 		else material.MaterialType = (video::E_MATERIAL_TYPE)ygo::mainGame->ogles2Solid;
