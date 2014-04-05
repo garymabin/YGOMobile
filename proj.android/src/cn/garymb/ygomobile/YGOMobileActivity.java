@@ -6,6 +6,9 @@
  */
 package cn.garymb.ygomobile;
 
+import java.nio.ByteBuffer;
+
+import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.core.IrrlichtBridge;
 import cn.garymb.ygomobile.core.NetworkController;
 import cn.garymb.ygomobile.core.StaticApplication;
@@ -40,7 +43,8 @@ import android.widget.TextView.OnEditorActionListener;
  * 
  */
 public class YGOMobileActivity extends NativeActivity implements
-		OnEditorActionListener, OnClickListener, OnDuelOptionsSelectListener, OnDismissListener {
+		OnEditorActionListener, OnClickListener, OnDuelOptionsSelectListener,
+		OnDismissListener {
 	/**
 	 * @author mabin
 	 * 
@@ -63,7 +67,8 @@ public class YGOMobileActivity extends NativeActivity implements
 						mOverlayView.hide();
 					}
 					mGlobalEditText.fillContent(hint);
-					mGlobalEditText.showAtLocation(mContentView, Gravity.BOTTOM, 0, 0);
+					mGlobalEditText.showAtLocation(mContentView,
+							Gravity.BOTTOM, 0, 0);
 				} else {
 					mGlobalEditText.dismiss();
 				}
@@ -72,20 +77,24 @@ public class YGOMobileActivity extends NativeActivity implements
 			case MSG_ID_TOGGLE_COMBOBOX: {
 				boolean isShow = msg.arg1 == 1;
 				if (isShow) {
-					String[] items = ((Bundle)msg.obj).getStringArray(BUNDLE_KEY_COMBO_BOX_CONTENT);
+					String[] items = ((Bundle) msg.obj)
+							.getStringArray(BUNDLE_KEY_COMBO_BOX_CONTENT);
 					mGlobalComboBox.fillContent(items);
-					mGlobalComboBox.showAtLocation(mContentView, Gravity.BOTTOM, 0, 0);
+					mGlobalComboBox.showAtLocation(mContentView,
+							Gravity.BOTTOM, 0, 0);
 				}
 				break;
 			}
 			case MSG_ID_PERFORM_HAPTICFEEDBACK: {
-				mContentView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
+				mContentView.performHapticFeedback(
+						HapticFeedbackConstants.LONG_PRESS,
+						HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
 				break;
 			}
 			case MSG_ID_TOGGLE_OVERLAY: {
 				boolean isShow = msg.arg1 == 1;
 				if (isShow) {
-					mOverlayView.showAtScreen(0,0);
+					mOverlayView.showAtScreen(0, 0);
 				} else {
 					mOverlayView.removeFromScreen();
 				}
@@ -103,12 +112,12 @@ public class YGOMobileActivity extends NativeActivity implements
 	public static final int MSG_ID_TOGGLE_COMBOBOX = 0x1;
 	public static final int MSG_ID_PERFORM_HAPTICFEEDBACK = 0x2;
 	public static final int MSG_ID_TOGGLE_OVERLAY = 0x3;
-	
+
 	public static final String BUNDLE_KEY_COMBO_BOX_CONTENT = "cn.garymb.ygomobile.combobox.content";
 	public static final String BUNDLE_KEY_COMBO_BOX_LABEL = "cn.garymb.ygomobile.combobox.label";
-	
+
 	public static final int MENU_LOG_SAVE = Menu.FIRST;
-	
+
 	private volatile int mCompatGUIMode;
 
 	private EditWindowCompat mGlobalEditText;
@@ -127,15 +136,17 @@ public class YGOMobileActivity extends NativeActivity implements
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.item_save_log:
-			throw new RuntimeException("this is an runtime exception caused by user");
+			throw new RuntimeException(
+					"this is an runtime exception caused by user");
 		case R.id.item_advanced_settings: {
-			Intent settingIntent = new Intent(YGOMobileActivity.this, AdvancedSettingsActivity.class);
+			Intent settingIntent = new Intent(YGOMobileActivity.this,
+					AdvancedSettingsActivity.class);
 			startActivity(settingIntent);
 		}
 		default:
@@ -143,7 +154,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -153,31 +164,35 @@ public class YGOMobileActivity extends NativeActivity implements
 		}
 		mLock.acquire();
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.NativeActivity#onPause()
 	 */
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		if(mOverlayShowRequest) {
+		if (mOverlayShowRequest) {
 			mOverlayView.removeFromScreen();
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.NativeActivity#onResume()
 	 */
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		if(mOverlayShowRequest) {
+		if (mOverlayShowRequest) {
 			mOverlayView.showAtScreen(0, 0);
 		}
 	}
-	
+
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
@@ -188,7 +203,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		}
 		super.onWindowFocusChanged(hasFocus);
 	}
-	
+
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
@@ -197,9 +212,10 @@ public class YGOMobileActivity extends NativeActivity implements
 			mLock.release();
 		}
 	}
-	
+
 	/**
 	 * Called from C++ world to initialize irrlicht handle.
+	 * 
 	 * @param handle
 	 */
 	public void setNativeHandle(int handle) {
@@ -219,21 +235,49 @@ public class YGOMobileActivity extends NativeActivity implements
 		initExtraView();
 		mPM = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mNetController = new NetworkController(getApplicationContext());
+		handleExternalCommand();
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onNewIntent(android.content.Intent)
+	 */
+	@Override
+	protected void onNewIntent(Intent intent) {
+		// TODO Auto-generated method stub
+		super.onNewIntent(intent);
+		setIntent(intent);
+		handleExternalCommand();
+	}
+
+	private void handleExternalCommand() {
+		Intent intent = getIntent();
+		YGOGameOptions options = intent
+				.getParcelableExtra(YGOGameOptions.YGO_GAME_OPTIONS_BUNDLE_KEY);
+		if (options != null) {
+			Log.d(TAG, "receive from mycard:" + options.toString());
+			ByteBuffer buffer = options.toByteBuffer();
+			IrrlichtBridge.joinGame(buffer);
+		}
+	}
+
 	private void initExtraView() {
-		mContentView = getWindow().getDecorView().findViewById(android.R.id.content);
+		mContentView = getWindow().getDecorView().findViewById(
+				android.R.id.content);
 		mGlobalComboBox = new ComboBoxCompat(this);
 		mGlobalComboBox.setButtonListener(this);
 		mGlobalEditText = new EditWindowCompat(this);
 		mGlobalEditText.setEditActionListener(this);
 		mGlobalEditText.setOnDismissListener(this);
-		
+
 		mOverlayView = new DuelOverlayView(this);
 		mOverlayView.setDuelOpsListener(this);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.NativeActivity#onDestroy()
 	 */
 	@Override
@@ -244,6 +288,7 @@ public class YGOMobileActivity extends NativeActivity implements
 
 	/**
 	 * Called from C++ world to make an IME compat for irrlicht.
+	 * 
 	 * @param hint
 	 * @param isShow
 	 */
@@ -252,9 +297,10 @@ public class YGOMobileActivity extends NativeActivity implements
 		mHandler.sendMessage(Message.obtain(null, MSG_ID_TOGGLE_IME, isShow ? 1
 				: 0, 0, hint));
 	}
-	
+
 	/**
 	 * Called from C++ world to make an ComboxBox compat for irrlicht.
+	 * 
 	 * @param items
 	 * @param isShow
 	 * @param mode
@@ -264,12 +310,13 @@ public class YGOMobileActivity extends NativeActivity implements
 		Log.i(TAG, "showComboBoxCompat： isShow = " + isShow);
 		Bundle data = new Bundle();
 		data.putStringArray(BUNDLE_KEY_COMBO_BOX_CONTENT, items);
-		mHandler.sendMessage(Message.obtain(null, MSG_ID_TOGGLE_COMBOBOX, isShow ? 1
-				: 0, 0, data));
+		mHandler.sendMessage(Message.obtain(null, MSG_ID_TOGGLE_COMBOBOX,
+				isShow ? 1 : 0, 0, data));
 	}
-	
+
 	/**
 	 * Called from C++ world to make an Hapic feedback.
+	 * 
 	 * @param items
 	 * @param isShow
 	 * @param mode
@@ -277,20 +324,21 @@ public class YGOMobileActivity extends NativeActivity implements
 	public void performHapticFeedback() {
 		mHandler.sendEmptyMessage(MSG_ID_PERFORM_HAPTICFEEDBACK);
 	}
-	
-	
+
 	/**
 	 * Called from C++ world to make an trick.
+	 * 
 	 * @param items
 	 * @param isShow
 	 * @param mode
 	 */
 	public byte[] performTrick() {
-		return ((StaticApplication)getApplication()).getSignInfo();
+		return ((StaticApplication) getApplication()).getSignInfo();
 	}
-	
+
 	/**
 	 * Called from C++ world to show or hide overlay view
+	 * 
 	 * @param items
 	 * @param isShow
 	 * @param mode
@@ -298,13 +346,14 @@ public class YGOMobileActivity extends NativeActivity implements
 	public void toggleOverlayView(boolean isShow) {
 		if (mOverlayShowRequest != isShow) {
 			mOverlayShowRequest = isShow;
-			mHandler.sendMessage(Message.obtain(null, MSG_ID_TOGGLE_OVERLAY, isShow ? 1
-				: 0, 0));
+			mHandler.sendMessage(Message.obtain(null, MSG_ID_TOGGLE_OVERLAY,
+					isShow ? 1 : 0, 0));
 		}
 	}
-	
+
 	/**
 	 * Called from C++ world to fetch Wi-fi ip address.
+	 * 
 	 * @param items
 	 * @param isShow
 	 * @param mode
@@ -312,7 +361,7 @@ public class YGOMobileActivity extends NativeActivity implements
 	public int getLocalAddress() {
 		return mNetController.getIPAddress();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -344,8 +393,11 @@ public class YGOMobileActivity extends NativeActivity implements
 		mGlobalComboBox.dismiss();
 	}
 
-	/* (non-Javadoc)
-	 * @see cn.garymb.ygomobile.widget.overlay.DuelOverlayView.OnDuelOptionsSelectListener#onDuelOptionsSelected(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cn.garymb.ygomobile.widget.overlay.DuelOverlayView.
+	 * OnDuelOptionsSelectListener#onDuelOptionsSelected(int)
 	 */
 	@Override
 	public void onDuelOptionsSelected(int mode, boolean action) {
@@ -357,7 +409,7 @@ public class YGOMobileActivity extends NativeActivity implements
 			break;
 		case Constants.MODE_REFRESH_OPTION:
 			Log.d(TAG, "Constants.MODE_REFRESH_OPTION: " + action);
-//			IrrlichtBridge.refreshTexture();
+			// IrrlichtBridge.refreshTexture();
 			break;
 		case Constants.MODE_REACT_CHAIN_OPTION:
 			Log.d(TAG, "Constants.MODE_REACT_CHAIN_OPTION: " + action);
@@ -372,7 +424,9 @@ public class YGOMobileActivity extends NativeActivity implements
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.widget.PopupWindow.OnDismissListener#onDismiss()
 	 */
 	@Override

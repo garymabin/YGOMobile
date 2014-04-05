@@ -6,6 +6,8 @@
  */
 package cn.garymb.ygomobile.core;
 
+import java.nio.ByteBuffer;
+
 /**
  * @author mabin
  *
@@ -26,6 +28,8 @@ public final class IrrlichtBridge {
 	private static native void nativeSetCheckBoxesSelection(int handle, int idx);
 	
 	private static native void nativeSetComboBoxSelection(int handle, int idx);
+	
+	private static native void nativeJoinGame(int handle, ByteBuffer buffer);
 	
 	public static void cancelChain() {
 		nativeCancelChain(sNativeHandle);
@@ -53,5 +57,9 @@ public final class IrrlichtBridge {
 	
 	public static void setCheckBoxesSelection(int idx) {
 		nativeSetCheckBoxesSelection(sNativeHandle, idx);
+	}
+	
+	public static void joinGame(ByteBuffer buffer) {
+		nativeJoinGame(sNativeHandle, buffer);
 	}
 }

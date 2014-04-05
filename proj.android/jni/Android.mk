@@ -36,6 +36,7 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/android/android_tools.cpp \
 				$(LOCAL_PATH)/android/CAndroidGUIComboBox.cpp \
 				$(LOCAL_PATH)/android/CAndroidGUIListBox.cpp \
 				$(LOCAL_PATH)/android/CustomShaderConstantSetCallBack.cpp \
+				$(LOCAL_PATH)/android/YGOGameOptions.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIEditBox.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIButton.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIComboBox.cpp \

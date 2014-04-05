@@ -1,13 +1,16 @@
 #include <jni.h>
 #include "irrlicht.h"
-#include "../Classes/gframe/BufferIO.h"
+#include "../android/bufferio_android.h"
 #include "NativeCrashHandler.h"
 #include "../Classes/gframe/os.h"
 #include <unistd.h>
 #include <pthread.h>
+#include "../android/YGOGameOptions.h"
+#include "../Classes/gframe/game.h"
 
 using namespace irr;
 using namespace gui;
+
 extern "C" {
 /*
  * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
@@ -224,6 +227,55 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeCancel
 			pthread_attr_destroy(&cancelAttr);
 			pthread_detach(cencelThread);
 		}
+	}
+}
+
+/*
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
+ * Method:    nativeJoinGame
+ * Signature: (ILjava/nio/ByteBuffer;)V
+ */
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeJoinGame(JNIEnv* env, jclass clazz,
+		jint handle, jobject buffer) {
+	if (handle) {
+		IrrlichtDevice* device = (IrrlichtDevice*) handle;
+		ygo::mainGame->gMutex.Lock();
+		if (ygo::mainGame->dInfo.isStarted) {
+			ygo::mainGame->gMutex.Unlock();
+			return;
+		}
+		void* data = env->GetDirectBufferAddress(buffer);
+		irr::android::YGOGameOptions options = irr::android::YGOGameOptions(data);
+		irr::SEvent event;
+		FILE* fp = fopen("system.conf", "w");
+		fprintf(fp, "#config file\n#nickname & gamename should be less than 20 characters\n");
+		char linebuf[512];
+		fprintf(fp, "use_d3d = %d\n", ygo::mainGame->gameConf.use_d3d ? 1 : 0);
+		fprintf(fp, "antialias = %d\n", ygo::mainGame->gameConf.antialias);
+		fprintf(fp, "errorlog = %d\n", ::enable_log);
+		fprintf(fp, "nickname = %s\n", options.getUserName());
+		options.formatGameParams(linebuf);
+		irr::os::Printer::log(linebuf);
+		fprintf(fp, "gamename = %s\n", linebuf);
+		BufferIO::EncodeUTF8(ygo::mainGame->gameConf.lastdeck, linebuf);
+		fprintf(fp, "lastdeck = %s\n", linebuf);
+		BufferIO::EncodeUTF8(ygo::mainGame->gameConf.textfont, linebuf);
+		fprintf(fp, "textfont = %s %d\n", linebuf, ygo::mainGame->gameConf.textfontsize);
+		BufferIO::EncodeUTF8(ygo::mainGame->gameConf.numfont, linebuf);
+		fprintf(fp, "numfont = %s\n", linebuf);
+		fprintf(fp, "serverport = %d\n", ygo::mainGame->gameConf.serverport);
+		fprintf(fp, "lastip = %s\n", options.getIPAddr());
+		fprintf(fp, "lastport = %d\n", options.getPort());
+		fclose(fp);
+		event.EventType = irr::EET_GUI_EVENT;
+		event.GUIEvent.EventType = irr::gui::EGET_BUTTON_CLICKED;
+		event.GUIEvent.Caller = ygo::mainGame->btnLanMode;
+		device->postEventFromUser(event);
+		//TODO: wait for wLanWindow show. if network connection faster than wLanWindow, wLanWindow will still show on duel scene.
+		event.GUIEvent.Caller = ygo::mainGame->btnJoinHost;
+		device->postEventFromUser(event);
+exit:
+		ygo::mainGame->gMutex.Unlock();
 	}
 }
 

@@ -115,8 +115,8 @@ bool Game::Initialize() {
 	driver = device->getVideoDriver();
 #ifdef _IRR_ANDROID_PLATFORM_
 	int quality = android::getCardQuality(app);
-	bool isNPOTSupport = driver->queryFeature(ANDROID_IRR_OES_TEXTURE_NPOT);
-	if (isNPOTSupport) {
+	isNPOTSupported = driver->queryFeature((irr::video::E_VIDEO_DRIVER_FEATURE)ANDROID_IRR_OES_TEXTURE_NPOT);
+	if (isNPOTSupported) {
 		if (quality == 1) {
 			driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
 		} else {
@@ -992,26 +992,28 @@ void Game::MainLoop() {
 		}
 	}
 	matManager.mCard.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
-	matManager.mCard.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
-	matManager.mCard.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	matManager.mTexture.MaterialType = (video::E_MATERIAL_TYPE)ogles2TrasparentAlpha;
-	matManager.mTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
-	matManager.mTexture.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	matManager.mBackLine.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
-	matManager.mBackLine.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
-	matManager.mBackLine.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	matManager.mSelField.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
-	matManager.mSelField.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
-	matManager.mSelField.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	matManager.mOutLine.MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
-	matManager.mOutLine.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
-	matManager.mOutLine.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	matManager.mTRTexture.MaterialType = (video::E_MATERIAL_TYPE)ogles2TrasparentAlpha;
-	matManager.mTRTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
-	matManager.mTRTexture.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	matManager.mATK.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
-	matManager.mATK.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
-	matManager.mATK.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+	if (!isNPOTSupported) {
+		matManager.mCard.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mCard.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mTexture.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mBackLine.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mBackLine.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mSelField.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mSelField.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mOutLine.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mOutLine.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mTRTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mTRTexture.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mATK.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mATK.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+	}
 	if (glversion != 0) {
 		matManager.mTRTexture.setFlag(video::EMF_LIGHTING, false);
 	}
@@ -1030,8 +1032,10 @@ void Game::MainLoop() {
 		driver->beginScene(true, true, SColor(0, 0, 0, 0));
 #ifdef _IRR_ANDROID_PLATFORM_
 		driver->getMaterial2D().MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
-		driver->getMaterial2D().TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
-		driver->getMaterial2D().TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		if (!isNPOTSupported) {
+			driver->getMaterial2D().TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+			driver->getMaterial2D().TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		}
 		driver->getMaterial2D().ZBuffer = ECFN_NEVER;
 		driver->enableMaterial2D(true);
 		if(imageManager.tBackGround) {
