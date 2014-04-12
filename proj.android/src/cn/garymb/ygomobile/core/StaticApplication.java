@@ -25,7 +25,6 @@ import org.acra.annotation.ReportsCrashes;
 
 import static org.acra.ReportField.*;
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.R.string;
 import cn.garymb.ygomobile.util.Constants;
 
 import com.github.nativehandler.NativeCrashHandler;

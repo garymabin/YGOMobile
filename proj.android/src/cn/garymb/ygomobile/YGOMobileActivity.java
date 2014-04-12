@@ -8,6 +8,8 @@ package cn.garymb.ygomobile;
 
 import java.nio.ByteBuffer;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.core.IrrlichtBridge;
 import cn.garymb.ygomobile.core.NetworkController;
@@ -163,6 +165,7 @@ public class YGOMobileActivity extends NativeActivity implements
 			mLock = mPM.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG);
 		}
 		mLock.acquire();
+		EasyTracker.getInstance(getApplicationContext()).activityStart(this);
 	}
 
 	/*
@@ -211,6 +214,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		if (mLock != null) {
 			mLock.release();
 		}
+		EasyTracker.getInstance(getApplicationContext()).activityStop(this);
 	}
 
 	/**

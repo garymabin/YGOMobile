@@ -915,7 +915,7 @@ bool Game::Initialize() {
 	}
 #ifdef _IRR_ANDROID_PLATFORM_
 IGUIStaticText *text = env->addStaticText(L"",
-		rect<s32>(15,15,300,60), false, false, 0, GUI_INFO_FPS );
+		rect<s32>(15,15,100,60), false, false, 0, GUI_INFO_FPS );
 #endif
 	hideChat = false;
 	hideChatTimer = 0;
@@ -1082,11 +1082,11 @@ void Game::MainLoop() {
 			ignore_chain = false;
 		fps++;
 		cur_time = timer->getTime();
-		if(cur_time < fps * 17 - 20)
+//		if(cur_time < fps * 17 - 20)
 #ifdef _WIN32
-			Sleep(20);
+//			Sleep(20);
 #else
-			usleep(20000);
+//			usleep(20000);
 #endif
 		if(cur_time >= 1000) {
 
