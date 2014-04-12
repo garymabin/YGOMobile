@@ -247,26 +247,31 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeJoinGa
 		void* data = env->GetDirectBufferAddress(buffer);
 		irr::android::YGOGameOptions options = irr::android::YGOGameOptions(data);
 		irr::SEvent event;
-		FILE* fp = fopen("system.conf", "w");
-		fprintf(fp, "#config file\n#nickname & gamename should be less than 20 characters\n");
-		char linebuf[512];
-		fprintf(fp, "use_d3d = %d\n", ygo::mainGame->gameConf.use_d3d ? 1 : 0);
-		fprintf(fp, "antialias = %d\n", ygo::mainGame->gameConf.antialias);
-		fprintf(fp, "errorlog = %d\n", ::enable_log);
-		fprintf(fp, "nickname = %s\n", options.getUserName());
-		options.formatGameParams(linebuf);
-		irr::os::Printer::log(linebuf);
-		fprintf(fp, "gamename = %s\n", linebuf);
-		BufferIO::EncodeUTF8(ygo::mainGame->gameConf.lastdeck, linebuf);
-		fprintf(fp, "lastdeck = %s\n", linebuf);
-		BufferIO::EncodeUTF8(ygo::mainGame->gameConf.textfont, linebuf);
-		fprintf(fp, "textfont = %s %d\n", linebuf, ygo::mainGame->gameConf.textfontsize);
-		BufferIO::EncodeUTF8(ygo::mainGame->gameConf.numfont, linebuf);
-		fprintf(fp, "numfont = %s\n", linebuf);
-		fprintf(fp, "serverport = %d\n", ygo::mainGame->gameConf.serverport);
-		fprintf(fp, "lastip = %s\n", options.getIPAddr());
-		fprintf(fp, "lastport = %d\n", options.getPort());
-		fclose(fp);
+
+		wchar_t wbuff[256];
+		char linelog[256];
+		BufferIO::DecodeUTF8(options.getIPAddr(), wbuff);
+		irr::os::Printer::log(options.getIPAddr());
+		ygo::mainGame->ebJoinIP->setText(wbuff);
+
+		myswprintf(wbuff, L"%d", options.getPort());
+		BufferIO::EncodeUTF8(wbuff, linelog);
+		irr::os::Printer::log(linelog);
+		ygo::mainGame->ebJoinPort->setText(wbuff);
+
+
+
+		wmemset(wbuff, 0, 256);
+		options.formatGameParams(wbuff);
+		BufferIO::EncodeUTF8(wbuff, linelog);
+		irr::os::Printer::log(linelog);
+		ygo::mainGame->ebJoinPass->setText(wbuff);
+
+
+		irr::os::Printer::log(options.getUserName());
+		BufferIO::DecodeUTF8(options.getUserName(), wbuff);
+		ygo::mainGame->ebNickName->setText(wbuff);
+
 		event.EventType = irr::EET_GUI_EVENT;
 		event.GUIEvent.EventType = irr::gui::EGET_BUTTON_CLICKED;
 		event.GUIEvent.Caller = ygo::mainGame->btnLanMode;

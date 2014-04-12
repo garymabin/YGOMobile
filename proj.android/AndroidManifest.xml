@@ -45,6 +45,7 @@
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|keyboardHidden"
             android:label="YGOMobile"
+            android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

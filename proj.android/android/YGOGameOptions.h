@@ -9,6 +9,8 @@
 #define YGOGAMEOPTIONS_H_
 
 #include "bufferio_android.h"
+#include "../gframe/config.h"
+#include "xstring.h"
 
 namespace irr {
 namespace android {
@@ -30,18 +32,15 @@ public:
 		return m_port;
 	}
 
-	inline void formatGameParams(char* dst) {
-		char* dest = dst;
-		char formatParams[32] = {0};
+	inline void formatGameParams(wchar_t* dst) {
+		char formatParams[512] = {0};
 		sprintf(formatParams, "%d%d%c%c%c%d,%d,%d,%s",
 				m_rule, m_mode, m_enablePriority, m_noDeckCheck, m_noDeckShuffle, m_startLP, m_startHand, m_drawCount, m_proomName);
-		memcpy(dest, formatParams, strlen(formatParams) + 1);
-		dest += strlen(formatParams);
-		if (*m_proomPasswd != '0') {
-			char pwParams[32] = {0};
-			memcpy(dest++, "$", 1);
-			memcpy(dest, m_proomPasswd, strlen(m_proomPasswd) + 1);
+		if (m_proomPasswd != NULL) {
+			char * extraParams = formatParams + strlen(formatParams);
+			sprintf(extraParams, "$%s", m_proomPasswd);
 		}
+		BufferIO::DecodeUTF8(formatParams, dst);
 	}
 private:
 	char* m_pipAddr;

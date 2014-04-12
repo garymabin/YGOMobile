@@ -8,37 +8,47 @@
 #include "YGOGameOptions.h"
 #include "string.h"
 #include "stdio.h"
+#include "../gframe/os.h"
 
 namespace irr {
 namespace android {
 
-YGOGameOptions::YGOGameOptions(void* data) {
+YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), m_proomName(NULL), m_proomPasswd(NULL){
 	//read ip addr
+	char log[128];
 	char * rawdata = (char*)data;
 	int tmplength = ::BufferIO::ReadInt32(rawdata);
-	m_pipAddr = new char[tmplength];
+	sprintf(log, "%d", tmplength);
+	irr::os::Printer::log(log);
+	m_pipAddr = new char[tmplength + 1];
+	memset(m_pipAddr, 0, tmplength + 1);
 	memcpy(m_pipAddr, rawdata, tmplength);
 	rawdata += tmplength;
 
 	//read user name
 	tmplength = ::BufferIO::ReadInt32(rawdata);
-	m_puserName = new char[tmplength];
+	m_puserName = new char[tmplength + 1];
+	memset(m_puserName, 0, tmplength + 1);
 	memcpy(m_puserName, rawdata, tmplength);
 	rawdata += tmplength;
 
 	//read room name
 	tmplength = ::BufferIO::ReadInt32(rawdata);
-	m_proomName = new char[tmplength];
+	m_proomName = new char[tmplength + 1];
+	memset(m_proomName, 0, tmplength + 1);
 	memcpy(m_proomName, rawdata, tmplength);
 	rawdata += tmplength;
 
 	//read room password
 	tmplength = ::BufferIO::ReadInt32(rawdata);
-	m_proomPasswd = new char[tmplength];
-	memcpy(m_proomPasswd, rawdata, tmplength);
-	rawdata += tmplength;
+	if (tmplength != 0) {
+		m_proomPasswd = new char[tmplength];
+		memcpy(m_proomPasswd, rawdata, tmplength);
+		rawdata += tmplength;
+	}
 
 	m_port = ::BufferIO::ReadInt32(rawdata);
+	m_mode = ::BufferIO::ReadInt32(rawdata);
 	m_rule = ::BufferIO::ReadInt32(rawdata);
 	m_startLP = ::BufferIO::ReadInt32(rawdata);
 	m_startHand = ::BufferIO::ReadInt32(rawdata);
@@ -50,10 +60,18 @@ YGOGameOptions::YGOGameOptions(void* data) {
 }
 
 YGOGameOptions::~YGOGameOptions() {
-	delete m_pipAddr;
-	delete m_puserName;
-	delete m_proomName;
-	delete m_proomPasswd;
+	if (m_pipAddr != NULL) {
+		delete m_pipAddr;
+	}
+	if (m_puserName != NULL) {
+		delete m_puserName;
+	}
+	if (m_proomName != NULL) {
+		delete m_proomName;
+	}
+	if (m_proomPasswd != NULL) {
+		delete m_proomPasswd;
+	}
 }
 
 } /* namespace android */
