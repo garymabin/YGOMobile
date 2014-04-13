@@ -18,7 +18,10 @@
 #include <android/CAndroidGUIEditBox.h>
 #include <android/CAndroidGUIComboBox.h>
 #include <android/CAndroidGUIListBox.h>
-#define ANDROID_IRR_OES_TEXTURE_NPOT 37 //Hard-code here! see COGLES2ExtensionHandler::IRR_OES_texture_npot
+#include <COGLES2ExtensionHandler.h>
+#include <COGLESExtensionHandler.h>
+#include <COGLES2Driver.h>
+#include <COGLESDriver.h>
 #endif
 
 const unsigned short PRO_VERSION = 0x1321;
@@ -68,8 +71,6 @@ bool Game::Initialize() {
 	android::getDisplayMetrics(app, metrics);
 	xScale = metrics.widthPixels / 1024.0;
 	yScale = metrics.heightPixels / 640.0;
-//	xScale = 800 / 1024.0;
-//	yScale = 480 / 640.0;
 	char log_scale[256];
 	sprintf(log_scale, "xScale = %f, yScale = %f", xScale, yScale);
 	Printer::log(log_scale);
@@ -115,7 +116,14 @@ bool Game::Initialize() {
 	driver = device->getVideoDriver();
 #ifdef _IRR_ANDROID_PLATFORM_
 	int quality = android::getCardQuality(app);
-	isNPOTSupported = driver->queryFeature((irr::video::E_VIDEO_DRIVER_FEATURE)ANDROID_IRR_OES_TEXTURE_NPOT);
+	if (driver->getDriverType() == EDT_OGLES2) {
+		isNPOTSupported = ((COGLES2Driver *) driver)->queryOpenGLFeature(COGLES2ExtensionHandler::IRR_OES_texture_npot);
+	} else {
+		isNPOTSupported = ((COGLES1Driver *) driver)->queryOpenGLFeature(COGLES1ExtensionHandler::IRR_OES_texture_npot);
+	}
+	char log_npot[256];
+	sprintf(log_npot, "isNPOTSupported = %d", isNPOTSupported);
+	Printer::log(log_npot);
 	if (isNPOTSupported) {
 		if (quality == 1) {
 			driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
@@ -1036,12 +1044,11 @@ void Game::MainLoop() {
 			driver->getMaterial2D().TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
 			driver->getMaterial2D().TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 		}
-		driver->getMaterial2D().ZBuffer = ECFN_NEVER;
 		driver->enableMaterial2D(true);
+		driver->getMaterial2D().ZBuffer = ECFN_NEVER;
 		if(imageManager.tBackGround) {
 			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
 		}
-		driver->enableMaterial2D(false);
 #else
 		if(imageManager.tBackGround)
 			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
@@ -1082,11 +1089,11 @@ void Game::MainLoop() {
 			ignore_chain = false;
 		fps++;
 		cur_time = timer->getTime();
-//		if(cur_time < fps * 17 - 20)
+		if(cur_time < fps * 17 - 20)
 #ifdef _WIN32
-//			Sleep(20);
+			Sleep(20);
 #else
-//			usleep(20000);
+			usleep(20000);
 #endif
 		if(cur_time >= 1000) {
 
