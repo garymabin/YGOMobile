@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.garymb.ygomobile"
-    android:versionCode="1110"
-    android:versionName="1.11" >
+    android:versionCode="1131"
+    android:versionName="1.13.1" >
 
     <uses-sdk android:minSdkVersion="9" />
 
@@ -16,9 +16,11 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name="StaticApplication"
+        android:name=".core.StaticApplication"
         android:allowBackup="false"
         android:hasCode="true"
         android:icon="@drawable/ic_icon"
@@ -43,6 +45,7 @@
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|keyboardHidden"
             android:label="YGOMobile"
+            android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

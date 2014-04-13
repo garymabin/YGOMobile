@@ -857,7 +857,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 			s32 y = event.MouseInput.Y;
 			hovered_location = 0;
 			irr::core::position2di pos(x, y);
-			if(x < 300)
+			if(x < 300 * mainGame->xScale)
 				break;
 			if(mainGame->wCmdMenu->isVisible() && !mainGame->wCmdMenu->getRelativePosition().isPointInside(pos))
 				mainGame->wCmdMenu->setVisible(false);

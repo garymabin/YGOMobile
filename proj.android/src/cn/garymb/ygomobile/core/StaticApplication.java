@@ -4,7 +4,7 @@
  *  Created on: 2014年2月24日
  *      Author: mabin
  */
-package cn.garymb.ygomobile;
+package cn.garymb.ygomobile.core;
 
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;
@@ -24,6 +24,8 @@ import org.acra.*;
 import org.acra.annotation.ReportsCrashes;
 
 import static org.acra.ReportField.*;
+import cn.garymb.ygomobile.R;
+import cn.garymb.ygomobile.util.Constants;
 
 import com.github.nativehandler.NativeCrashHandler;
 
@@ -83,6 +85,18 @@ public class StaticApplication extends Application {
 		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
 		editor.putInt(Constants.OPENGL_PATH, version);
+		editor.commit();
+	}
+	
+	public int getCardQuality() {
+		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE);
+		return sp.getInt(Constants.CARD_QUALITY_PATH, 1);
+	}
+	
+	public void setCardQuality(int quality) {
+		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(Constants.CARD_QUALITY_PATH, quality);
 		editor.commit();
 	}
 	

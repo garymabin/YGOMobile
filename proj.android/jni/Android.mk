@@ -24,6 +24,7 @@ endif
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)
 LOCAL_C_INCLUDES := ../irrlicht/include
+LOCAL_C_INCLUDES  += ../irrlicht/source/Irrlicht
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../Classes/freetype/include
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../Classes/sqlite3
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../Classes/libevent/include
@@ -36,6 +37,7 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/android/android_tools.cpp \
 				$(LOCAL_PATH)/android/CAndroidGUIComboBox.cpp \
 				$(LOCAL_PATH)/android/CAndroidGUIListBox.cpp \
 				$(LOCAL_PATH)/android/CustomShaderConstantSetCallBack.cpp \
+				$(LOCAL_PATH)/android/YGOGameOptions.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIEditBox.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIButton.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIComboBox.cpp \
@@ -60,7 +62,7 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/android/android_tools.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/single_duel.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/single_mode.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/tag_duel.cpp \
-				$(LOCAL_PATH)/jni/cn_garymb_ygomobile_IrrlichtBridge.cpp \
+				$(LOCAL_PATH)/jni/cn_garymb_ygomobile_core_IrrlichtBridge.cpp \
 				$(LOCAL_PATH)/jni/NativeCrashHandler.cpp
 
 LOCAL_LDLIBS := -lEGL -llog -lGLESv1_CM -lGLESv2 -lz -landroid

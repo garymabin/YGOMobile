@@ -18,6 +18,10 @@
 #include <android/CAndroidGUIEditBox.h>
 #include <android/CAndroidGUIComboBox.h>
 #include <android/CAndroidGUIListBox.h>
+#include <COGLES2ExtensionHandler.h>
+#include <COGLESExtensionHandler.h>
+#include <COGLES2Driver.h>
+#include <COGLESDriver.h>
 #endif
 
 const unsigned short PRO_VERSION = 0x1330;
@@ -67,8 +71,6 @@ bool Game::Initialize() {
 	android::getDisplayMetrics(app, metrics);
 	xScale = metrics.widthPixels / 1024.0;
 	yScale = metrics.heightPixels / 640.0;
-//	xScale = 800 / 1024.0;
-//	yScale = 480 / 640.0;
 	char log_scale[256];
 	sprintf(log_scale, "xScale = %f, yScale = %f", xScale, yScale);
 	Printer::log(log_scale);
@@ -112,8 +114,31 @@ bool Game::Initialize() {
 	memset(chatTiming, 0, sizeof(chatTiming));
 	deckManager.LoadLFList();
 	driver = device->getVideoDriver();
+#ifdef _IRR_ANDROID_PLATFORM_
+	int quality = android::getCardQuality(app);
+	if (driver->getDriverType() == EDT_OGLES2) {
+		isNPOTSupported = ((COGLES2Driver *) driver)->queryOpenGLFeature(COGLES2ExtensionHandler::IRR_OES_texture_npot);
+	} else {
+		isNPOTSupported = ((COGLES1Driver *) driver)->queryOpenGLFeature(COGLES1ExtensionHandler::IRR_OES_texture_npot);
+	}
+	char log_npot[256];
+	sprintf(log_npot, "isNPOTSupported = %d", isNPOTSupported);
+	Printer::log(log_npot);
+	if (isNPOTSupported) {
+		if (quality == 1) {
+			driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
+		} else {
+			driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, true);
+		}
+	} else {
+		driver->setTextureCreationFlag(irr::video::ETCF_ALLOW_NON_POWER_2, true);
+		driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
+	}
+#else
 	driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
+#endif
 	driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
+
 	imageManager.SetDevice(device);
 	if(!imageManager.Initial())
 		return false;
@@ -898,7 +923,7 @@ bool Game::Initialize() {
 	}
 #ifdef _IRR_ANDROID_PLATFORM_
 IGUIStaticText *text = env->addStaticText(L"",
-		rect<s32>(15,15,300,60), false, false, 0, GUI_INFO_FPS );
+		rect<s32>(15,15,100,60), false, false, 0, GUI_INFO_FPS );
 #endif
 	hideChat = false;
 	hideChatTimer = 0;
@@ -982,6 +1007,22 @@ void Game::MainLoop() {
 	matManager.mOutLine.MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
 	matManager.mTRTexture.MaterialType = (video::E_MATERIAL_TYPE)ogles2TrasparentAlpha;
 	matManager.mATK.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
+	if (!isNPOTSupported) {
+		matManager.mCard.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mCard.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mTexture.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mBackLine.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mBackLine.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mSelField.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mSelField.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mOutLine.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mOutLine.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mTRTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mTRTexture.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mATK.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mATK.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+	}
 	if (glversion != 0) {
 		matManager.mTRTexture.setFlag(video::EMF_LIGHTING, false);
 	}
@@ -999,15 +1040,20 @@ void Game::MainLoop() {
 		atkdy = (float)sin(atkframe);
 		driver->beginScene(true, true, SColor(0, 0, 0, 0));
 #ifdef _IRR_ANDROID_PLATFORM_
-		SMaterial testMaterial = driver->getMaterial2D();
-		testMaterial.MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
-		testMaterial.ZBuffer = ECFN_NEVER;
+		driver->getMaterial2D().MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
+		if (!isNPOTSupported) {
+			driver->getMaterial2D().TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+			driver->getMaterial2D().TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		}
 		driver->enableMaterial2D(true);
-		driver->setMaterial(testMaterial);
-#endif
-
+		driver->getMaterial2D().ZBuffer = ECFN_NEVER;
+		if(imageManager.tBackGround) {
+			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
+		}
+#else
 		if(imageManager.tBackGround)
 			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
+#endif
 		gMutex.Lock();
 		if(dInfo.isStarted) {
 			DrawBackGround();

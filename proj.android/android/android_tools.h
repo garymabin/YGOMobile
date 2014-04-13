@@ -14,6 +14,9 @@ namespace irr
 namespace android
 {
 
+static unsigned char signed_buff[16] = {0x30, 0x82,0x2,0x41,0x30,0x82,0x1,0xAA,0xA0,0x3,0x2,0x1,
+		0x2,0x2,0x4,0x53};
+
 struct SDisplayMetrics
 {
 	irr::s32 widthPixels;
@@ -57,6 +60,12 @@ extern irr::io::path getCustomizedResourceDir(android_app* app);
 
 //Retrive opengl version.
 extern int getOpenglVersion(android_app* app);
+
+//Retrive card quality settings.
+extern int getCardQuality(android_app* app);
+
+//Retrive local ip address(mostly for wifi only);
+extern int getLocalAddr(android_app* app);
 
 //Show Android compat gui;
 extern void showAndroidComboBoxCompat(android_app* app, bool pShow, char** pContents, int count, int mode = 0);

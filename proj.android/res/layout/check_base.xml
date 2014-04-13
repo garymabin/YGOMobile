@@ -37,6 +37,7 @@
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/extra_panel"
         android:layout_alignParentBottom="true"
         android:background="@color/recent_file_background"
         android:orientation="vertical" >

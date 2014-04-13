@@ -27,4 +27,5 @@
     <string name="refresh_texture">R</string>
     <string name="ignore_chain">S</string>
     <string name="react_chain">A</string>
+    <string name="card_quality">卡图质量</string>
 </resources>

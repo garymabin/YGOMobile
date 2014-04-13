@@ -19,5 +19,9 @@
         <item>OpenGL ES 2.0 fixed shaders</item>
         <item>OpenGL ES 2.0 builtin shaders</item>
     </string-array>
-
+    
+   	<string-array name="card_quality">
+        <item>速度优先</item>
+        <item>质量优先</item>
+    </string-array>
 </resources>

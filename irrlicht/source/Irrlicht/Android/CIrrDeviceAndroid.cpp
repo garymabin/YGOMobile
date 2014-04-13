@@ -219,31 +219,35 @@ void CIrrDeviceAndroid::handleAndroidCommand(android_app* app, int32_t cmd)
 			device->getContextManager()->generateSurface();
 			device->getContextManager()->generateContext();
 			device->getContextManager()->activateContext(device->getContextManager()->getContext());
-
-			if (!device->Initialized)
+			if (device->CreationParams.WindowSize.Width != 1 && device->CreationParams.WindowSize.Height != 1)
 			{
-				io::CAndroidAssetFileArchive* assets = new io::CAndroidAssetFileArchive( device->Android->activity->assetManager, false, false);
-				assets->addDirectoryToFileList("");
-				device->FileSystem->addFileArchive(assets);
-				assets->drop();
+				if (!device->Initialized)
+		        {
+				    io::CAndroidAssetFileArchive* assets = new io::CAndroidAssetFileArchive( device->Android->activity->assetManager, false, false);
+				    assets->addDirectoryToFileList("");
+				    device->FileSystem->addFileArchive(assets);
+				    assets->drop();
 
-				device->createDriver();
+				    device->createDriver();
 
-				if (device->VideoDriver)
-					device->createGUIAndScene();
+				    if (device->VideoDriver)
+					    device->createGUIAndScene();
+			    }
+			    device->Initialized = true;
 			}
-			device->Initialized = true;
-		break;
+		    break;
 		case APP_CMD_TERM_WINDOW:
 			os::Printer::log("Android command APP_CMD_TERM_WINDOW", ELL_DEBUG);
 			device->getContextManager()->destroySurface();
-		break;
+		    break;
 		case APP_CMD_GAINED_FOCUS:
 		     os::Printer::log("Android command APP_CMD_GAINED_FOCUS", ELL_DEBUG);
 		     {
 		          s32 surfaceWidth = ANativeWindow_getWidth(app->window);
 		          s32 surfaceHeight = ANativeWindow_getHeight(app->window);
-
+				  char log_focus_window[256];
+				  sprintf(log_focus_window, "focus window: width = %d, height = %d", surfaceWidth, surfaceHeight);
+				  os::Printer::log(log_focus_window);
 		          if (device->CreationParams.WindowSize.Width != surfaceWidth || device->CreationParams.WindowSize.Height != surfaceHeight)
 		          {
 		               device->CreationParams.WindowSize.Width = surfaceWidth;
@@ -251,13 +255,24 @@ void CIrrDeviceAndroid::handleAndroidCommand(android_app* app, int32_t cmd)
 		               device->getContextManager()->destroySurface();
 		               device->getContextManager()->generateSurface();
 		               device->getContextManager()->activateContext(device->getContextManager()->getContext());
+					   if (!device->Initialized)
+					   {
+						   io::CAndroidAssetFileArchive* assets = new io::CAndroidAssetFileArchive( device->Android->activity->assetManager, false, false);
+						   assets->addDirectoryToFileList("");
+						   device->FileSystem->addFileArchive(assets);
+						   assets->drop();
+
+						   device->createDriver();
+
+						   if (device->VideoDriver)
+						   device->createGUIAndScene();
+					   }
+					   device->Initialized = true;
 		          }
+
 		     }
-		     char log_focus_window[256];
-		     sprintf(log_focus_window, "focus window: width = %d, height = %d", ANativeWindow_getWidth(app->window), ANativeWindow_getHeight(app->window));
-		     os::Printer::log(log_focus_window);
 		     device->Focused = true;
-		break;
+		    break;
 		case APP_CMD_LOST_FOCUS:
 			os::Printer::log("Android command APP_CMD_LOST_FOCUS", ELL_DEBUG);
 			device->Focused = false;

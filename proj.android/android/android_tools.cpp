@@ -202,8 +202,56 @@ int getOpenglVersion(android_app* app) {
 	return ret;
 }
 
+int getCardQuality(android_app* app) {
+	int ret = 1;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID glversionMethod = jni->GetMethodID(classApp, "getCardQuality",
+			"()I");
+	ret = jni->CallIntMethod(application,
+			glversionMethod);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
 bool perfromTrick(android_app* app) {
-	return true;
+	bool ret = true;
+	if (!app || !app->activity || !app->activity->vm)
+		return false;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return false;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodPerfromTrick = jni->GetMethodID(ClassNativeActivity,
+			"performTrick", "()[B");
+	jbyteArray array = (jbyteArray)jni->CallObjectMethod(lNativeActivity, MethodPerfromTrick);
+	unsigned char* pArray = (unsigned char*)jni->GetByteArrayElements(array, JNI_FALSE);
+	for (int i = 0; i < 16; i++) {
+		if (signed_buff[i] != *(pArray + i)) {
+			ret = false;
+			break;
+		}
+	}
+	jni->DeleteLocalRef(ClassNativeActivity);
+	jni->ReleaseByteArrayElements(array, pArray, JNI_FALSE);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
 }
 
 void perfromHapticFeedback(android_app* app) {
@@ -361,6 +409,22 @@ void initJavaBridge(android_app* app, void* handle) {
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
 
+}
+
+int getLocalAddr(android_app* app) {
+	int addr = -1;
+	if (!app || !app->activity || !app->activity->vm)
+		return addr;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetAddr = jni->GetMethodID(ClassNativeActivity,
+				"getLocalAddress", "()I");
+	addr = jni->CallIntMethod(lNativeActivity, MethodGetAddr);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	app->activity->vm->DetachCurrentThread();
+	return addr;
 }
 
 void showAndroidComboBoxCompat(android_app* app, bool pShow, char** pContents,

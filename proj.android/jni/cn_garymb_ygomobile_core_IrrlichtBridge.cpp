@@ -1,20 +1,23 @@
 #include <jni.h>
 #include "irrlicht.h"
-#include "../Classes/gframe/BufferIO.h"
+#include "../android/bufferio_android.h"
 #include "NativeCrashHandler.h"
 #include "../Classes/gframe/os.h"
 #include <unistd.h>
 #include <pthread.h>
+#include "../android/YGOGameOptions.h"
+#include "../Classes/gframe/game.h"
 
 using namespace irr;
 using namespace gui;
+
 extern "C" {
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeInsertText
  * Signature: (ILjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeInsertText(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeInsertText(JNIEnv* env, jclass clazz,
 		jint handle, jstring textString) {
 	if (handle) {
 			IrrlichtDevice* device = (IrrlichtDevice*)handle;
@@ -46,11 +49,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeInsertText(
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeSetComboBoxSelection
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeSetComboBoxSelection(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetComboBoxSelection(JNIEnv* env, jclass clazz,
 		jint handle, jint idx) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
@@ -82,11 +85,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeSetComboBox
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeSetCheckBoxesSelection
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeSetCheckBoxesSelection(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetCheckBoxesSelection(JNIEnv* env, jclass clazz,
 		jint handle, jint idx) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
@@ -137,11 +140,11 @@ static void* cancel_chain_thread(void* param) {
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeRefreshTexture
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeRefreshTexture(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeRefreshTexture(JNIEnv* env, jclass clazz,
 		jint handle) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*)handle;
@@ -161,11 +164,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeRefreshText
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeIgnoreChain
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeIgnoreChain(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeIgnoreChain(JNIEnv* env, jclass clazz,
 		jint handle, jboolean begin) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*)handle;
@@ -184,11 +187,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeIgnoreChain
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeReactChain
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeReactChain(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeReactChain(JNIEnv* env, jclass clazz,
 		jint handle, jboolean begin) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*)handle;
@@ -207,11 +210,11 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeReactChain(
 }
 
 /*
- * Class:     cn_garymb_ygomobile_IrrlichtBridge
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeCancelChain
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeCancelChain(JNIEnv* env, jclass clazz,
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeCancelChain(JNIEnv* env, jclass clazz,
 		jint handle) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
@@ -224,6 +227,60 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_IrrlichtBridge_nativeCancelChain
 			pthread_attr_destroy(&cancelAttr);
 			pthread_detach(cencelThread);
 		}
+	}
+}
+
+/*
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
+ * Method:    nativeJoinGame
+ * Signature: (ILjava/nio/ByteBuffer;)V
+ */
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeJoinGame(JNIEnv* env, jclass clazz,
+		jint handle, jobject buffer) {
+	if (handle) {
+		IrrlichtDevice* device = (IrrlichtDevice*) handle;
+		ygo::mainGame->gMutex.Lock();
+		if (ygo::mainGame->dInfo.isStarted) {
+			ygo::mainGame->gMutex.Unlock();
+			return;
+		}
+		void* data = env->GetDirectBufferAddress(buffer);
+		irr::android::YGOGameOptions options = irr::android::YGOGameOptions(data);
+		irr::SEvent event;
+
+		wchar_t wbuff[256];
+		char linelog[256];
+		BufferIO::DecodeUTF8(options.getIPAddr(), wbuff);
+		irr::os::Printer::log(options.getIPAddr());
+		ygo::mainGame->ebJoinIP->setText(wbuff);
+
+		myswprintf(wbuff, L"%d", options.getPort());
+		BufferIO::EncodeUTF8(wbuff, linelog);
+		irr::os::Printer::log(linelog);
+		ygo::mainGame->ebJoinPort->setText(wbuff);
+
+
+
+		wmemset(wbuff, 0, 256);
+		options.formatGameParams(wbuff);
+		BufferIO::EncodeUTF8(wbuff, linelog);
+		irr::os::Printer::log(linelog);
+		ygo::mainGame->ebJoinPass->setText(wbuff);
+
+
+		irr::os::Printer::log(options.getUserName());
+		BufferIO::DecodeUTF8(options.getUserName(), wbuff);
+		ygo::mainGame->ebNickName->setText(wbuff);
+
+		event.EventType = irr::EET_GUI_EVENT;
+		event.GUIEvent.EventType = irr::gui::EGET_BUTTON_CLICKED;
+		event.GUIEvent.Caller = ygo::mainGame->btnLanMode;
+		device->postEventFromUser(event);
+		//TODO: wait for wLanWindow show. if network connection faster than wLanWindow, wLanWindow will still show on duel scene.
+		event.GUIEvent.Caller = ygo::mainGame->btnJoinHost;
+		device->postEventFromUser(event);
+exit:
+		ygo::mainGame->gMutex.Unlock();
 	}
 }
 

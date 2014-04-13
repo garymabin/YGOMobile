@@ -12,7 +12,7 @@ namespace ygo {
 bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 #ifdef _IRR_ANDROID_PLATFORM_
 	irr::SEvent transferEvent;
-	if (irr::android::TouchEventTransferAndroid::OnTransferDeckEdit(event)) {
+	if (irr::android::TouchEventTransferAndroid::OnTransferCommon(event, false)) {
 		return true;
 	}
 #endif

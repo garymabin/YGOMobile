@@ -65,6 +65,47 @@
             android:layout_alignLeft="@id/opengl_setting_title"
             android:text="OpenGL ES 1.X （适合比较老的手机, 性能较差）" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/card_setting_layout"
+        android:layout_below="@id/opengl_setting_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_mid"
+        android:paddingBottom="@dimen/space"
+        android:paddingLeft="@dimen/icon_left"
+        android:paddingTop="@dimen/space" >
+
+        <TextView
+            android:id="@+id/card_setting_title"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:textColor="@color/color_bottom_tab_bg"
+        	android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:text="@string/card_quality"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/icon_left_left_margin"
+            android:layout_marginRight="@dimen/icon_left"
+            android:background="@drawable/setting_more" />
+
+        <TextView
+            android:id="@+id/card_setting_desc"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:textSize="12sp"
+        	android:textColor="@color/item_summary_text_color"
+        	android:singleLine="true"
+        	android:layout_marginTop="5dip"
+            android:layout_below="@id/card_setting_title"
+            android:layout_alignLeft="@id/card_setting_title"
+            android:text="速度优先" />
+    </RelativeLayout>
     <View android:layout_height="0.67dip"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

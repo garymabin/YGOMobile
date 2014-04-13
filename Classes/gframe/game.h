@@ -364,6 +364,7 @@ public:
 #ifdef _IRR_ANDROID_PLATFORM_
 	android_app* appMain;
 	int glversion;
+	bool isNPOTSupported;
 	s32 ogles2Solid;
 	s32 ogles2TrasparentAlpha;
 	s32 ogles2BlendTexture;
