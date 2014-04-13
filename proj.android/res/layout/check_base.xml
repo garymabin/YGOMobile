@@ -30,14 +30,14 @@
         android:id="@+id/extra_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/main_title_bar" >
+        android:layout_below="@id/main_title_bar"
+        android:layout_above="@+id/bottom_view" >
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_view"
+        android:id="@id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/extra_panel"
         android:layout_alignParentBottom="true"
         android:background="@color/recent_file_background"
         android:orientation="vertical" >
