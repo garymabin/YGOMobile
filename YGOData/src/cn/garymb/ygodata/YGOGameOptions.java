@@ -2,10 +2,8 @@ package cn.garymb.ygodata;
 
 import java.nio.ByteBuffer;
 
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 /**
  * @author mabin
@@ -42,6 +40,16 @@ public class YGOGameOptions implements Parcelable {
 	
 	public boolean mNoDeckShuffle;
 	
+	private boolean isCompleteOptions;
+	
+	public boolean isCompleteOptions() {
+		return isCompleteOptions;
+	}
+
+	public void setCompleteOptions(boolean isCompleteOptions) {
+		this.isCompleteOptions = isCompleteOptions;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -55,6 +63,7 @@ public class YGOGameOptions implements Parcelable {
 		dest.writeString(mRoomPasswd);
 		dest.writeInt(mPort);
 		dest.writeInt(mMode);
+		dest.writeInt(isCompleteOptions ? 1 : 0);
 		dest.writeInt(mRule);
 		dest.writeInt(mStartLP);
 		dest.writeInt(mStartHand);
@@ -75,6 +84,7 @@ public class YGOGameOptions implements Parcelable {
 			options.mRoomPasswd = source.readString();
 			options.mPort = source.readInt();
 			options.mMode = source.readInt();
+			options.isCompleteOptions = source.readInt() == 1;
 			options.mRule = source.readInt();
 			options.mStartLP = source.readInt();
 			options.mStartHand = source.readInt();
@@ -95,14 +105,15 @@ public class YGOGameOptions implements Parcelable {
 		StringBuilder builder = new StringBuilder("YGOGameOptions: ");
 		builder.append("serverAddr: ").append(mServerAddr == null ? "(unspecified)" : mServerAddr).
 		append(", port: ").append(mPort).
+		append(", roomName: ").append(mRoomName == null ? "(unspecified)" : mRoomName.toString()).
+		append(", roomPassword: ").append(mRoomPasswd == null ? "(unspecified)" : mRoomPasswd.toString()).
+		append(", userName: ").append(mName == null ? "(unspecified)" : mName.toString()).
 		append(", mode: ").append(mMode).
+		append(", isCompleteRequest").append(isCompleteOptions).
 		append(", rule: ").append(mRule).
 		append(", startlp: ").append(mStartLP).
 		append(", startHand: ").append(mStartHand).
 		append(", drawCount: ").append(mDrawCount).
-		append(", userName: ").append(mName == null ? "(unspecified)" : mName.toString()).
-		append(", roomName: ").append(mRoomName == null ? "(unspecified)" : mRoomName.toString()).
-		append(", roomPassword: ").append(mRoomPasswd == null ? "(unspecified)" : mRoomPasswd.toString()).
 		append(", enablePriority: ").append(mEnablePriority).
 		append(", noDeckCheck: ").append(mNoDeckCheck).
 		append(", noDeckShuffle: ").append(mNoDeckShuffle);
@@ -125,13 +136,16 @@ public class YGOGameOptions implements Parcelable {
 		}
 		buffer.putInt(Integer.reverseBytes(mPort));
 		buffer.putInt(Integer.reverseBytes(mMode));
-		buffer.putInt(Integer.reverseBytes(mRule));
-		buffer.putInt(Integer.reverseBytes(mStartLP));
-		buffer.putInt(Integer.reverseBytes(mStartHand));
-		buffer.putInt(Integer.reverseBytes(mDrawCount));
-		buffer.putInt(Integer.reverseBytes(mEnablePriority ? 1 : 0));
-		buffer.putInt(Integer.reverseBytes(mNoDeckCheck ? 1 : 0));
-		buffer.putInt(Integer.reverseBytes(mNoDeckShuffle ? 1 : 0));
+		buffer.putInt(Integer.reverseBytes(isCompleteOptions ? 1 : 0));
+		if (isCompleteOptions) {
+			buffer.putInt(Integer.reverseBytes(mRule));
+			buffer.putInt(Integer.reverseBytes(mStartLP));
+			buffer.putInt(Integer.reverseBytes(mStartHand));
+			buffer.putInt(Integer.reverseBytes(mDrawCount));
+			buffer.putInt(Integer.reverseBytes(mEnablePriority ? 1 : 0));
+			buffer.putInt(Integer.reverseBytes(mNoDeckCheck ? 1 : 0));
+			buffer.putInt(Integer.reverseBytes(mNoDeckShuffle ? 1 : 0));
+		}
 		return buffer;
 	}
 

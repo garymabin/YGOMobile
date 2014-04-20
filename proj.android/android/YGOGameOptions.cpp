@@ -49,14 +49,18 @@ YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), 
 
 	m_port = ::BufferIO::ReadInt32(rawdata);
 	m_mode = ::BufferIO::ReadInt32(rawdata);
-	m_rule = ::BufferIO::ReadInt32(rawdata);
-	m_startLP = ::BufferIO::ReadInt32(rawdata);
-	m_startHand = ::BufferIO::ReadInt32(rawdata);
-	m_drawCount = ::BufferIO::ReadInt32(rawdata);
+	m_isCompleteOptions = ::BufferIO::ReadInt32(rawdata) == 1;
 
-	m_enablePriority = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
-	m_noDeckCheck = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
-	m_noDeckShuffle = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
+	if (m_isCompleteOptions) {
+		m_rule = ::BufferIO::ReadInt32(rawdata);
+		m_startLP = ::BufferIO::ReadInt32(rawdata);
+		m_startHand = ::BufferIO::ReadInt32(rawdata);
+		m_drawCount = ::BufferIO::ReadInt32(rawdata);
+
+		m_enablePriority = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
+		m_noDeckCheck = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
+		m_noDeckShuffle = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
+	}
 }
 
 YGOGameOptions::~YGOGameOptions() {

@@ -369,6 +369,7 @@ public:
 	s32 ogles2TrasparentAlpha;
 	s32 ogles2BlendTexture;
 	irr::android::CustomShaderConstantSetCallBack customShadersCallback;
+	Signal externalSignal;
 #endif
 
 

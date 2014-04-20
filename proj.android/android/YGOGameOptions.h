@@ -33,9 +33,20 @@ public:
 	}
 
 	inline void formatGameParams(wchar_t* dst) {
-		char formatParams[512] = {0};
-		sprintf(formatParams, "%d%d%c%c%c%d,%d,%d,%s",
-				m_rule, m_mode, m_enablePriority, m_noDeckCheck, m_noDeckShuffle, m_startLP, m_startHand, m_drawCount, m_proomName);
+		char formatParams[512] = { 0 };
+		if (m_isCompleteOptions) {
+			sprintf(formatParams, "%d%d%c%c%c%d,%d,%d,%s", m_rule, m_mode,
+					m_enablePriority, m_noDeckCheck, m_noDeckShuffle, m_startLP,
+					m_startHand, m_drawCount, m_proomName);
+
+		} else {
+			if (m_mode == 0) {
+				sprintf(formatParams, "%s", m_proomName);
+			} else {
+				sprintf(formatParams, "%c#%s", m_mode == 1 ? 'M' : 'T', m_proomName);
+			}
+
+		}
 		if (m_proomPasswd != NULL) {
 			char * extraParams = formatParams + strlen(formatParams);
 			sprintf(extraParams, "$%s", m_proomPasswd);
@@ -49,6 +60,7 @@ private:
 	char* m_proomPasswd;
 	int m_port;
 	int m_mode;
+	bool m_isCompleteOptions;
 	int m_rule;
 	int m_startLP;
 	int m_startHand;
@@ -60,5 +72,5 @@ private:
 
 } /* namespace android */
 }
- /* namespace irr */
+/* namespace irr */
 #endif /* YGOGAMEOPTIONS_H_ */
