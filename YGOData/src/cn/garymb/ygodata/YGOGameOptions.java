@@ -24,21 +24,21 @@ public class YGOGameOptions implements Parcelable {
 	
 	public int mPort;
 	
-	public int mMode;
+	public int mMode = 0;
 	
-	public int mRule;
+	public int mRule = 0;
 	
-	public int mStartLP;
+	public int mStartLP = 8000;
 	
-	public int mStartHand;
+	public int mStartHand = 5;
 	
-	public int mDrawCount;
+	public int mDrawCount = 1;
 	
-	public boolean mEnablePriority;
+	public boolean mEnablePriority = false;
 	
-	public boolean mNoDeckCheck;
+	public boolean mNoDeckCheck = false;
 	
-	public boolean mNoDeckShuffle;
+	public boolean mNoDeckShuffle = false;
 	
 	private boolean isCompleteOptions;
 	
