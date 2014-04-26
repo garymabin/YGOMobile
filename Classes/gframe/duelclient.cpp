@@ -2781,7 +2781,9 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 		/*int player = */mainGame->LocalPlayer(BufferIO::ReadInt8(pbuf));
 		mainGame->dField.announce_count = BufferIO::ReadInt8(pbuf);
 		int available = BufferIO::ReadInt32(pbuf);
-		for(int i = 0, filter = 0x1; i < 23; ++i, filter <<= 1) {
+		//merge 379817
+		for(int i = 0, filter = 0x1; i < 24; ++i, filter <<= 1) {
+//		for(int i = 0, filter = 0x1; i < 23; ++i, filter <<= 1) {
 			mainGame->chkRace[i]->setChecked(false);
 			if(filter & available)
 				mainGame->chkRace[i]->setVisible(true);

@@ -123,11 +123,12 @@ int32 effect::is_activateable(uint8 playerid, const tevent& e, int32 neglect_con
 				return FALSE;
 		} else {
 			uint32 code = count_code & 0x7fffffff;
+			uint32 count = (reset_count >> 12) & 0xf;
 			if(code == 1) {
-				if(pduel->game_field->get_effect_code((count_code & 0x80000000) | handler->fieldid) >= ((reset_count >> 12) & 0xf))
+				if(pduel->game_field->get_effect_code((count_code & 0x80000000) | handler->fieldid, PLAYER_NONE) >= count)
 					return false;
 			} else {
-				if(pduel->game_field->get_effect_code(count_code) >= ((reset_count >> 12) & 0xf))
+				if(pduel->game_field->get_effect_code(count_code, playerid) >= count)
 					return false;
 			}
 		}
@@ -477,7 +478,7 @@ int32 effect::reset(uint32 reset_level, uint32 reset_type) {
 	}
 	return FALSE;
 }
-void effect::dec_count() {
+void effect::dec_count(uint32 playerid) {
 	if(!(flag & EFFECT_FLAG_COUNT_LIMIT))
 		return;
 	if(count_code == 0) {
@@ -487,9 +488,9 @@ void effect::dec_count() {
 	} else {
 		uint32 code = count_code & 0x7fffffff;
 		if(code == 1)
-			pduel->game_field->add_effect_code((count_code & 0x80000000) | handler->fieldid);
+			pduel->game_field->add_effect_code((count_code & 0x80000000) | handler->fieldid, PLAYER_NONE);
 		else
-			pduel->game_field->add_effect_code(count_code);
+			pduel->game_field->add_effect_code(count_code, playerid);
 	}
 }
 void effect::recharge() {
@@ -543,9 +544,9 @@ int32 effect::check_value_condition(uint32 extraargs) {
 int32 effect::get_speed() {
 	if(!(type & EFFECT_TYPE_ACTIONS))
 		return 0;
-	if(type & EFFECT_TYPE_TRIGGER_O || type & EFFECT_TYPE_TRIGGER_F || type & EFFECT_TYPE_FLIP || type & EFFECT_TYPE_IGNITION)
+	if(type & (EFFECT_TYPE_TRIGGER_O | EFFECT_TYPE_TRIGGER_F | EFFECT_TYPE_IGNITION))
 		return 1;
-	else if(type & EFFECT_TYPE_QUICK_O || type & EFFECT_TYPE_QUICK_F)
+	else if(type & (EFFECT_TYPE_QUICK_O | EFFECT_TYPE_QUICK_F))
 		return 2;
 	else if(type & EFFECT_TYPE_ACTIVATE) {
 		if(handler->data.type & TYPE_MONSTER)

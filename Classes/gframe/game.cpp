@@ -644,7 +644,7 @@ bool Game::Initialize() {
 	wANRace = env->addWindow(rect<s32>(480 * xScale, 200 * yScale, 850 * xScale, 385 * yScale), false, dataManager.GetSysString(563));
 	wANRace->getCloseButton()->setVisible(false);
 	wANRace->setVisible(false);
-	for(int filter = 0x1, i = 0; i < 23; filter <<= 1, ++i)
+	for(int filter = 0x1, i = 0; i < 24; filter <<= 1, ++i)
 		chkRace[i] = env->addCheckBox(false, rect<s32>((10 + (i % 4) * 90) * xScale, (25 + (i / 4) * 25) * yScale, (100 + (i % 4) * 90) * xScale, (50 + (i / 4) * 25) * yScale),
 		                              wANRace, CHECK_RACE, dataManager.FormatRace(filter));
 	//selection hint
@@ -725,9 +725,9 @@ bool Game::Initialize() {
 	cbCardType->addItem(dataManager.GetSysString(1313));
 	cbCardType->addItem(dataManager.GetSysString(1314));
 #ifdef _IRR_ANDROID_PLATFORM_
-	cbCardType2 = CAndroidGUIComboBox::addAndroidComboBox(env, rect<s32>(130 * xScale, 3 * yScale, 190 * xScale, 23 * yScale), wFilter, -1);
+	cbCardType2 = CAndroidGUIComboBox::addAndroidComboBox(env, rect<s32>(125 * xScale, 3 * yScale, 200 * xScale, 23 * yScale), wFilter, -1);
 #else
-	cbCardType2 = env->addComboBox(rect<s32>(130 * xScale, 3 * yScale, 190 * xScale, 23 * yScale), wFilter, -1);
+	cbCardType2 = env->addComboBox(rect<s32>(125 * xScale, 3 * yScale, 200 * xScale, 23 * yScale), wFilter, -1);
 #endif
 	cbCardType2->addItem(dataManager.GetSysString(1310), 0);
 	env->addStaticText(dataManager.GetSysString(1315), rect<s32>(205 * xScale, 5 * yScale, 280 * xScale, 25 * yScale), false, false, wFilter);
@@ -758,7 +758,8 @@ bool Game::Initialize() {
 	cbRace = env->addComboBox(rect<s32>(60 * xScale, 49 * yScale, 190 * xScale, 69 * yScale), wFilter, -1);
 #endif
 	cbRace->addItem(dataManager.GetSysString(1310), 0);
-	for(int filter = 0x1; filter != 0x400000; filter <<= 1)
+	//merge 8933d0
+	for(int filter = 0x1; filter != 0x1000000; filter <<= 1)
 		cbRace->addItem(dataManager.FormatRace(filter), filter);
 	env->addStaticText(dataManager.GetSysString(1322), rect<s32>(205 * xScale, 28 * yScale, 280 * xScale, 48 * yScale), false, false, wFilter);
 #ifdef _IRR_ANDROID_PLATFORM_
@@ -1396,7 +1397,9 @@ void Game::ShowCardInfo(int code) {
 			myswprintf(&formatBuffer[cd.level + 3], L"%d/%d", cd.attack, cd.defence);
 		if(cd.type & TYPE_PENDULUM) {
 			wchar_t scaleBuffer[16];
-			myswprintf(scaleBuffer, L" %d/%d", cd.lscale, cd.rscale);
+			//merge c8eaaf
+			myswprintf(scaleBuffer, L"   %d/%d", cd.lscale, cd.rscale);
+//			myswprintf(scaleBuffer, L" %d/%d", cd.lscale, cd.rscale);
 			wcscat(formatBuffer, scaleBuffer);
 		}
 		stDataInfo->setText(formatBuffer);

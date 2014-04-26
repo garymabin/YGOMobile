@@ -677,7 +677,9 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 			}
 			case CHECK_RACE: {
 				int rac = 0, filter = 0x1, count = 0;
-				for(int i = 0; i < 23; ++i, filter <<= 1) {
+				//merge bfa234
+				for(int i = 0; i < 24; ++i, filter <<= 1) {
+//				for(int i = 0; i < 23; ++i, filter <<= 1) {
 					if(mainGame->chkRace[i]->isChecked()) {
 						rac |= filter;
 						count++;
@@ -1275,6 +1277,10 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 					mainGame->HideElement(mainGame->wQuery, true);
 				} else {
 					mainGame->PopupElement(mainGame->wQuery);
+				}
+				if(mainGame->wOptions->isVisible()) {
+					DuelClient::SetResponseI(-1);
+					mainGame->HideElement(mainGame->wOptions);
 				}
 				break;
 			}

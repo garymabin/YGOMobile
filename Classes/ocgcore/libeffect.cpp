@@ -176,8 +176,11 @@ int32 scriptlib::effect_set_type(lua_State *L) {
 		v |= EFFECT_TYPE_FIELD;
 	if(v & EFFECT_TYPE_ACTIVATE)
 		peffect->range = LOCATION_SZONE + LOCATION_HAND;
-	if(v & EFFECT_TYPE_FLIP)
+	if(v & EFFECT_TYPE_FLIP) {
 		peffect->code = EVENT_FLIP;
+		if(!(v & EFFECT_TYPE_TRIGGER_O))
+			v |= EFFECT_TYPE_TRIGGER_F;
+	}
 	peffect->type = v;
 	return 0;
 }
@@ -447,7 +450,10 @@ int32 scriptlib::effect_get_active_type(lua_State *L) {
 	check_param_count(L, 1);
 	check_param(L, PARAM_TYPE_EFFECT, 1);
 	effect* peffect = *(effect**) lua_touserdata(L, 1);
-	if(peffect->type & 0x7f0)
+	//merge 8933d0
+	if((peffect->type & EFFECT_TYPE_ACTIVATE) && (peffect->handler->data.type & TYPE_PENDULUM))
+		lua_pushinteger(L, TYPE_PENDULUM + TYPE_SPELL);
+	else if(peffect->type & 0x7f0)
 		lua_pushinteger(L, peffect->card_type);
 	else
 		lua_pushinteger(L, peffect->owner->get_type());
@@ -459,7 +465,10 @@ int32 scriptlib::effect_is_active_type(lua_State *L) {
 	effect* peffect = *(effect**) lua_touserdata(L, 1);
 	uint32 tpe = lua_tointeger(L, 2);
 	uint32 atype;
-	if(peffect->type & 0x7f0)
+	//merge 8933d0
+	if((peffect->type & EFFECT_TYPE_ACTIVATE) && (peffect->handler->data.type & TYPE_PENDULUM))
+		atype = TYPE_PENDULUM + TYPE_SPELL;
+	else if(peffect->type & 0x7f0)
 		atype = peffect->card_type;
 	else
 		atype = peffect->owner->get_type();

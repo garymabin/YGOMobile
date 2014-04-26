@@ -186,9 +186,9 @@ public:
 	void release_relation(effect* peffect);
 	int32 leave_field_redirect(uint32 reason);
 	int32 destination_redirect(uint8 destination, uint32 reason);
-	int32 add_counter(uint16 countertype, uint16 count);
+	int32 add_counter(uint8 playerid, uint16 countertype, uint16 count);
 	int32 remove_counter(uint16 countertype, uint16 count);
-	int32 is_can_add_counter(uint16 countertype, uint16 count);
+	int32 is_can_add_counter(uint8 playerid, uint16 countertype, uint16 count);
 	int32 get_counter(uint16 countertype);
 	void set_material(card_set* materials);
 	void add_card_target(card* pcard);
@@ -326,6 +326,8 @@ public:
 #define RACE_PSYCHO			0x100000	//
 #define RACE_DEVINE			0x200000	//
 #define RACE_CREATORGOD		0x400000	//
+//merge dd8eea
+#define RACE_PHANTOMDRAGON	0x800000	//
 //Reason
 #define REASON_DESTROY		0x1		//
 #define REASON_RELEASE		0x2		//

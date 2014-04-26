@@ -74,7 +74,7 @@ public:
 	int32 is_immuned(effect_set_v* effects);
 	int32 is_chainable(uint8 tp);
 	int32 reset(uint32 reset_level, uint32 reset_type);
-	void dec_count();
+	void dec_count(uint32 playerid = 2);
 	void recharge();
 	int32 get_value(uint32 extraargs = 0);
 	int32 get_value(card* pcard, uint32 extraargs = 0);
@@ -218,6 +218,7 @@ public:
 #define EFFECT_CANNOT_DISCARD_HAND		55	//
 #define EFFECT_CANNOT_DISCARD_DECK		56	//
 #define EFFECT_CANNOT_USE_AS_COST		57	//
+#define EFFECT_CANNOT_PLACE_COUNTER		58	//
 
 #define EFFECT_LEAVE_FIELD_REDIRECT		60	//
 #define EFFECT_TO_HAND_REDIRECT			61	//
@@ -289,6 +290,7 @@ public:
 #define EFFECT_DECREASE_TRIBUTE_SET		152
 #define EFFECT_EXTRA_RELEASE			153
 #define EFFECT_TRIBUTE_LIMIT			154
+#define EFFECT_EXTRA_RELEASE_SUM		155
 #define EFFECT_PUBLIC					160
 #define EFFECT_COUNTER_PERMIT			0x10000
 #define EFFECT_COUNTER_LIMIT			0x20000
@@ -336,6 +338,7 @@ public:
 #define EFFECT_NONTUNER						244
 #define EFFECT_OVERLAY_REMOVE_REPLACE		245
 #define EFFECT_SCRAP_CHIMERA				246
+#define EFFECT_XMAT_COUNT_LIMIT				247
 #define EFFECT_SPSUM_EFFECT_ACTIVATED	250
 #define EFFECT_MATERIAL_CHECK			251
 #define EFFECT_DISABLE_FIELD			260
