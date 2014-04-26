@@ -71,6 +71,10 @@ int main(int argc, char* argv[]) {
 		}
 	}
 #endif
+#ifdef _IRR_ANDROID_PLATFORM_
+	ygo::mainGame->externalSignal.Set();
+	ygo::mainGame->externalSignal.SetNoWait(true);
+#endif
 	ygo::mainGame->MainLoop();
 #ifdef _WIN32
 	WSACleanup();

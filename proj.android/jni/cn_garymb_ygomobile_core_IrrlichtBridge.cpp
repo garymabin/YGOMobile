@@ -17,35 +17,35 @@ extern "C" {
  * Method:    nativeInsertText
  * Signature: (ILjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeInsertText(JNIEnv* env, jclass clazz,
-		jint handle, jstring textString) {
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeInsertText(
+		JNIEnv* env, jclass clazz, jint handle, jstring textString) {
 	if (handle) {
-			IrrlichtDevice* device = (IrrlichtDevice*)handle;
-			IGUIEnvironment* irrenv = device->getGUIEnvironment();
-			IGUIElement* element = irrenv->getFocus();
-			if (element && element->getType() == EGUIET_EDIT_BOX) {
-				IGUIEditBox* editbox = (IGUIEditBox*)element;
-				const char* text = env->GetStringUTFChars(textString, NULL);
-				wchar_t content[256];
-				BufferIO::DecodeUTF8(text, content);
-				editbox->setText(content);
-				irrenv->removeFocus(editbox);
-				irrenv->setFocus(editbox->getParent());
-				SEvent changeEvent;
-				changeEvent.EventType = EET_GUI_EVENT;
-				changeEvent.GUIEvent.Caller = editbox;
-				changeEvent.GUIEvent.Element = 0;
-				changeEvent.GUIEvent.EventType = EGET_EDITBOX_CHANGED;
-				editbox->getParent()->OnEvent(changeEvent);
-				SEvent enterEvent;
-				enterEvent.EventType = EET_GUI_EVENT;
-				enterEvent.GUIEvent.Caller = editbox;
-				enterEvent.GUIEvent.Element = 0;
-				enterEvent.GUIEvent.EventType = EGET_EDITBOX_ENTER;
-				editbox->getParent()->OnEvent(enterEvent);
-				env->DeleteLocalRef(textString);
-			}
+		IrrlichtDevice* device = (IrrlichtDevice*) handle;
+		IGUIEnvironment* irrenv = device->getGUIEnvironment();
+		IGUIElement* element = irrenv->getFocus();
+		if (element && element->getType() == EGUIET_EDIT_BOX) {
+			IGUIEditBox* editbox = (IGUIEditBox*) element;
+			const char* text = env->GetStringUTFChars(textString, NULL);
+			wchar_t content[256];
+			BufferIO::DecodeUTF8(text, content);
+			editbox->setText(content);
+			irrenv->removeFocus(editbox);
+			irrenv->setFocus(editbox->getParent());
+			SEvent changeEvent;
+			changeEvent.EventType = EET_GUI_EVENT;
+			changeEvent.GUIEvent.Caller = editbox;
+			changeEvent.GUIEvent.Element = 0;
+			changeEvent.GUIEvent.EventType = EGET_EDITBOX_CHANGED;
+			editbox->getParent()->OnEvent(changeEvent);
+			SEvent enterEvent;
+			enterEvent.EventType = EET_GUI_EVENT;
+			enterEvent.GUIEvent.Caller = editbox;
+			enterEvent.GUIEvent.Element = 0;
+			enterEvent.GUIEvent.EventType = EGET_EDITBOX_ENTER;
+			editbox->getParent()->OnEvent(enterEvent);
+			env->DeleteLocalRef(textString);
 		}
+	}
 }
 
 /*
@@ -53,26 +53,26 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeInsert
  * Method:    nativeSetComboBoxSelection
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetComboBoxSelection(JNIEnv* env, jclass clazz,
-		jint handle, jint idx) {
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetComboBoxSelection(
+		JNIEnv* env, jclass clazz, jint handle, jint idx) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
 		IGUIEnvironment* irrenv = device->getGUIEnvironment();
 		IGUIElement* element = irrenv->getFocus();
-		if (element && element->getParent()->getType() ==  EGUIET_COMBO_BOX) {
-			IGUIComboBox* combo = (IGUIComboBox*)(element->getParent());
+		if (element && element->getParent()->getType() == EGUIET_COMBO_BOX) {
+			IGUIComboBox* combo = (IGUIComboBox*) (element->getParent());
 			core::list<IGUIElement*> children = combo->getChildren();
 			core::list<IGUIElement*>::Iterator current = children.begin();
 			do {
 				if ((*current)->getType() == EGUIET_LIST_BOX) {
 					break;
 				}
-				current ++;
-			}while(current != children.end());
+				current++;
+			} while (current != children.end());
 			if (current == children.end()) {
 				return;
 			}
-			IGUIListBox* list = (IGUIListBox*)*current;
+			IGUIListBox* list = (IGUIListBox*) *current;
 			list->setSelected(idx);
 			SEvent changeEvent;
 			changeEvent.EventType = EET_GUI_EVENT;
@@ -89,28 +89,27 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetCom
  * Method:    nativeSetCheckBoxesSelection
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetCheckBoxesSelection(JNIEnv* env, jclass clazz,
-		jint handle, jint idx) {
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetCheckBoxesSelection(
+		JNIEnv* env, jclass clazz, jint handle, jint idx) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
 		IGUIEnvironment* irrenv = device->getGUIEnvironment();
 		IGUIElement* element = irrenv->getFocus();
 		if (element) {
-			IGUIWindow* window = (IGUIWindow*)(element);
+			IGUIWindow* window = (IGUIWindow*) (element);
 			core::list<IGUIElement*> children = window->getChildren();
 			core::list<IGUIElement*>::Iterator current = children.begin();
 			int i = 0;
 			do {
-				if ((*current)->getType() == EGUIET_CHECK_BOX
-						&& i++ == idx) {
+				if ((*current)->getType() == EGUIET_CHECK_BOX && i++ == idx) {
 					break;
 				}
 				current++;
-			}while(current != children.end());
+			} while (current != children.end());
 			if (current == children.end()) {
 				return;
 			}
-			IGUICheckBox* checkbox = (IGUICheckBox*)*current;
+			IGUICheckBox* checkbox = (IGUICheckBox*) *current;
 			checkbox->setChecked(true);
 			SEvent e;
 			e.EventType = EET_GUI_EVENT;
@@ -123,20 +122,46 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeSetChe
 	}
 }
 
-static void* cancel_chain_thread(void* param) {
-	IrrlichtDevice* device = (IrrlichtDevice*)param;
-	irr::os::Printer::log("before send cancel chain");
-	SEvent downevent;
-	downevent.EventType = EET_MOUSE_INPUT_EVENT;
-	//just cause a right up event to refresh texture
-	downevent.MouseInput.Event = EMIE_RMOUSE_PRESSED_DOWN;
-	device->postEventFromUser(downevent);
-	usleep(20 * 1000);
-	SEvent upevent;
-	upevent.EventType = EET_MOUSE_INPUT_EVENT;
-	//just cause a right up event to refresh texture
-	upevent.MouseInput.Event = EMIE_RMOUSE_LEFT_UP;
-	device->postEventFromUser(upevent);
+static void* join_game_thread(void* param) {
+	ygo::mainGame->externalSignal.Wait();
+	ygo::mainGame->gMutex.Lock();
+	if (ygo::mainGame->dInfo.isStarted) {
+		ygo::mainGame->gMutex.Unlock();
+		return NULL;
+	}
+	irr::android::YGOGameOptions options = irr::android::YGOGameOptions(param);
+	irr::SEvent event;
+
+	wchar_t wbuff[256];
+	char linelog[256];
+	BufferIO::DecodeUTF8(options.getIPAddr(), wbuff);
+	irr::os::Printer::log(options.getIPAddr());
+	ygo::mainGame->ebJoinIP->setText(wbuff);
+
+	myswprintf(wbuff, L"%d", options.getPort());
+	BufferIO::EncodeUTF8(wbuff, linelog);
+	irr::os::Printer::log(linelog);
+	ygo::mainGame->ebJoinPort->setText(wbuff);
+
+	wmemset(wbuff, 0, 256);
+	options.formatGameParams(wbuff);
+	BufferIO::EncodeUTF8(wbuff, linelog);
+	irr::os::Printer::log(linelog);
+	ygo::mainGame->ebJoinPass->setText(wbuff);
+
+	irr::os::Printer::log(options.getUserName());
+	BufferIO::DecodeUTF8(options.getUserName(), wbuff);
+	ygo::mainGame->ebNickName->setText(wbuff);
+
+	event.EventType = irr::EET_GUI_EVENT;
+	event.GUIEvent.EventType = irr::gui::EGET_BUTTON_CLICKED;
+	event.GUIEvent.Caller = ygo::mainGame->btnLanMode;
+	ygo::mainGame->device->postEventFromUser(event);
+	//TODO: wait for wLanWindow show. if network connection faster than wLanWindow, wLanWindow will still show on duel scene.
+	event.GUIEvent.Caller = ygo::mainGame->btnJoinHost;
+	ygo::mainGame->device->postEventFromUser(event);
+	exit: ygo::mainGame->gMutex.Unlock();
+	return NULL;
 }
 
 /*
@@ -144,10 +169,10 @@ static void* cancel_chain_thread(void* param) {
  * Method:    nativeRefreshTexture
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeRefreshTexture(JNIEnv* env, jclass clazz,
-		jint handle) {
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeRefreshTexture(
+		JNIEnv* env, jclass clazz, jint handle) {
 	if (handle) {
-		IrrlichtDevice* device = (IrrlichtDevice*)handle;
+		IrrlichtDevice* device = (IrrlichtDevice*) handle;
 
 		if (device->isWindowFocused()) {
 			irr::os::Printer::log("before send refresh event");
@@ -168,10 +193,10 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeRefres
  * Method:    nativeIgnoreChain
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeIgnoreChain(JNIEnv* env, jclass clazz,
-		jint handle, jboolean begin) {
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeIgnoreChain(
+		JNIEnv* env, jclass clazz, jint handle, jboolean begin) {
 	if (handle) {
-		IrrlichtDevice* device = (IrrlichtDevice*)handle;
+		IrrlichtDevice* device = (IrrlichtDevice*) handle;
 		if (device->isWindowFocused()) {
 			irr::os::Printer::log("before send ignore chain");
 			SEvent event;
@@ -191,10 +216,10 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeIgnore
  * Method:    nativeReactChain
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeReactChain(JNIEnv* env, jclass clazz,
-		jint handle, jboolean begin) {
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeReactChain(
+		JNIEnv* env, jclass clazz, jint handle, jboolean begin) {
 	if (handle) {
-		IrrlichtDevice* device = (IrrlichtDevice*)handle;
+		IrrlichtDevice* device = (IrrlichtDevice*) handle;
 		if (device->isWindowFocused()) {
 			irr::os::Printer::log("before send react chain");
 			SEvent event;
@@ -209,13 +234,30 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeReactC
 	}
 }
 
+static void* cancel_chain_thread(void* param) {
+	IrrlichtDevice* device = (IrrlichtDevice*)param;
+	irr::os::Printer::log("before send cancel chain");
+	SEvent downevent;
+	downevent.EventType = EET_MOUSE_INPUT_EVENT;
+	//just cause a right up event to refresh texture
+	downevent.MouseInput.Event = EMIE_RMOUSE_PRESSED_DOWN;
+	device->postEventFromUser(downevent);
+	usleep(20 * 1000);
+	SEvent upevent;
+	upevent.EventType = EET_MOUSE_INPUT_EVENT;
+	//just cause a right up event to refresh texture
+	upevent.MouseInput.Event = EMIE_RMOUSE_LEFT_UP;
+	device->postEventFromUser(upevent);
+	return NULL;
+}
+
 /*
  * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeCancelChain
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeCancelChain(JNIEnv* env, jclass clazz,
-		jint handle) {
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeCancelChain(
+		JNIEnv* env, jclass clazz, jint handle) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
 		if (device->isWindowFocused()) {
@@ -235,52 +277,19 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeCancel
  * Method:    nativeJoinGame
  * Signature: (ILjava/nio/ByteBuffer;)V
  */
-JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeJoinGame(JNIEnv* env, jclass clazz,
-		jint handle, jobject buffer) {
+JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeJoinGame(
+		JNIEnv* env, jclass clazz, jint handle, jobject buffer) {
 	if (handle) {
 		IrrlichtDevice* device = (IrrlichtDevice*) handle;
-		ygo::mainGame->gMutex.Lock();
-		if (ygo::mainGame->dInfo.isStarted) {
-			ygo::mainGame->gMutex.Unlock();
-			return;
-		}
 		void* data = env->GetDirectBufferAddress(buffer);
-		irr::android::YGOGameOptions options = irr::android::YGOGameOptions(data);
-		irr::SEvent event;
+		pthread_t joinGameThread;
+		pthread_attr_t joinGameAttr;
+		pthread_attr_init(&joinGameAttr);
+		pthread_create(&joinGameThread, &joinGameAttr, join_game_thread,
+				data);
+		pthread_attr_destroy(&joinGameAttr);
+		pthread_detach(joinGameThread);
 
-		wchar_t wbuff[256];
-		char linelog[256];
-		BufferIO::DecodeUTF8(options.getIPAddr(), wbuff);
-		irr::os::Printer::log(options.getIPAddr());
-		ygo::mainGame->ebJoinIP->setText(wbuff);
-
-		myswprintf(wbuff, L"%d", options.getPort());
-		BufferIO::EncodeUTF8(wbuff, linelog);
-		irr::os::Printer::log(linelog);
-		ygo::mainGame->ebJoinPort->setText(wbuff);
-
-
-
-		wmemset(wbuff, 0, 256);
-		options.formatGameParams(wbuff);
-		BufferIO::EncodeUTF8(wbuff, linelog);
-		irr::os::Printer::log(linelog);
-		ygo::mainGame->ebJoinPass->setText(wbuff);
-
-
-		irr::os::Printer::log(options.getUserName());
-		BufferIO::DecodeUTF8(options.getUserName(), wbuff);
-		ygo::mainGame->ebNickName->setText(wbuff);
-
-		event.EventType = irr::EET_GUI_EVENT;
-		event.GUIEvent.EventType = irr::gui::EGET_BUTTON_CLICKED;
-		event.GUIEvent.Caller = ygo::mainGame->btnLanMode;
-		device->postEventFromUser(event);
-		//TODO: wait for wLanWindow show. if network connection faster than wLanWindow, wLanWindow will still show on duel scene.
-		event.GUIEvent.Caller = ygo::mainGame->btnJoinHost;
-		device->postEventFromUser(event);
-exit:
-		ygo::mainGame->gMutex.Unlock();
 	}
 }
 
