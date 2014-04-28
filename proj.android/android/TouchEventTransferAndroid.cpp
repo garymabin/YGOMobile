@@ -36,6 +36,7 @@ bool TouchEventTransferAndroid::OnTransferDeckEdit(const SEvent& event) {
 		break;
 	}
 	case EET_TOUCH_INPUT_EVENT: {
+		bRet = true;
 		SEvent transferEvent;
 		transferEvent.EventType = EET_MOUSE_INPUT_EVENT;
 		transferEvent.MouseInput.X = s_current_x = event.TouchInput.X;
@@ -55,12 +56,12 @@ bool TouchEventTransferAndroid::OnTransferDeckEdit(const SEvent& event) {
 		} else if (event.TouchInput.Event == ETIE_LEFT_UP) {
 			transferEvent.MouseInput.Event = EMIE_LMOUSE_LEFT_UP;
 		} else if (event.TouchInput.Event == ETIE_MOVED) {
+			transferEvent.MouseInput.ButtonStates = 0x01;
 			transferEvent.MouseInput.Event = EMIE_MOUSE_MOVED;
 		} else {
 			bRet = false;
 			break;
 		}
-		bRet = true;
 		ygo::mainGame->device->postEventFromUser(transferEvent);
 		break;
 	}
@@ -101,6 +102,7 @@ bool TouchEventTransferAndroid::OnTransferCommon(const SEvent& event,
 		break;
 	}
 	case EET_TOUCH_INPUT_EVENT: {
+		bRet = true;
 		SEvent transferEvent;
 		transferEvent.EventType = EET_MOUSE_INPUT_EVENT;
 		transferEvent.MouseInput.X = s_current_x = event.TouchInput.X;
@@ -126,13 +128,13 @@ bool TouchEventTransferAndroid::OnTransferCommon(const SEvent& event,
 			if (isRightClickNeeded) {
 				set_long_click_handler(0);
 			}
+			transferEvent.MouseInput.ButtonStates = 0x01;
 			transferEvent.MouseInput.Event = EMIE_MOUSE_MOVED;
 		} else {
 			Printer::log("multitouch missed");
 			bRet = false;
 			break;
 		}
-		bRet = true;
 		ygo::mainGame->device->postEventFromUser(transferEvent);
 		break;
 	}

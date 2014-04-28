@@ -624,6 +624,8 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 								respbuf[i] = sort_list[i] - 1;
 							DuelClient::SetResponseB(respbuf, select_max);
 							mainGame->HideElement(mainGame->wCardSelect, true);
+							//merge 8c65ee
+							sort_list.clear();
 						}
 					}
 					break;
@@ -728,8 +730,21 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 					else
 						mainGame->btnCardSelect[i]->setImage(imageManager.tCover);
 					mainGame->btnCardSelect[i]->setRelativePosition(rect<s32>((30 + i * 125)  * mainGame->xScale, 55 * mainGame->xScale, (30 + 120 + i * 125)  * mainGame->xScale, 225  * mainGame->yScale));
-					myswprintf(formatBuffer, L"%ls[%d]", dataManager.FormatLocation(selectable_cards[i + pos]->location),
-					           selectable_cards[i + pos]->sequence + 1);
+					//merge aef0b1
+//					myswprintf(formatBuffer, L"%ls[%d]", dataManager.FormatLocation(selectable_cards[i + pos]->location),
+//					           selectable_cards[i + pos]->sequence + 1);
+					if (sort_list.size()) {
+						if (sort_list[pos + i] > 0)
+							myswprintf(formatBuffer, L"%d", sort_list[pos + i]);
+						else
+							myswprintf(formatBuffer, L"");
+					} else {
+						myswprintf(formatBuffer, L"%ls[%d]",
+								dataManager.FormatLocation(
+										selectable_cards[i + pos]->location),
+								selectable_cards[i + pos]->sequence + 1);
+					}
+
 					mainGame->stCardPos[i]->setText(formatBuffer);
 					if(selectable_cards[i + pos]->is_selected)
 						mainGame->stCardPos[i]->setBackgroundColor(0xffffff00);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.garymb.ygomobile"
-    android:versionCode="1132"
-    android:versionName="1.13.2" >
+    android:versionCode="1133"
+    android:versionName="1.13.3" >
 
     <uses-sdk android:minSdkVersion="9" />
 
