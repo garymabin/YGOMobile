@@ -99,7 +99,7 @@ void Game::DrawBackGround() {
 				DrawSelectionLine(&matManager.vFields[16 + i * 4], !(dField.selected_field & filter), 2, cv);
 		}
 		filter = 0x100;
-		for (int i = 0; i < 5; ++i, filter <<= 1) {
+		for (int i = 0; i < 8; ++i, filter <<= 1) {
 			if ((dField.selectable_field & filter) > 0)
 				DrawSelectionLine(&matManager.vFields[36 + i * 4], !(dField.selected_field & filter), 2, cv);
 		}
@@ -388,7 +388,7 @@ void Game::DrawMisc() {
 	lpcFont->draw(dataManager.GetNumString(dInfo.turn), recti(635 * mainGame->xScale, 5 * mainGame->yScale, 687 * mainGame->xScale, 40 * mainGame->yScale), 0x8000ffff, true, false, 0);
     ClientCard* pcard;
 	for(int i = 0; i < 5; ++i) {
-		ClientCard* pcard = dField.mzone[0][i];
+		pcard = dField.mzone[0][i];
 		if(pcard && pcard->code != 0) {
 			int m = 463 + i * 90;
 			adFont->draw(L"/", recti((m - 4) * mainGame->xScale, 416 * mainGame->yScale, (m + 4) * mainGame->xScale, 436 * mainGame->yScale), 0xff000000, true, false, 0);
@@ -407,7 +407,7 @@ void Game::DrawMisc() {
 		}
 	}
 	for(int i = 0; i < 5; ++i) {
-		ClientCard* pcard = dField.mzone[1][i];
+		pcard = dField.mzone[1][i];
 		if(pcard && (pcard->position & POS_FACEUP)) {
 			int m = 795 - i * 73;
 			adFont->draw(L"/", recti((m - 4) * mainGame->xScale, 235 * mainGame->yScale, (m + 4) * mainGame->xScale, 255 * mainGame->yScale), 0xff000000, true, false, 0);
@@ -442,40 +442,40 @@ void Game::DrawMisc() {
 	}
 	pcard = dField.szone[1][7];
 	if(pcard) {
-		adFont->draw(pcard->rscstring, recti(428, 245, 460, 265), 0xff000000, true, false, 0);
-		adFont->draw(pcard->rscstring, recti(429, 246, 461, 266), 0xffffffff, true, false, 0);
+		adFont->draw(pcard->rscstring, recti(428 * mainGame->xScale, 245 * mainGame->yScale, 460 * mainGame->xScale, 265 * mainGame->yScale), 0xff000000, true, false, 0);
+		adFont->draw(pcard->rscstring, recti(429 * mainGame->xScale, 246 * mainGame->yScale, 461 * mainGame->xScale, 266 * mainGame->yScale), 0xffffffff, true, false, 0);
 	}
 	if(dField.extra[0].size()) {
-		numFont->draw(dataManager.GetNumString(dField.extra[0].size()), recti(305 * mainGame->xScale, 532 * mainGame->yScale, 381 * mainGame->xScale, 552 * mainGame->yScale), 0xff000000, true, false, 0);
-		numFont->draw(dataManager.GetNumString(dField.extra[0].size()), recti(305 * mainGame->xScale, 533 * mainGame->yScale, 383 * mainGame->xScale, 553 * mainGame->yScale), 0xffffff00, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.extra[0].size()), recti(245 * mainGame->xScale, 562 * mainGame->yScale, 381 * mainGame->xScale, 552 * mainGame->yScale), 0xff000000, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.extra[0].size()), recti(245 * mainGame->xScale, 563 * mainGame->yScale, 383 * mainGame->xScale, 553 * mainGame->yScale), 0xffffff00, true, false, 0);
 	}
 	if(dField.deck[0].size()) {
-		numFont->draw(dataManager.GetNumString(dField.deck[0].size()), recti(942 * mainGame->xScale, 532 * mainGame->yScale, 1021 * mainGame->xScale, 552 * mainGame->yScale) , 0xff000000, true, false, 0);
-		numFont->draw(dataManager.GetNumString(dField.deck[0].size()), recti(943 * mainGame->xScale, 533 * mainGame->yScale, 1023 * mainGame->xScale, 553 * mainGame->yScale), 0xffffff00, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.deck[0].size()), recti(912 * mainGame->xScale, 562 * mainGame->yScale, 1021 * mainGame->xScale, 552 * mainGame->yScale) , 0xff000000, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.deck[0].size()), recti(913 * mainGame->xScale, 563 * mainGame->yScale, 1023 * mainGame->xScale, 553 * mainGame->yScale), 0xffffff00, true, false, 0);
 	}
 	if(dField.grave[0].size()) {
-		numFont->draw(dataManager.GetNumString(dField.grave[0].size()), recti(917 * mainGame->xScale, 436 * mainGame->yScale, 984 * mainGame->xScale, 456 * mainGame->yScale), 0xff000000, true, false, 0);
-		numFont->draw(dataManager.GetNumString(dField.grave[0].size()), recti(917 * mainGame->xScale, 437 * mainGame->yScale, 986 * mainGame->xScale, 457 * mainGame->yScale), 0xffffff00, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.grave[0].size()), recti(837 * mainGame->xScale, 375 * mainGame->yScale, 984 * mainGame->xScale, 456 * mainGame->yScale), 0xff000000, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.grave[0].size()), recti(837 * mainGame->xScale, 376 * mainGame->yScale, 986 * mainGame->xScale, 457 * mainGame->yScale), 0xffffff00, true, false, 0);
 	}
 	if(dField.remove[0].size()) {
-		numFont->draw(dataManager.GetNumString(dField.remove[0].size()), recti(895 * mainGame->xScale, 360 * mainGame->yScale, 957 * mainGame->xScale, 380 * mainGame->yScale), 0xff000000, true, false, 0);
-		numFont->draw(dataManager.GetNumString(dField.remove[0].size()), recti(895 * mainGame->xScale, 361 * mainGame->yScale, 959 * mainGame->xScale, 381 * mainGame->yScale), 0xffffff00, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.remove[0].size()), recti(1025 * mainGame->xScale, 375 * mainGame->yScale, 957 * mainGame->xScale, 380 * mainGame->yScale), 0xff000000, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.remove[0].size()), recti(1025 * mainGame->xScale, 376 * mainGame->yScale, 959 * mainGame->xScale, 381 * mainGame->yScale), 0xffffff00, true, false, 0);
 	}
 	if(dField.extra[1].size()) {
-		numFont->draw(dataManager.GetNumString(dField.extra[1].size()), recti(848 * mainGame->xScale, 212 * mainGame->yScale, 908 * mainGame->xScale, 232 * mainGame->yScale), 0xff000000, true, false, 0);
-		numFont->draw(dataManager.GetNumString(dField.extra[1].size()), recti(848 * mainGame->xScale, 213 * mainGame->yScale, 910 * mainGame->xScale, 233 * mainGame->yScale), 0xffffff00, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.extra[1].size()), recti(808 * mainGame->xScale, 207 * mainGame->yScale, 908 * mainGame->xScale, 232 * mainGame->yScale), 0xff000000, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.extra[1].size()), recti(808 * mainGame->xScale, 208 * mainGame->yScale, 910 * mainGame->xScale, 233 * mainGame->yScale), 0xffffff00, true, false, 0);
 	}
 	if(dField.deck[1].size()) {
-		numFont->draw(dataManager.GetNumString(dField.deck[1].size()), recti(421 * mainGame->xScale, 212 * mainGame->yScale, 481 * mainGame->xScale, 232 * mainGame->yScale), 0xff000000, true, false, 0);
-		numFont->draw(dataManager.GetNumString(dField.deck[1].size()), recti(421 * mainGame->xScale, 213 * mainGame->yScale, 483 * mainGame->xScale, 233 * mainGame->yScale), 0xffffff00, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.deck[1].size()), recti(391 * mainGame->xScale, 207 * mainGame->yScale, 481 * mainGame->xScale, 232 * mainGame->yScale), 0xff000000, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.deck[1].size()), recti(391 * mainGame->xScale, 208 * mainGame->yScale, 483 * mainGame->xScale, 233 * mainGame->yScale), 0xffffff00, true, false, 0);
 	}
 	if(dField.grave[1].size()) {
-		numFont->draw(dataManager.GetNumString(dField.grave[1].size()), recti(408 * mainGame->xScale, 261 * mainGame->yScale, 462 * mainGame->xScale, 281 * mainGame->yScale), 0xff000000, true, false, 0);
-		numFont->draw(dataManager.GetNumString(dField.grave[1].size()), recti(408 * mainGame->xScale, 262 * mainGame->yScale, 464 * mainGame->xScale, 282 * mainGame->yScale), 0xffffff00, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.grave[1].size()), recti(348 * mainGame->xScale, 310 * mainGame->yScale, 462 * mainGame->xScale, 281 * mainGame->yScale), 0xff000000, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.grave[1].size()), recti(348 * mainGame->xScale, 311 * mainGame->yScale, 464 * mainGame->xScale, 282 * mainGame->yScale), 0xffffff00, true, false, 0);
 	}
 	if(dField.remove[1].size()) {
-		numFont->draw(dataManager.GetNumString(dField.remove[1].size()), recti(386 * mainGame->xScale, 320 * mainGame->yScale, 443 * mainGame->xScale, 340 * mainGame->yScale), 0xff000000, true, false, 0);
-		numFont->draw(dataManager.GetNumString(dField.remove[1].size()), recti(386 * mainGame->xScale, 321 * mainGame->yScale, 445 * mainGame->xScale, 341 * mainGame->yScale), 0xffffff00, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.remove[1].size()), recti(216 * mainGame->xScale, 310 * mainGame->yScale, 443 * mainGame->xScale, 340 * mainGame->yScale), 0xff000000, true, false, 0);
+		numFont->draw(dataManager.GetNumString(dField.remove[1].size()), recti(216 * mainGame->xScale, 311 * mainGame->yScale, 445 * mainGame->xScale, 341 * mainGame->yScale), 0xffffff00, true, false, 0);
 	}
 }
 void Game::DrawGUI() {

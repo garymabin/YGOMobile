@@ -1041,7 +1041,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 						selected_field |= flag;
 						select_min--;
 						if (select_min == 0) {
-							unsigned char respbuf[64];
+							unsigned char respbuf[80];
 							int filter = 1;
 							int p = 0;
 							for (int i = 0; i < 5; ++i, filter <<= 1) {
