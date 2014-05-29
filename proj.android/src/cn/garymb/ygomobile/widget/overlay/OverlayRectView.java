@@ -7,7 +7,7 @@ import android.widget.ToggleButton;
 
 import cn.garymb.ygomobile.Constants;
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.widget.overlay.DuelOverlayView.OnDuelOptionsSelectListener;
+import cn.garymb.ygomobile.widget.overlay.OverlayOvalView.OnDuelOptionsSelectListener;
 
 import com.jawsware.core.share.OverlayView;
 

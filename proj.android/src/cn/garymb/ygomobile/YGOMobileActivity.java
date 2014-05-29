@@ -15,9 +15,9 @@ import cn.garymb.ygomobile.core.NetworkController;
 import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.widget.ComboBoxCompat;
 import cn.garymb.ygomobile.widget.EditWindowCompat;
-import cn.garymb.ygomobile.widget.overlay.DuelOverlayView;
+import cn.garymb.ygomobile.widget.overlay.OverlayOvalView;
 import cn.garymb.ygomobile.widget.overlay.OverlayRectView;
-import cn.garymb.ygomobile.widget.overlay.DuelOverlayView.OnDuelOptionsSelectListener;
+import cn.garymb.ygomobile.widget.overlay.OverlayOvalView.OnDuelOptionsSelectListener;
 import android.app.NativeActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -134,7 +134,7 @@ public class YGOMobileActivity extends NativeActivity implements
 	private View mContentView;
 	private volatile boolean mOverlayShowRequest = false;
 	private OverlayRectView mChainOverlayView;
-	private DuelOverlayView mOverlayView;
+	private OverlayOvalView mOverlayView;
 	private NetworkController mNetController;
 	
 	private int mChainControlXPostion;
@@ -267,7 +267,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		mGlobalEditText.setOnDismissListener(this);
 
 		mChainOverlayView = new OverlayRectView(this);
-		mOverlayView = new DuelOverlayView(this);
+		mOverlayView = new OverlayOvalView(this);
 		mChainOverlayView.setDuelOpsListener(this);
 		mOverlayView.setDuelOpsListener(this);
 	}
