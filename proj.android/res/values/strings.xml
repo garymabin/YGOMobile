@@ -25,8 +25,8 @@
     <string name="button_cancel">Cancel</string>
     <string name="cancel">Cancel</string>
     <string name="refresh_texture">R</string>
-    <string name="ignore_chain">S</string>
-    <string name="react_chain">A</string>
+    <string name="ignore_chain">Ignore Chain</string>
+    <string name="react_chain">React Chain</string>
     <string name="combobox_choose_item">请选择一项</string>
     <string name="action_filter">筛选</string>
     <string name="action_filter_none">（无）</string>

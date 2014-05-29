@@ -386,12 +386,20 @@ public class StaticApplication extends Application {
 		return TextUtils.isEmpty(name) ? "MyCard": name;
 	}
 	
+	public float getScreenHeight() {
+		return mScreenHeight;
+	}
+	
 	public float getScreenWidth() {
 		return mScreenWidth;
 	}
 	
-	public float getScreenHeight() {
-		return mScreenHeight;
+	public float getXScale() {
+		return mScreenHeight / 1024.0f;
+	}
+	
+	public float getYScale() {
+		return mScreenWidth / 640.0f;
 	}
 
 	public float getDensity() {

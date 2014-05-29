@@ -55,7 +55,7 @@ public class DuelOverlayView extends OverlayView {
 	private static Rect tempRect = new Rect();
 
 	public DuelOverlayView(Context context) {
-		super(context, R.layout.overlay, 1);
+		super(context, R.layout.overlay);
 		mMoveThresold = getResources().getDimensionPixelSize(
 				R.dimen.options_switch_move_threshold);
 	}
@@ -70,22 +70,6 @@ public class DuelOverlayView extends OverlayView {
 
 	public void setDuelOpsListener(OnDuelOptionsSelectListener listener) {
 		mListener = listener;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.jawsware.core.share.OverlayView#onSetupLayoutParams()
-	 */
-	@Override
-	protected void onSetupLayoutParams() {
-		// TODO Auto-generated method stub
-		super.onSetupLayoutParams();
-	}
-
-	@Override
-	protected void refreshViews() {
-
 	}
 
 	@Override

@@ -53,7 +53,6 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@id/rl_tab"
         android:layout_gravity="center"
-        android:background="#ffffff"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
 

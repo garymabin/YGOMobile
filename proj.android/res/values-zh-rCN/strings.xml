@@ -4,6 +4,9 @@
     <string name="crash_title">应用程序崩溃</string>
     <string name="crashed">w(ﾟДﾟ)w.. YGOMobile崩溃啦！</string>
     <string name="crash_dialog_comment_prompt">YGOMobile崩溃了喵，请将错误日志通过邮件发送给俺们喵，有其他想法可以在下面反馈喵!</string>
+    
+    <string name="ignore_chain">忽略连锁</string>
+    <string name="react_chain">显示连锁</string>
     <string name="crash_dialog_ok_toast">感谢喵!</string>
     <string name="action_settings">设置</string>
     <string name="action_support">支持我们</string>

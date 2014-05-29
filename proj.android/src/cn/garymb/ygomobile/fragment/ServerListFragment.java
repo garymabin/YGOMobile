@@ -21,16 +21,20 @@ import cn.garymb.ygomobile.ygo.YGOServerInfo;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.Parcelable;
+import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.TextView;
 
@@ -151,7 +155,6 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 		mScreenWidth = StaticApplication.peekInstance().getScreenWidth();
 	}
 
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -160,6 +163,13 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 		mAdapter = new ServerAdapter(inflater, Model.peekInstance()
 				.getServers(), this);
 		mListView.setAdapter(mAdapter);
+		setIndicator();
+		mListView.setOnGroupExpandListener(this);
+		return mListView;
+	}
+
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+	private void setIndicator() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
 			mListView.setIndicatorBoundsRelative((int) (mScreenWidth - 80),
 					(int) (mScreenWidth - 20));
@@ -167,8 +177,19 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			mListView.setIndicatorBounds((int) (mScreenWidth - 80),
 					(int) (mScreenWidth - 20));
 		}
-		mListView.setOnGroupExpandListener(this);
-		return mListView;
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		resizeIndicator(newConfig);
+	}
+
+	private void resizeIndicator(Configuration newConfig) {
+		DisplayMetrics dm = new DisplayMetrics();
+		mActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		mScreenWidth = dm.widthPixels;
+		setIndicator();
 	}
 
 	@Override
@@ -224,7 +245,6 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			options.mPort = info.port;
 			options.mName = Controller.peekInstance().getLoginName();
 			Intent intent = new Intent(getActivity(), YGOMobileActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			intent.putExtra(YGOGameOptions.YGO_GAME_OPTIONS_BUNDLE_KEY, options);
 			startActivity(intent);
 		} else if (operationId == ServerOperationPanel.SERVER_OPERATION_EDIT) {

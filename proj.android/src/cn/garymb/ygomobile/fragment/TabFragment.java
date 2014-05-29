@@ -55,7 +55,6 @@ public abstract class TabFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		View contentView = inflater.inflate(R.layout.tab_fragment, null);
 
 		mHsv = (HorizontalScrollView) contentView.findViewById(R.id.mHsv);
@@ -74,7 +73,6 @@ public abstract class TabFragment extends BaseFragment {
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
 		super.onConfigurationChanged(newConfig);
 		resizeNavTab(newConfig);
 	}

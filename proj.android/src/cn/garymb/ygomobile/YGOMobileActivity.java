@@ -12,13 +12,16 @@ import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.core.IrrlichtBridge;
 import cn.garymb.ygomobile.core.NetworkController;
+import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.widget.ComboBoxCompat;
 import cn.garymb.ygomobile.widget.EditWindowCompat;
 import cn.garymb.ygomobile.widget.overlay.DuelOverlayView;
+import cn.garymb.ygomobile.widget.overlay.OverlayRectView;
 import cn.garymb.ygomobile.widget.overlay.DuelOverlayView.OnDuelOptionsSelectListener;
 import android.app.NativeActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -92,8 +95,10 @@ public class YGOMobileActivity extends NativeActivity implements
 				boolean isShow = msg.arg1 == 1;
 				if (isShow) {
 					mOverlayView.showAtScreen(0, 0);
+					mChainOverlayView.showAtScreen(mChainControlXPostion, mChainControlYPostion);
 				} else {
 					mOverlayView.removeFromScreen();
+					mChainOverlayView.removeFromScreen();
 				}
 			}
 			default:
@@ -103,6 +108,10 @@ public class YGOMobileActivity extends NativeActivity implements
 		}
 
 	}
+	
+	private static final int CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE = 205;
+	
+	private static final int CHAIN_CONTROL_PANEL_Y_REVERT_POSITION = 100;
 
 	public static final String TAG = "YGOMobile";
 	public static final int MSG_ID_TOGGLE_IME = 0x0;
@@ -124,8 +133,13 @@ public class YGOMobileActivity extends NativeActivity implements
 	private WakeLock mLock;
 	private View mContentView;
 	private volatile boolean mOverlayShowRequest = false;
+	private OverlayRectView mChainOverlayView;
 	private DuelOverlayView mOverlayView;
 	private NetworkController mNetController;
+	
+	private int mChainControlXPostion;
+	
+	private int mChainControlYPostion;
 
 	@Override
 	protected void onStart() {
@@ -148,6 +162,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		super.onPause();
 		if (mOverlayShowRequest) {
 			mOverlayView.removeFromScreen();
+			mChainOverlayView.removeFromScreen();
 		}
 	}
 
@@ -162,6 +177,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		super.onResume();
 		if (mOverlayShowRequest) {
 			mOverlayView.showAtScreen(0, 0);
+			mChainOverlayView.showAtScreen(mChainControlXPostion, mChainControlYPostion);
 		}
 	}
 
@@ -204,6 +220,13 @@ public class YGOMobileActivity extends NativeActivity implements
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		mHandler = new EventHandler();
+		final Resources res = getResources();
+		
+		mChainControlXPostion = (int)(CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE * DeviceUtils.getXScale());
+		mChainControlYPostion = (int)(DeviceUtils.getScreenWidth() - CHAIN_CONTROL_PANEL_Y_REVERT_POSITION * DeviceUtils.getYScale() -
+				(res.getDimensionPixelSize(R.dimen.chain_control_button_height) * 2 + 
+						res.getDimensionPixelSize(R.dimen.chain_control_margin)));
+		
 		initExtraView();
 		mPM = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mNetController = new NetworkController(getApplicationContext());
@@ -243,7 +266,9 @@ public class YGOMobileActivity extends NativeActivity implements
 		mGlobalEditText.setEditActionListener(this);
 		mGlobalEditText.setOnDismissListener(this);
 
+		mChainOverlayView = new OverlayRectView(this);
 		mOverlayView = new DuelOverlayView(this);
+		mChainOverlayView.setDuelOpsListener(this);
 		mOverlayView.setDuelOpsListener(this);
 	}
 

@@ -29,14 +29,12 @@ public abstract class OverlayView extends RelativeLayout {
 	protected WindowManager.LayoutParams layoutParams;
 
 	private int layoutResId;
-	private int notificationId = 0;
 	private boolean mIsAdded = false;
 
-	public OverlayView(Context context, int layoutResId, int notificationId) {
+	public OverlayView(Context context, int layoutResId) {
 		super(context);
 
 		this.layoutResId = layoutResId;
-		this.notificationId = notificationId;
 
 		this.setLongClickable(true);
 
@@ -250,6 +248,10 @@ public abstract class OverlayView extends RelativeLayout {
 	protected void onTouchEvent_Press(MotionEvent event) {
 
 	}
+	
+	protected void onTouchEvent_Cancel(MotionEvent event) {
+		
+	}
 
 	public boolean onTouchEvent_LongPress() {
 		return false;
@@ -270,6 +272,8 @@ public abstract class OverlayView extends RelativeLayout {
 
 			onTouchEvent_Move(event);
 
+		} else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL) {
+			onTouchEvent_Cancel(event);
 		}
 
 		return super.onTouchEvent(event);

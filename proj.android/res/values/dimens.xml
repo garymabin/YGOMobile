@@ -10,5 +10,9 @@
 
     <integer name="default_ogles_config">1</integer>
     <integer name="default_card_quality_config">1</integer>
+    
+    <dimen name="chain_control_button_width">70dip</dimen>
+    <dimen name="chain_control_button_height">30dip</dimen>
+    <dimen name="chain_control_margin">10dip</dimen>
 
 </resources>
