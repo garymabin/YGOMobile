@@ -24,7 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.util.Constants;
+import cn.garymb.ygomobile.Constants;
 
 import com.jawsware.core.share.OverlayView;
 

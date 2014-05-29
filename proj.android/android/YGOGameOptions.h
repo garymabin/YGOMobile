@@ -25,14 +25,17 @@ public:
 	}
 
 	inline const char* getUserName() {
-		return m_puserName;
+		return m_puserName == NULL ? "MyCard" : m_puserName;
 	}
 
 	inline int getPort() const {
 		return m_port;
 	}
 
-	inline void formatGameParams(wchar_t* dst) {
+	inline bool formatGameParams(wchar_t* dst) {
+		if (m_proomName == NULL) {
+			return false;
+		}
 		char formatParams[512] = { 0 };
 		if (m_isCompleteOptions) {
 			sprintf(formatParams, "%d%d%c%c%c%d,%d,%d,%s", m_rule, m_mode,
@@ -52,6 +55,7 @@ public:
 			sprintf(extraParams, "$%s", m_proomPasswd);
 		}
 		BufferIO::DecodeUTF8(formatParams, dst);
+		return true;
 	}
 private:
 	char* m_pipAddr;

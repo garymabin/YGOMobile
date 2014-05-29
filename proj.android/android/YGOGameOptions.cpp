@@ -18,26 +18,30 @@ YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), 
 	char log[128];
 	char * rawdata = (char*)data;
 	int tmplength = ::BufferIO::ReadInt32(rawdata);
-	sprintf(log, "%d", tmplength);
-	irr::os::Printer::log(log);
-	m_pipAddr = new char[tmplength + 1];
-	memset(m_pipAddr, 0, tmplength + 1);
-	memcpy(m_pipAddr, rawdata, tmplength);
-	rawdata += tmplength;
+	if (tmplength != 0) {
+		m_pipAddr = new char[tmplength + 1];
+		memset(m_pipAddr, 0, tmplength + 1);
+		memcpy(m_pipAddr, rawdata, tmplength);
+		rawdata += tmplength;
+	}
 
 	//read user name
 	tmplength = ::BufferIO::ReadInt32(rawdata);
-	m_puserName = new char[tmplength + 1];
-	memset(m_puserName, 0, tmplength + 1);
-	memcpy(m_puserName, rawdata, tmplength);
-	rawdata += tmplength;
+	if (tmplength != 0) {
+		m_puserName = new char[tmplength + 1];
+		memset(m_puserName, 0, tmplength + 1);
+		memcpy(m_puserName, rawdata, tmplength);
+		rawdata += tmplength;
+	}
 
 	//read room name
 	tmplength = ::BufferIO::ReadInt32(rawdata);
-	m_proomName = new char[tmplength + 1];
-	memset(m_proomName, 0, tmplength + 1);
-	memcpy(m_proomName, rawdata, tmplength);
-	rawdata += tmplength;
+	if (tmplength != 0) {
+		m_proomName = new char[tmplength + 1];
+		memset(m_proomName, 0, tmplength + 1);
+		memcpy(m_proomName, rawdata, tmplength);
+		rawdata += tmplength;
+	}
 
 	//read room password
 	tmplength = ::BufferIO::ReadInt32(rawdata);

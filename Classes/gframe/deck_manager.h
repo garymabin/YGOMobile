@@ -35,7 +35,7 @@ public:
 	Deck current_deck;
 	std::vector<LFList> _lfList;
 
-	void LoadLFList();
+	void LoadLFList(const char* path);
 	wchar_t* GetLFListName(int lfhash);
 	int CheckLFList(Deck& deck, int lfhash, bool allow_ocg, bool allow_tcg);
 	void LoadDeck(Deck& deck, int* dbuf, int mainc, int sidec);

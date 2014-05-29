@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <cn.garymb.ygomobile.widget.preference.MyEditTextPreference
+        android:key="pref_key_game_res_path"
+        android:persistent="true"
+        android:title="@string/settings_game_res_path" />
+    <cn.garymb.ygomobile.widget.preference.MyListPreference
+        android:key="pref_key_game_ogles_config"
+        android:entries="@array/opengl_version"
+        android:entryValues="@array/opengl_version_value"
+        android:persistent="true"
+        android:defaultValue="@integer/default_ogles_config"
+        android:title="@string/settings_game_opengl" />
+    <cn.garymb.ygomobile.widget.preference.MyListPreference
+        android:key="pref_key_game_image_quality"
+        android:entries="@array/card_quality"
+        android:entryValues="@array/card_quality_value"
+        android:persistent="true"
+        android:defaultValue="@integer/default_card_quality_config"
+        android:title="@string/settings_game_card_quality" />
+    <cn.garymb.ygomobile.widget.preference.MyListPreference
+        android:key="pref_key_game_font_name"
+        android:persistent="true"
+        android:title="@string/settings_game_font_name" />
+</PreferenceScreen>

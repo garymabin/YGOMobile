@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 /**
  * @author mabin
@@ -122,18 +123,10 @@ public class YGOGameOptions implements Parcelable {
 	
 	public ByteBuffer toByteBuffer() {
 		ByteBuffer buffer = ByteBuffer.allocateDirect(MAX_BYTE_BUFFER_SIZE);
-		buffer.putInt(Integer.reverseBytes(mServerAddr.getBytes().length));
-		buffer.put(mServerAddr.getBytes());
-		buffer.putInt(Integer.reverseBytes(mName.getBytes().length));
-		buffer.put(mName.getBytes());
-		buffer.putInt(Integer.reverseBytes(mRoomName.getBytes().length));
-		buffer.put(mRoomName.getBytes());
-		if (mRoomPasswd == null || mRoomPasswd.equals("")) {
-			buffer.putInt(Integer.reverseBytes(0));
-		} else {
-			buffer.putInt(Integer.reverseBytes(mRoomPasswd.getBytes().length));
-			buffer.put(mRoomPasswd.getBytes());
-		}
+		putString(buffer, mServerAddr);
+		putString(buffer, mName);
+		putString(buffer, mRoomName);
+		putString(buffer, mRoomPasswd);
 		buffer.putInt(Integer.reverseBytes(mPort));
 		buffer.putInt(Integer.reverseBytes(mMode));
 		buffer.putInt(Integer.reverseBytes(isCompleteOptions ? 1 : 0));
@@ -147,6 +140,15 @@ public class YGOGameOptions implements Parcelable {
 			buffer.putInt(Integer.reverseBytes(mNoDeckShuffle ? 1 : 0));
 		}
 		return buffer;
+	}
+
+	private void putString(ByteBuffer buffer, String str) {
+		if (TextUtils.isEmpty(str)) {
+			buffer.putInt(Integer.reverseBytes(0));
+		} else {
+			buffer.putInt(Integer.reverseBytes(str.getBytes().length));
+			buffer.put(str.getBytes());
+		}
 	}
 
 }

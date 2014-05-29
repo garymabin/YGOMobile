@@ -8,13 +8,10 @@ package cn.garymb.ygomobile;
 
 import java.nio.ByteBuffer;
 
-import com.google.analytics.tracking.android.EasyTracker;
-
 import cn.garymb.ygodata.YGOGameOptions;
+import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.core.IrrlichtBridge;
 import cn.garymb.ygomobile.core.NetworkController;
-import cn.garymb.ygomobile.core.StaticApplication;
-import cn.garymb.ygomobile.util.Constants;
 import cn.garymb.ygomobile.widget.ComboBoxCompat;
 import cn.garymb.ygomobile.widget.EditWindowCompat;
 import cn.garymb.ygomobile.widget.overlay.DuelOverlayView;
@@ -32,8 +29,6 @@ import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.PopupWindow.OnDismissListener;
@@ -133,31 +128,6 @@ public class YGOMobileActivity extends NativeActivity implements
 	private NetworkController mNetController;
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		switch (item.getItemId()) {
-		case R.id.item_save_log:
-			throw new RuntimeException(
-					"this is an runtime exception caused by user");
-		case R.id.item_advanced_settings: {
-			Intent settingIntent = new Intent(YGOMobileActivity.this,
-					AdvancedSettingsActivity.class);
-			startActivity(settingIntent);
-		}
-		default:
-			break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
@@ -165,7 +135,6 @@ public class YGOMobileActivity extends NativeActivity implements
 			mLock = mPM.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG);
 		}
 		mLock.acquire();
-		EasyTracker.getInstance(getApplicationContext()).activityStart(this);
 	}
 
 	/*
@@ -214,7 +183,6 @@ public class YGOMobileActivity extends NativeActivity implements
 		if (mLock != null) {
 			mLock.release();
 		}
-		EasyTracker.getInstance(getApplicationContext()).activityStop(this);
 	}
 
 	/**

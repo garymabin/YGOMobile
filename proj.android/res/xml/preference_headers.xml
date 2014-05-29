@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+	<header 
+        android:fragment="cn.garymb.ygomobile.fragment.setting.CommonSettingsFragment"
+        android:title="@string/settings_common"/>
+    <header 
+        android:fragment="cn.garymb.ygomobile.fragment.setting.GameSettingsFragment"
+        android:title="@string/settings_game"/>
+    <header
+        android:fragment="cn.garymb.ygomobile.fragment.setting.AboutSettingsFragment"
+        android:title="@string/settings_about"
+        android:summary="@string/app_name" />
+</preference-headers>

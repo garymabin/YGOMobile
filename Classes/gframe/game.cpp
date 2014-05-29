@@ -74,11 +74,11 @@ bool Game::Initialize() {
 	char log_scale[256];
 	sprintf(log_scale, "xScale = %f, yScale = %f", xScale, yScale);
 	Printer::log(log_scale);
-	path workPath = irr::android::getCustomizedResourceDir(appMain);
-	path pwd = fs->getWorkingDirectory();
-	Printer::log(pwd.c_str());
-	fs->changeWorkingDirectoryTo(workPath);
-	Printer::log(workPath.c_str());
+	io::path cacheDir = irr::android::getCacheDir(appMain);
+	io::path databaseDir = irr::android::getDBDir(appMain);
+	io::path configVersion = irr::android::getCoreConfigVersion(appMain);
+	io::path workingDir = irr::android::getResourcePath(appMain);
+	fs->changeWorkingDirectoryTo(workingDir);
 	/* Your media must be somewhere inside the assets folder. The assets folder is the root for the file system.
 	 This example copies the media in the Android.mk makefile. */
 	stringc mediaPath = "media/";
@@ -112,7 +112,7 @@ bool Game::Initialize() {
 	is_building = false;
 	memset(&dInfo, 0, sizeof(DuelInfo));
 	memset(chatTiming, 0, sizeof(chatTiming));
-	deckManager.LoadLFList();
+	deckManager.LoadLFList((cacheDir + path("/core/") + configVersion + path("/config/lflist.conf")).c_str());
 	driver = device->getVideoDriver();
 #ifdef _IRR_ANDROID_PLATFORM_
 	int quality = android::getCardQuality(app);
@@ -140,11 +140,11 @@ bool Game::Initialize() {
 	driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
 
 	imageManager.SetDevice(device);
-	if(!imageManager.Initial())
+	if(!imageManager.Initial(cacheDir))
 		return false;
-	if(!dataManager.LoadDB("cards.cdb"))
+	if(!dataManager.LoadDB(databaseDir.append("/cards.cdb").c_str()))
 		return false;
-	if(!dataManager.LoadStrings("strings.conf"))
+	if(!dataManager.LoadStrings((cacheDir + path("/core/") + configVersion + path("/config/strings.conf")).c_str()))
 		return false;
 	env = device->getGUIEnvironment();
 	numFont = irr::gui::CGUITTFont::createTTFont(env, gameConf.numfont, (int)16 * yScale);
@@ -229,8 +229,10 @@ bool Game::Initialize() {
 #else
 	cbLFlist = env->addComboBox(rect<s32>(140 * xScale, 25 * yScale, 300 * xScale, 50 * yScale), wCreateHost);
 #endif
-	for(unsigned int i = 0; i < deckManager._lfList.size(); ++i)
-		cbLFlist->addItem(deckManager._lfList[i].listName, deckManager._lfList[i].hash);
+	std::vector<LFList>::iterator iter;
+	for (iter = deckManager._lfList.begin(); iter != deckManager._lfList.end(); iter++) {
+		cbLFlist->addItem((*iter).listName, (*iter).hash);
+	}
 	env->addStaticText(dataManager.GetSysString(1225), rect<s32>(20 * xScale, 60 * yScale, 220 * xScale, 80 * yScale), false, false, wCreateHost);
 #ifdef _IRR_ANDROID_PLATFORM_
 	cbRule = CAndroidGUIComboBox::addAndroidComboBox(env, rect<s32>(140 * xScale, 55 * yScale, 300 * xScale, 80 * yScale), wCreateHost);
@@ -695,8 +697,9 @@ bool Game::Initialize() {
 #else
 	cbDBDecks = env->addComboBox(rect<s32>(80 * xScale, 35 * yScale, 220 * xScale, 60 * yScale), wDeckEdit, COMBOBOX_DBDECKS);
 #endif
-	for(unsigned int i = 0; i < deckManager._lfList.size(); ++i)
-		cbDBLFList->addItem(deckManager._lfList[i].listName);
+	for (iter = deckManager._lfList.begin(); iter != deckManager._lfList.end(); iter++) {
+		cbDBLFList->addItem((*iter).listName);
+	}
 	btnSaveDeck = env->addButton(rect<s32>(225 * xScale, 35 * yScale, 290 * xScale, 60 * yScale), wDeckEdit, BUTTON_SAVE_DECK, dataManager.GetSysString(1302));
 #ifdef _IRR_ANDROID_PLATFORM_
 	ebDeckname = CAndroidGUIEditBox::addAndroidEditBox(L"", true, env, rect<s32>(80 * xScale, 65 * yScale, 220 * xScale, 90 * yScale), wDeckEdit, -1);
@@ -1280,93 +1283,23 @@ void Game::RefreshSingleplay() {
 #endif
 }
 void Game::LoadConfig() {
-	FILE* fp = fopen("system.conf", "r");
-	if(!fp)
-		return;
-	char linebuf[256];
-	char strbuf[32];
-	char valbuf[256];
 	wchar_t wstr[256];
 	gameConf.antialias = 0;
 	gameConf.serverport = 7911;
 	gameConf.textfontsize = 12;
-	gameConf.nickname[0] = 0;
+	BufferIO::DecodeUTF8(android::getUserName(appMain).c_str(), wstr);
+	BufferIO::CopyWStr(wstr, gameConf.nickname, 20);
 	gameConf.gamename[0] = 0;
-	gameConf.lastdeck[0] = 0;
-	gameConf.numfont[0] = 0;
-	gameConf.textfont[0] = 0;
+	BufferIO::DecodeUTF8(android::getLastDeck(appMain).c_str(), wstr);
+	BufferIO::CopyWStr(wstr, gameConf.lastdeck, 64);
+	BufferIO::DecodeUTF8(android::getFontPath(appMain).c_str(), wstr);
+	BufferIO::CopyWStr(wstr, gameConf.numfont, 256);
+	BufferIO::CopyWStr(wstr, gameConf.textfont, 256);
 	gameConf.lastip[0] = 0;
 	gameConf.lastport[0] = 0;
 	gameConf.roompass[0] = 0;
-	fseek(fp, 0, SEEK_END);
-	int fsize = ftell(fp);
-	fseek(fp, 0, SEEK_SET);
-	while(ftell(fp) < fsize) {
-		fgets(linebuf, 250, fp);
-		sscanf(linebuf, "%s = %s", strbuf, valbuf);
-		if(!strcmp(strbuf, "antialias")) {
-			gameConf.antialias = atoi(valbuf);
-		} else if(!strcmp(strbuf, "use_d3d")) {
-			gameConf.use_d3d = atoi(valbuf) > 0;
-		} else if(!strcmp(strbuf, "errorlog")) {
-			enable_log = atoi(valbuf);
-		} else if(!strcmp(strbuf, "nickname")) {
-			BufferIO::DecodeUTF8(valbuf, wstr);
-			BufferIO::CopyWStr(wstr, gameConf.nickname, 20);
-		} else if(!strcmp(strbuf, "gamename")) {
-			BufferIO::DecodeUTF8(valbuf, wstr);
-			BufferIO::CopyWStr(wstr, gameConf.gamename, 20);
-		} else if(!strcmp(strbuf, "lastdeck")) {
-			BufferIO::DecodeUTF8(valbuf, wstr);
-			BufferIO::CopyWStr(wstr, gameConf.lastdeck, 64);
-		} else if(!strcmp(strbuf, "textfont")) {
-			BufferIO::DecodeUTF8(valbuf, wstr);
-			int textfontsize;
-			sscanf(linebuf, "%s = %s %d", strbuf, valbuf, &textfontsize);
-			gameConf.textfontsize = textfontsize;
-			BufferIO::CopyWStr(wstr, gameConf.textfont, 256);
-		} else if(!strcmp(strbuf, "numfont")) {
-			BufferIO::DecodeUTF8(valbuf, wstr);
-			BufferIO::CopyWStr(wstr, gameConf.numfont, 256);
-		} else if(!strcmp(strbuf, "serverport")) {
-			gameConf.serverport = atoi(valbuf);
-		} else if(!strcmp(strbuf, "lastip")) {
-			BufferIO::DecodeUTF8(valbuf, wstr);
-			BufferIO::CopyWStr(wstr, gameConf.lastip, 20);
-		} else if(!strcmp(strbuf, "lastport")) {
-			BufferIO::DecodeUTF8(valbuf, wstr);
-			BufferIO::CopyWStr(wstr, gameConf.lastport, 20);
-		} else if(!strcmp(strbuf, "roompass")) {
-			BufferIO::DecodeUTF8(valbuf, wstr);
-			BufferIO::CopyWStr(wstr, gameConf.roompass, 20);
-		}
-	}
-	fclose(fp);
 }
 void Game::SaveConfig() {
-	FILE* fp = fopen("system.conf", "w");
-	fprintf(fp, "#config file\n#nickname & gamename should be less than 20 characters\n");
-	char linebuf[256];
-	fprintf(fp, "use_d3d = %d\n", gameConf.use_d3d ? 1 : 0);
-	fprintf(fp, "antialias = %d\n", gameConf.antialias);
-	fprintf(fp, "errorlog = %d\n", enable_log);
-	BufferIO::CopyWStr(ebNickName->getText(), gameConf.nickname, 20);
-	BufferIO::EncodeUTF8(gameConf.nickname, linebuf);
-	fprintf(fp, "nickname = %s\n", linebuf);
-	BufferIO::EncodeUTF8(gameConf.gamename, linebuf);
-	fprintf(fp, "gamename = %s\n", linebuf);
-	BufferIO::EncodeUTF8(gameConf.lastdeck, linebuf);
-	fprintf(fp, "lastdeck = %s\n", linebuf);
-	BufferIO::EncodeUTF8(gameConf.textfont, linebuf);
-	fprintf(fp, "textfont = %s %d\n", linebuf, gameConf.textfontsize);
-	BufferIO::EncodeUTF8(gameConf.numfont, linebuf);
-	fprintf(fp, "numfont = %s\n", linebuf);
-	fprintf(fp, "serverport = %d\n", gameConf.serverport);
-	BufferIO::EncodeUTF8(gameConf.lastip, linebuf);
-	fprintf(fp, "lastip = %s\n", linebuf);
-	BufferIO::EncodeUTF8(gameConf.lastport, linebuf);
-	fprintf(fp, "lastport = %s\n", linebuf);
-	fclose(fp);
 }
 void Game::ShowCardInfo(int code) {
 	CardData cd;
@@ -1455,6 +1388,7 @@ void Game::AddChatMsg(wchar_t* msg, int player) {
 	default: //from watcher or unknown
 		if(player < 11 || player > 19)
 			chatMsg[0].append(L"[---]: ");
+		break;
 	}
 	chatMsg[0].append(msg);
 }

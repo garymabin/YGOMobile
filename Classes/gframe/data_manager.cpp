@@ -12,7 +12,7 @@ bool DataManager::LoadDB(const char* file) {
 	if(sqlite3_open(file, &pDB) != SQLITE_OK)
 		return Error(pDB);
 	sqlite3_stmt* pStmt;
-	const char* sql = "select * from datas,texts where datas.id=texts.id";
+	const char* sql = "select * from datas,texts where datas._id=texts._id";
 	if(sqlite3_prepare_v2(pDB, sql, -1, &pStmt, 0) != SQLITE_OK)
 		return Error(pDB);
 	CardDataC cd;
