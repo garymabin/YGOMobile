@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <cn.garymb.ygomobile.widget.preference.MyEditTextPreference
-        android:key="pref_key_game_res_path"
-        android:persistent="true"
-        android:title="@string/settings_game_res_path" />
+    <PreferenceCategory android:title="@string/app_name" >
     <cn.garymb.ygomobile.widget.preference.MyListPreference
         android:key="pref_key_game_ogles_config"
         android:entries="@array/opengl_version"
@@ -22,4 +19,5 @@
         android:key="pref_key_game_font_name"
         android:persistent="true"
         android:title="@string/settings_game_font_name" />
+    </PreferenceCategory>
 </PreferenceScreen>

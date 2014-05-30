@@ -12,7 +12,6 @@ public final class Settings {
 	
 	//common config
 	public static final String KEY_PREF_COMMON_IMAGE_DOWNLOAD_VIA_GPRS = "pref_key_common_card_image_download";
-	public static final String KEY_PREF_COMMON_CARD_PATH = "pref_key_common_card_path";
 	
 	//game config
 	public static final String KEY_PREF_GAME_RESOURCE_PATH = "pref_key_game_res_path";

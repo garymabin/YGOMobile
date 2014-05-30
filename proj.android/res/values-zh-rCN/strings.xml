@@ -123,6 +123,7 @@
     <string name="settings_about_author_pref">作者</string>
     <string name="settings_about_version_pref">版本</string>
     <string name="settings_about_opensource_pref">开源许可</string>
+    <string name="settings_about_change_log">版本更新记录</string>
     <string name="settings_game_card_quality">卡图质量</string>
     <string name="settings_game_card_path">卡图存放路径</string>
     <string name="settings_game_font_name">字体列表</string>

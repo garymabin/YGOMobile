@@ -28,6 +28,7 @@ public class AboutSettingsFragment extends PreferenceFragment implements OnPrefe
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preference_about);
 		mVersionPref = findPreference(Settings.KEY_PREF_ABOUT_VERSION);
+		mVersionPref.setOnPreferenceClickListener(this);
 		mOpensourcePref = findPreference(Settings.KEY_PREF_ABOUT_OPENSOURCE);
 		mOpensourcePref.setOnPreferenceClickListener(this);
 		Context context = StaticApplication.peekInstance();
@@ -41,23 +42,33 @@ public class AboutSettingsFragment extends PreferenceFragment implements OnPrefe
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
+		AlertDialog dlg = null;
 		if (preference.equals(mOpensourcePref)) {
-			AlertDialog dlg = DeviceUtils.createOpenSourceDialog(getActivity());
+			dlg = DeviceUtils.createOpenSourceDialog(getActivity());
 			dlg.show();
-			final Resources res = getActivity().getResources();
-	        // Title
-	        final int titleId = res.getIdentifier("alertTitle", "id", "android");
-	        final View title = dlg.findViewById(titleId);
-	        if (title != null) {
-	            ((TextView) title).setTextColor(res.getColor(R.color.apptheme_color));
-	        }
 
-	        // Title divider
-	        final int titleDividerId = res.getIdentifier("titleDivider", "id", "android");
-	        final View titleDivider = dlg.findViewById(titleDividerId);
-	        if (titleDivider != null) {
-	            titleDivider.setBackgroundColor(res.getColor(R.color.apptheme_color));
-	        }
+		} else if (preference.equals(mVersionPref)) {
+			dlg = DeviceUtils.createChangeLogDialog(getActivity());
+			dlg.show();
+		}
+		if (dlg != null) {
+			final Resources res = getActivity().getResources();
+			// Title
+			final int titleId = res
+					.getIdentifier("alertTitle", "id", "android");
+			final View title = dlg.findViewById(titleId);
+			if (title != null) {
+				((TextView) title).setTextColor(res
+						.getColor(R.color.apptheme_color));
+			}
+			// Title divider
+			final int titleDividerId = res.getIdentifier("titleDivider", "id",
+					"android");
+			final View titleDivider = dlg.findViewById(titleDividerId);
+			if (titleDivider != null) {
+				titleDivider.setBackgroundColor(res
+						.getColor(R.color.apptheme_color));
+			}
 		}
 		return false;
 	}

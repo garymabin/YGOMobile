@@ -90,7 +90,7 @@ public abstract class BaseFragment extends Fragment implements Handler.Callback,
 		ft.addToBackStack(null);
 
 		// Create and show the dialog.
-		CommonDialogFragment newFragment = CommonDialogFragment
+		CustomDialogFragment newFragment = CustomDialogFragment
 				.newInstance(params);
 		newFragment.setTargetFragment(target, requestCode);
 		newFragment.show(ft, "dialog");
@@ -108,7 +108,7 @@ public abstract class BaseFragment extends Fragment implements Handler.Callback,
 		ft.addToBackStack(null);
 
 		// Create and show the dialog.
-		CommonDialogFragment newFragment = CommonDialogFragment
+		CustomDialogFragment newFragment = CustomDialogFragment
 				.newInstance(params);
 		newFragment.show(ft, "dialog");
 	}

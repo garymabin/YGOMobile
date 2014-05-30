@@ -174,6 +174,8 @@ public class MainActivity extends ActionBarActivity implements
 			} else if (action == FRAGMENT_ID_CARD_WIKI) {
 				mActionBarCreator = new ActionBarCreator(this).setFilter(true)
 						.setSearch(true, arg1).setReset(true);
+			} else {
+				mActionBarCreator = new ActionBarCreator(this);
 			}
 			break;
 		default:
@@ -229,15 +231,6 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public boolean onNavigationItemSelected(int position, long id) {
-		if (position == DUEL_INDEX_CARD_WIKI) {
-			onActionBarChange(
-					Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE,
-					FRAGMENT_ID_CARD_WIKI, 0, null);
-		} else if (position == DUEL_INDEX_FREE_MODE) {
-			onActionBarChange(
-					Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE,
-					FRAGMENT_ID_DUEL, R.string.action_new_server, null);
-		}
 		switchState(position);
 		return false;
 	}

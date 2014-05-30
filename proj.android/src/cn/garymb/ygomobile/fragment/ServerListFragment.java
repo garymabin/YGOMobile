@@ -150,6 +150,9 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		mActivity.onActionBarChange(
+				Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE,
+				FRAGMENT_ID_DUEL, R.string.action_new_server, null);
 		mScreenWidth = StaticApplication.peekInstance().getScreenWidth();
 	}
 

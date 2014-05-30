@@ -17,25 +17,26 @@ import android.text.TextUtils;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class CommonSettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener {
 	
-	private EditTextPreference mCardPathPreference;
+	private EditTextPreference mResPathPreference;
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preference_common);
-		mCardPathPreference = (EditTextPreference) findPreference(Settings.KEY_PREF_COMMON_CARD_PATH);
-		if (TextUtils.isEmpty(mCardPathPreference.getText())) {
-			mCardPathPreference.setText(StaticApplication.peekInstance().getDefaultImageCacheRootPath());
+		mResPathPreference = (EditTextPreference) findPreference(Settings.KEY_PREF_GAME_RESOURCE_PATH);
+		if (TextUtils.isEmpty(mResPathPreference.getText())) {
+			mResPathPreference.setText(StaticApplication.peekInstance().getDefaultResPath());
 		}
-		mCardPathPreference.setSummary(mCardPathPreference.getText());
-		mCardPathPreference.setOnPreferenceChangeListener(this);
+		mResPathPreference.setSummary(mResPathPreference.getText());
+		mResPathPreference.setOnPreferenceChangeListener(this);
 	}
 
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
-		if (preference.getKey().equals(Settings.KEY_PREF_COMMON_CARD_PATH)) {
-			mCardPathPreference.setSummary((CharSequence) newValue);
-			mCardPathPreference.setText((String) newValue);
+		if (preference.getKey().equals(Settings.KEY_PREF_GAME_RESOURCE_PATH)) {
+			mResPathPreference.setSummary((CharSequence) newValue);
+			mResPathPreference.setText((String) newValue);
 		}
 		return false;
 	}

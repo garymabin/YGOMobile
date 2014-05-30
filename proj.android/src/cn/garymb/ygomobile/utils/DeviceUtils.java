@@ -36,4 +36,14 @@ public class DeviceUtils {
 				.create();
         return dlg;
 	}
+	
+	public static final AlertDialog createChangeLogDialog(Context paramContext) {
+		WebView localWebView = new WebView(paramContext);
+		localWebView.loadUrl("file:///android_asset/changelog.html");
+		localWebView.getSettings().setDefaultTextEncodingName("utf-8");
+		AlertDialog dlg =  new AlertDialog.Builder(paramContext).setTitle(R.string.settings_about_change_log)
+				.setView(localWebView).setPositiveButton(R.string.button_ok, null)
+				.create();
+        return dlg;
+	}
 }

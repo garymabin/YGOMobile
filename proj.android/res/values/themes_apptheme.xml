@@ -15,15 +15,21 @@
 
     <item name="android:checkboxStyle">@style/CheckBoxAppTheme</item>
 
-    <item name="android:spinnerStyle">@style/SpinnerAppTheme</item>
+    <item name="android:spinnerDropDownItemStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>
+    
+    <item name="dropDownListViewStyle">@style/DropDownListViewTheme</item>
     
     <item name="android:radioButtonStyle">@style/RadioButtonAppTheme</item>
 
-    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppTheme</item>
-    
     <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
     
     <item name="actionModeBackground">@drawable/ab_dark_purper</item>
+    
+    <item name="actionBarStyle">@style/ActionBarStyle</item>
+    
+    <item name="actionBarItemBackground">@drawable/apptheme_list_selector_holo_light</item>
+    
+    <item name="sdlDialogStyle">@style/CustomDialog</item>
 
   </style>
 

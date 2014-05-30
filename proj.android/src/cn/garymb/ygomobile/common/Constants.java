@@ -45,8 +45,6 @@ public interface Constants {
 	 * preference name
 	 */
 	public static final String PREF_FILE_COMMON = "pref_common";
-	public static final String PREF_KEY_LOGIN_STATUS = "pref_login_status";
-	public static final String PREF_KEY_LOGIN_NAME = "pref_login_name";
 	public static final String PREF_KEY_DATA_VERSION = "pref_data_ver";
 	public static final String PREF_KEY_LAST_DECK = "pref_last_deck";
 	

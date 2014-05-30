@@ -4,10 +4,8 @@ import cn.garymb.ygomobie.model.IDataObserver;
 import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.actionbar.ActionBarController;
-import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.net.NetworkStatusManager;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
@@ -15,8 +13,6 @@ import android.view.MenuItem;
 public class Controller {
 	
 	private static Controller INSTANCE;
-	
-	private UserStatusTracker mLoginStatusTracker;
 	
 	private UpdateController mUpdateController;
 	
@@ -30,7 +26,6 @@ public class Controller {
 		mModel = Model.peekInstance();
 		mUpdateController = new UpdateController(app);
 		mActionBarController = new ActionBarController();
-		mLoginStatusTracker = new UserStatusTracker(app);
 		mNetworkManager = NetworkStatusManager.peekInstance(app);
 	}
 
@@ -46,34 +41,6 @@ public class Controller {
 		mUpdateController.asyncUpdateMycardServer(msg);
 	}
 
-	public void asyncLogin(Bundle data) {
-		mUpdateController.asyncLogin(Message.obtain(mLoginStatusTracker, Constants.MSG_ID_LOGIN, data));
-		String name = data.getString(Constants.BUNDLE_KEY_USER_NAME);
-		mLoginStatusTracker.changeLoginStatus(UserStatusTracker.LOGIN_STATUS_LOGGING, true);
-		mLoginStatusTracker.setLoginName(name);
-	}
-	
-	public void asyncLogout() {
-		//TODO: @zh99998 how to log out.
-		mLoginStatusTracker.changeLoginStatus(UserStatusTracker.LOGIN_STATUS_LOG_OUT, true);
-	}
-	
-	public String getLoginName() {
-		return mLoginStatusTracker.getLoginName();
-	}
-	
-	public int getLoginStatus() {
-		return mLoginStatusTracker.getLoginStatus();
-	}
-	
-	public void registerForLoginStatusChange(Handler h) {
-		mLoginStatusTracker.registerForLoginStatusChange(h);
-	}
-	
-	public void unregisterForLoginStatusChange(Handler h) {
-		mLoginStatusTracker.unregisterForLoginStatusChange(h);
-	}
-	
 	public boolean handleActionBarEvent(MenuItem item) {
 		return mActionBarController.handleAction(item);
 	}
@@ -180,5 +147,9 @@ public class Controller {
 	
 	public void unregisterDataObserver(IDataObserver observer) {
 		mModel.unregisterDataObserver(observer);
+	}
+
+	public String getLoginName() {
+		return StaticApplication.peekInstance().getUserName();
 	}
 }

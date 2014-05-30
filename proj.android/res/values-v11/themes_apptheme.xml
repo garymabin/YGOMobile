@@ -23,13 +23,15 @@
 
     <item name="android:listChoiceIndicatorMultiple">@drawable/apptheme_btn_check_holo_light</item>
 
-    <item name="android:dropDownSpinnerStyle">@style/SpinnerAppTheme</item>
-    
+	<item name="android:dropDownSpinnerStyle">@style/DropDownSpinnerAppTheme</item>
+	
     <item name="android:actionModeBackground">@drawable/ab_dark_purper</item>
     
     <item name="android:listChoiceIndicatorSingle">@drawable/apptheme_btn_radio_holo_light</item>
     
     <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
+    
+    <item name="sdlDialogStyle">@style/CustomDialog</item>
     
   </style>
 

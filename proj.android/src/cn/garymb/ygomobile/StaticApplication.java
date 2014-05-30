@@ -51,7 +51,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -331,8 +330,7 @@ public class StaticApplication extends Application {
 	}
 
 	public String getCardImagePath() {
-		return mSettingsPref.getString(Settings.KEY_PREF_COMMON_CARD_PATH,
-				getDefaultImageCacheRootPath());
+		return getResourcePath() + Constants.CARD_IMAGE_DIRECTORY;
 	}
 	
 	public boolean getMobileNetworkPref() {
@@ -382,8 +380,7 @@ public class StaticApplication extends Application {
 	}
 
 	public String getUserName() {
-		String name = Controller.peekInstance().getLoginName();
-		return TextUtils.isEmpty(name) ? "MyCard": name;
+		return "MyCard";
 	}
 	
 	public float getScreenHeight() {

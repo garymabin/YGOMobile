@@ -123,6 +123,7 @@
     <string name="settings_game_card_path">Card image save path</string>
     <string name="settings_game_opengl">OpenGL</string>
     <string name="settings_about_opensource_pref">Open source licenses</string>
+    <string name="settings_about_change_log">Change Log</string>
     <string name="settings_game_font_name">Font list</string>
     <string name="settings_game_res_path">Resource path</string>
     
