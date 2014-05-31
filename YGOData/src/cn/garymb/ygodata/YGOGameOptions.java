@@ -23,6 +23,8 @@ public class YGOGameOptions implements Parcelable {
 	
 	public String mRoomPasswd;
 	
+	public String mHostInfo;
+	
 	public int mPort;
 	
 	public int mMode = 0;
@@ -62,6 +64,7 @@ public class YGOGameOptions implements Parcelable {
 		dest.writeString(mName);
 		dest.writeString(mRoomName);
 		dest.writeString(mRoomPasswd);
+		dest.writeString(mHostInfo);
 		dest.writeInt(mPort);
 		dest.writeInt(mMode);
 		dest.writeInt(isCompleteOptions ? 1 : 0);
@@ -83,6 +86,7 @@ public class YGOGameOptions implements Parcelable {
 			options.mName = source.readString();
 			options.mRoomName = source.readString();
 			options.mRoomPasswd = source.readString();
+			options.mHostInfo = source.readString();
 			options.mPort = source.readInt();
 			options.mMode = source.readInt();
 			options.isCompleteOptions = source.readInt() == 1;
@@ -127,6 +131,7 @@ public class YGOGameOptions implements Parcelable {
 		putString(buffer, mName);
 		putString(buffer, mRoomName);
 		putString(buffer, mRoomPasswd);
+		putString(buffer, mHostInfo);
 		buffer.putInt(Integer.reverseBytes(mPort));
 		buffer.putInt(Integer.reverseBytes(mMode));
 		buffer.putInt(Integer.reverseBytes(isCompleteOptions ? 1 : 0));

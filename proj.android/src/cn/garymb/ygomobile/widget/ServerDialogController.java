@@ -23,6 +23,8 @@ public class ServerDialogController extends BaseDialogConfigController implement
 	
 	private EditText mUserNameEditText;
 	
+	private EditText mHostInfoEditText;
+	
 	private String mId;
 
 	public ServerDialogController(DialogConfigUIBase configUI, View view, Bundle param) {
@@ -43,11 +45,14 @@ public class ServerDialogController extends BaseDialogConfigController implement
 		mUserNameEditText = (EditText) view.findViewById(R.id.server_user_name_edit_text);
 		mUserNameEditText.addTextChangedListener(this);
 		
+		mHostInfoEditText = (EditText) view.findViewById(R.id.server_info_edit_text);
+		
 		if (info != null) {
 			mNameEditText.setText(info.name);
 			mIPEditText.setText(info.ipAddrString);
 			mPortEditText.setText(info.port + "");
 			mUserNameEditText.setText(info.userName);
+			mHostInfoEditText.setText(info.serverInfoString);
 		}
 		
 		mConfigUI.setCancelButton(res.getString(R.string.button_cancel));
@@ -77,7 +82,8 @@ public class ServerDialogController extends BaseDialogConfigController implement
 		enableSubmitIfAppropriate();		
 	}
 	
-	/*package*/ void enableSubmitIfAppropriate() {
+	@Override
+	public void enableSubmitIfAppropriate() {
 		Button positive = mConfigUI.getPosiveButton();
 		if (positive == null)
 			return;
@@ -102,6 +108,7 @@ public class ServerDialogController extends BaseDialogConfigController implement
 		info.port = Integer.parseInt(mPortEditText.getText().toString().trim());
 		info.userName = mUserNameEditText.getText().toString().trim();
 		info.id = mId;
+		info.serverInfoString = mHostInfoEditText.getText().toString().trim();
 		return info;
 	}
 

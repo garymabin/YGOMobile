@@ -60,6 +60,7 @@ public class DataStore {
 		editor.remove(Constants.PREF_KEY_USER_NAME + groupId);
 		editor.remove(Constants.PREF_KEY_SERVER_ADDR + groupId);
 		editor.remove(Constants.PREF_KEY_SERVER_PORT + groupId);
+		editor.remove(Constants.PREF_KEY_SERVER_INFO + groupId);
 		editor.commit();
 	}
 
@@ -72,6 +73,7 @@ public class DataStore {
 		editor.putString(Constants.PREF_KEY_SERVER_NAME + info.id, info.name);
 		editor.putString(Constants.PREF_KEY_SERVER_ADDR + info.id,
 				info.ipAddrString);
+		editor.putString(Constants.PREF_KEY_SERVER_INFO + info.id, info.serverInfoString);
 		editor.putInt(Constants.PREF_KEY_SERVER_PORT + info.id, info.port);
 		editor.commit();
 	}
@@ -87,9 +89,11 @@ public class DataStore {
 				defname);
 		String user = sp.getString(Constants.PREF_KEY_USER_NAME + index,
 				DEFAULT_USER_NAME);
+		String serverInfo = sp.getString(Constants.PREF_KEY_SERVER_INFO + index, "");
 		int port = sp.getInt(Constants.PREF_KEY_SERVER_PORT + index, defPort);
 		YGOServerInfo info = new YGOServerInfo(index + "", user, name, server,
 				port);
+		info.serverInfoString = serverInfo;
 		mServers.put(index, info);
 	}
 

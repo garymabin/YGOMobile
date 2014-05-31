@@ -134,6 +134,7 @@
     <string name="server_name">名称：</string>
     <string name="server_ip">IP地址:</string>
     <string name="server_port">端口:</string>
+    <string name="server_info">主机密码（可选）：</string>
     <string name="action_new_server">添加服务器</string>
     <string name="action_edit_server">编辑服务器</string>
     

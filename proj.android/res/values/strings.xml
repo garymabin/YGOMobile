@@ -129,6 +129,7 @@
     
     <string name="server_user_name">User name:</string>
     <string name="server_name">Name:</string>
+    <string name="server_info">Host passwd(optional):</string>
     <string name="server_ip">IP Address:</string>
     <string name="server_ip_hint">0.0.0.0</string>
     <string name="server_port">Port:</string>

@@ -2,8 +2,11 @@ package cn.garymb.ygomobile.fragment;
 
 import java.util.List;
 
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnShowListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,7 +29,7 @@ import cn.garymb.ygomobile.widget.ServerDialogController;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
-public class CustomDialogFragment extends SimpleDialogFragment implements OnClickListener, ResourcesConstants, OnTouchListener {
+public class CustomDialogFragment extends SimpleDialogFragment implements OnClickListener, ResourcesConstants, OnTouchListener, OnShowListener {
 	
 	public class SimpleDialogConfigUiBase implements DialogConfigUIBase {
 		
@@ -98,6 +101,13 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 		mDialogMode = getArguments().getInt(MODE_OPTIONS);
 	}
 	
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		Dialog dlg = super.onCreateDialog(savedInstanceState);
+		dlg.setOnShowListener(this);
+		return dlg;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -165,7 +175,7 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 		builder.setView(content);
 		return builder;
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.sdl__positive_button) {
@@ -227,6 +237,11 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		return true;
+	}
+
+	@Override
+	public void onShow(DialogInterface dialog) {
+		mController.enableSubmitIfAppropriate();
 	}
 
 }

@@ -22,43 +22,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="40dip"
+            android:layout_marginLeft="20dip"
             android:textColor="@color/file_name_text_color"
             android:textSize="16sp" />
-
-        <LinearLayout
-            android:id="@+id/server_user_panel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/server_name"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dip"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/server_user_name"
-                android:textColor="@color/file_property_text_color"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/server_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dip"
-                android:textColor="@color/file_property_text_color"
-                android:textSize="12sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/server_addr_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/server_user_panel"
+            android:layout_alignLeft="@id/server_name"
             android:layout_below="@+id/server_name"
-            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dip"
             android:orientation="horizontal" >
 
@@ -83,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/server_name"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dip"
             android:layout_toRightOf="@id/server_addr_panel" >
 
@@ -96,6 +69,57 @@
 
             <TextView
                 android:id="@+id/server_port"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:textColor="@color/file_property_text_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/server_user_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/server_name"
+            android:layout_below="@+id/server_addr_panel"
+            android:layout_marginTop="5dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server_user_name"
+                android:textColor="@color/file_property_text_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/server_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:textColor="@color/file_property_text_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/server_info_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/server_user_panel"
+            android:layout_marginLeft="10dip"
+            android:layout_below="@+id/server_addr_panel"
+            android:layout_marginTop="5dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server_info"
+                android:textColor="@color/file_property_text_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/server_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dip"

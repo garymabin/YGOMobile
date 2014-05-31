@@ -22,7 +22,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.BitmapFactory.Options;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -103,6 +102,8 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 					.setText(info.ipAddrString);
 			((TextView) convertView.findViewById(R.id.server_port))
 					.setText(info.port + "");
+			((TextView) convertView.findViewById(R.id.server_info))
+				.setText(info.serverInfoString);
 			return convertView;
 		}
 
@@ -242,6 +243,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			options.mServerAddr = info.ipAddrString;
 			options.mPort = info.port;
 			options.mName = info.userName;
+			options.mHostInfo = info.serverInfoString;
 			Intent intent = new Intent(getActivity(), YGOMobileActivity.class);
 			intent.putExtra(YGOGameOptions.YGO_GAME_OPTIONS_BUNDLE_KEY, options);
 			startActivity(intent);

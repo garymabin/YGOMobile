@@ -37,6 +37,19 @@
         </EditText>
     </LinearLayout>
     
+    <LinearLayout
+        android:id="@+id/le_server_info"
+        style="@style/room_item" >
+        <TextView
+            style="@style/room_item_label"
+            android:text="@string/server_info" />
+
+        <EditText
+            android:id="@+id/server_info_edit_text"
+            style="@style/room_item_edit_text"
+            android:inputType="textNoSuggestions" />
+    </LinearLayout>
+    
 
     <LinearLayout
         android:id="@+id/le_server_addr"

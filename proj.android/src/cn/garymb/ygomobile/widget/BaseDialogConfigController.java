@@ -11,5 +11,8 @@ public class BaseDialogConfigController {
 		mConfigUI = configUI;
 		mView = view;
 	}
+	
+	public void enableSubmitIfAppropriate() {
+	}
 
 }

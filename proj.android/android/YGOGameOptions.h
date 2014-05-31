@@ -33,8 +33,12 @@ public:
 	}
 
 	inline bool formatGameParams(wchar_t* dst) {
-		if (m_proomName == NULL) {
+		if (m_proomName == NULL && m_phostInfo == NULL) {
 			return false;
+		}
+		if (m_phostInfo != NULL) {
+			BufferIO::DecodeUTF8(m_phostInfo, dst);
+			return true;
 		}
 		char formatParams[512] = { 0 };
 		if (m_isCompleteOptions) {
@@ -62,6 +66,7 @@ private:
 	char* m_puserName;
 	char* m_proomName;
 	char* m_proomPasswd;
+	char* m_phostInfo;
 	int m_port;
 	int m_mode;
 	bool m_isCompleteOptions;

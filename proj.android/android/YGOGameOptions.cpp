@@ -13,7 +13,8 @@
 namespace irr {
 namespace android {
 
-YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), m_proomName(NULL), m_proomPasswd(NULL){
+YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), m_proomName(NULL), m_proomPasswd(NULL),
+		m_phostInfo(NULL){
 	//read ip addr
 	char log[128];
 	char * rawdata = (char*)data;
@@ -48,6 +49,13 @@ YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), 
 	if (tmplength != 0) {
 		m_proomPasswd = new char[tmplength];
 		memcpy(m_proomPasswd, rawdata, tmplength);
+		rawdata += tmplength;
+	}
+	//read host info
+	tmplength = ::BufferIO::ReadInt32(rawdata);
+	if (tmplength != 0) {
+		m_phostInfo = new char[tmplength];
+		memcpy(m_phostInfo, rawdata, tmplength);
 		rawdata += tmplength;
 	}
 

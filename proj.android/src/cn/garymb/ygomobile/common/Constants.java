@@ -55,6 +55,7 @@ public interface Constants {
 	public static final String PREF_KEY_SERVER_NAME = "pref_server_name_";
 	public static final String PREF_KEY_SERVER_ADDR = "pref_server_addr_";
 	public static final String PREF_KEY_SERVER_PORT = "pref_server_port_";
+	public static final String PREF_KEY_SERVER_INFO = "pref_server_info_";
 	
 	
 	
