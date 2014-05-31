@@ -147,10 +147,10 @@ bool Game::Initialize() {
 	if(!dataManager.LoadStrings((cacheDir + path("/core/") + configVersion + path("/config/strings.conf")).c_str()))
 		return false;
 	env = device->getGUIEnvironment();
-	numFont = irr::gui::CGUITTFont::createTTFont(env, gameConf.numfont, (int)16 * yScale);
-	adFont = irr::gui::CGUITTFont::createTTFont(env, gameConf.numfont, (int)12 * yScale);
-	lpcFont = irr::gui::CGUITTFont::createTTFont(env, gameConf.numfont, (int)48 * yScale);
-	guiFont = irr::gui::CGUITTFont::createTTFont(env, gameConf.textfont, (int)gameConf.textfontsize * yScale);
+	numFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)16 * yScale, true, true);
+	adFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)12 * yScale, true, true);
+	lpcFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)48 * yScale, true, true);
+	guiFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.textfont, (int)gameConf.textfontsize * yScale, true, true);
 	textFont = guiFont;
 	smgr = device->getSceneManager();
 	device->setWindowCaption(L"[---]");

@@ -6,24 +6,15 @@ package cn.garymb.ygomobile.model.data;
  */
 public interface ResourcesConstants {
 	
-	public static final String AVATAR_URL = "https://my-card.in/users/";
-	
 	public static final String FORUM_URL = "https://forum.my-card.in/";
 	
 	public static final String IMAGE_URL = "http://test2.my-card.in/images/";
 	
 	public static final String THUMBNAIL_URL = "http://test2.my-card.in/images/thumbnail/";
 	
+	public static final String WIKI_SEARCH_URL = "http://www.ourocg.cn/S.aspx?key=";
+	
 	public static final String CARD_IMAGES_NAME = "images";
-	
-	public static final String CARD_IMAGES_TARBALL_URL = "https://github.com/mycard/ygopro-images/archive/gh-pages.zip";
-	
-	public static final long CARD_IMAGES_SIZE_PORP = 4423680L;
-	
-	public static final String SERVER_LIST_URL = "http://my-card.in/servers.json";
-	public static final String ROOM_LIST_URL = "ws://my-card.in/rooms.json";
-	
-	public static final String LOGIN_URL = "https://my-card.in/users/me.json?";
 	
 	public static final String DONATE_URL_WAP = "http://shenghuo.alipay.com/send/payment/fill.htm?optEmail=garymabin@hotmail.com";
 	

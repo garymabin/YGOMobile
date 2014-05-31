@@ -10,17 +10,25 @@ import cn.garymb.ygomobile.core.images.ImageFileDownloadTaskHolder;
 import cn.garymb.ygomobile.core.images.ImageViewImageItemController;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
+import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.provider.YGOCards;
 import cn.garymb.ygomobile.ygo.YGOArrayStore;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +40,7 @@ public class CardDetailPagerFragment extends BaseFragment implements
 
 	private static final int CARD_DES_LOADER_ID = 0;
 
+	private String mName;
 	private int mType;
 	private int mRace;
 	private int mAttr;
@@ -74,6 +83,7 @@ public class CardDetailPagerFragment extends BaseFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle param = getArguments();
+		mName = param.getString(YGOCards.Texts.NAME);
 		mID = param.getString(YGOCards.Datas.ID_ALIAS);
 		mType = Integer.parseInt(param.getString(YGOCards.Datas.TYPE));
 		mRace = Integer.parseInt(param.getString(YGOCards.Datas.RACE));
@@ -104,32 +114,30 @@ public class CardDetailPagerFragment extends BaseFragment implements
 		View view = inflater.inflate(R.layout.card_detail_pager, null);
 		final Model model = Model.peekInstance();
 		mCardDesView = (TextView) view.findViewById(R.id.card_des);
+		((TextView) view.findViewById(R.id.card_wiki)).setMovementMethod(new LinkMovementMethod());
+		setTextViewHTML(((TextView) view.findViewById(R.id.card_wiki)), getResources().getString(R.string.wiki_hint_text));
 		((TextView) view.findViewById(R.id.card_ot)).setText(model
 				.getYGOCardOT(mOT));
 		((TextView) view.findViewById(R.id.card_type)).setText(model
 				.getYGOCardType(mType));
 		if ((mType & YGOArrayStore.TYPE_MONSTER) > 0) {
-			((TextView) view.findViewById(R.id.card_race))
-					.setText(model.getYGOCardRace(mRace));
-			((TextView) view.findViewById(R.id.card_attr))
-					.setText(model.getYGOCardAttr(mAttr));
+			((TextView) view.findViewById(R.id.card_race)).setText(model
+					.getYGOCardRace(mRace));
+			((TextView) view.findViewById(R.id.card_attr)).setText(model
+					.getYGOCardAttr(mAttr));
 			((TextView) view.findViewById(R.id.card_level))
-					.setText(mLevel <= 0 ? "N/A" : (mLevel & YGOArrayStore.CARD_LEVEL_MASK) + "");
+					.setText(mLevel <= 0 ? "N/A"
+							: (mLevel & YGOArrayStore.CARD_LEVEL_MASK) + "");
 			((TextView) view.findViewById(R.id.card_atk))
 					.setText(mAtk >= 0 ? mAtk + "" : "?");
 			((TextView) view.findViewById(R.id.card_def))
-					.setText(mDef >= 0 ? mDef+ "" : "?");
+					.setText(mDef >= 0 ? mDef + "" : "?");
 		} else {
-			((TextView) view.findViewById(R.id.card_race))
-					.setText("N/A");
-			((TextView) view.findViewById(R.id.card_attr))
-					.setText("N/A");
-			((TextView) view.findViewById(R.id.card_level))
-					.setText("N/A");
-			((TextView) view.findViewById(R.id.card_atk))
-					.setText("N/A");
-			((TextView) view.findViewById(R.id.card_def))
-					.setText("N/A");
+			((TextView) view.findViewById(R.id.card_race)).setText("N/A");
+			((TextView) view.findViewById(R.id.card_attr)).setText("N/A");
+			((TextView) view.findViewById(R.id.card_level)).setText("N/A");
+			((TextView) view.findViewById(R.id.card_atk)).setText("N/A");
+			((TextView) view.findViewById(R.id.card_def)).setText("N/A");
 		}
 		mImageItemController = new ImageViewImageItemController(mActivity,
 				(ImageView) view.findViewById(R.id.card_image));
@@ -148,6 +156,35 @@ public class CardDetailPagerFragment extends BaseFragment implements
 			requestImage(mImageItem, false);
 		}
 		return view;
+	}
+
+	protected void setTextViewHTML(TextView text, String html) {
+		CharSequence sequence = Html.fromHtml(html);
+		SpannableStringBuilder strBuilder = new SpannableStringBuilder(sequence);
+		URLSpan[] urls = strBuilder.getSpans(0, sequence.length(),
+				URLSpan.class);
+		for (URLSpan span : urls) {
+			makeLinkClickable(strBuilder, span);
+		}
+		text.setText(strBuilder);
+	}
+
+	private void makeLinkClickable(SpannableStringBuilder strBuilder,
+			final URLSpan span) {
+		int start = strBuilder.getSpanStart(span);
+		int end = strBuilder.getSpanEnd(span);
+		int flags = strBuilder.getSpanFlags(span);
+		ClickableSpan clickable = new ClickableSpan() {
+			public void onClick(View view) {
+				Intent intent = new Intent();
+				intent.setAction(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse(ResourcesConstants.WIKI_SEARCH_URL
+						+ mName));
+				startActivity(intent);
+			}
+		};
+		strBuilder.setSpan(clickable, start, end, flags);
+		strBuilder.removeSpan(span);
 	}
 
 	@Override

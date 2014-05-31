@@ -14,8 +14,6 @@ public class Controller {
 	
 	private static Controller INSTANCE;
 	
-	private UpdateController mUpdateController;
-	
 	private ActionBarController mActionBarController;
 	
 	private NetworkStatusManager mNetworkManager;
@@ -24,7 +22,6 @@ public class Controller {
 	
 	private Controller(StaticApplication app) {
 		mModel = Model.peekInstance();
-		mUpdateController = new UpdateController(app);
 		mActionBarController = new ActionBarController();
 		mNetworkManager = NetworkStatusManager.peekInstance(app);
 	}
@@ -35,10 +32,6 @@ public class Controller {
 		}
 		return INSTANCE;
 		
-	}
-
-	public void asyncUpdateMycardServer(Message msg) {
-		mUpdateController.asyncUpdateMycardServer(msg);
 	}
 
 	public boolean handleActionBarEvent(MenuItem item) {

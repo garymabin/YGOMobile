@@ -4,13 +4,9 @@ package cn.garymb.ygomobile.core;
 
 import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.StaticApplication;
-import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.LoginDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.ServerDataWrapper;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.util.SparseArrayCompat;
 
@@ -38,21 +34,6 @@ public class UpdateController implements TaskStatusCallback {
 		mInstantConnection = new InstantConnection(app, this);
 	}
 	
-	/* package */ void asyncUpdateMycardServer(Message msg) {
-		mUpdateMessages.put(UPDATE_TYPE_SERVER_LIST, msg);
-		ServerDataWrapper wrapper = new ServerDataWrapper(Constants.REQUEST_TYPE_UPDATE_SERVER);
-		mInstantConnection.addTask(wrapper);
-	}
-	
-	/* package */ void asyncLogin(Message msg) {
-		mUpdateMessages.put(UPDATE_TYPE_LOGIN, msg);
-		BaseDataWrapper wrapper = new LoginDataWrapper(Constants.REQUEST_TYPE_LOGIN);
-		wrapper.setParam((Bundle) msg.obj);
-		mInstantConnection.addTask(wrapper);
-	}
-	
-
-
 	@Override
 	public void onTaskFinish(BaseDataWrapper wrapper) {
 	}

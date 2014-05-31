@@ -139,6 +139,9 @@
     <string name="action_edit_server">Edit server</string>
     
     <string name="item_des_text">Card Info：</string>
+    <string name="item_wiki_text">Card Wiki：</string>
+    <string name="wiki_hint_text">&lt;&lt;p>&lt;a href="wiki">&lt;u>来自ourocg.cn的链接&lt;/u>&lt;/a></string>
+    
     <string name="item_type_text">Card Type：</string>
     <string name="item_ot_text">TCG/OCG：</string>
     

@@ -21,6 +21,8 @@
     <string name="item_atk_text">攻击力：</string>
     <string name="item_def_text">防御力：</string>
     <string name="item_des_text">卡片描述：</string>
+    <string name="item_wiki_text">卡片调整：</string>
+    <string name="wiki_hint_text">&lt;&lt;p>&lt;a href="wiki">&lt;u>来自ourocg.cn的链接&lt;/u>&lt;/a></string>
     
     
     <string name="button_update">更新</string>

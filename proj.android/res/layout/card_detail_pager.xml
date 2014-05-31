@@ -17,8 +17,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="5dip"
-            android:layout_marginRight="5dip" 
-            android:contentDescription="@string/app_name"/>
+            android:layout_marginRight="5dip"
+            android:contentDescription="@string/app_name" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
 
                 <TextView
                     android:id="@+id/card_ot"
-                    style="@style/card_item_content"/>
+                    style="@style/card_item_content" />
             </LinearLayout>
 
             <LinearLayout style="@style/card_item" >
@@ -47,7 +47,7 @@
 
                 <TextView
                     android:id="@+id/card_type"
-                    style="@style/card_item_content"/>
+                    style="@style/card_item_content" />
             </LinearLayout>
 
             <LinearLayout style="@style/card_item" >
@@ -58,7 +58,7 @@
 
                 <TextView
                     android:id="@+id/card_level"
-                    style="@style/card_item_content"/>
+                    style="@style/card_item_content" />
             </LinearLayout>
 
             <LinearLayout style="@style/card_item" >
@@ -69,7 +69,7 @@
 
                 <TextView
                     android:id="@+id/card_race"
-                    style="@style/card_item_content"/>
+                    style="@style/card_item_content" />
             </LinearLayout>
 
             <LinearLayout style="@style/card_item" >
@@ -80,7 +80,7 @@
 
                 <TextView
                     android:id="@+id/card_attr"
-                    style="@style/card_item_content"/>
+                    style="@style/card_item_content" />
             </LinearLayout>
 
             <LinearLayout style="@style/card_item" >
@@ -91,7 +91,7 @@
 
                 <TextView
                     android:id="@+id/card_atk"
-                    style="@style/card_item_content"/>
+                    style="@style/card_item_content" />
             </LinearLayout>
 
             <LinearLayout style="@style/card_item" >
@@ -102,7 +102,7 @@
 
                 <TextView
                     android:id="@+id/card_def"
-                    style="@style/card_item_content"/>
+                    style="@style/card_item_content" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
@@ -126,6 +126,21 @@
             <TextView
                 android:id="@+id/card_des"
                 style="@style/card_item_content" />
+
+            <TextView
+                style="@style/card_item_content"
+                android:layout_marginTop="10dip"
+                android:text="@string/item_wiki_text" />
+
+            <TextView
+                android:id="@+id/card_wiki"
+                style="@style/card_item_content"
+                android:autoLink="web"
+                android:background="@drawable/list_selector"
+                android:clickable="true"
+                android:singleLine="true"
+                android:textColorLink="@color/apptheme_color"
+                android:text="@string/wiki_hint_text" />
         </LinearLayout>
     </ScrollView>
 
