@@ -1,7 +1,6 @@
 package cn.garymb.ygomobile;
 
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.actionbar.ActionBarCreator;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
@@ -11,7 +10,6 @@ import cn.garymb.ygomobile.fragment.CardWikiFragment;
 import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
-import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
 import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperToast;

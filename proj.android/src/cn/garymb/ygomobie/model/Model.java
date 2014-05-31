@@ -1,16 +1,13 @@
 package cn.garymb.ygomobie.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
 import cn.garymb.ygomobile.StaticApplication;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
 import cn.garymb.ygomobile.model.data.DataStore;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.ygo.YGOArrayStore;
-import cn.garymb.ygomobile.ygo.YGORoomInfo;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
 import android.graphics.Bitmap;

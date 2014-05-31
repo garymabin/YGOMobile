@@ -21,6 +21,22 @@
             android:inputType="textNoSuggestions" >
         </EditText>
     </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/le_server_user_name"
+        style="@style/room_item" >
+
+        <TextView
+            style="@style/room_item_label"
+            android:text="@string/server_user_name" />
+
+        <EditText
+            android:id="@+id/server_user_name_edit_text"
+            style="@style/room_item_edit_text"
+            android:inputType="textNoSuggestions" >
+        </EditText>
+    </LinearLayout>
+    
 
     <LinearLayout
         android:id="@+id/le_server_addr"

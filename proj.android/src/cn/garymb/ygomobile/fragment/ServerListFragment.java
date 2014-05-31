@@ -94,6 +94,8 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 				convertView = mInflater.inflate(R.layout.server_item, null);
 			}
 			YGOServerInfo info = getGroup(groupPosition);
+			((TextView) convertView.findViewById(R.id.server_user_name))
+			.setText(info.userName);
 			((TextView) convertView.findViewById(R.id.server_name))
 					.setText(info.name);
 			((TextView) convertView.findViewById(R.id.server_addr))

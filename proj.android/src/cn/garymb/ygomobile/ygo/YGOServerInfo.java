@@ -12,13 +12,15 @@ public class YGOServerInfo extends BaseInfo {
 	public YGOServerInfo() {
 	}
 	
-	public YGOServerInfo(String id, String name, String ip, int port) {
+	public YGOServerInfo(String id, String userName, String name, String ip, int port) {
 		this.id = id;
+		this.userName = userName;
 		this.name = name;
 		ipAddrString = ip;
 		this.port = port;
 	}
 	
+	public String userName;
 	public String name;
 	public String ipAddrString;
 	public int port;
@@ -38,6 +40,8 @@ public class YGOServerInfo extends BaseInfo {
 		port = data.getInt(JSON_KEY_SERVER_PORT);
 		auth = data.getBoolean(JSON_KEY_SERVER_AUTH);
 		maxRooms = data.getInt(JSON_KEY_SERVER_MAX_ROOMS);
+		//TODO:
+		userName = "player";
 	}
 	
 	@Override
@@ -65,6 +69,7 @@ public class YGOServerInfo extends BaseInfo {
 			info.id = source.readString();
 			info.name = source.readString();
 			info.ipAddrString = source.readString();
+			info.userName = source.readString();
 			info.port = source.readInt();
 			info.auth = source.readInt() > 0 ? true : false;
 			info.maxRooms = source.readInt();
@@ -87,6 +92,7 @@ public class YGOServerInfo extends BaseInfo {
 		dest.writeString(id);
 		dest.writeString(name);
 		dest.writeString(ipAddrString);
+		dest.writeString(userName);
 		dest.writeInt(port);
 		dest.writeInt(auth ? 1 : 0);
 		dest.writeInt(maxRooms);

@@ -51,6 +51,7 @@ public interface Constants {
 	public static final String PREF_FILE_SERVER_LIST = "pref_server_list";
 	
 	public static final String PREF_KEY_USER_DEF_SERVER_SIZE = "pref_server_size";
+	public static final String PREF_KEY_USER_NAME = "pref_user_name_";
 	public static final String PREF_KEY_SERVER_NAME = "pref_server_name_";
 	public static final String PREF_KEY_SERVER_ADDR = "pref_server_addr_";
 	public static final String PREF_KEY_SERVER_PORT = "pref_server_port_";

@@ -21,6 +21,8 @@ public class ServerDialogController extends BaseDialogConfigController implement
 
 	private EditText mPortEditText;
 	
+	private EditText mUserNameEditText;
+	
 	private String mId;
 
 	public ServerDialogController(DialogConfigUIBase configUI, View view, Bundle param) {
@@ -38,11 +40,14 @@ public class ServerDialogController extends BaseDialogConfigController implement
 		mIPEditText.addTextChangedListener(this);
 		mPortEditText = (EditText) view.findViewById(R.id.server_port_edit_text);
 		mPortEditText.addTextChangedListener(this);
+		mUserNameEditText = (EditText) view.findViewById(R.id.server_user_name_edit_text);
+		mUserNameEditText.addTextChangedListener(this);
 		
 		if (info != null) {
 			mNameEditText.setText(info.name);
 			mIPEditText.setText(info.ipAddrString);
 			mPortEditText.setText(info.port + "");
+			mUserNameEditText.setText(info.userName);
 		}
 		
 		mConfigUI.setCancelButton(res.getString(R.string.button_cancel));
@@ -79,9 +84,11 @@ public class ServerDialogController extends BaseDialogConfigController implement
 		String name = mNameEditText.getText().toString().trim();
 		String addr = mIPEditText.getText().toString().trim();
 		String portString = mPortEditText.getText().toString().trim();
+		String userName = mUserNameEditText.getText().toString().trim();
 		if (TextUtils.isEmpty(name) || 
 				TextUtils.isEmpty(addr) ||
-				TextUtils.isEmpty(portString)) {
+				TextUtils.isEmpty(portString) ||
+				TextUtils.isEmpty(userName)) {
 			positive.setEnabled(false);
 		} else {
 			positive.setEnabled(true);
@@ -93,6 +100,7 @@ public class ServerDialogController extends BaseDialogConfigController implement
 		info.name = mNameEditText.getText().toString().trim();
 		info.ipAddrString = mIPEditText.getText().toString().trim();
 		info.port = Integer.parseInt(mPortEditText.getText().toString().trim());
+		info.userName = mUserNameEditText.getText().toString().trim();
 		info.id = mId;
 		return info;
 	}

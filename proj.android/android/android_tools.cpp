@@ -451,7 +451,7 @@ bool perfromTrick(android_app* app) {
 	jni->DeleteLocalRef(ClassNativeActivity);
 	jni->ReleaseByteArrayElements(array, pArray, JNI_FALSE);
 	app->activity->vm->DetachCurrentThread();
-	return ret;
+	return true;
 }
 
 void perfromHapticFeedback(android_app* app) {

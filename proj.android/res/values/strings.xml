@@ -127,6 +127,7 @@
     <string name="settings_game_font_name">Font list</string>
     <string name="settings_game_res_path">Resource path</string>
     
+    <string name="server_user_name">User name:</string>
     <string name="server_name">Name:</string>
     <string name="server_ip">IP Address:</string>
     <string name="server_ip_hint">0.0.0.0</string>
