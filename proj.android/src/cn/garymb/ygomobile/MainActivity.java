@@ -214,7 +214,7 @@ public class MainActivity extends ActionBarActivity implements
 			mHandler.sendEmptyMessageDelayed(
 					Constants.MSG_ID_EXIT_CONFIRM_ALARM, 2000);
 		} else {
-			super.finish();
+			System.exit(1);
 		}
 	}
 

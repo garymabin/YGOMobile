@@ -46,10 +46,8 @@ public final class ImageItemInfoHelper {
 	
 	public static String getThumnailUrl(ImageItem item) {
 		String url = item.urlSegment;
-		if (TextUtils.isEmpty(url))
-			return null;
 		
-		if (url.startsWith(HTTP_PREFIX) || url.startsWith(HTTPS_PREFIX))
+		if (url != null && (url.startsWith(HTTP_PREFIX) || url.startsWith(HTTPS_PREFIX)))
 			return url;
 		
 		final String baseUrl = ResourcesConstants.THUMBNAIL_URL;
@@ -84,10 +82,8 @@ public final class ImageItemInfoHelper {
 	
 	public static String getImageUrl(ImageItem item) {
 		String url = item.urlSegment;
-		if (TextUtils.isEmpty(url))
-			return null;
 		
-		if (url.startsWith(HTTP_PREFIX) || url.startsWith(HTTPS_PREFIX))
+		if (url != null && (url.startsWith(HTTP_PREFIX) || url.startsWith(HTTPS_PREFIX)))
 			return url;
 		
 		final String baseUrl = ResourcesConstants.IMAGE_URL;
