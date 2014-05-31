@@ -31,8 +31,6 @@ public interface Constants {
 	public static final int FRAGMENT_ID_CARD_DETAIL = 3;
 	
 	
-	public static final int MSG_ID_UPDATE_ROOM_LIST = 0;
-	public static final int MSG_ID_UPDATE_SERVER = 1;
 	public static final int MSG_ID_LOGIN = 2;
 	public static final int MSG_ID_EXIT_CONFIRM_ALARM = 3;
 	

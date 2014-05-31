@@ -138,7 +138,6 @@ public class YGOMobileActivity extends NativeActivity implements
 	private NetworkController mNetController;
 	
 	private int mChainControlXPostion;
-	
 	private int mChainControlYPostion;
 
 	@Override

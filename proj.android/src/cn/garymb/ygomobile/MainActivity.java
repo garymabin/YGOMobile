@@ -11,7 +11,6 @@ import cn.garymb.ygomobile.fragment.CardWikiFragment;
 import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
-import cn.garymb.ygomobile.setting.SettingsActivity;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
 import com.github.johnpersano.supertoasts.SuperActivityToast;
@@ -73,8 +72,6 @@ public class MainActivity extends ActionBarActivity implements
 		mController = Controller.peekInstance();
 		mActionBarCreator = new ActionBarCreator(this);
 		mHandler = new EventHandler(this);
-		mController.asyncUpdateMycardServer(mHandler
-				.obtainMessage(Constants.MSG_ID_UPDATE_SERVER));
 		mDuelList = getResources().getStringArray(R.array.duel_list);
 		mActionBar.setListNavigationCallbacks(
 				new ArrayAdapter<String>(this,
@@ -184,15 +181,9 @@ public class MainActivity extends ActionBarActivity implements
 		supportInvalidateOptionsMenu();
 	}
 
-	public YGOServerInfo getServer() {
-		return Model.peekInstance().getMyCardServer();
-	}
-
 	@Override
 	public boolean handleMessage(Message msg) {
 		switch (msg.what) {
-		case Constants.MSG_ID_UPDATE_SERVER:
-			break;
 		case Constants.ACTION_BAR_EVENT_TYPE_SETTINGS:
 			Log.d(TAG, "receive settings click action");
 			Intent intent = new Intent(this, SettingsActivity.class);

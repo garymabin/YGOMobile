@@ -29,7 +29,6 @@
     <string name="button_cancel">取消</string>
     <string name="cancel">取消</string>
     <string name="combobox_choose_item">请选择一项</string>
-    <string name="loading">正在加载中</string>
     <string name="action_filter">筛选</string>
     <string name="action_filter_none">（无）</string>
     <string name="action_filter_string_type">种类</string>

@@ -1396,6 +1396,16 @@ int32 field::summon(uint16 step, uint8 sumplayer, card * target, effect * proc, 
 		core.normalsummon_state[sumplayer] = TRUE;
 		core.summoned_cards_pt[sumplayer].insert(target);
 		core.normalsummoned_cards_pt[sumplayer].insert(target);
+		if (target->material_cards.size()) {
+			for (auto mit = target->material_cards.begin(); mit != target->material_cards.end(); ++mit)
+				raise_single_event(*mit, 0, EVENT_BE_PRE_MATERIAL, proc, REASON_SUMMON, sumplayer, sumplayer, 0);
+			raise_event(&target->material_cards, EVENT_BE_PRE_MATERIAL, proc, REASON_SUMMON, sumplayer, sumplayer, 0);
+		}
+		process_single_event();
+		process_instant_event();
+		return FALSE;
+	}
+	case 10: {
 		if(core.current_chain.size() == 0) {
 			if(target->is_affected_by_effect(EFFECT_CANNOT_DISABLE_SUMMON))
 				core.units.begin()->step = 14;
@@ -1407,13 +1417,13 @@ int32 field::summon(uint16 step, uint8 sumplayer, card * target, effect * proc, 
 			if(target->is_affected_by_effect(EFFECT_CANNOT_DISABLE_SUMMON))
 				core.units.begin()->step = 15;
 			else
-				core.units.begin()->step = 10;
+				core.units.begin()->step = 11;
 			core.reserved = core.units.front();
 			return TRUE;
 		}
 		return FALSE;
 	}
-	case 10: {
+	case 11: {
 		target->set_status(STATUS_SUMMONING, TRUE);
 		target->set_status(STATUS_SUMMON_DISABLED, FALSE);
 		core.summoning_card = 0;
@@ -1422,7 +1432,7 @@ int32 field::summon(uint16 step, uint8 sumplayer, card * target, effect * proc, 
 		add_process(PROCESSOR_POINT_EVENT, 0, 0, 0, TRUE, TRUE);
 		return FALSE;
 	}
-	case 11: {
+	case 12: {
 		if(target->is_status(STATUS_SUMMONING)) {
 			core.units.begin()->step = 14;
 			return FALSE;
@@ -2016,17 +2026,32 @@ int32 field::special_summon_rule(uint16 step, uint8 sumplayer, card * target) {
 		pduel->write_buffer8(target->current.position);
 		core.spsummon_state[sumplayer] = TRUE;
 		core.spsummoned_cards_pt[sumplayer].insert(target);
-		if(core.current_chain.size() == 0) {
-			if(target->is_affected_by_effect(EFFECT_CANNOT_DISABLE_SPSUMMON))
+		return FALSE;
+	}
+	case 5: {
+		effect* proc = core.units.begin()->peffect;
+		int32 matreason = proc->value == SUMMON_TYPE_SYNCHRO ? REASON_SYNCHRO : proc->value == SUMMON_TYPE_XYZ ? REASON_XYZ : REASON_SPSUMMON;
+		if (target->material_cards.size()) {
+			for (auto mit = target->material_cards.begin(); mit != target->material_cards.end(); ++mit)
+				raise_single_event(*mit, 0, EVENT_BE_PRE_MATERIAL, proc, matreason, sumplayer, sumplayer, 0);
+		}
+		raise_event(&target->material_cards, EVENT_BE_PRE_MATERIAL, proc, matreason, sumplayer, sumplayer, 0);
+		process_single_event();
+		process_instant_event();
+		return FALSE;
+	}
+	case 6: {
+		if (core.current_chain.size() == 0) {
+			if (target->is_affected_by_effect(EFFECT_CANNOT_DISABLE_SPSUMMON))
 				core.units.begin()->step = 14;
 			else
 				core.units.begin()->step = 9;
 			return FALSE;
-		} else if(core.current_chain.size() > 1) {
+		} else if (core.current_chain.size() > 1) {
 			core.units.begin()->step = 14;
 			return FALSE;
 		} else {
-			if(target->is_affected_by_effect(EFFECT_CANNOT_DISABLE_SPSUMMON))
+			if (target->is_affected_by_effect(EFFECT_CANNOT_DISABLE_SPSUMMON))
 				core.units.begin()->step = 15;
 			else
 				core.units.begin()->step = 10;
@@ -3280,6 +3305,7 @@ int32 field::move_to_field(uint16 step, card * target, uint32 enable, uint32 ret
 				else
 					flag = ((flag << 16) & 0xff0000) | 0xff00ffff;
 			}
+			flag |= 0xe0e0e0e0;
 			add_process(PROCESSOR_SELECT_PLACE, 0, 0, 0, 0x10000 + move_player, flag);
 		}
 		return FALSE;
@@ -3961,8 +3987,8 @@ int32 field::select_xyz_material(int16 step, uint8 playerid, card* scard, int32 
 			maxv = core.xmaterial_lst.begin()->first;
 		if(min >= maxv) {
 			core.select_cards.clear();
-			for(auto iter : core.xmaterial_lst)
-				core.select_cards.push_back(iter.second);
+			for(auto iter = core.xmaterial_lst.begin(); iter != core.xmaterial_lst.end(); ++iter)
+				core.select_cards.push_back(iter->second);
 			pduel->write_buffer8(MSG_HINT);
 			pduel->write_buffer8(HINT_SELECTMSG);
 			pduel->write_buffer8(playerid);
@@ -3984,8 +4010,8 @@ int32 field::select_xyz_material(int16 step, uint8 playerid, card* scard, int32 
 	case 2: {
 		core.operated_set.clear();
 		core.select_cards.clear();
-		for(auto iter : core.xmaterial_lst)
-			core.select_cards.push_back(iter.second);
+		for(auto iter = core.xmaterial_lst.begin(); iter != core.xmaterial_lst.end(); ++iter)
+			core.select_cards.push_back(iter->second);
 		pduel->write_buffer8(MSG_HINT);
 		pduel->write_buffer8(HINT_SELECTMSG);
 		pduel->write_buffer8(playerid);
@@ -4030,8 +4056,8 @@ int32 field::select_xyz_material(int16 step, uint8 playerid, card* scard, int32 
 			return TRUE;
 		}
 		core.select_cards.clear();
-		for(auto iter : core.xmaterial_lst)
-			core.select_cards.push_back(iter.second);
+		for(auto iter = core.xmaterial_lst.begin(); iter != core.xmaterial_lst.end(); ++iter)
+			core.select_cards.push_back(iter->second);
 		int maxv = core.xmaterial_lst.begin()->first;
 		pduel->write_buffer8(MSG_HINT);
 		pduel->write_buffer8(HINT_SELECTMSG);
@@ -4047,8 +4073,8 @@ int32 field::select_xyz_material(int16 step, uint8 playerid, card* scard, int32 
 	}
 	case 5: {
 		group* pgroup = pduel->new_group();
-		for(auto pcard : core.operated_set)
-			pgroup->container.insert(pcard);
+		for(auto cit = core.operated_set.begin(); cit != core.operated_set.end(); ++cit)
+			pgroup->container.insert(*cit);
 		for(int32 i = 0; i < returns.bvalue[0]; ++i) {
 			card* pcard = core.select_cards[returns.bvalue[i + 1]];
 			pgroup->container.insert(pcard);

@@ -401,7 +401,7 @@ bool Game::Initialize() {
 	imgCard->setUseAlphaChannel(true);
 #ifdef _IRR_ANDROID_PLATFORM_
 	//phase
-	wPhase = env->addStaticText(L"", rect<s32>(455 * xScale, 305 * yScale, 870 * xScale, 335 * yScale));
+	wPhase = env->addStaticText(L"", rect<s32>(480 * xScale, 305 * yScale, 895 * xScale, 335 * yScale));
 	wPhase->setVisible(false);
 	btnDP = env->addButton(rect<s32>(0 * xScale, 0 * yScale, 50 * xScale, 30 * yScale), wPhase, -1, L"\xff24\xff30");
 	btnDP->setEnabled(false);
@@ -937,7 +937,7 @@ void Game::MainLoop() {
 	wchar_t cap[256];
 	camera = smgr->addCameraSceneNode(0);
 	irr::core::matrix4 mProjection;
-	BuildProjectionMatrix(mProjection, -0.81f, 0.44f, -0.42f, 0.42f, 1.0f, 100.0f);
+	BuildProjectionMatrix(mProjection, -0.90f, 0.45f, -0.42f, 0.42f, 1.0f, 100.0f);
 	camera->setProjectionMatrix(mProjection);
 
 	mProjection.buildCameraLookAtMatrixLH(vector3df(4.2f, 8.0f, 7.8f), vector3df(4.2f, 0, 0), vector3df(0, 0, 1));

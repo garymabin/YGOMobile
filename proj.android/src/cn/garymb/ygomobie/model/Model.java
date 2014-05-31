@@ -45,14 +45,6 @@ public class Model {
 		
 	}
 
-	public void updateData(BaseDataWrapper wrapper) {
-		mDataStore.updateData(wrapper);
-	}
-
-	public YGOServerInfo getMyCardServer() {
-		return mDataStore.getMyCardServer();
-	}
-	
 	public SparseArray<YGOServerInfo> getServers() {
 		return mDataStore.getServers();
 	}
@@ -61,10 +53,6 @@ public class Model {
 		mDataStore.addNewServer(info);
 	}
 
-	public List<YGORoomInfo> getRooms() {
-		return mDataStore.getRooms();
-	}
-	
 	/*package*/ boolean hasDataObserver(IDataObserver ob) {
 		if (mObserverList == null)
 			return false;

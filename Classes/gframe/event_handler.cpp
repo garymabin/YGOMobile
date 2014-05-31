@@ -1522,21 +1522,23 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 	return false;
 }
 void ClientField::GetHoverField(int x, int y) {
-	irr::core::recti sfRect(393 * mainGame->xScale, 504 * mainGame->yScale, 875 * mainGame->xScale, 600 * mainGame->yScale);
-	irr::core::recti ofRect(501 * mainGame->xScale, 135 * mainGame->yScale, 790 * mainGame->xScale, 191 * mainGame->yScale);
+	irr::core::recti sfRect(430 * mainGame->xScale, 504 * mainGame->yScale, 875 * mainGame->xScale, 600 * mainGame->yScale);
+	irr::core::recti ofRect(531 * mainGame->xScale, 135 * mainGame->yScale, 800 * mainGame->xScale, 191 * mainGame->yScale);
 	irr::core::position2di pos(x, y);
 	if(sfRect.isPointInside(pos)) {
 		int hc = hand[0].size();
+		int cardSize = 66;
+		int cardSpace = 10;
 		if(hc == 0)
 			hovered_location = 0;
 		else if(hc < 7) {
-			int left = (393 + 82 * (6 - hc) / 2) * mainGame->xScale;
+			int left = sfRect.UpperLeftCorner.X + (cardSize + cardSpace) * (6 - hc) / 2 * mainGame->xScale;
 			if(x < left)
 				hovered_location = 0;
 			else {
-				int seq = (x - left) / (82 * mainGame->xScale);
+				int seq = (x - left) / ((cardSize + cardSpace) * mainGame->xScale);
 				if(seq >= hc) seq = hc - 1;
-				if(x - left - 82 * seq  * mainGame->xScale < 71 * mainGame->xScale) {
+				if(x - left - (cardSize + cardSpace) * seq  * mainGame->xScale < cardSize * mainGame->xScale) {
 					hovered_controler = 0;
 					hovered_location = LOCATION_HAND;
 					hovered_sequence = seq;
@@ -1545,23 +1547,25 @@ void ClientField::GetHoverField(int x, int y) {
 		} else {
 			hovered_controler = 0;
 			hovered_location = LOCATION_HAND;
-			if(x >= 804 * mainGame->xScale)
+			if(x >= sfRect.UpperLeftCorner.X + (cardSize + cardSpace) * 5 * mainGame->xScale)
 				hovered_sequence = hc - 1;
 			else
-				hovered_sequence = (x - 393 * mainGame->xScale) * (hc - 1) / (411 * mainGame->xScale);
+				hovered_sequence = (x - sfRect.UpperLeftCorner.X) * (hc - 1) / ((cardSize + cardSpace) * 5 * mainGame->xScale);
 		}
 	} else if(ofRect.isPointInside(pos)) {
 		int hc = hand[1].size();
+		int cardSize = 39;
+		int cardSpace = 7;
 		if(hc == 0)
 			hovered_location = 0;
 		else if(hc < 7) {
-			int left = (501 + 49 * (6 - hc) / 2) * mainGame->xScale;
+			int left = ofRect.UpperLeftCorner.X + (cardSize + cardSpace) * (6 - hc) / 2 * mainGame->xScale;
 			if(x < left)
 				hovered_location = 0;
 			else {
-				int seq = (x - left) / (49 * mainGame->xScale);
+				int seq = (x - left) / ((cardSize + cardSpace) * mainGame->xScale);
 				if(seq >= hc) seq = hc - 1;
-				if(x - left - 49 * mainGame->xScale * seq < 42 * mainGame->xScale) {
+				if(x - left - (cardSize + cardSpace) * mainGame->xScale * seq < cardSize * mainGame->xScale) {
 					hovered_controler = 1;
 					hovered_location = LOCATION_HAND;
 					hovered_sequence = hc - 1 - seq;
@@ -1570,13 +1574,13 @@ void ClientField::GetHoverField(int x, int y) {
 		} else {
 			hovered_controler = 1;
 			hovered_location = LOCATION_HAND;
-			if(x >= 748 * mainGame->xScale)
+			if(x >= ofRect.UpperLeftCorner.X + (cardSize + cardSpace) * 5 * mainGame->xScale)
 				hovered_sequence = 0;
 			else
-				hovered_sequence = hc - 1 - (x - 501 * mainGame->xScale) * (hc - 1) / (247 * mainGame->xScale);
+				hovered_sequence = hc - 1 - (x - ofRect.UpperLeftCorner.X) * (hc - 1) / ((cardSize + cardSpace) * 5 * mainGame->xScale);
 		}
 	} else {
-		double screenx = x / (1024.0 * mainGame->xScale) * 1.25  - 0.81;
+		double screenx = x / (1024.0 * mainGame->xScale) * 1.35  - 0.90;
 		double screeny = y / (640.0 * mainGame->yScale) * 0.84 - 0.42;
 		double angle = 0.798056 - atan(screeny);	//0.798056 = arctan(8.0/7.8)
 		double vlen = sqrt(1.0 + screeny * screeny);

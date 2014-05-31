@@ -20,7 +20,7 @@
 					<folderInfo id="com.android.toolchain.gcc.1440829213.1978855777" name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.base.765446014" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.gnu.platform.base.997233573" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
-							<builder arguments="NDK_DEBUG=1" command="${NDK_ROOT}/ndk-build" id="cdt.managedbuild.target.gnu.builder.base.982528022" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="4" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder arguments="NDK_DEBUG=0" command="${NDK_ROOT}/ndk-build" id="cdt.managedbuild.target.gnu.builder.base.982528022" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="4" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1086839233" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1184708539" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.include.paths.967727765" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
@@ -88,4 +88,5 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

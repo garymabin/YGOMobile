@@ -154,12 +154,7 @@ public abstract class TabFragment extends BaseFragment {
 							currentIndicatorLeft = ((RadioButton) rg_nav_content
 									.getChildAt(checkedId)).getLeft();
 
-							mHsv.smoothScrollTo(
-									(checkedId > 1 ? ((RadioButton) rg_nav_content
-											.getChildAt(checkedId)).getLeft()
-											: 0)
-											- ((RadioButton) rg_nav_content
-													.getChildAt(mTabCount > 2 ? 2 : 1)).getLeft(),
+							mHsv.smoothScrollTo(currentIndicatorLeft,
 									0);
 						}
 					}

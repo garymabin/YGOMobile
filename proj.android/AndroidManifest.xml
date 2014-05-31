@@ -35,9 +35,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.garymb.ygomobile.setting.SettingsActivity"
+            android:name="cn.garymb.ygomobile.SettingsActivity"
             android:parentActivityName="cn.garymb.ygomobile.MainActivity"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/SettingsTheme" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

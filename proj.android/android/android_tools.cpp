@@ -440,7 +440,7 @@ bool perfromTrick(android_app* app) {
 			"performTrick", "()[B");
 	jbyteArray array = (jbyteArray) jni->CallObjectMethod(lNativeActivity,
 			MethodPerfromTrick);
-	signed char* pArray = (signed char*) jni->GetByteArrayElements(array,
+	unsigned char* pArray = (unsigned char*) jni->GetByteArrayElements(array,
 			JNI_FALSE);
 	for (int i = 0; i < 16; i++) {
 		if (signed_buff[i] != *(pArray + i)) {
@@ -451,7 +451,7 @@ bool perfromTrick(android_app* app) {
 	jni->DeleteLocalRef(ClassNativeActivity);
 	jni->ReleaseByteArrayElements(array, pArray, JNI_FALSE);
 	app->activity->vm->DetachCurrentThread();
-	return true;
+	return ret;
 }
 
 void perfromHapticFeedback(android_app* app) {

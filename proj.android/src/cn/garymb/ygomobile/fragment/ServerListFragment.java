@@ -116,13 +116,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			}
 			((ServerOperationPanel) v.findViewById(R.id.handle_panel))
 					.setGroupPosition(groupPosition);
-			View editPanel = v.findViewById(R.id.edit_panel);
 			long id = getGroupId(groupPosition);
-			if (id < DataStore.MODIFIABLE_SERVER_INFO_START) {
-				editPanel.setVisibility(View.GONE);
-			} else {
-				editPanel.setVisibility(View.VISIBLE);
-			}
 			View deletePanel = v.findViewById(R.id.delete_panel);
 			if (id < DataStore.USER_DEFINE_SERVER_INFO_START) {
 				deletePanel.setVisibility(View.GONE);

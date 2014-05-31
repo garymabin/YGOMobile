@@ -10,9 +10,9 @@
     <Preference 
         android:title="@string/settings_game">
         <intent 
-            android:targetPackage="org.mycard"
-            android:targetClass="org.mycard.SettingsActivity"
-            android:action="org.mycard.prefs.PREFS_GAME" />
+            android:targetPackage="cn.garymb.ygomobile"
+            android:targetClass="cn.garymb.ygomobile.SettingsActivity"
+            android:action="cn.garymb.ygomobile.prefs.PREFS_GAME" />
     </Preference>
     <Preference 
         android:title="@string/settings_about"

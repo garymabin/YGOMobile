@@ -7,9 +7,7 @@ import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
 import cn.garymb.ygomobile.data.wrapper.LoginDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.RoomDataWrapper;
 import cn.garymb.ygomobile.data.wrapper.ServerDataWrapper;
 
 import android.os.Bundle;
@@ -57,43 +55,10 @@ public class UpdateController implements TaskStatusCallback {
 
 	@Override
 	public void onTaskFinish(BaseDataWrapper wrapper) {
-		int key = -1;
-		if (wrapper instanceof ServerDataWrapper) {
-			key = UPDATE_TYPE_SERVER_LIST;
-		} else if (wrapper instanceof RoomDataWrapper) {
-			key = UPDATE_TYPE_ROOM_LIST;
-		} else if (wrapper instanceof LoginDataWrapper) {
-			key = UPDATE_TYPE_LOGIN;
-		}
-		Message msg = mUpdateMessages.get(key);
-		if (msg != null) {
-			if (wrapper.getResult() == IBaseWrapper.TASK_STATUS_SUCCESS) {
-				mModel.updateData(wrapper);
-			}
-			msg.arg2 = wrapper.getResult();
-			msg.sendToTarget();
-			mUpdateMessages.remove(key);
-		}
-
 	}
 
 	@Override
 	public void onTaskContinue(BaseDataWrapper wrapper) {
-		int key = -1;
-		if (wrapper instanceof ServerDataWrapper) {
-			key = UPDATE_TYPE_SERVER_LIST;
-		} else if (wrapper instanceof RoomDataWrapper) {
-			key = UPDATE_TYPE_ROOM_LIST;
-		}
-		Message msg = mUpdateMessages.get(key);
-		if (msg != null) {
-			if (wrapper.getResult() == IBaseWrapper.TASK_STATUS_SUCCESS) {
-				mModel.updateData(wrapper);
-			}
-			Message reply = Message.obtain(msg);
-			reply.arg2 = wrapper.getResult();
-			reply.sendToTarget();
-		}
 	}
 
 }
