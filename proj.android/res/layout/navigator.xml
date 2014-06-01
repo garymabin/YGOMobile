@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.garymb.ygomobile.widget.HorizontalListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/horizontalListView1"
+    android:layout_width="match_parent"
+    android:paddingLeft="4.67dip"
+    android:background="@drawable/ic_dir_list_bg"
+    android:layout_height="wrap_content" >
+</cn.garymb.ygomobile.widget.HorizontalListView>

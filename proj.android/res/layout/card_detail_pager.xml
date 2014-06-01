@@ -121,6 +121,7 @@
 
             <TextView
                 style="@style/card_item_content"
+                android:textStyle="bold"
                 android:text="@string/item_des_text" />
 
             <TextView
@@ -129,6 +130,7 @@
 
             <TextView
                 style="@style/card_item_content"
+                android:textStyle="bold"
                 android:layout_marginTop="10dip"
                 android:text="@string/item_wiki_text" />
 

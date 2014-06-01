@@ -42,6 +42,10 @@ public interface Constants {
 	/**
 	 * preference name
 	 */
+	//for compatiablity
+	public static final String PREF_FILE = "preferred-config";
+	public static final String RESOURCE_PATH = "resource";
+	
 	public static final String PREF_FILE_COMMON = "pref_common";
 	public static final String PREF_KEY_DATA_VERSION = "pref_data_ver";
 	public static final String PREF_KEY_LAST_DECK = "pref_last_deck";

@@ -127,6 +127,10 @@
     <string name="settings_game_font_name">Font list</string>
     <string name="settings_game_res_path">Resource path</string>
     
+    <string name="access_denied">Access Denied!</string>
+    <string name="choose_folder">Choose a folder:</string>
+    <string name="root_dir">Root dir</string>
+    
     <string name="server_user_name">User name:</string>
     <string name="server_name">Name:</string>
     <string name="server_info">Host passwd(optional):</string>

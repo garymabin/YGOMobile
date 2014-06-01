@@ -169,6 +169,9 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 			content = inflater.inflate(R.layout.create_server_content, null);
 			mController = new ServerDialogController(mSimpleUiWrapper, content, getArguments());
 			break;
+		case  ResourcesConstants.DIALOG_MODE_DIRECTORY_CHOOSE:
+			content = inflater.inflate(R.layout.file_browser_layout, null);
+			mController = new ServerDialogController(mSimpleUiWrapper, content, getArguments());
 		default:
 			break;
 		}
@@ -227,6 +230,8 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 				YGOServerInfo info = ((ServerDialogController) mController).getServerInfo();
 				Model.peekInstance().addNewServer(info);
 				((BaseFragment)getTargetFragment()).onEventFromChild(getTargetRequestCode(), FragmentNavigationListener.FRAGMENT_NAVIGATION_DUEL_CREATE_SERVER_EVENT, -1, -1, null);
+			case  ResourcesConstants.DIALOG_MODE_DIRECTORY_CHOOSE:
+				
 			default:
 				break;
 			}

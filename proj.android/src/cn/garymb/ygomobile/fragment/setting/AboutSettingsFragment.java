@@ -8,6 +8,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ public class AboutSettingsFragment extends PreferenceFragment implements OnPrefe
 
 	private Preference mVersionPref;
 	private Preference mOpensourcePref;
+	
+	private AlertDialog mDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,17 +42,26 @@ public class AboutSettingsFragment extends PreferenceFragment implements OnPrefe
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		if (mDialog != null && mDialog.isShowing()) {
+			mDialog.dismiss();
+			mDialog = null;
+		}
+	}
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		AlertDialog dlg = null;
 		if (preference.equals(mOpensourcePref)) {
-			dlg = DeviceUtils.createOpenSourceDialog(getActivity());
-			dlg.show();
+			dlg = mDialog = DeviceUtils.createOpenSourceDialog(getActivity());
+			mDialog.show();
 
 		} else if (preference.equals(mVersionPref)) {
-			dlg = DeviceUtils.createChangeLogDialog(getActivity());
-			dlg.show();
+			dlg = mDialog = DeviceUtils.createChangeLogDialog(getActivity());
+			mDialog.show();
 		}
 		if (dlg != null) {
 			final Resources res = getActivity().getResources();

@@ -53,42 +53,54 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Pair;
 
 @ReportsCrashes(formKey = "", // will not be used
-	customReportContent = { APP_VERSION_NAME, ANDROID_VERSION, PHONE_MODEL, CUSTOM_DATA, STACK_TRACE, USER_CRASH_DATE, LOGCAT, BUILD, TOTAL_MEM_SIZE, DISPLAY, DUMPSYS_MEMINFO, DEVICE_FEATURES, ENVIRONMENT }, 
-	mailTo = "garymabin@gmail.com",
-	includeDropBoxSystemTags = true,
-	mode = ReportingInteractionMode.DIALOG,
-	resDialogText = R.string.crashed,
-	resDialogIcon = android.R.drawable.ic_dialog_info, //optional. default is a warning sign
-	resDialogTitle = R.string.crash_title, // optional. default is your application name
-	resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, // optional. when defined, adds a user text field input with this text resource as a label
-	resDialogOkToast = R.string.crash_dialog_ok_toast)
-
+customReportContent = { APP_VERSION_NAME, ANDROID_VERSION, PHONE_MODEL,
+		CUSTOM_DATA, STACK_TRACE, USER_CRASH_DATE, LOGCAT, BUILD,
+		TOTAL_MEM_SIZE, DISPLAY, DUMPSYS_MEMINFO, DEVICE_FEATURES, ENVIRONMENT }, mailTo = "garymabin@gmail.com", includeDropBoxSystemTags = true, mode = ReportingInteractionMode.DIALOG, resDialogText = R.string.crashed, resDialogIcon = android.R.drawable.ic_dialog_info, // optional.
+																																																																				// default
+																																																																				// is
+																																																																				// a
+																																																																				// warning
+																																																																				// sign
+resDialogTitle = R.string.crash_title, // optional. default is your application
+										// name
+resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, // optional. when
+																// defined, adds
+																// a user text
+																// field input
+																// with this
+																// text resource
+																// as a label
+resDialogOkToast = R.string.crash_dialog_ok_toast)
 public class StaticApplication extends Application {
-
-	static {
-		System.loadLibrary("YGOMobile");
-	}
 
 	public static final int CORE_CONFIG_COPY_COUNT = 3;
 
 	private static final String TAG = "StaticApplication";
+
+	public static Pair<String, String> sRootPair;
 
 	private ThreadSafeHttpClientFactory mHttpFactory;
 
 	private static StaticApplication INSTANCE;
 
 	private SharedPreferences mSettingsPref;
+	
 	private String mCoreConfigVersion;
 
 	private String mDataBasePath;
-	
+
 	private float mScreenWidth;
-	
+
 	private float mScreenHeight;
-	
+
 	private float mDensity;
+	
+	static {
+		System.loadLibrary("YGOMobile");
+	}
 
 	@Override
 	public void onCreate() {
@@ -99,6 +111,8 @@ public class StaticApplication extends Application {
 		CrashSender sender = new CrashSender(this);
 		ACRA.getErrorReporter().setReportSender(sender);
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
+		sRootPair = Pair.create(getResources().getString(R.string.root_dir),
+				Environment.getExternalStorageDirectory().getPath());
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(this);
 		Controller.peekInstance();
 		checkAndCopyCoreConfig();
@@ -108,15 +122,15 @@ public class StaticApplication extends Application {
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		mScreenWidth = metrics.widthPixels;
 		mScreenHeight = metrics.heightPixels;
-		
+
 	}
 
 	private void checkAndCopyFonts() {
 		File file = new File(getFontPath());
 		if (!file.exists()) {
 			try {
-				new File(getDefaultResPath()
-				+ Constants.FONT_DIRECTORY).mkdirs();
+				new File(getDefaultResPath() + Constants.FONT_DIRECTORY)
+						.mkdirs();
 				copyRawData(getFontPath(), R.raw.fonts);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -128,7 +142,8 @@ public class StaticApplication extends Application {
 		if (!checkDataBase()) {
 			try {
 				new File(mDataBasePath).mkdirs();
-				copyRawData(mDataBasePath + YGOCardsProvider.DATABASE_NAME, R.raw.cards);
+				copyRawData(mDataBasePath + YGOCardsProvider.DATABASE_NAME,
+						R.raw.cards);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -148,16 +163,16 @@ public class StaticApplication extends Application {
 		try {
 			db.beginTransaction();
 			db.execSQL("ALTER TABLE datas RENAME TO datas_backup;");
-			db.execSQL("CREATE TABLE datas (_id integer PRIMARY KEY, ot integer, alias integer, setcode integer, type integer," +
-					" atk integer, def integer, level integer, race integer, attribute integer, category integer);");
+			db.execSQL("CREATE TABLE datas (_id integer PRIMARY KEY, ot integer, alias integer, setcode integer, type integer,"
+					+ " atk integer, def integer, level integer, race integer, attribute integer, category integer);");
 			db.execSQL("INSERT INTO datas (_id, ot, alias, setcode, type, atk, def, level, race, attribute, category) "
 					+ "SELECT id, ot, alias, setcode, type, atk, def, level, race, attribute, category FROM datas_backup;");
 			db.execSQL("DROP TABLE datas_backup;");
 			db.execSQL("ALTER TABLE texts RENAME TO texts_backup;");
-			db.execSQL("CREATE TABLE texts (_id integer PRIMARY KEY, name varchar(128), desc varchar(1024)," +
-					" str1 varchar(256), str2 varchar(256), str3 varchar(256), str4 varchar(256), str5 varchar(256)," +
-					" str6 varchar(256), str7 varchar(256), str8 varchar(256), str9 varchar(256), str10 varchar(256)," +
-					" str11 varchar(256), str12 varchar(256), str13 varchar(256), str14 varchar(256), str15 varchar(256), str16 varchar(256));");
+			db.execSQL("CREATE TABLE texts (_id integer PRIMARY KEY, name varchar(128), desc varchar(1024),"
+					+ " str1 varchar(256), str2 varchar(256), str3 varchar(256), str4 varchar(256), str5 varchar(256),"
+					+ " str6 varchar(256), str7 varchar(256), str8 varchar(256), str9 varchar(256), str10 varchar(256),"
+					+ " str11 varchar(256), str12 varchar(256), str13 varchar(256), str14 varchar(256), str15 varchar(256), str16 varchar(256));");
 			db.execSQL("INSERT INTO texts (_id, name, desc, str1, str2, str3, str4, str5, str6, str7, str8, str9, str10, str11, str12, str13, str14, str15, str16)"
 					+ " SELECT id, name, desc, str1, str2, str3, str4, str5, str6, str7, str8, str9, str10, str11, str12, str13, str14, str15, str16 FROM texts_backup;");
 			db.execSQL("DROP TABLE texts_backup;");
@@ -196,7 +211,8 @@ public class StaticApplication extends Application {
 		} else {
 			mDataBasePath = "/data/data/" + getPackageName() + "/databases/";
 		}
-		return new File(mDataBasePath + YGOCardsProvider.DATABASE_NAME).exists();
+		return new File(mDataBasePath + YGOCardsProvider.DATABASE_NAME)
+				.exists();
 	}
 
 	private void checkAndCopyGameSkin() {
@@ -325,16 +341,26 @@ public class StaticApplication extends Application {
 	}
 
 	public String getResourcePath() {
-		return mSettingsPref.getString(Settings.KEY_PREF_GAME_RESOURCE_PATH,
-				getDefaultResPath());
+		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE,
+				Context.MODE_PRIVATE);
+		return sp.getString(Constants.RESOURCE_PATH, getDefaultResPath());
+	}
+
+	public void setResourcePath(String path) {
+		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(Constants.RESOURCE_PATH, path);
+		editor.commit();
 	}
 
 	public String getCardImagePath() {
 		return getResourcePath() + Constants.CARD_IMAGE_DIRECTORY;
 	}
-	
+
 	public boolean getMobileNetworkPref() {
-		return mSettingsPref.getBoolean(Settings.KEY_PREF_COMMON_IMAGE_DOWNLOAD_VIA_GPRS, true);
+		return mSettingsPref.getBoolean(
+				Settings.KEY_PREF_COMMON_IMAGE_DOWNLOAD_VIA_GPRS, true);
 	}
 
 	public String getDataBasePath() {
@@ -382,19 +408,19 @@ public class StaticApplication extends Application {
 	public String getUserName() {
 		return "MyCard";
 	}
-	
+
 	public float getScreenHeight() {
 		return mScreenHeight;
 	}
-	
+
 	public float getScreenWidth() {
 		return mScreenWidth;
 	}
-	
+
 	public float getXScale() {
 		return mScreenHeight / 1024.0f;
 	}
-	
+
 	public float getYScale() {
 		return mScreenWidth / 640.0f;
 	}

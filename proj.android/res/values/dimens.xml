@@ -7,6 +7,8 @@
     <dimen name="card_thumbnail_width">44dip</dimen>
     <dimen name="card_image_height">169dip</dimen>
     <dimen name="card_image_width">118dip</dimen>
+    <dimen name="checkmark_area">50dip</dimen>
+    
 
     <integer name="default_ogles_config">1</integer>
     <integer name="default_card_quality_config">1</integer>

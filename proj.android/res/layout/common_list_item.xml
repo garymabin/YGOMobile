@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <cn.garymb.ygomobile.widget.filebrowser.SelectableItem
+        android:id="@+id/sharing_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        style="@style/CheckBoxAppTheme"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="13.33dip"
+        android:clickable="false"
+        android:focusable="false"
+   />
+
+    <ImageView
+        android:id="@+id/item_list_icon"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="13.33dip"
+        android:layout_toRightOf="@id/sharing_checkbox"
+        android:scaleType="fitCenter" >
+    </ImageView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/item_list_icon" >
+
+        <TextView
+            android:id="@+id/item_list_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dip"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:text="title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/file_name_text_color"
+            android:textSize="14.67sp" />
+
+        <TextView
+            android:id="@+id/item_property_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/item_list_name"
+            android:layout_below="@id/item_list_name"
+            android:layout_marginTop="2dip"
+            android:text="property"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/file_property_text_color"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+</merge>

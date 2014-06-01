@@ -37,6 +37,7 @@
         <activity
             android:name="cn.garymb.ygomobile.SettingsActivity"
             android:parentActivityName="cn.garymb.ygomobile.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/SettingsTheme" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->

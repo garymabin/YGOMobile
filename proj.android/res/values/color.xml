@@ -3,12 +3,14 @@
 
     <color name="file_name_text_color">#333333</color>
     <color name="file_property_text_color">#a1a5a9</color>
+    <color name="navigator_dir_text_color">#666666</color>
     <color name="navigator_dir_text_color_selected">#ff8a00</color>
     <color name="white">#ffffff</color>
 	<color name="black">#000000</color>
 	
 	<color name="holo_gray_light">#33999999</color>
 	<color name="low_translucent_cover">#10000000</color>
+	<color name="file_line_divider_color">#e0e0e0</color>
 	
 	
 	<!-- for navigation drawer & actionbar title -->

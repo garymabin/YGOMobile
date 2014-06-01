@@ -49,7 +49,7 @@
     <style name="CustomDialog" parent="@style/DialogStyleLight">
         <item name="titleTextColor">@color/apptheme_color</item>
         <item name="titleSeparatorColor">@color/apptheme_color</item>
-        <item name="buttonBackgroundColorPressed">@color/apptheme_color</item>
+        <item name="buttonBackgroundColorPressed">@color/trasparent_dark_purple</item>
         <item name="buttonBackgroundColorFocused">@color/trasparent_dark_purple</item>
         <!-- 背景颜色及透明程度 -->
         <item name="android:windowBackground">@color/low_translucent_cover</item>

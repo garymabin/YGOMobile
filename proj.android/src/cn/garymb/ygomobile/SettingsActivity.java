@@ -7,15 +7,21 @@ import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DeviceUtils;
+import cn.garymb.ygomobile.widget.FileChooseController;
+import cn.garymb.ygomobile.widget.FileChooseDialog;
+import cn.garymb.ygomobile.widget.filebrowser.FolderNavigator.NavigateItemChangeListener;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
+import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -26,15 +32,16 @@ import android.view.View;
 import android.widget.TextView;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener, OnPreferenceClickListener {
+public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener, OnPreferenceClickListener, OnClickListener {
 	
-	private EditTextPreference mGameResPath;
+	private Preference mGameResPath;
 	private Preference mVersionPref;
 	private Preference mOpensourcePref;
 	private ListPreference mOGLESPreference;
 	private ListPreference mCardQualityPreference;
 	private ListPreference mFontNamePreference;
-
+	private AlertDialog mDialog;
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +51,11 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		if (action != null) {
 			if (action.equals(Constants.SETTINGS_ACTION_COMMON)) {
 				addPreferencesFromResource(R.xml.preference_common);
-				mGameResPath = (EditTextPreference) findPreference(Settings.KEY_PREF_GAME_RESOURCE_PATH);
-				if (TextUtils.isEmpty(mGameResPath.getText())) {
-					mGameResPath.setText(StaticApplication.peekInstance().getDefaultResPath());
+				mGameResPath = findPreference(Settings.KEY_PREF_GAME_RESOURCE_PATH);
+				if (TextUtils.isEmpty(mGameResPath.getSummary())) {
+					mGameResPath.setSummary(StaticApplication.peekInstance().getResourcePath());
 				}
-				mGameResPath.setSummary(mGameResPath.getText());
-				mGameResPath.setOnPreferenceChangeListener(this);
+				mGameResPath.setOnPreferenceClickListener(this);
 			} else if (action.equals(Constants.SETTINGS_ACTION_GAME)) {
 				addPreferencesFromResource(R.xml.preference_game);
 				mOGLESPreference = (ListPreference) findPreference(Settings.KEY_PREF_GAME_OGLES_CONFIG);
@@ -116,23 +122,35 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_FONT_NAME)) {
 			mFontNamePreference.setValue((String) newValue);
 			mFontNamePreference.setSummary(mFontNamePreference.getEntry());
-		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_RESOURCE_PATH)) {
-			mGameResPath.setSummary((CharSequence) newValue);
-			mGameResPath.setText((String) newValue);
 		}
 		return false;
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		if (mDialog != null && mDialog.isShowing()) {
+			mDialog.dismiss();
+			mDialog = null;
+		}
 	}
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
 		AlertDialog dlg = null;
 		if (preference.equals(mOpensourcePref)) {
-			dlg = DeviceUtils.createOpenSourceDialog(this);
-			dlg.show();
+			mDialog = dlg = DeviceUtils.createOpenSourceDialog(this);
+			mDialog.show();
 
 		} else if (preference.equals(mVersionPref)) {
-			dlg = DeviceUtils.createChangeLogDialog(this);
-			dlg.show();
+			mDialog = dlg = DeviceUtils.createChangeLogDialog(this);
+			mDialog.show();
+		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_RESOURCE_PATH)) {
+			Bundle bundle = new Bundle();
+			bundle.putString("root", StaticApplication.sRootPair.second);
+			bundle.putString("current", StaticApplication.peekInstance().getResourcePath());
+			mDialog = new FileChooseDialog(this, this, bundle);
+			mDialog.show();
 		}
 		if (dlg != null) {
 			final Resources res = getResources();
@@ -156,4 +174,14 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		return false;
 	}
 
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		if (which == DialogInterface.BUTTON_POSITIVE) {
+			if (mDialog instanceof FileChooseDialog) {
+				String newUrl = ((FileChooseController)((FileChooseDialog) mDialog).getController()).getUrl();
+				StaticApplication.peekInstance().setResourcePath(newUrl);
+				mGameResPath.setSummary(newUrl);		
+			}
+		}
+	}
 }

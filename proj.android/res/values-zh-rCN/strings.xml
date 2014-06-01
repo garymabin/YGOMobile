@@ -11,6 +11,7 @@
     <string name="action_settings">设置</string>
     <string name="action_support">支持我们</string>
     <string name="action_reset">重置</string>
+    <string name="action_play">开始游戏</string>
     <string name="action_search">搜索</string>
     <string name="item_type_text">类别：</string>
     <string name="item_ot_text">归属：</string>
@@ -24,6 +25,9 @@
     <string name="item_wiki_text">卡片调整：</string>
     <string name="wiki_hint_text">&lt;&lt;p>&lt;a href="wiki">&lt;u>来自ourocg.cn的链接&lt;/u>&lt;/a></string>
     
+    <string name="access_denied">无访问权限！</string>
+    <string name="choose_folder">选择目录：</string>
+    <string name="root_dir">根目录</string>
     
     <string name="button_update">更新</string>
     <string name="button_create">创建</string>
