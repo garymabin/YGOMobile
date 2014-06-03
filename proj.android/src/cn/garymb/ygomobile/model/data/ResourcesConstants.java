@@ -30,6 +30,12 @@ public interface ResourcesConstants {
 	public static final String JSON_KEY_NAME = "name";
 	
 	/**
+	 * For version info
+	 */
+	public static final String JSON_KEY_VERSION = "version";
+	public static final String JSON_KEY_VERSION_URL = "url";
+	
+	/**
 	 * For server info.
 	 */
 	public static final String JSON_KEY_SERVER_IP_ADDR = "ip";

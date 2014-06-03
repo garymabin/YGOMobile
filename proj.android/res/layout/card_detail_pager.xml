@@ -10,21 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <ImageView
-            android:id="@+id/card_image"
-            android:layout_width="@dimen/card_image_width"
-            android:layout_height="@dimen/card_image_height"
+        <LinearLayout
+            android:id="@+id/card_image_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="5dip"
-            android:layout_marginRight="5dip"
-            android:contentDescription="@string/app_name" />
+            android:background="@drawable/list_selector"
+            android:clickable="true"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip" >
+            <ImageView
+                android:id="@+id/card_image"
+                android:layout_width="@dimen/card_image_width"
+                android:layout_height="@dimen/card_image_height"
+                android:contentDescription="@string/app_name" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/card_image"
+            android:layout_toRightOf="@id/card_image_panel"
             android:gravity="center_vertical"
             android:orientation="vertical" >
 
@@ -121,8 +128,8 @@
 
             <TextView
                 style="@style/card_item_content"
-                android:textStyle="bold"
-                android:text="@string/item_des_text" />
+                android:text="@string/item_des_text"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/card_des"
@@ -130,9 +137,9 @@
 
             <TextView
                 style="@style/card_item_content"
-                android:textStyle="bold"
                 android:layout_marginTop="10dip"
-                android:text="@string/item_wiki_text" />
+                android:text="@string/item_wiki_text"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/card_wiki"
@@ -141,8 +148,8 @@
                 android:background="@drawable/list_selector"
                 android:clickable="true"
                 android:singleLine="true"
-                android:textColorLink="@color/apptheme_color"
-                android:text="@string/wiki_hint_text" />
+                android:text="@string/wiki_hint_text"
+                android:textColorLink="@color/apptheme_color" />
         </LinearLayout>
     </ScrollView>
 

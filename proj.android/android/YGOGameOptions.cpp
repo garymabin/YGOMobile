@@ -54,7 +54,8 @@ YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), 
 	//read host info
 	tmplength = ::BufferIO::ReadInt32(rawdata);
 	if (tmplength != 0) {
-		m_phostInfo = new char[tmplength];
+		m_phostInfo = new char[tmplength + 1];
+		memset(m_phostInfo, 0, tmplength + 1);
 		memcpy(m_phostInfo, rawdata, tmplength);
 		rawdata += tmplength;
 	}

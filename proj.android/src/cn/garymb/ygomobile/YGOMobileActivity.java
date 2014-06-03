@@ -65,6 +65,7 @@ public class YGOMobileActivity extends NativeActivity implements
 				if (isShow) {
 					if (mOverlayShowRequest) {
 						mOverlayView.hide();
+						mChainOverlayView.hide();
 					}
 					mGlobalEditText.fillContent(hint);
 					mGlobalEditText.showAtLocation(mContentView,
@@ -216,15 +217,15 @@ public class YGOMobileActivity extends NativeActivity implements
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		mHandler = new EventHandler();
 		final Resources res = getResources();
-		
 		mChainControlXPostion = (int)(CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE * DeviceUtils.getXScale());
 		mChainControlYPostion = (int)(DeviceUtils.getScreenWidth() - CHAIN_CONTROL_PANEL_Y_REVERT_POSITION * DeviceUtils.getYScale() -
 				(res.getDimensionPixelSize(R.dimen.chain_control_button_height) * 2 + 
 						res.getDimensionPixelSize(R.dimen.chain_control_margin)));
+		
+		setRequestedOrientation(StaticApplication.peekInstance().getGameScreenOritation());
 		
 		initExtraView();
 		mPM = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -430,6 +431,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		// TODO Auto-generated method stub
 		if (mOverlayShowRequest) {
 			mOverlayView.show();
+			mChainOverlayView.show();
 		}
 	}
 }

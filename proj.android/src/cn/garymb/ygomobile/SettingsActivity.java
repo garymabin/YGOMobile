@@ -3,22 +3,33 @@ package cn.garymb.ygomobile;
 import java.io.File;
 import java.util.List;
 
+import com.soundcloud.android.crop.Crop;
+
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
+import cn.garymb.ygomobile.common.ImageCopyTask;
+import cn.garymb.ygomobile.common.ImageCopyTask.ImageCopyListener;
+import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.setting.Settings;
-import cn.garymb.ygomobile.utils.DeviceUtils;
+import cn.garymb.ygomobile.utils.FileOpsUtils;
 import cn.garymb.ygomobile.widget.FileChooseController;
 import cn.garymb.ygomobile.widget.FileChooseDialog;
-import cn.garymb.ygomobile.widget.filebrowser.FolderNavigator.NavigateItemChangeListener;
+import cn.garymb.ygomobile.widget.ImagePreviewDialog;
+import cn.garymb.ygomobile.widget.WebViewDialog;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,12 +38,20 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
+import android.webkit.WebView;
+import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener, OnPreferenceClickListener, OnClickListener {
+@SuppressWarnings("deprecation")
+public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener, OnPreferenceClickListener,
+OnClickListener, android.view.View.OnClickListener, ImageCopyListener {
+	private static final int DIALOG_ID_OPENSOURCE = 0;
+	private static final int DIALOG_ID_VERSION = 1;
+	private static final int DIALOG_ID_FOLDER_CHOOSE = 2;
+	private static final int DIALOG_ID_IMAGE_PREVIEW = 3;
 	
 	private Preference mGameResPath;
 	private Preference mVersionPref;
@@ -40,9 +59,9 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	private ListPreference mOGLESPreference;
 	private ListPreference mCardQualityPreference;
 	private ListPreference mFontNamePreference;
+	private Preference mCoverDiyPreference;
 	private AlertDialog mDialog;
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +93,9 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 					mFontNamePreference.setValue(Constants.DEFAULT_FONT_NAME);
 				}
 				mFontNamePreference.setSummary(mFontNamePreference.getValue());
+				
+				mCoverDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_COVER);
+				mCoverDiyPreference.setOnPreferenceClickListener(this);
 			} else  if (action.equals(Constants.SETTINGS_ACTION_ABOUT)) {
 				addPreferencesFromResource(R.xml.preference_about);
 				mVersionPref = findPreference(Settings.KEY_PREF_ABOUT_VERSION);
@@ -92,6 +114,26 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			// Load the legacy preferences headers
 			addPreferencesFromResource(R.xml.preference_headers_legacy);
 		}
+	}
+	
+	@Override
+	@Deprecated
+	protected Dialog onCreateDialog(int id, Bundle args) {
+		Dialog dlg = null;
+		if (id == DIALOG_ID_OPENSOURCE) {
+			dlg = new WebViewDialog(this, new WebView(this), null, args);
+		} else if (id == DIALOG_ID_VERSION) {
+			dlg = new WebViewDialog(this, new WebView(this), null, args);
+		} else if (id == DIALOG_ID_FOLDER_CHOOSE) {
+			View view = getLayoutInflater().inflate(R.layout.file_browser_layout, null);
+			dlg = new FileChooseDialog(this, view, this, args);
+		} else if (id == DIALOG_ID_IMAGE_PREVIEW) {
+			View view = getLayoutInflater().inflate(R.layout.image_preview_content, null);
+			dlg = new ImagePreviewDialog(this, view, this, this, args);
+		} else {
+			dlg = super.onCreateDialog(id);
+		}
+		return dlg;
 	}
 
 	@Override
@@ -127,49 +169,28 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	}
 	
 	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		if (mDialog != null && mDialog.isShowing()) {
-			mDialog.dismiss();
-			mDialog = null;
-		}
-	}
-
-	@Override
 	public boolean onPreferenceClick(Preference preference) {
-		AlertDialog dlg = null;
 		if (preference.equals(mOpensourcePref)) {
-			mDialog = dlg = DeviceUtils.createOpenSourceDialog(this);
-			mDialog.show();
-
+			Bundle bundle = new Bundle();
+			bundle.putString("url", "file:///android_asset/licenses.html");
+			bundle.putInt("titleRes", R.string.settings_about_opensource_pref);
+			showDialog(DIALOG_ID_OPENSOURCE, bundle);
 		} else if (preference.equals(mVersionPref)) {
-			mDialog = dlg = DeviceUtils.createChangeLogDialog(this);
-			mDialog.show();
+			Bundle bundle = new Bundle();
+			bundle.putString("url", "file:///android_asset/changelog.html");
+			bundle.putInt("titleRes", R.string.settings_about_change_log);
+			showDialog(DIALOG_ID_VERSION, bundle);
 		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_RESOURCE_PATH)) {
 			Bundle bundle = new Bundle();
-			bundle.putString("root", StaticApplication.sRootPair.second);
+			bundle.putString("root", Environment.getExternalStorageDirectory().getAbsolutePath());
 			bundle.putString("current", StaticApplication.peekInstance().getResourcePath());
-			mDialog = new FileChooseDialog(this, this, bundle);
-			mDialog.show();
-		}
-		if (dlg != null) {
-			final Resources res = getResources();
-			// Title
-			final int titleId = res
-					.getIdentifier("alertTitle", "id", "android");
-			final View title = dlg.findViewById(titleId);
-			if (title != null) {
-				((TextView) title).setTextColor(res
-						.getColor(R.color.apptheme_color));
-			}
-			// Title divider
-			final int titleDividerId = res.getIdentifier("titleDivider", "id",
-					"android");
-			final View titleDivider = dlg.findViewById(titleDividerId);
-			if (titleDivider != null) {
-				titleDivider.setBackgroundColor(res
-						.getColor(R.color.apptheme_color));
-			}
+			showDialog(DIALOG_ID_FOLDER_CHOOSE, bundle);
+		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_DIY_COVER)) {
+			Bundle bundle = new Bundle();
+			bundle.putString("url", StaticApplication.peekInstance().getCoreSkinPath()
+					+ File.separator + Constants.CORE_SKIN_COVER);
+			bundle.putIntArray("orig_size", Constants.CORE_SKIN_COVER_SIZE);
+			showDialog(DIALOG_ID_IMAGE_PREVIEW, bundle);
 		}
 		return false;
 	}
@@ -177,11 +198,79 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		if (which == DialogInterface.BUTTON_POSITIVE) {
-			if (mDialog instanceof FileChooseDialog) {
-				String newUrl = ((FileChooseController)((FileChooseDialog) mDialog).getController()).getUrl();
+			if (dialog instanceof FileChooseDialog) {
+				String newUrl = ((FileChooseController)((FileChooseDialog) dialog).getController()).getUrl();
 				StaticApplication.peekInstance().setResourcePath(newUrl);
 				mGameResPath.setSummary(newUrl);		
 			}
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		dismissDialog(DIALOG_ID_IMAGE_PREVIEW);
+		Crop.pickImage(this);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent result) {
+		if (requestCode == Crop.REQUEST_PICK && resultCode == Activity.RESULT_OK) {
+            beginCrop(result.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, result);
+        }
+	}
+	
+	private void handleCrop(int resultCode, Intent result) {
+		if (resultCode == Activity.RESULT_OK) {
+			setNewImage(Crop.getOutput(result));
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
+        }
+	}
+	
+	private void setNewImage(Uri uri) {
+		String path = uri.toString();
+		if (path.startsWith(ImageItemInfoHelper.FILE_PREFIX)) {
+			path = FileOpsUtils.getFilePathFromUrl(path);
+		} else if (path.startsWith(ImageItemInfoHelper.MEIDA_PREFIX)) {
+			ContentResolver cr = StaticApplication.peekInstance()
+					.getContentResolver();
+			String[] projection = { MediaStore.MediaColumns.DATA };
+			Cursor cursor = cr.query(uri, projection, null, null, null);
+			if (cursor != null && cursor.moveToFirst()) {
+				path = cursor.getString(0);
+			} else {
+				if (cursor != null) {
+					cursor.close();
+				}
+			}
+		}
+		if (Build.VERSION.SDK_INT >= 11) {
+			ImageCopyTask task = new ImageCopyTask(this);
+			task.setImageCopyListener(this);
+			task.executeOnExecutor(
+					AsyncTask.THREAD_POOL_EXECUTOR, path, StaticApplication
+							.peekInstance().getCoreSkinPath()
+							+ File.separator
+							+ Constants.CORE_SKIN_COVER);
+		} else {
+			ImageCopyTask task = new ImageCopyTask(this);
+			task.setImageCopyListener(this);
+			task.execute(path, StaticApplication.peekInstance()
+					.getCoreSkinPath()
+					+ File.separator
+					+ Constants.CORE_SKIN_COVER);
+		}
+	}
+	
+	private void beginCrop(Uri source) {
+		Uri outputUri = Uri.fromFile(new File(getCacheDir(), "cropped"));
+		new Crop(source).withAspect(1024, 640).output(outputUri).withMaxSize(1024, 640).start(this);
+	}
+
+	@Override
+	public void onCopyFinished(Bundle result) {
+		showDialog(DIALOG_ID_IMAGE_PREVIEW, result);
 	}
 }

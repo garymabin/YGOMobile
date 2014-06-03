@@ -7,7 +7,7 @@ import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.core.images.BitmapHolder;
 import cn.garymb.ygomobile.core.images.ImageFileDownloadTaskHolder;
-import cn.garymb.ygomobile.core.images.ImageViewImageItemController;
+import cn.garymb.ygomobile.core.images.CardImageItemController;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
@@ -31,12 +31,13 @@ import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CardDetailPagerFragment extends BaseFragment implements
-		LoaderCallbacks<Cursor>, IDataObserver {
+		LoaderCallbacks<Cursor>, IDataObserver, OnClickListener {
 
 	private static final int CARD_DES_LOADER_ID = 0;
 
@@ -55,8 +56,10 @@ public class CardDetailPagerFragment extends BaseFragment implements
 	private int mImageHeightInPixel;
 	private int mImageWidthInPixel;
 
-	private ImageViewImageItemController mImageItemController;
+	private CardImageItemController mImageItemController;
 	private ImageItem mImageItem;
+
+	private ViewGroup mImagePanel;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -113,9 +116,12 @@ public class CardDetailPagerFragment extends BaseFragment implements
 	private View initView(LayoutInflater inflater) {
 		View view = inflater.inflate(R.layout.card_detail_pager, null);
 		final Model model = Model.peekInstance();
+		mImagePanel = (ViewGroup) view.findViewById(R.id.card_image_panel);
 		mCardDesView = (TextView) view.findViewById(R.id.card_des);
-		((TextView) view.findViewById(R.id.card_wiki)).setMovementMethod(new LinkMovementMethod());
-		setTextViewHTML(((TextView) view.findViewById(R.id.card_wiki)), getResources().getString(R.string.wiki_hint_text));
+		((TextView) view.findViewById(R.id.card_wiki))
+				.setMovementMethod(new LinkMovementMethod());
+		setTextViewHTML(((TextView) view.findViewById(R.id.card_wiki)),
+				getResources().getString(R.string.wiki_hint_text));
 		((TextView) view.findViewById(R.id.card_ot)).setText(model
 				.getYGOCardOT(mOT));
 		((TextView) view.findViewById(R.id.card_type)).setText(model
@@ -139,12 +145,13 @@ public class CardDetailPagerFragment extends BaseFragment implements
 			((TextView) view.findViewById(R.id.card_atk)).setText("N/A");
 			((TextView) view.findViewById(R.id.card_def)).setText("N/A");
 		}
-		mImageItemController = new ImageViewImageItemController(mActivity,
+		mImageItemController = new CardImageItemController(mActivity,
 				(ImageView) view.findViewById(R.id.card_image));
 		mImageItem = new ImageItem(mID, mImageHeightInPixel, mImageWidthInPixel);
 		Bitmap cardImage = Model.peekInstance().getBitmap(mImageItem,
 				Constants.IMAGE_TYPE_ORIGINAL);
 		if (cardImage != null) {
+			mImagePanel.setClickable(false);
 			mImageItemController.setBitmap(cardImage, false);
 		} else {
 			Bitmap thumbnail = Model.peekInstance().getBitmap(mImageItem,
@@ -235,11 +242,8 @@ public class CardDetailPagerFragment extends BaseFragment implements
 					Constants.IMAGE_TYPE_ORIGINAL, type, item);
 			Controller.peekInstance().requestDataOperation(this, msg);
 		} else {
-			// 未下载则进行请求下载
-			Message msg = Controller.buildMessage(
-					Constants.REQUEST_TYPE_DOWNLOAD_IMAGE,
-					Constants.IMAGE_TYPE_ORIGINAL, type, item);
-			Controller.peekInstance().requestDataOperation(this, msg);
+			mImagePanel.setClickable(true);
+			mImagePanel.setOnClickListener(this);
 		}
 	}
 
@@ -266,6 +270,16 @@ public class CardDetailPagerFragment extends BaseFragment implements
 			return;
 
 		mImageItemController.setBitmap(holder.getBitmap(), true);
+		mImagePanel.setOnClickListener(null);
+		mImagePanel.setClickable(false);
+	}
+
+	@Override
+	public void onClick(View v) {
+		Message msg = Controller.buildMessage(
+				Constants.REQUEST_TYPE_DOWNLOAD_IMAGE,
+				Constants.IMAGE_TYPE_ORIGINAL, Constants.BITMAP_LOAD_TYPE_LOAD, mImageItem);
+		Controller.peekInstance().requestDataOperation(this, msg);
 	}
 
 }

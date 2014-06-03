@@ -454,6 +454,36 @@ bool perfromTrick(android_app* app) {
 	return true;
 }
 
+bool getFontAntiAlias(android_app* app) {
+	bool ret = true;
+	if (!app || !app->activity || !app->activity->vm)
+		return true;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return true;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID MethodFontAntialias = jni->GetMethodID(classApp,
+			"getFontAntialias", "()Z");
+	jboolean isAntialias = jni->CallBooleanMethod(application,
+			MethodFontAntialias);
+	if (isAntialias > 0) {
+		ret = true;
+	} else {
+		ret = false;
+	}
+	jni->DeleteLocalRef(ClassNativeActivity);
+	jni->DeleteLocalRef(classApp);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
 void perfromHapticFeedback(android_app* app) {
 	if (!app || !app->activity || !app->activity->vm)
 		return;

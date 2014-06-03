@@ -44,6 +44,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -59,20 +60,20 @@ import android.util.Pair;
 customReportContent = { APP_VERSION_NAME, ANDROID_VERSION, PHONE_MODEL,
 		CUSTOM_DATA, STACK_TRACE, USER_CRASH_DATE, LOGCAT, BUILD,
 		TOTAL_MEM_SIZE, DISPLAY, DUMPSYS_MEMINFO, DEVICE_FEATURES, ENVIRONMENT }, mailTo = "garymabin@gmail.com", includeDropBoxSystemTags = true, mode = ReportingInteractionMode.DIALOG, resDialogText = R.string.crashed, resDialogIcon = android.R.drawable.ic_dialog_info, // optional.
-																																																																				// default
-																																																																				// is
-																																																																				// a
-																																																																				// warning
-																																																																				// sign
+// default
+// is
+// a
+// warning
+// sign
 resDialogTitle = R.string.crash_title, // optional. default is your application
-										// name
+// name
 resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, // optional. when
-																// defined, adds
-																// a user text
-																// field input
-																// with this
-																// text resource
-																// as a label
+// defined, adds
+// a user text
+// field input
+// with this
+// text resource
+// as a label
 resDialogOkToast = R.string.crash_dialog_ok_toast)
 public class StaticApplication extends Application {
 
@@ -87,17 +88,19 @@ public class StaticApplication extends Application {
 	private static StaticApplication INSTANCE;
 
 	private SharedPreferences mSettingsPref;
-	
+
 	private String mCoreConfigVersion;
 
 	private String mDataBasePath;
+
+	private String mCoreSkinPath;
 
 	private float mScreenWidth;
 
 	private float mScreenHeight;
 
 	private float mDensity;
-	
+
 	static {
 		System.loadLibrary("YGOMobile");
 	}
@@ -112,7 +115,9 @@ public class StaticApplication extends Application {
 		ACRA.getErrorReporter().setReportSender(sender);
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
 		sRootPair = Pair.create(getResources().getString(R.string.root_dir),
-				Environment.getExternalStorageDirectory().getPath());
+				"/");
+		mCoreSkinPath = getCacheDir() + File.separator
+				+ Constants.CORE_SKIN_PATH;
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(this);
 		Controller.peekInstance();
 		checkAndCopyCoreConfig();
@@ -216,30 +221,26 @@ public class StaticApplication extends Application {
 	}
 
 	private void checkAndCopyGameSkin() {
-		File internalCacheDir = getCacheDir();
-		if (internalCacheDir != null) {
-			File coreSkinDir = new File(internalCacheDir,
-					Constants.CORE_SKIN_PATH);
-			if (coreSkinDir != null && coreSkinDir.exists()
-					&& coreSkinDir.isDirectory()) {
-				return;
-			}
-			if (coreSkinDir != null && coreSkinDir.exists()
-					&& !coreSkinDir.isDirectory()) {
-				coreSkinDir.delete();
-			}
-			// we need to copy from configs from assets;
-			int assetcopycount = 0;
-			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
-				try {
-					FileOpsUtils.assetsCopy(this, Constants.CORE_SKIN_PATH,
-							coreSkinDir.getAbsolutePath(), false);
-					break;
-				} catch (IOException e) {
-					Log.w(TAG, "copy core skin failed, retry count = "
-							+ assetcopycount);
-					continue;
-				}
+		File coreSkinDir = new File(mCoreSkinPath);
+		if (coreSkinDir != null && coreSkinDir.exists()
+				&& coreSkinDir.isDirectory()) {
+			return;
+		}
+		if (coreSkinDir != null && coreSkinDir.exists()
+				&& !coreSkinDir.isDirectory()) {
+			coreSkinDir.delete();
+		}
+		// we need to copy from configs from assets;
+		int assetcopycount = 0;
+		while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
+			try {
+				FileOpsUtils.assetsCopy(this, Constants.CORE_SKIN_PATH,
+						coreSkinDir.getAbsolutePath(), false);
+				break;
+			} catch (IOException e) {
+				Log.w(TAG, "copy core skin failed, retry count = "
+						+ assetcopycount);
+				continue;
 			}
 		}
 	}
@@ -331,6 +332,10 @@ public class StaticApplication extends Application {
 				+ Constants.WORKING_DIRECTORY + Constants.CARD_IMAGE_DIRECTORY;
 	}
 
+	public String getCoreSkinPath() {
+		return mCoreSkinPath;
+	}
+
 	public String getDefaultFontName() {
 		return Constants.DEFAULT_FONT_NAME;
 	}
@@ -363,6 +368,16 @@ public class StaticApplication extends Application {
 				Settings.KEY_PREF_COMMON_IMAGE_DOWNLOAD_VIA_GPRS, true);
 	}
 
+	public int getGameScreenOritation() {
+		boolean lockScreen = mSettingsPref.getBoolean(
+				Settings.KEY_PREF_GAME_SCREEN_ORIENTATION, true);
+		if (lockScreen) {
+			return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+		} else {
+			return ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
+		}
+	}
+
 	public String getDataBasePath() {
 		return mDataBasePath;
 	}
@@ -388,6 +403,11 @@ public class StaticApplication extends Application {
 				+ Constants.FONT_DIRECTORY
 				+ mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME,
 						getDefaultFontName());
+	}
+
+	public boolean getFontAntialias() {
+		return mSettingsPref.getBoolean(Settings.KEY_PREF_GAME_FONT_ANTIALIAS,
+				true);
 	}
 
 	public String getLastDeck() {

@@ -17,6 +17,9 @@ public interface Constants {
 	
 	public static final String CORE_SKIN_PATH = "textures";
 	
+	public static final String CORE_SKIN_COVER = "bg.jpg";
+	public static final int[]  CORE_SKIN_COVER_SIZE = new int[]{1024, 640};
+	
 	public static final String DEFAULT_DECK_NAME = "new.ydk";
 	
 	public static final String DEFAULT_OGLES_CONFIG = "1";

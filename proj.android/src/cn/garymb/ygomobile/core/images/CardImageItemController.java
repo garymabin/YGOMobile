@@ -14,12 +14,12 @@ import android.graphics.drawable.TransitionDrawable;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
-public class ImageViewImageItemController extends AbstractImageItemController {
+public class CardImageItemController extends AbstractImageItemController {
 	private static final int FADE_IN_TIME = 400;
 	protected ImageView mImageView;
 	private Context mContext;
 	
-	public ImageViewImageItemController(Context context,ImageView view) {
+	public CardImageItemController(Context context,ImageView view) {
 		mImageView = view;
 		this.mContext = context;
 	}

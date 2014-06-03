@@ -13,7 +13,7 @@ import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.core.images.AbstractImageItemController;
 import cn.garymb.ygomobile.core.images.BitmapHolder;
 import cn.garymb.ygomobile.core.images.ImageFileDownloadTaskHolder;
-import cn.garymb.ygomobile.core.images.ImageViewImageItemController;
+import cn.garymb.ygomobile.core.images.CardImageItemController;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.ygo.YGOArrayStore;
@@ -34,7 +34,7 @@ public class CardAdapter extends CursorAdapter implements IDataObserver{
 	
 	private final class ViewHolder {
 		ImageView mCardThumbnail;
-		ImageViewImageItemController mController;
+		CardImageItemController mController;
 		TextView mNameText;
 		TextView mLevelText;
 		TextView mRaceText;
@@ -126,7 +126,7 @@ public class CardAdapter extends CursorAdapter implements IDataObserver{
 			ViewHolder holder = (ViewHolder) containerView.getTag();
 			String id = cursor.getString(mIDColumnId);
 			ImageItem item = new ImageItem(id, thumbnailImageHeightInPixel, thumbnailImageWidthInPixel);
-			holder.mController = new ImageViewImageItemController(context, holder.mCardThumbnail);
+			holder.mController = new CardImageItemController(context, holder.mCardThumbnail);
 			
 			Bitmap thumbnail = Model.peekInstance().getBitmap(item, Constants.IMAGE_TYPE_THUMNAIL);
 			if (thumbnail != null) {

@@ -214,7 +214,7 @@ public class MainActivity extends ActionBarActivity implements
 			mHandler.sendEmptyMessageDelayed(
 					Constants.MSG_ID_EXIT_CONFIRM_ALARM, 2000);
 		} else {
-			System.exit(1);
+			super.finish();
 		}
 	}
 
@@ -233,7 +233,8 @@ public class MainActivity extends ActionBarActivity implements
 			fragment = new FreeDuelTabFragment();
 		}
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		mFragmentManager.popBackStack();
 		ft.replace(R.id.content_frame, fragment);
-		ft.commit();
+		ft.commitAllowingStateLoss();
 	}
 }

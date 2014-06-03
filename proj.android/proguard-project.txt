@@ -75,6 +75,7 @@
     public void setLastDeck(java.lang.String);
     public int getOpenglVersion();
     public int getCardQuality();
+    public boolean getFontAntialias();
 }
 #keep settings
 -keep class cn.garymb.ygomobile.SettingsActivity

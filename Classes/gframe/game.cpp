@@ -147,10 +147,11 @@ bool Game::Initialize() {
 	if(!dataManager.LoadStrings((cacheDir + path("/core/") + configVersion + path("/config/strings.conf")).c_str()))
 		return false;
 	env = device->getGUIEnvironment();
-	numFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)16 * yScale, true, true);
-	adFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)12 * yScale, true, true);
-	lpcFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)48 * yScale, true, true);
-	guiFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.textfont, (int)gameConf.textfontsize * yScale, true, true);
+	bool isAntialias = android::getFontAntiAlias(app);
+	numFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)16 * yScale, isAntialias, false);
+	adFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)12 * yScale, isAntialias, false);
+	lpcFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)48 * yScale, isAntialias, true);
+	guiFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.textfont, (int)gameConf.textfontsize * yScale, isAntialias, false);
 	textFont = guiFont;
 	smgr = device->getSceneManager();
 	device->setWindowCaption(L"[---]");

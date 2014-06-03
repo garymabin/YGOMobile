@@ -45,6 +45,14 @@ public class BitmapUtils {
         return drawable; 
     }
     
+    public static int[] decodeImageSize(String filePath) {
+    	BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true; 
+		options.inDither = false;
+		BitmapFactory.decodeFile(filePath, options);
+		return new int[]{options.outWidth, options.outHeight};
+    }
+    
     public static Bitmap createNewBitmapWithResource(Resources res, int resID,
 			int wh[], boolean forceResize) {
 		BitmapFactory.Options options = new BitmapFactory.Options();

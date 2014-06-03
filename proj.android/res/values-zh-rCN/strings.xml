@@ -125,14 +125,27 @@
     <string name="settings_common_sub_common">常规</string>
     <string name="settings_about_sub_about">关于</string>
     <string name="settings_common_card_image_network_pref">2/3G网络下不下载卡图</string>
+    <string name="settings_game_screen_orientation">游戏中锁定屏幕方向</string>
+    <string name="settings_game_font_antialias">开启字体抗锯齿</string>
+    <string name="settings_game_font_antialias_summary">关闭此选项可提高游戏帧数</string>
     <string name="settings_about_author_pref">作者</string>
     <string name="settings_about_version_pref">版本</string>
     <string name="settings_about_opensource_pref">开源许可</string>
+    <string name="settings_about_check_update">检查更新</string>
     <string name="settings_about_change_log">版本更新记录</string>
     <string name="settings_game_card_quality">卡图质量</string>
     <string name="settings_game_card_path">卡图存放路径</string>
     <string name="settings_game_font_name">字体列表</string>
     <string name="settings_game_res_path">资源路径</string>
+    <string name="settings_category_diy">个性化</string>
+    <string name="settings_game_diy_cover">游戏背景</string>
+    <string name="settings_game_diy_des">当前使用图片：</string>
+    <string name="settings_game_diy_history_des">历史图片：</string>
+    <string name="settings_game_cover">背景图</string>
+    
+    <string name="image_not_load_toast">无法加载指定图片</string>
+    
+    <string name="copying_image">正在拷贝图片</string>
     
     <string name="server_user_name">用户名：</string>
     <string name="server_name">名称：</string>

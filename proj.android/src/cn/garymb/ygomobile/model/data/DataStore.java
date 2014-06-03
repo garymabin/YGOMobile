@@ -44,6 +44,10 @@ public class DataStore {
 					DEFAULT_CHECKMATE_SERVER_NAME,
 					DEFAULT_CHECKMATE_SERVER_ADDR,
 					DEFAULT_CHECKMATE_SERVER_PORT);
+			//save default servers
+			for (int i = 0; i < mServers.size(); i++) {
+				addNewServer(mServers.get(mServers.keyAt(i)));
+			}
 		}
 		// add user define server.
 		for (int i = 0; i < size; i++) {

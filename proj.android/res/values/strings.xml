@@ -18,7 +18,6 @@
     <string name="item_attr_text">属性：</string>
     <string name="item_atk_text">攻击力：</string>
     <string name="item_def_text">防御力：</string>
-    
     <string name="button_update">Update</string>
     <string name="button_create">Create</string>
     <string name="button_ok">OK</string>
@@ -59,7 +58,6 @@
     <string name="action_filter_type_monster_flip">反转</string>
     <string name="action_filter_type_monster_toon">卡通</string>
     <string name="action_filter_type_monster_pendulum">摇摆</string>
-    
     <string name="action_filter_property_land">地</string>
     <string name="action_filter_property_water">水</string>
     <string name="action_filter_property_hot">炎</string>
@@ -92,18 +90,14 @@
     <string name="action_filter_race_devine_beast">幻神兽</string>
     <string name="action_filter_race_bramna">创造神</string>
     <string name="action_filter_race_phantom_dragon">幻龙</string>
-    
     <string name="action_filter_ot_ocg">OCG</string>
     <string name="action_filter_ot_tcg">TCG</string>
     <string name="action_filter_ot_ocgtcg">OCG/TCG</string>
-    
     <string name="action_filter_atk">攻击力</string>
     <string name="action_filter_def">防御力</string>
     <string name="card_search_hint">请输入卡片名称或者代码</string>
-    
     <string name="action_filter_level">星等</string>
     <string name="action_filter_effect">效果</string>
-    
     <string name="settings_common">Common settings</string>
     <string name="settings_game">Game settings</string>
     <string name="settings_about">About</string>
@@ -115,45 +109,54 @@
     <string name="support_method_alipay_wap">通过wap网页进行捐助</string>
     <string name="support_method_alipay_mobile_installed">通过手机钱包进行捐助</string>
     <string name="support_method_alipay_mobile_not_installed">提示下载手机钱包后进行捐助</string>
+    <string name="settings_game_font_antialias">开启字体抗锯齿</string>
+    <string name="settings_game_font_antialias_summary">关闭此选项可提高游戏帧数</string>
     <string name="settings_common_sub_common">Common</string>
     <string name="settings_common_card_image_network_pref">Do not download card images while on mobile data plan</string>
+    <string name="settings_game_screen_orientation">Lock screen in game</string>
     <string name="settings_about_author_pref">Author</string>
     <string name="settings_about_version_pref">Version</string>
+    <string name="settings_about_opensource_pref">Open source licenses</string>
+    <string name="settings_about_change_log">Change Log</string>
+    <string name="settings_about_check_update">Check updates</string>
+    
     <string name="settings_game_card_quality">Card image quality</string>
     <string name="settings_game_card_path">Card image save path</string>
     <string name="settings_game_opengl">OpenGL</string>
-    <string name="settings_about_opensource_pref">Open source licenses</string>
-    <string name="settings_about_change_log">Change Log</string>
     <string name="settings_game_font_name">Font list</string>
     <string name="settings_game_res_path">Resource path</string>
+    
+    <string name="settings_category_diy">DIY</string>
+    <string name="settings_game_diy_cover">Game background</string>
+    <string name="image_not_load_toast">Can not load certain image</string>
+    <string name="settings_game_diy_des">Current image：</string>
+    <string name="settings_game_diy_history_des">History images：</string>
+    <string name="settings_game_cover">Background</string>
+    
+    <string name="copying_image">Copying image...</string>
     
     <string name="access_denied">Access Denied!</string>
     <string name="choose_folder">Choose a folder:</string>
     <string name="root_dir">Root dir</string>
-    
     <string name="server_user_name">User name:</string>
     <string name="server_name">Name:</string>
     <string name="server_info">Host passwd(optional):</string>
     <string name="server_ip">IP Address:</string>
     <string name="server_ip_hint">0.0.0.0</string>
     <string name="server_port">Port:</string>
-    
     <string name="range_to">to</string>
-    
     <string name="action_new_server">Add new server</string>
     <string name="action_edit_server">Edit server</string>
-    
     <string name="item_des_text">Card Info：</string>
     <string name="item_wiki_text">Card Wiki：</string>
     <string name="wiki_hint_text">&lt;&lt;p>&lt;a href="wiki">&lt;u>来自ourocg.cn的链接&lt;/u>&lt;/a></string>
-    
     <string name="item_type_text">Card Type：</string>
     <string name="item_ot_text">TCG/OCG：</string>
-    
     <string name="action_delete">Delete</string>
     <string name="action_edit">Edit</string>
     <string name="action_connect">Connect</string>
-    
     <string name="toast_delete">%1$s deleted</string>
     <string name="exit_hint">"Press back again to quit YGOMobile!"</string>
+    <string name="title_activity_crop">CropActivity</string>
+
 </resources>

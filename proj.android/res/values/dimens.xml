@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -9,12 +10,16 @@
     <dimen name="card_image_width">118dip</dimen>
     <dimen name="checkmark_area">50dip</dimen>
     
+    <dimen name="image_preview_limit_width">300dip</dimen>
+    <dimen name="image_preview_limit_height">240dip</dimen>
 
     <integer name="default_ogles_config">1</integer>
     <integer name="default_card_quality_config">1</integer>
-    
+
     <dimen name="chain_control_button_width">70dip</dimen>
     <dimen name="chain_control_button_height">30dip</dimen>
     <dimen name="chain_control_margin">10dip</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 
 </resources>

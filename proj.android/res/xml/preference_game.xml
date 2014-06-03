@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
     <PreferenceCategory android:title="@string/app_name" >
-    <cn.garymb.ygomobile.widget.preference.MyListPreference
-        android:key="pref_key_game_ogles_config"
-        android:entries="@array/opengl_version"
-        android:entryValues="@array/opengl_version_value"
-        android:persistent="true"
-        android:defaultValue="@integer/default_ogles_config"
-        android:title="@string/settings_game_opengl" />
-    <cn.garymb.ygomobile.widget.preference.MyListPreference
-        android:key="pref_key_game_image_quality"
-        android:entries="@array/card_quality"
-        android:entryValues="@array/card_quality_value"
-        android:persistent="true"
-        android:defaultValue="@integer/default_card_quality_config"
-        android:title="@string/settings_game_card_quality" />
-    <cn.garymb.ygomobile.widget.preference.MyListPreference
-        android:key="pref_key_game_font_name"
-        android:persistent="true"
-        android:title="@string/settings_game_font_name" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_key_game_screen_orientation"
+            android:persistent="true"
+            android:title="@string/settings_game_screen_orientation" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_key_game_font_antialias"
+            android:persistent="true"
+            android:summary="@string/settings_game_font_antialias_summary"
+            android:title="@string/settings_game_font_antialias" />
+
+        <cn.garymb.ygomobile.widget.preference.MyListPreference
+            android:defaultValue="@integer/default_ogles_config"
+            android:entries="@array/opengl_version"
+            android:entryValues="@array/opengl_version_value"
+            android:key="pref_key_game_ogles_config"
+            android:persistent="true"
+            android:title="@string/settings_game_opengl" />
+        <cn.garymb.ygomobile.widget.preference.MyListPreference
+            android:defaultValue="@integer/default_card_quality_config"
+            android:entries="@array/card_quality"
+            android:entryValues="@array/card_quality_value"
+            android:key="pref_key_game_image_quality"
+            android:persistent="true"
+            android:title="@string/settings_game_card_quality" />
     </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/settings_category_diy" >
+        <cn.garymb.ygomobile.widget.preference.MyListPreference
+            android:key="pref_key_game_font_name"
+            android:persistent="true"
+            android:title="@string/settings_game_font_name" />
+        <Preference
+            android:key="settings_game_diy_cover"
+            android:persistent="true"
+            android:title="@string/settings_game_diy_cover" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

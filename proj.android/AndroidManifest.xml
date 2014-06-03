@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.garymb.ygomobile"
-    android:versionCode="2001"
-    android:versionName="2.0.1" >
+    android:versionCode="2002"
+    android:versionName="2.0.2" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -36,8 +36,8 @@
         </activity>
         <activity
             android:name="cn.garymb.ygomobile.SettingsActivity"
-            android:parentActivityName="cn.garymb.ygomobile.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:parentActivityName="cn.garymb.ygomobile.MainActivity"
             android:theme="@style/SettingsTheme" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -52,7 +52,7 @@
             android:exported="true"
             android:label="YGOMobile"
             android:launchMode="singleTask"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustPan" >
             <meta-data
@@ -78,6 +78,15 @@
             android:authorities="cn.garymb.ygomobile.provider"
             android:exported="false" >
         </provider>
+        
+        <activity
+            android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:parentActivityName="cn.garymb.ygomobile.CropActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.garymb.ygomobile.SettingsActivity" />
+        </activity>
     </application>
 
 </manifest>
