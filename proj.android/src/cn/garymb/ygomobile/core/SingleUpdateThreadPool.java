@@ -12,7 +12,6 @@ public class SingleUpdateThreadPool extends SingleHttpThreadPool {
 
 	public SingleUpdateThreadPool(BlockingQueue<BaseDataWrapper> queue, TaskStatusCallback callback, HttpClient client) {
 		super(queue, callback);
-		// TODO Auto-generated constructor stub
 		mConnector = new DataHttpConnector(client);
 	}
 }

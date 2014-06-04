@@ -23,18 +23,21 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 /**
  * @author mabin
  * 
  */
 public final class FileOpsUtils {
-	
+
 	public static String formatTime(long timeInMiniSeconds) {
-		return DateFormat.format("yy-MM-dd ahh:mm", timeInMiniSeconds).toString();
+		return DateFormat.format("yy-MM-dd ahh:mm", timeInMiniSeconds)
+				.toString();
 	}
-	
+
 	public static void assetsCopy(Context context, String assetsPath,
 			String dirPath, boolean isSmart) throws IOException {
 		AssetManager am = context.getAssets();
@@ -82,38 +85,40 @@ public final class FileOpsUtils {
 		return haveSlash ? (prefix + suffix)
 				: (prefix + File.separatorChar + suffix);
 	}
-	
+
 	public static String formatReadableFileSize(long size) {
-        if (size <= 0)
-            return "0";
-        final String[] units = new String[] { "B", "KB", "MB", "GB", "TB" };
-        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " "
-                + units[digitGroups];
-    }
+		if (size <= 0)
+			return "0";
+		final String[] units = new String[] { "B", "KB", "MB", "GB", "TB" };
+		int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+		return new DecimalFormat("#,##0.#").format(size
+				/ Math.pow(1024, digitGroups))
+				+ " " + units[digitGroups];
+	}
 
 	/**
 	 * 
 	 * @author: mabin
 	 * @return
-	**/
+	 **/
 	public static String getExtension(File file) {
 		// TODO Auto-generated method stub
 		String name = file.getName();
-        int i = name.lastIndexOf('.');
-        int p = Math.max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
-        return i > p ? name.substring(i + 1) : "";
+		int i = name.lastIndexOf('.');
+		int p = Math.max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
+		return i > p ? name.substring(i + 1) : "";
 	}
 
-    public static String encodeFilename(File file) throws IOException {
-        String filename = URLEncoder.encode(getFilename(file), Constants.ENCODING);
-        return filename;
-    }
-    
-    private static String getFilename(File file) {
-        return file.isFile() ? file.getName() : file.getName() + ".zip";
-    }
-    
+	public static String encodeFilename(File file) throws IOException {
+		String filename = URLEncoder.encode(getFilename(file),
+				Constants.ENCODING);
+		return filename;
+	}
+
+	private static String getFilename(File file) {
+		return file.isFile() ? file.getName() : file.getName() + ".zip";
+	}
+
 	@SuppressLint("DefaultLocale")
 	public static String getExtName(String filename) {
 		int position = filename.lastIndexOf(".");
@@ -122,68 +127,90 @@ public final class FileOpsUtils {
 		else
 			return "";
 	}
-	
-	
-    public static void listFiles(List<File> list, File file, String base) {
-    	if (file.isDirectory()) {
-    		File [] files = file.listFiles();
-    		if (null != files && files.length > 0) {
-    			for (File f : files) {
-    				listFiles(list, f, base + "/" + f.getName());
-    			}
-    		}
-    	} else {
-    		list.add(file);
-    	}
-    }
-    
-    public static void clearDir(String dirUrl) {
-    	if (dirUrl == null || dirUrl.equals("")) {
-    		return;
-    	}
-    	File dir = new File(dirUrl);
-    	if (!dir.isDirectory()) {
-    		return;
-    	}
-    	for(File file : dir.listFiles()) {
-    		if (!file.isDirectory()) {
-    			file.delete();
-    		}
-    	}
-    }
-    
-    public static String getFilePathFromUrl(String uriString) {
+
+	public static void listFiles(List<File> list, File file, String base) {
+		if (file.isDirectory()) {
+			File[] files = file.listFiles();
+			if (null != files && files.length > 0) {
+				for (File f : files) {
+					listFiles(list, f, base + "/" + f.getName());
+				}
+			}
+		} else {
+			list.add(file);
+		}
+	}
+
+	public static void clearDir(String dirUrl) {
+		if (dirUrl == null || dirUrl.equals("")) {
+			return;
+		}
+		File dir = new File(dirUrl);
+		if (!dir.isDirectory()) {
+			return;
+		}
+		for (File file : dir.listFiles()) {
+			if (!file.isDirectory()) {
+				file.delete();
+			}
+		}
+	}
+
+	public static String getFilePathFromUrl(String uriString) {
 		String filePath = uriString.replace("file://", "");
 		String prefix = Environment.getExternalStorageDirectory().getPath();
 		filePath = filePath.replace(prefix, "/mnt/sdcard");
 		return filePath;
 	}
-    
-    public static String getUrlFromFromPath(String path) {
-    	String prefix = Environment.getExternalStorageDirectory().getPath();
-    	prefix = "file:/".concat(prefix);
-    	String url = path.replace("/mnt/sdcard", prefix);
+
+	public static String getUrlFromFromPath(String path) {
+		String prefix = Environment.getExternalStorageDirectory().getPath();
+		prefix = "file:/".concat(prefix);
+		String url = path.replace("/mnt/sdcard", prefix);
 		return url;
 	}
-    
-    public static String getFilterUrlFromFromPath(String path) {
-    	String prefix = Environment.getExternalStorageDirectory().getPath();
-    	prefix = prefix.replaceFirst("/", "");
-    	String url = path.replace("/mnt/sdcard", prefix);
+
+	public static void recursiveDetele(String path) {
+		if (TextUtils.isEmpty(path)) {
+			return;
+		}
+		File dir = new File(path);
+		if (dir.isDirectory()) {
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++) {
+				File temp = new File(dir, children[i]);
+				if (temp.isDirectory()) {
+					recursiveDetele(temp.getPath());
+				} else {
+					boolean b = temp.delete();
+					if (b == false) {
+						Log.d("recursiveDetele", "DELETE FAIL");
+					}
+				}
+			}
+
+		}
+		dir.delete();
+	}
+
+	public static String getFilterUrlFromFromPath(String path) {
+		String prefix = Environment.getExternalStorageDirectory().getPath();
+		prefix = prefix.replaceFirst("/", "");
+		String url = path.replace("/mnt/sdcard", prefix);
 		return url;
 	}
-    
-    public static void copyFileUsingFileChannels(File source, File dest)
-    		throws IOException {
-    	FileChannel inputChannel = null;
-    	FileChannel outputChannel = null;
-    	try {
-    		inputChannel = new FileInputStream(source).getChannel();
-    		outputChannel = new FileOutputStream(dest).getChannel();
-    		outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
-    	} finally {
-    		inputChannel.close();
-    		outputChannel.close();
-    	}
-    }
+
+	public static void copyFileUsingFileChannels(File source, File dest)
+			throws IOException {
+		FileChannel inputChannel = null;
+		FileChannel outputChannel = null;
+		try {
+			inputChannel = new FileInputStream(source).getChannel();
+			outputChannel = new FileOutputStream(dest).getChannel();
+			outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+		} finally {
+			inputChannel.close();
+			outputChannel.close();
+		}
+	}
 }

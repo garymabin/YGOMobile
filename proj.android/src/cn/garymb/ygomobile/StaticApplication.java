@@ -425,10 +425,6 @@ public class StaticApplication extends Application {
 		editor.commit();
 	}
 
-	public String getUserName() {
-		return "MyCard";
-	}
-
 	public float getScreenHeight() {
 		return mScreenHeight;
 	}
@@ -438,11 +434,11 @@ public class StaticApplication extends Application {
 	}
 
 	public float getXScale() {
-		return mScreenHeight / 1024.0f;
+		return (mScreenHeight > mScreenWidth ? mScreenHeight : mScreenWidth) / 1024.0f;
 	}
 
 	public float getYScale() {
-		return mScreenWidth / 640.0f;
+		return (mScreenHeight > mScreenWidth ? mScreenWidth :  mScreenHeight) / 640.0f;
 	}
 
 	public float getDensity() {

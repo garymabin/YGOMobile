@@ -22,7 +22,7 @@ public class DataStore {
 	private static final String TAG = "DataStore";
 
 	private SparseArray<YGOServerInfo> mServers;
-
+	
 	private Context mContext;
 
 	public DataStore(Context context) {

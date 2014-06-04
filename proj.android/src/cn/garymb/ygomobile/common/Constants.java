@@ -79,9 +79,7 @@ public interface Constants {
 	public static final int ACTION_BAR_EVENT_TYPE_RESET = 0x2006;
 	
 	
-	public static final int REQUEST_TYPE_UPDATE_SERVER = 0x3000;
-	public static final int REQUEST_TYPE_UPDATE_ROOM = 0x3001;
-	public static final int REQUEST_TYPE_LOGIN = 0x3002;
+	public static final int REQUEST_TYPE_CHECK_UPDATE = 0x3000;
 	
 	public static final int REQUEST_TYPE_DOWNLOAD_IMAGE = 0x3003;
 	public static final int REQUEST_TYPE_LOAD_BITMAP = 0x3004;

@@ -21,7 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class CommonSettingsFragment extends DialogPreferenceFragment implements
+public class CommonSettingsFragment extends EventDialogPreferenceFragment implements
 		OnPreferenceClickListener, OnClickListener {
 
 	private Preference mResPathPreference;

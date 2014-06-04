@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.garymb.ygomobile"
     android:versionCode="2002"
-    android:versionName="2.0.2" >
+    android:versionName="2.0.2">
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
 
     <application
         android:name="cn.garymb.ygomobile.StaticApplication"

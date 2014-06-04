@@ -6,9 +6,9 @@ import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.net.http.BaseHttpConnector;
 import cn.garymb.ygomobile.net.http.DataHttpConnector;
 
-public class LoginThread extends InstantThread {
+public class CheckUpdateThread extends InstantThread {
 
-	public LoginThread(TaskStatusCallback callback, HttpClient client) {
+	public CheckUpdateThread(TaskStatusCallback callback, HttpClient client) {
 		super(callback, client);
 	}
 

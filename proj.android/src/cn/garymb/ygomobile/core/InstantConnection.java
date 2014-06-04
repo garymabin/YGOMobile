@@ -29,10 +29,8 @@ public class InstantConnection implements IBaseConnection {
 		int requestType = wrapper.getRequestType();
 		IBaseThread thread = mWorkThreads.get(requestType);
 		if (thread == null || !thread.isRunning()) {
-			if (requestType == Constants.REQUEST_TYPE_UPDATE_SERVER) {
-				thread = new ServerUpdateThread(mCallBack, mHttpClient); 
-			} else if (requestType == Constants.REQUEST_TYPE_LOGIN) {
-				thread = new LoginThread(mCallBack, mHttpClient);
+			if (requestType == Constants.REQUEST_TYPE_CHECK_UPDATE) {
+				thread = new CheckUpdateThread(mCallBack, mHttpClient);
 			}
 			mWorkThreads.put(requestType, thread);
 			((InstantThread)thread).setWrapper(wrapper);

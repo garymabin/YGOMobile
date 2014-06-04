@@ -5,6 +5,7 @@ import java.util.Set;
 
 
 import cn.garymb.ygomobile.StaticApplication;
+import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
 import cn.garymb.ygomobile.model.data.DataStore;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.ygo.YGOArrayStore;
@@ -99,5 +100,4 @@ public class Model {
 	public void removeServer(int groupId) {
 		mDataStore.removeServer(groupId);
 	}
-
 }

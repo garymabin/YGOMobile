@@ -119,6 +119,8 @@
     <string name="settings_about_opensource_pref">Open source licenses</string>
     <string name="settings_about_change_log">Change Log</string>
     <string name="settings_about_check_update">Check updates</string>
+    <string name="settings_about_no_update">Latest version already!</string>
+    <string name="settings_about_new_version">New version</string>
     
     <string name="settings_game_card_quality">Card image quality</string>
     <string name="settings_game_card_path">Card image save path</string>

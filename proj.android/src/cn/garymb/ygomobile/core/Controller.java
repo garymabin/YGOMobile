@@ -18,14 +18,20 @@ public class Controller {
 	
 	private NetworkStatusManager mNetworkManager;
 	
+	private UpdateController mUpdateController;
+	
+	private DownloadHandler mDownloadHandler; 
+	
 	private Model mModel;
 	
 	private Controller(StaticApplication app) {
 		mModel = Model.peekInstance();
 		mActionBarController = new ActionBarController();
 		mNetworkManager = NetworkStatusManager.peekInstance(app);
+		mUpdateController = new UpdateController(app);
+		mDownloadHandler = new DownloadHandler(app);
 	}
-
+	
 	public static Controller peekInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Controller(StaticApplication.peekInstance());
@@ -93,6 +99,25 @@ public class Controller {
 	public void unregisterForActionReset(Handler h) {
 		mActionBarController.unregisterForActionReset(h);
 	}
+	
+	public void asyncCheckUpdate(Message msg) {
+		mUpdateController.asyncCheckUpdate(msg);
+	}
+	
+	public void downloadNewAppVersion(String url) {
+		if (mDownloadHandler.isDownloadsEmpty()) {
+			registerDownloadListener();
+		}
+		mDownloadHandler.enqueueDownload(url);
+	}
+	
+	public void registerDownloadListener() {
+		mDownloadHandler.register();
+	}
+	
+	public void unregisterDownloadListener() {
+		mDownloadHandler.unregister();
+	}
 
 	/**
 	 * 
@@ -140,9 +165,5 @@ public class Controller {
 	
 	public void unregisterDataObserver(IDataObserver observer) {
 		mModel.unregisterDataObserver(observer);
-	}
-
-	public String getLoginName() {
-		return StaticApplication.peekInstance().getUserName();
 	}
 }

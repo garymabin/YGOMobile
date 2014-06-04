@@ -37,7 +37,7 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class GameSettingsFragment extends DialogPreferenceFragment implements
+public class GameSettingsFragment extends EventDialogPreferenceFragment implements
 		OnPreferenceChangeListener, OnPreferenceClickListener, OnClickListener,
 		android.content.DialogInterface.OnClickListener, ImageCopyListener {
 

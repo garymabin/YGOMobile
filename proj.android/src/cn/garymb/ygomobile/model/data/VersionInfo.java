@@ -7,12 +7,12 @@ import android.os.Parcel;
 
 public class VersionInfo extends BaseInfo {
 	
-	public String version;
+	public int version;
 	public String url;
 	
 	@Override
 	public void initFromJsonData(JSONObject data) throws JSONException {
-		version = data.getString(ResourcesConstants.JSON_KEY_VERSION);
+		version = data.getInt(ResourcesConstants.JSON_KEY_VERSION);
 		url = data.getString(ResourcesConstants.JSON_KEY_VERSION_URL);
 	}
 
@@ -23,8 +23,8 @@ public class VersionInfo extends BaseInfo {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		version = dest.readString();
-		url = dest.readString();
+		dest.writeInt(version);
+		dest.writeString(url);
 	}
 	
 	public static final Creator<VersionInfo> CREATOR = new Creator<VersionInfo>() {
@@ -37,7 +37,7 @@ public class VersionInfo extends BaseInfo {
 		@Override
 		public VersionInfo createFromParcel(Parcel source) {
 			VersionInfo info = new VersionInfo();
-			info.version = source.readString();
+			info.version = source.readInt();
 			info.url = source.readString();
 			return info;
 		}

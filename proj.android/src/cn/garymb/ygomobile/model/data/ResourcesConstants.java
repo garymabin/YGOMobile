@@ -14,6 +14,12 @@ public interface ResourcesConstants {
 	
 	public static final String WIKI_SEARCH_URL = "http://www.ourocg.cn/S.aspx?key=";
 	
+	public static final String UPDATE_SERVER_URL = "http://23.252.108.13";
+	
+	public static final String VERSION_UPDATE_URL = "/ygomobile/version.json";
+	
+	public static final String VERSION_UPDATE_CACHE_DIR = "updates";
+	
 	public static final String CARD_IMAGES_NAME = "images";
 	
 	public static final String DONATE_URL_WAP = "http://shenghuo.alipay.com/send/payment/fill.htm?optEmail=garymabin@hotmail.com";
