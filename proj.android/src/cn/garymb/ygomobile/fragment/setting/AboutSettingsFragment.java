@@ -1,7 +1,5 @@
 package cn.garymb.ygomobile.fragment.setting;
 
-import java.net.URI;
-
 import com.github.johnpersano.supertoasts.SuperToast;
 
 import cn.garymb.ygomobile.R;
@@ -10,7 +8,6 @@ import cn.garymb.ygomobile.common.AppUpdateTask;
 import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
-import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.widget.AppUpdateController;
 import cn.garymb.ygomobile.widget.AppUpdateDialog;
 import cn.garymb.ygomobile.widget.BaseDialog;

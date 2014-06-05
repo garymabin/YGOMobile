@@ -1,7 +1,6 @@
 package cn.garymb.ygomobile.core.images;
 
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.utils.BitmapUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

@@ -85,9 +85,6 @@ extern irr::io::path getLastDeck(android_app* app);
 //save last deck name.
 extern void setLastDeck(android_app* app, const char* deckname);
 
-//Retrive user name
-extern irr::io::path getUserName(android_app* app);
-
 //Retrive font antialias options
 extern bool getFontAntiAlias(android_app* app);
 

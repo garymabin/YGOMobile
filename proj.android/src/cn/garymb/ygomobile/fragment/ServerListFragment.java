@@ -219,6 +219,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 		case Constants.ACTION_BAR_EVENT_TYPE_PLAY:
 			Intent intent = new Intent(getActivity(), YGOMobileActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 			break;
 		default:
@@ -246,6 +247,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			options.mHostInfo = info.serverInfoString;
 			Intent intent = new Intent(getActivity(), YGOMobileActivity.class);
 			intent.putExtra(YGOGameOptions.YGO_GAME_OPTIONS_BUNDLE_KEY, options);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		} else if (operationId == ServerOperationPanel.SERVER_OPERATION_EDIT) {
 			Bundle bundle = new Bundle();

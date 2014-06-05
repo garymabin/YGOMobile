@@ -71,7 +71,6 @@
     public java.lang.String getDataBasePath();
     public java.lang.String getCacheDir();
     public java.lang.String getLastDeck();
-    public java.lang.String getUserName();
     public void setLastDeck(java.lang.String);
     public int getOpenglVersion();
     public int getCardQuality();
