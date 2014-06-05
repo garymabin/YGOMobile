@@ -196,4 +196,8 @@ public class ImageModelHelper {
 		BitmapHolder holder = new BitmapHolder(item, type);
 		return mLoadManager.getBitmap(holder);
 	}
+	
+	public void removeBitmap(String id, int type) {
+		mLoadManager.removeBitmap(id, type);
+	}
 }

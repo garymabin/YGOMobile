@@ -3,7 +3,10 @@ package cn.garymb.ygomobile.common;
 import java.io.File;
 import java.io.IOException;
 
+import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.R;
+import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.utils.BitmapUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 import android.app.ProgressDialog;
@@ -44,6 +47,7 @@ public class ImageCopyTask extends AsyncTask<String, Void, Bundle> {
 			bundle = new Bundle();
 			FileOpsUtils.copyFileUsingFileChannels(new File(params[0]),
 					new File(params[1]));
+			Model.peekInstance().removeBitmap(params[1], Constants.IMAGE_TYPE_ORIGINAL);
 			bundle.putString("url", params[1]);
 			bundle.putIntArray("orig_size", BitmapUtils.decodeImageSize(params[1]));
 		} catch (IOException e) {

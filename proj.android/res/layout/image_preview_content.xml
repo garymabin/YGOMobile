@@ -32,20 +32,4 @@
             android:layout_height="wrap_content"
             android:scaleType="centerInside"/>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/history_des_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/preview_image_layout"
-        android:text="@string/settings_game_diy_history_des" />
-
-    <cn.garymb.ygomobile.widget.HorizontalListView
-        android:id="@+id/preview_records"
-        android:layout_width="match_parent"
-        android:layout_height="40dip"
-        android:layout_below="@id/history_des_text" >
-    </cn.garymb.ygomobile.widget.HorizontalListView>
-
 </RelativeLayout>

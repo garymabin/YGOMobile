@@ -5,7 +5,6 @@ import java.util.Set;
 
 
 import cn.garymb.ygomobile.StaticApplication;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
 import cn.garymb.ygomobile.model.data.DataStore;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.ygo.YGOArrayStore;
@@ -75,6 +74,10 @@ public class Model {
 	
 	public Bitmap getBitmap(ImageItem item, int type) {
 		return mImgModelHelper.getBitmap(item, type);
+	}
+	
+	public void removeBitmap(String id, int type) {
+		mImgModelHelper.removeBitmap(id, type);
 	}
 	
 	public String getYGOCardType(int code) {

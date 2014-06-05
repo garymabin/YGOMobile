@@ -132,10 +132,11 @@ bool TouchEventTransferAndroid::OnTransferCommon(const SEvent& event,
 			transferEvent.MouseInput.Event = EMIE_MOUSE_MOVED;
 		} else {
 			Printer::log("multitouch missed");
-			bRet = false;
-			break;
+			return false;
 		}
-		ygo::mainGame->device->postEventFromUser(transferEvent);
+		if (ygo::mainGame->device && ygo::mainGame->device->isWindowFocused()) {
+			ygo::mainGame->device->postEventFromUser(transferEvent);
+		}
 		break;
 	}
 	case EET_ACCELEROMETER_EVENT: {

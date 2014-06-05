@@ -106,7 +106,6 @@ public class FileBrowser extends ListView implements
 		}
 		currentDir = file;
 		refresh();
-		mBrowserListener.onDirItemClick(dir);
 	}
 
 	public void refresh() {

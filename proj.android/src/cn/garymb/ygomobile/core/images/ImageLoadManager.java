@@ -117,6 +117,21 @@ public class ImageLoadManager implements Callback {
 	}
 	
 	/**
+	 * Try to reove bitmap from local cache.
+	 * @param id
+	 * @return bitmap object if hit cache, null otherwise.
+	 */
+	public void removeBitmap(String id, int type) {
+		if (id == null)
+			return;
+		
+		if (type == Constants.IMAGE_TYPE_ORIGINAL)
+			mOriginalCache.remove(id);
+		else 
+			mThumnailCache.get(id);
+	}
+	
+	/**
 	 * 添加一个加载Bitmap的任务
 	 * @param holder 
 	 * @param isPreload 标示是否是预加载任务

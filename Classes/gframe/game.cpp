@@ -1133,6 +1133,7 @@ void Game::MainLoop() {
 	usleep(500000);
 #endif
 	SaveConfig();
+	usleep(500000);
 //	device->drop();
 }
 void Game::BuildProjectionMatrix(irr::core::matrix4& mProjection, f32 left, f32 right, f32 bottom, f32 top, f32 znear, f32 zfar) {
@@ -1298,8 +1299,13 @@ void Game::LoadConfig() {
 	gameConf.lastport[0] = 0;
 	gameConf.roompass[0] = 0;
 }
+
 void Game::SaveConfig() {
+	char lastdeck[256] = {0};
+	BufferIO::EncodeUTF8(gameConf.lastdeck, lastdeck);
+	android::setLastDeck(appMain, lastdeck);
 }
+
 void Game::ShowCardInfo(int code) {
 	CardData cd;
 	wchar_t formatBuffer[256];

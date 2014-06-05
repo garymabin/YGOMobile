@@ -115,7 +115,7 @@ public class StaticApplication extends Application {
 		ACRA.getErrorReporter().setReportSender(sender);
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
 		sRootPair = Pair.create(getResources().getString(R.string.root_dir),
-				"/");
+				Environment.getExternalStorageDirectory().getPath());
 		mCoreSkinPath = getCacheDir() + File.separator
 				+ Constants.CORE_SKIN_PATH;
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(this);

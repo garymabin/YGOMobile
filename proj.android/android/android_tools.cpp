@@ -389,7 +389,7 @@ void setLastDeck(android_app* app, const char* deckname) {
 	jmethodID setDeckMethod = jni->GetMethodID(classApp, "setLastDeck",
 			"(Ljava/lang/String;)V");
 	jstring deckstring = jni->NewStringUTF(deckname);
-	jni->CallVoidMethod(classApp, setDeckMethod, deckstring);
+	jni->CallVoidMethod(application, setDeckMethod, deckstring);
 	jni->DeleteLocalRef(classApp);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
@@ -421,7 +421,7 @@ bool perfromTrick(android_app* app) {
 	jni->DeleteLocalRef(ClassNativeActivity);
 	jni->ReleaseByteArrayElements(array, pArray, JNI_FALSE);
 	app->activity->vm->DetachCurrentThread();
-	return true;
+	return ret;
 }
 
 bool getFontAntiAlias(android_app* app) {
