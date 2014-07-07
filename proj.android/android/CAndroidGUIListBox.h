@@ -139,7 +139,10 @@ public:
 	//! Sets whether to draw the background
 	virtual void setDrawBackground(bool draw) _IRR_OVERRIDE_;
 
-private:
+		//! Access the vertical scrollbar
+		virtual IGUIScrollBar* getVerticalScrollBar() const _IRR_OVERRIDE_;
+
+	private:
 
 	struct ListItem {
 		ListItem() :

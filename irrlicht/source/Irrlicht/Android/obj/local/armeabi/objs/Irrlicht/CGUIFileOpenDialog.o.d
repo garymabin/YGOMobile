@@ -67,12 +67,13 @@ obj/local/armeabi/objs/Irrlicht/CGUIFileOpenDialog.o: \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/locale.h \
  ../../../include/IGUISkin.h ../../../include/IGUIEnvironment.h \
  ../../../include/IGUISkin.h ../../../include/EMessageBoxFlags.h \
- ../../../include/IVideoDriver.h ../../../include/ITexture.h \
- ../../../include/IImage.h ../../../include/EDriverTypes.h \
- ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
- ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
- ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
- ../../../include/SVertexIndex.h ../../../include/EHardwareBufferFlags.h \
+ ../../../include/EFocusFlags.h ../../../include/IVideoDriver.h \
+ ../../../include/ITexture.h ../../../include/IImage.h \
+ ../../../include/EDriverTypes.h ../../../include/SMaterial.h \
+ ../../../include/EMaterialTypes.h ../../../include/EMaterialFlags.h \
+ ../../../include/SMaterialLayer.h ../../../include/IMeshBuffer.h \
+ ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
+ ../../../include/EHardwareBufferFlags.h \
  ../../../include/EPrimitiveTypes.h ../../../include/EDriverFeatures.h \
  ../../../include/SExposedVideoData.h ../../../include/IGUIStaticText.h \
  ../../../include/IGUIFont.h ../../../include/IGUIFontBitmap.h \
@@ -260,6 +261,8 @@ jni/../../CGUIFileOpenDialog.h:
 ../../../include/IGUISkin.h:
 
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:
 
 ../../../include/IVideoDriver.h:
 

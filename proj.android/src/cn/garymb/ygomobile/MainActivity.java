@@ -10,6 +10,7 @@ import cn.garymb.ygomobile.fragment.CardWikiFragment;
 import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
+import cn.garymb.ygomobile.model.data.VersionInfo;
 
 import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperToast;
@@ -31,14 +32,15 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
 public class MainActivity extends ActionBarActivity implements
-		OnActionBarChangeCallback, Handler.Callback, Constants, OnNavigationListener {
+		OnActionBarChangeCallback, Handler.Callback, Constants,
+		OnNavigationListener {
 
 	public static class EventHandler extends Handler {
 		public EventHandler(Callback back) {
 			super(back);
 		}
 	}
-	
+
 	private static final int DUEL_INDEX_FREE_MODE = 0;
 	private static final int DUEL_INDEX_CARD_WIKI = 1;
 
@@ -57,7 +59,7 @@ public class MainActivity extends ActionBarActivity implements
 	private Menu mMenu;
 
 	private FragmentManager mFragmentManager;
-	
+
 	private String[] mDuelList;
 
 	@Override
@@ -71,12 +73,30 @@ public class MainActivity extends ActionBarActivity implements
 		mActionBarCreator = new ActionBarCreator(this);
 		mHandler = new EventHandler(this);
 		mDuelList = getResources().getStringArray(R.array.duel_list);
-		mActionBar.setListNavigationCallbacks(
-				new ArrayAdapter<String>(this,
+		mActionBar
+				.setListNavigationCallbacks(new ArrayAdapter<String>(this,
 						android.R.layout.simple_spinner_dropdown_item,
 						mDuelList), this);
-		mActionBar.setSelectedNavigationItem(
-				DUEL_INDEX_FREE_MODE);
+		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
+		checkUpdateIfNeeded();
+	}
+
+	private void checkUpdateIfNeeded() {
+		boolean isCheckNeeded = true;
+		long lasttime = StaticApplication.peekInstance().getLastCheckTime();
+		long currenttime = 0;
+		if (lasttime != 0) {
+			currenttime = System.currentTimeMillis();
+			if (currenttime - lasttime < Constants.DAILY_MILLSECONDS) {
+				isCheckNeeded = false;
+			}
+		}
+		if (isCheckNeeded) {
+			StaticApplication.peekInstance().setLastCheckTime(currenttime);
+			Controller.peekInstance().asyncCheckUpdate(
+					Message.obtain(mHandler,
+							Constants.REQUEST_TYPE_CHECK_UPDATE));
+		}
 	}
 
 	@Override
@@ -186,7 +206,7 @@ public class MainActivity extends ActionBarActivity implements
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
 			break;
-		case Constants.ACTION_BAR_EVENT_TYPE_DONATE:
+		case Constants.ACTION_BAR_EVENT_TYPE_DONATE: {
 			BaseFragment fragment = (BaseFragment) mFragmentManager
 					.findFragmentById(R.id.content_frame);
 			Bundle bundle = new Bundle();
@@ -194,9 +214,29 @@ public class MainActivity extends ActionBarActivity implements
 					ResourcesConstants.DIALOG_MODE_DONATE);
 			fragment.showDialog(bundle);
 			break;
+		}
 		case Constants.MSG_ID_EXIT_CONFIRM_ALARM:
 			isExit = false;
 			break;
+		case Constants.REQUEST_TYPE_CHECK_UPDATE: {
+			VersionInfo info = (VersionInfo) msg.obj;
+			if (info != null) {
+				if (info.version > StaticApplication.peekInstance()
+						.getVersionCode()) {
+					Bundle bundle = new Bundle();
+					bundle.putInt("version", info.version);
+					bundle.putInt("titleRes",
+							R.string.settings_about_new_version);
+					bundle.putString("url", info.url);
+					bundle.putInt(ResourcesConstants.MODE_OPTIONS,
+							ResourcesConstants.DIALOG_MODE_APP_UPDATE);
+					BaseFragment current = (BaseFragment) mFragmentManager
+							.findFragmentById(R.id.content_frame);
+					current.showDialog(bundle);
+				}
+			}
+			break;
+		}
 		default:
 			break;
 		}
@@ -222,7 +262,7 @@ public class MainActivity extends ActionBarActivity implements
 		switchState(position);
 		return false;
 	}
-	
+
 	private void switchState(int position) {
 		FragmentTransaction ft = mFragmentManager.beginTransaction();
 		Fragment fragment;

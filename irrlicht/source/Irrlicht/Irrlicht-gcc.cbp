@@ -20,7 +20,6 @@
 					<Add option="-g" />
 					<Add option="-W" />
 					<Add option="-O0" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-DWIN32" />
 					<Add option="-D_DEBUG" />
 					<Add option="-D_WINDOWS" />
@@ -62,7 +61,6 @@
 					<Add option="-O2" />
 					<Add option="-Wall" />
 					<Add option="-W" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-DWIN32" />
 					<Add option="-DNDEBUG" />
 					<Add option="-D_WINDOWS" />
@@ -103,10 +101,9 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O3" />
-					<Add option="-W" />
 					<Add option="-Wall" />
+					<Add option="-W" />
 					<Add option="-ffast-math" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-DWIN32" />
 					<Add option="-DNDEBUG" />
 					<Add option="-D_WINDOWS" />
@@ -145,12 +142,11 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-W" />
+					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-W" />
 					<Add option="-O0" />
-					<Add option="-Wextra" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-DWIN32" />
 					<Add option="-D_DEBUG" />
 					<Add option="-D_WINDOWS" />
@@ -179,7 +175,7 @@
 				<Option platforms="Windows;" />
 				<Option output="../../lib/Win32-gcc/Irrlicht" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="../obj/win32-gcc-release-dll" />
+				<Option object_output="../obj/win32-gcc-release-static" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -189,7 +185,6 @@
 					<Add option="-O2" />
 					<Add option="-Wall" />
 					<Add option="-W" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-DWIN32" />
 					<Add option="-DNDEBUG" />
 					<Add option="-D_WINDOWS" />
@@ -227,10 +222,9 @@
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-Os" />
 					<Add option="-O3" />
-					<Add option="-W" />
 					<Add option="-Wall" />
+					<Add option="-W" />
 					<Add option="-ffast-math" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-DWIN32" />
 					<Add option="-DNDEBUG" />
 					<Add option="-D_WINDOWS" />
@@ -269,9 +263,7 @@
 					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-O0" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-fPIC" />
-					<Add option="-fno-exceptions" />
 					<Add option="-D_DEBUG" />
 					<Add directory="../../include" />
 					<Add directory="zlib" />
@@ -296,9 +288,7 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-Wextra" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-fPIC" />
-					<Add option="-fno-exceptions" />
 					<Add directory="../../include" />
 					<Add directory="zlib" />
 					<Add directory="libpng" />
@@ -322,10 +312,8 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-Wextra" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-fPIC" />
 					<Add option="-ffast-math" />
-					<Add option="-fno-exceptions" />
 					<Add directory="../../include" />
 					<Add directory="zlib" />
 					<Add directory="libpng" />
@@ -342,7 +330,7 @@
 				<Option platforms="Unix;" />
 				<Option output="../../lib/Linux/libIrrlicht" prefix_auto="0" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="../obj/linux-gcc-debug-shared" />
+				<Option object_output="../obj/linux-gcc-debug-static" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -351,8 +339,6 @@
 					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-O0" />
-					<Add option="-Wno-unused-parameter" />
-					<Add option="-fno-exceptions" />
 					<Add option="-D_IRR_STATIC_LIB_" />
 					<Add option="-D_DEBUG" />
 					<Add directory="../../include" />
@@ -370,14 +356,13 @@
 				<Option platforms="Unix;" />
 				<Option output="../../lib/Linux/libIrrlicht" prefix_auto="0" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="../obj/linux-gcc-release-shared" />
+				<Option object_output="../obj/linux-gcc-release-static" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-Wextra" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-fno-exceptions" />
 					<Add option="-D_IRR_STATIC_LIB_" />
 					<Add directory="../../include" />
@@ -395,16 +380,14 @@
 				<Option platforms="Unix;" />
 				<Option output="../../lib/Linux/libIrrlicht" prefix_auto="0" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="../obj/linux-gcc-release-fast-shared" />
+				<Option object_output="../obj/linux-gcc-release-fast-static" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-Wextra" />
-					<Add option="-Wno-unused-parameter" />
 					<Add option="-ffast-math" />
-					<Add option="-fno-exceptions" />
 					<Add option="-D_IRR_STATIC_LIB_" />
 					<Add directory="../../include" />
 					<Add directory="zlib" />
@@ -421,6 +404,12 @@
 		<VirtualTargets>
 			<Add alias="All" targets="Win32 - Debug - dll;Win32 - Release - accurate math - dll;Win32 - Release - fast math - dll;" />
 		</VirtualTargets>
+		<Compiler>
+			<Add option="-Wno-unused-parameter" />
+			<Add option="-fno-exceptions" />
+			<Add option="-fno-rtti" />
+			<Add option="-fstrict-aliasing" />
+		</Compiler>
 		<Unit filename="../../changes.txt" />
 		<Unit filename="../../include/CDynamicMeshBuffer.h" />
 		<Unit filename="../../include/CIndexBuffer.h" />
@@ -432,6 +421,7 @@
 		<Unit filename="../../include/EDeviceTypes.h" />
 		<Unit filename="../../include/EDriverFeatures.h" />
 		<Unit filename="../../include/EDriverTypes.h" />
+		<Unit filename="../../include/EFocusFlags.h" />
 		<Unit filename="../../include/EGUIAlignment.h" />
 		<Unit filename="../../include/EGUIElementTypes.h" />
 		<Unit filename="../../include/EHardwareBufferFlags.h" />
@@ -480,6 +470,7 @@
 		<Unit filename="../../include/IGUIInOutFader.h" />
 		<Unit filename="../../include/IGUIListBox.h" />
 		<Unit filename="../../include/IGUIMeshViewer.h" />
+		<Unit filename="../../include/IGUIProfiler.h" />
 		<Unit filename="../../include/IGUIScrollBar.h" />
 		<Unit filename="../../include/IGUISkin.h" />
 		<Unit filename="../../include/IGUISpinBox.h" />
@@ -507,7 +498,6 @@
 		<Unit filename="../../include/IMeshManipulator.h" />
 		<Unit filename="../../include/IMeshSceneNode.h" />
 		<Unit filename="../../include/IMeshTextureLoader.h" />
-		<Unit filename="../../include/IMeshTextureLoader.h" />
 		<Unit filename="../../include/IMeshWriter.h" />
 		<Unit filename="../../include/IMetaTriangleSelector.h" />
 		<Unit filename="../../include/IOSOperator.h" />
@@ -524,6 +514,7 @@
 		<Unit filename="../../include/IParticleRotationAffector.h" />
 		<Unit filename="../../include/IParticleSphereEmitter.h" />
 		<Unit filename="../../include/IParticleSystemSceneNode.h" />
+		<Unit filename="../../include/IProfiler.h" />
 		<Unit filename="../../include/IQ3LevelMesh.h" />
 		<Unit filename="../../include/IQ3Shader.h" />
 		<Unit filename="../../include/IReadFile.h" />
@@ -692,6 +683,8 @@
 		<Unit filename="CFileList.h" />
 		<Unit filename="CFileSystem.cpp" />
 		<Unit filename="CFileSystem.h" />
+		<Unit filename="CGLXManager.cpp" />
+		<Unit filename="CGLXManager.h" />
 		<Unit filename="CGUIButton.cpp" />
 		<Unit filename="CGUIButton.h" />
 		<Unit filename="CGUICheckBox.cpp" />
@@ -726,6 +719,8 @@
 		<Unit filename="CGUIMessageBox.h" />
 		<Unit filename="CGUIModalScreen.cpp" />
 		<Unit filename="CGUIModalScreen.h" />
+		<Unit filename="CGUIProfiler.cpp" />
+		<Unit filename="CGUIProfiler.h" />
 		<Unit filename="CGUIScrollBar.cpp" />
 		<Unit filename="CGUIScrollBar.h" />
 		<Unit filename="CGUISkin.cpp" />
@@ -845,6 +840,29 @@
 		<Unit filename="COBJMeshWriter.h" />
 		<Unit filename="COCTLoader.cpp" />
 		<Unit filename="COCTLoader.h" />
+		<Unit filename="COGLES2Driver.cpp" />
+		<Unit filename="COGLES2Driver.h" />
+		<Unit filename="COGLES2ExtensionHandler.cpp" />
+		<Unit filename="COGLES2ExtensionHandler.h" />
+		<Unit filename="COGLES2FixedPipelineRenderer.cpp" />
+		<Unit filename="COGLES2FixedPipelineRenderer.h" />
+		<Unit filename="COGLES2MaterialRenderer.cpp" />
+		<Unit filename="COGLES2MaterialRenderer.h" />
+		<Unit filename="COGLES2NormalMapRenderer.cpp" />
+		<Unit filename="COGLES2NormalMapRenderer.h" />
+		<Unit filename="COGLES2ParallaxMapRenderer.cpp" />
+		<Unit filename="COGLES2ParallaxMapRenderer.h" />
+		<Unit filename="COGLES2Renderer2D.cpp" />
+		<Unit filename="COGLES2Renderer2D.h" />
+		<Unit filename="COGLES2Texture.cpp" />
+		<Unit filename="COGLES2Texture.h" />
+		<Unit filename="COGLESDriver.cpp" />
+		<Unit filename="COGLESDriver.h" />
+		<Unit filename="COGLESExtensionHandler.cpp" />
+		<Unit filename="COGLESExtensionHandler.h" />
+		<Unit filename="COGLESMaterialRenderer.h" />
+		<Unit filename="COGLESTexture.cpp" />
+		<Unit filename="COGLESTexture.h" />
 		<Unit filename="COSOperator.cpp" />
 		<Unit filename="COSOperator.h" />
 		<Unit filename="COctreeSceneNode.cpp" />
@@ -902,6 +920,8 @@
 		<Unit filename="CParticleSphereEmitter.h" />
 		<Unit filename="CParticleSystemSceneNode.cpp" />
 		<Unit filename="CParticleSystemSceneNode.h" />
+		<Unit filename="CProfiler.cpp" />
+		<Unit filename="CProfiler.h" />
 		<Unit filename="CQ3LevelMesh.cpp" />
 		<Unit filename="CQ3LevelMesh.h" />
 		<Unit filename="CQuake3ShaderSceneNode.cpp" />
@@ -1022,6 +1042,7 @@
 		<Unit filename="CZBuffer.h" />
 		<Unit filename="CZipReader.cpp" />
 		<Unit filename="CZipReader.h" />
+		<Unit filename="EProfileIDs.h" />
 		<Unit filename="IAttribute.h" />
 		<Unit filename="IBurningShader.cpp" />
 		<Unit filename="IBurningShader.h" />

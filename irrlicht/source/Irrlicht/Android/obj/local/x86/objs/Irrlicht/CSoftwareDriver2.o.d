@@ -88,9 +88,9 @@ obj/local/x86/objs/Irrlicht/CSoftwareDriver2.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
- ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
+ ../../../include/IAttributes.h ../../../include/IEventReceiver.h \
+ ../../../include/ILogger.h ../../../include/Keycodes.h \
+ ../../../include/ITriangleSelector.h ../../../include/irrList.h \
  jni/../../CFPSCounter.h ../../../include/S3DVertex.h \
  ../../../include/SVertexIndex.h ../../../include/SExposedVideoData.h \
  ../../../include/SIrrCreationParameters.h \
@@ -359,6 +359,8 @@ jni/../../IImagePresenter.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
+../../../include/IAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -368,8 +370,6 @@ jni/../../IImagePresenter.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
 
 jni/../../CFPSCounter.h:
 

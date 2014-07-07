@@ -50,9 +50,10 @@ obj/local/armeabi/objs/Irrlicht/CDefaultGUIElementFactory.o: \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/memory.h \
  ../../../include/rect.h ../../../include/dimension2d.h \
  ../../../include/position2d.h ../../../include/vector2d.h \
- ../../../include/EMessageBoxFlags.h ../../../include/IEventReceiver.h \
- ../../../include/ILogger.h ../../../include/Keycodes.h \
- ../../../include/irrString.h ../../../include/irrAllocator.h \
+ ../../../include/EMessageBoxFlags.h ../../../include/EFocusFlags.h \
+ ../../../include/IEventReceiver.h ../../../include/ILogger.h \
+ ../../../include/Keycodes.h ../../../include/irrString.h \
+ ../../../include/irrAllocator.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/new \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/cstddef \
  ../../../include/IXMLReader.h ../../../include/irrXML.h \
@@ -73,7 +74,7 @@ obj/local/armeabi/objs/Irrlicht/CDefaultGUIElementFactory.o: \
  ../../../include/IGUIStaticText.h ../../../include/IGUITabControl.h \
  ../../../include/IGUITable.h ../../../include/IGUIToolbar.h \
  ../../../include/IGUIWindow.h ../../../include/IGUITreeView.h \
- ../../../include/IGUIImageList.h
+ ../../../include/IGUIImageList.h ../../../include/IGUIProfiler.h
 
 jni/../../CDefaultGUIElementFactory.h:
 
@@ -187,6 +188,8 @@ jni/../../CDefaultGUIElementFactory.h:
 
 ../../../include/EMessageBoxFlags.h:
 
+../../../include/EFocusFlags.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -274,3 +277,5 @@ jni/../../CDefaultGUIElementFactory.h:
 ../../../include/IGUITreeView.h:
 
 ../../../include/IGUIImageList.h:
+
+../../../include/IGUIProfiler.h:

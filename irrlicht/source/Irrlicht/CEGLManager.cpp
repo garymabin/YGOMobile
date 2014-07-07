@@ -48,7 +48,10 @@ bool CEGLManager::initialize(const SIrrlichtCreationParameters& params, const SE
 	EglDisplay = eglGetDisplay((NativeDisplayType)Data.OpenGLLinux.X11Display);
 #elif defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
 	EglWindow =	(ANativeWindow*)Data.OGLESAndroid.Window;
-	EglDisplay = eglGetDisplay((NativeDisplayType) EGL_DEFAULT_DISPLAY);
+	EglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+#elif defined(_IRR_COMPILE_WITH_FB_DEVICE_)
+	EglWindow = (NativeWindowType)Data.OpenGLFB.Window;
+	EglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #endif
 
 	// We must check if EGL display is valid.
@@ -146,7 +149,7 @@ bool CEGLManager::generateSurface()
 #ifdef EGL_VERSION_1_3
 		EGL_RENDERABLE_TYPE, EglOpenGLBIT,
 #endif
-		EGL_NONE, 0	
+		EGL_NONE, 0
 	};
 
 	EglConfig = 0;
@@ -241,10 +244,10 @@ bool CEGLManager::generateSurface()
 
     ANativeWindow_setBuffersGeometry(EglWindow, 0, 0, Format);
 #endif
-   
+
 	// Now we are able to create EGL surface.
 	EglSurface = eglCreateWindowSurface(EglDisplay, EglConfig, EglWindow, 0);
-	
+
 	if (EGL_NO_SURFACE == EglSurface)
 		EglSurface = eglCreateWindowSurface(EglDisplay, EglConfig, 0, 0);
 
@@ -311,6 +314,9 @@ bool CEGLManager::generateContext()
 		os::Printer::log("Could not create EGL context.", ELL_ERROR);
 		return false;
 	}
+
+	os::Printer::log("EGL context created with OpenGLESVersion: ", core::stringc((int)OpenGLESVersion), ELL_DEBUG);
+
     return true;
 }
 

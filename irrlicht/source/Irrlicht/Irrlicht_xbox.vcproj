@@ -247,6 +247,9 @@
 				RelativePath="..\..\include\EMessageBoxFlags.h">
 			</File>
 			<File
+				RelativePath="..\..\include\EFocusFlags.h">
+			</File>
+			<File
 				RelativePath="..\..\include\ESceneNodeAnimatorTypes.h">
 			</File>
 			<File
@@ -305,6 +308,9 @@
 			</File>
 			<File
 				RelativePath="..\..\include\IEventReceiver.h">
+			</File>
+			<File
+				RelativePath="..\..\include\IProfiler.h">
 			</File>
 			<File
 				RelativePath="..\..\include\IFileArchive.h">
@@ -368,6 +374,9 @@
 			</File>
 			<File
 				RelativePath="..\..\include\IGUIMeshViewer.h">
+			</File>
+			<File
+				RelativePath="..\..\include\IGUIProfiler.h">
 			</File>
 			<File
 				RelativePath="..\..\include\IGUIScrollBar.h">
@@ -1432,6 +1441,15 @@
 				RelativePath=".\os.cpp">
 			</File>
 			<File
+				RelativePath=".\CProfiler.cpp">
+			</File>
+			<File
+				RelativePath=".\CProfiler.h">
+			</File>
+			<File
+				RelativePath=".\EProfileIDs.h">
+			</File>
+			<File
 				RelativePath=".\leakHunter.cpp">
 			</File>
 			<File
@@ -1833,6 +1851,12 @@
 			</File>
 			<File
 				RelativePath=".\CGUIModalScreen.h">
+			</File>
+			<File
+				RelativePath=".\CGUIProfiler.cpp">
+			</File>
+			<File
+				RelativePath=".\CGUIProfiler.h">
 			</File>
 			<File
 				RelativePath=".\CGUIScrollBar.cpp">

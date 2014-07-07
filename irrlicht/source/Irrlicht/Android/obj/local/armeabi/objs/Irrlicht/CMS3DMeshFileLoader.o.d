@@ -71,12 +71,12 @@ obj/local/armeabi/objs/Irrlicht/CMS3DMeshFileLoader.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
+ ../../../include/IAttributes.h ../../../include/line2d.h \
+ ../../../include/quaternion.h ../../../include/IXMLReader.h \
+ ../../../include/irrXML.h ../../../include/EAttributes.h \
  ../../../include/IEventReceiver.h ../../../include/ILogger.h \
  ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- ../../../include/line2d.h ../../../include/quaternion.h \
- ../../../include/IXMLReader.h ../../../include/irrXML.h \
- ../../../include/EAttributes.h ../../../include/IAnimatedMesh.h \
+ ../../../include/irrList.h ../../../include/IAnimatedMesh.h \
  ../../../include/IMesh.h ../../../include/SSkinMeshBuffer.h \
  ../../../include/SMeshBuffer.h ../../../include/CMeshBuffer.h \
  ../../../include/S3DVertex.h ../../../include/matrix4.h \
@@ -277,16 +277,6 @@ jni/../../CSkinnedMesh.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
-../../../include/IEventReceiver.h:
-
-../../../include/ILogger.h:
-
-../../../include/Keycodes.h:
-
-../../../include/ITriangleSelector.h:
-
-../../../include/irrList.h:
-
 ../../../include/IAttributes.h:
 
 ../../../include/line2d.h:
@@ -298,6 +288,16 @@ jni/../../CSkinnedMesh.h:
 ../../../include/irrXML.h:
 
 ../../../include/EAttributes.h:
+
+../../../include/IEventReceiver.h:
+
+../../../include/ILogger.h:
+
+../../../include/Keycodes.h:
+
+../../../include/ITriangleSelector.h:
+
+../../../include/irrList.h:
 
 ../../../include/IAnimatedMesh.h:
 

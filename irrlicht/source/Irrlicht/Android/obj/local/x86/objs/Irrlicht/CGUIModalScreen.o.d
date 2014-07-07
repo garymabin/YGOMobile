@@ -63,8 +63,8 @@ obj/local/x86/objs/Irrlicht/CGUIModalScreen.o: \
  ../../../include/IXMLReader.h ../../../include/irrXML.h \
  ../../../include/EAttributes.h ../../../include/path.h \
  ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
- ../../../include/EMessageBoxFlags.h jni/../../os.h \
- ../../../include/irrTypes.h ../../../include/irrString.h \
+ ../../../include/EMessageBoxFlags.h ../../../include/EFocusFlags.h \
+ jni/../../os.h ../../../include/irrTypes.h ../../../include/irrString.h \
  ../../../include/path.h ../../../include/ILogger.h \
  ../../../include/ITimer.h ../../../include/IVideoDriver.h \
  ../../../include/ITexture.h ../../../include/IImage.h \
@@ -237,6 +237,8 @@ jni/../../CGUIModalScreen.h:
 ../../../include/IGUISkin.h:
 
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:
 
 jni/../../os.h:
 

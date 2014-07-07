@@ -156,6 +156,15 @@
 #undef _IRR_COMPILE_WITH_LEAK_HUNTER_
 #endif
 
+//! Enable profiling information in the engine
+/** NOTE: The profiler itself always exists and can be used by applications.
+This define is about the engine creating profile data
+while it runs and enabling it will slow down the engine. */
+//#define _IRR_COMPILE_WITH_PROFILING_
+#ifdef NO_IRR_COMPILE_WITH_PROFILING_
+#undef _IRR_COMPILE_WITH_PROFILING_
+#endif
+
 //! Define _IRR_COMPILE_WITH_DIRECT3D_8_ and _IRR_COMPILE_WITH_DIRECT3D_9_ to
 //! compile the Irrlicht engine with Direct3D8 and/or DIRECT3D9.
 /** If you only want to use the software device or opengl you can disable those defines.
@@ -239,15 +248,6 @@ define out. */
 #define _IRR_COMPILE_WITH_OGLES2_
 #ifdef NO_IRR_COMPILE_WITH_OGLES2_
 #undef _IRR_COMPILE_WITH_OGLES2_
-#endif
-#ifndef IRR_OGLES2_SHADER_PATH
-#ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
-#define IRR_OGLES2_SHADER_PATH ""
-#elif defined(_IRR_ANDROID_PLATFORM_)
-#define IRR_OGLES2_SHADER_PATH "media/Shaders/"
-#else
-#define IRR_OGLES2_SHADER_PATH "../../media/Shaders/"
-#endif
 #endif
 #if defined(_IRR_COMPILE_WITH_OGLES2_) && !defined(NO_IRR_COMPILE_WITH_EGL_MANAGER_)
 #define _IRR_COMPILE_WITH_EGL_MANAGER_

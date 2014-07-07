@@ -38,16 +38,16 @@ namespace video
 
 COGLES2Driver::COGLES2Driver(const SIrrlichtCreationParameters& params,
 			io::IFileSystem* io
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
             , IContextManager* contextManager
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
             , CIrrDeviceIPhone* device
 #endif
             ) : CNullDriver(io, params.WindowSize), COGLES2ExtensionHandler(),
-	BridgeCalls(0), CurrentRenderMode(ERM_NONE), ResetRenderStates(true),
-	Transformation3DChanged(true), AntiAlias(params.AntiAlias),
-	RenderTargetTexture(0), CurrentRendertargetSize(0, 0), ColorFormat(ECF_R8G8B8)
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+	CurrentRenderMode(ERM_NONE), ResetRenderStates(true),
+	Transformation3DChanged(true), AntiAlias(params.AntiAlias), OGLES2ShaderPath(params.OGLES2ShaderPath),
+	RenderTargetTexture(0), CurrentRendertargetSize(0, 0), ColorFormat(ECF_R8G8B8), BridgeCalls(0)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
     , ContextManager(contextManager)
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
     , Device(device), ViewFramebuffer(0),
@@ -60,7 +60,7 @@ COGLES2Driver::COGLES2Driver(const SIrrlichtCreationParameters& params,
 
     core::dimension2d<u32> WindowSize(0, 0);
 
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
 	if (!ContextManager)
 		return;
 
@@ -109,13 +109,14 @@ COGLES2Driver::COGLES2Driver(const SIrrlichtCreationParameters& params,
 COGLES2Driver::~COGLES2Driver()
 {
 	RequestedLights.clear();
+	CurrentTexture.clear();
 	deleteMaterialRenders();
 	delete MaterialRenderer2D;
 	deleteAllTextures();
 
 	delete BridgeCalls;
 
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
 	if (ContextManager)
 	{
 		ContextManager->destroyContext();
@@ -154,9 +155,8 @@ COGLES2Driver::~COGLES2Driver()
 		vendorName = glGetString(GL_VENDOR);
 		os::Printer::log(vendorName.c_str(), ELL_INFORMATION);
 
-		u32 i;
-		for (i = 0; i < MATERIAL_MAX_TEXTURES; ++i)
-			CurrentTexture[i] = 0;
+		CurrentTexture.clear();
+
 		// load extensions
 		initExtensions(this, stencilBuffer);
 
@@ -215,219 +215,127 @@ COGLES2Driver::~COGLES2Driver()
 		return true;
 	}
 
+	void COGLES2Driver::loadShaderData(const io::path& vertexShaderName, const io::path& fragmentShaderName, c8** vertexShaderData, c8** fragmentShaderData)
+	{
+		io::path vsPath(OGLES2ShaderPath);
+		vsPath += vertexShaderName;
+
+		io::path fsPath(OGLES2ShaderPath);
+		fsPath += fragmentShaderName;
+
+		*vertexShaderData = 0;
+		*fragmentShaderData = 0;
+
+		io::IReadFile* vsFile = FileSystem->createAndOpenFile(vsPath);
+		if ( !vsFile )
+		{
+			core::stringw warning(L"Warning: Missing shader files needed to simulate fixed function materials:\n");
+			warning += core::stringw(vsPath) + L"\n";
+			warning += L"Shaderpath can be changed in SIrrCreationParamters::OGLES2ShaderPath";
+			os::Printer::log(warning.c_str(), ELL_WARNING);
+			return;
+		}
+
+		io::IReadFile* fsFile = FileSystem->createAndOpenFile(fsPath);
+		if ( !fsFile )
+		{
+			core::stringw warning(L"Warning: Missing shader files needed to simulate fixed function materials:\n");
+			warning += core::stringw(fsPath) + L"\n";
+			warning += L"Shaderpath can be changed in SIrrCreationParamters::OGLES2ShaderPath";
+			os::Printer::log(warning.c_str(), ELL_WARNING);
+			return;
+		}
+
+		long size = vsFile->getSize();
+		if (size)
+		{
+			*vertexShaderData = new c8[size+1];
+			vsFile->read(*vertexShaderData, size);
+			(*vertexShaderData)[size] = 0;
+		}
+
+		size = fsFile->getSize();
+		if (size)
+		{
+			// if both handles are the same we must reset the file
+			if (fsFile == vsFile)
+				fsFile->seek(0);
+
+			*fragmentShaderData = new c8[size+1];
+			fsFile->read(*fragmentShaderData, size);
+			(*fragmentShaderData)[size] = 0;
+		}
+
+		vsFile->drop();
+		fsFile->drop();
+	}
 
 	void COGLES2Driver::createMaterialRenderers()
 	{
 		// Load shaders from files
 
 		// Fixed pipeline.
-
-		core::stringc FPVSPath = IRR_OGLES2_SHADER_PATH;
-		FPVSPath += "COGLES2FixedPipeline.vsh";
-
-		core::stringc FPFSPath = IRR_OGLES2_SHADER_PATH;
-		FPFSPath += "COGLES2FixedPipeline.fsh";
-
-		io::IReadFile* FPVSFile = FileSystem->createAndOpenFile(FPVSPath);
-		io::IReadFile* FPFSFile = FileSystem->createAndOpenFile(FPFSPath);
-
-		c8* FPVSData = 0;
-		c8* FPFSData = 0;
-
-		long Size = FPVSFile->getSize();
-
-		if (Size)
-		{
-			FPVSData = new c8[Size+1];
-			FPVSFile->read(FPVSData, Size);
-			FPVSData[Size] = 0;
-		}
-
-		Size = FPFSFile->getSize();
-
-		if (Size)
-		{
-			// if both handles are the same we must reset the file
-			if (FPFSFile == FPVSFile)
-				FPFSFile->seek(0);
-
-			FPFSData = new c8[Size+1];
-			FPFSFile->read(FPFSData, Size);
-			FPFSData[Size] = 0;
-		}
-
-		if (FPVSFile)
-			FPVSFile->drop();
-		if (FPFSFile)
-			FPFSFile->drop();
+		c8* vsFixedPipelineData = 0;
+		c8* fsFixedPipelineData = 0;
+		loadShaderData(io::path("COGLES2FixedPipeline.vsh"), io::path("COGLES2FixedPipeline.fsh"), &vsFixedPipelineData, &fsFixedPipelineData);
 
 		// Create fixed pipeline materials.
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_SOLID, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_SOLID_2_LAYER, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_LIGHTMAP, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_LIGHTMAP_ADD, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_LIGHTMAP_M2, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_LIGHTMAP_M4, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_LIGHTMAP_LIGHTING, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_LIGHTMAP_LIGHTING_M2, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_LIGHTMAP_LIGHTING_M4, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_DETAIL_MAP, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_SPHERE_MAP, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_REFLECTION_2_LAYER, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_TRANSPARENT_ADD_COLOR, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_TRANSPARENT_ALPHA_CHANNEL, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_TRANSPARENT_ALPHA_CHANNEL_REF, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_TRANSPARENT_VERTEX_ALPHA, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_TRANSPARENT_REFLECTION_2_LAYER, this));
-		// do not remove FPFSData here, we need it later on for
-		// ONE_TEXTURE_BLEND material
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_SOLID, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_SOLID_2_LAYER, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_ADD, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_M2, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_M4, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_LIGHTING, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_LIGHTING_M2, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_LIGHTING_M4, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_DETAIL_MAP, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_SPHERE_MAP, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_REFLECTION_2_LAYER, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_ADD_COLOR, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_ALPHA_CHANNEL, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_ALPHA_CHANNEL_REF, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_VERTEX_ALPHA, this));
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_REFLECTION_2_LAYER, this));
+		// do not remove fsFixedPipelineData here, we need it later on for ONE_TEXTURE_BLEND material
 
 		// Normal Mapping.
+		c8* vsNormalMapData = 0;
+		c8* fsNormalMapData = 0;
+		loadShaderData(io::path("COGLES2NormalMap.vsh"), io::path("COGLES2NormalMap.fsh"), &vsNormalMapData, &fsNormalMapData);
 
-		core::stringc NMVSPath = IRR_OGLES2_SHADER_PATH;
-		NMVSPath += "COGLES2NormalMap.vsh";
+		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(vsNormalMapData, fsNormalMapData, EMT_NORMAL_MAP_SOLID, this));
+		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(vsNormalMapData, fsNormalMapData, EMT_NORMAL_MAP_TRANSPARENT_ADD_COLOR, this));
+		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(vsNormalMapData, fsNormalMapData, EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA, this));
 
-		core::stringc NMFSPath = IRR_OGLES2_SHADER_PATH;
-		NMFSPath += "COGLES2NormalMap.fsh";
-
-		io::IReadFile* NMVSFile = FileSystem->createAndOpenFile(NMVSPath);
-		io::IReadFile* NMFSFile = FileSystem->createAndOpenFile(NMFSPath);
-
-		c8* NMVSData = 0;
-		c8* NMFSData = 0;
-
-		Size = NMVSFile->getSize();
-
-		if (Size)
-		{
-			NMVSData = new c8[Size+1];
-			NMVSFile->read(NMVSData, Size);
-			NMVSData[Size] = 0;
-		}
-
-		Size = NMFSFile->getSize();
-
-		if (Size)
-		{
-			// if both handles are the same we must reset the file
-			if (NMFSFile == NMVSFile)
-				NMFSFile->seek(0);
-
-			NMFSData = new c8[Size+1];
-			NMFSFile->read(NMFSData, Size);
-			NMFSData[Size] = 0;
-		}
-
-		if (NMVSFile)
-			NMVSFile->drop();
-		if (NMFSFile)
-			NMFSFile->drop();
-
-		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(NMVSData, NMFSData, EMT_NORMAL_MAP_SOLID, this));
-		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(NMVSData, NMFSData, EMT_NORMAL_MAP_TRANSPARENT_ADD_COLOR, this));
-		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(NMVSData, NMFSData, EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA, this));
-
-		delete NMVSData;
-		delete NMFSData;
+		delete[] vsNormalMapData;
+		delete[] fsNormalMapData;
 
 		// Parallax Mapping.
+		c8* vsParallaxMapData = 0;
+		c8* fsParallaxMapData = 0;
+		loadShaderData(io::path("COGLES2ParallaxMap.vsh"), io::path("COGLES2ParallaxMap.fsh"), &vsParallaxMapData, &fsParallaxMapData);
 
-		core::stringc PMVSPath = IRR_OGLES2_SHADER_PATH;
-		PMVSPath += "COGLES2ParallaxMap.vsh";
+		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(vsParallaxMapData, fsParallaxMapData, EMT_PARALLAX_MAP_SOLID, this));
+		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(vsParallaxMapData, fsParallaxMapData, EMT_PARALLAX_MAP_TRANSPARENT_ADD_COLOR, this));
+		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(vsParallaxMapData, fsParallaxMapData, EMT_PARALLAX_MAP_TRANSPARENT_VERTEX_ALPHA, this));
 
-		core::stringc PMFSPath = IRR_OGLES2_SHADER_PATH;
-		PMFSPath += "COGLES2ParallaxMap.fsh";
+		delete[] vsParallaxMapData;
+		delete[] fsParallaxMapData;
 
-		io::IReadFile* PMVSFile = FileSystem->createAndOpenFile(FPVSPath);
-		io::IReadFile* PMFSFile = FileSystem->createAndOpenFile(FPFSPath);
+		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_ONETEXTURE_BLEND, this));
 
-		c8* PMVSData = 0;
-		c8* PMFSData = 0;
-
-		Size = PMVSFile->getSize();
-
-		if (Size)
-		{
-			PMVSData = new c8[Size+1];
-			PMVSFile->read(PMVSData, Size);
-			PMVSData[Size] = 0;
-		}
-
-		Size = PMFSFile->getSize();
-
-		if (Size)
-		{
-			// if both handles are the same we must reset the file
-			if (PMFSFile == PMVSFile)
-				PMFSFile->seek(0);
-
-			PMFSData = new c8[Size+1];
-			PMFSFile->read(PMFSData, Size);
-			PMFSData[Size] = 0;
-		}
-
-		if (PMVSFile)
-			PMVSFile->drop();
-		if (PMFSFile)
-			PMFSFile->drop();
-
-		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(PMVSData, PMFSData, EMT_PARALLAX_MAP_SOLID, this));
-		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(PMVSData, PMFSData, EMT_PARALLAX_MAP_TRANSPARENT_ADD_COLOR, this));
-		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(PMVSData, PMFSData, EMT_PARALLAX_MAP_TRANSPARENT_VERTEX_ALPHA, this));
-
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(FPVSData, FPFSData, EMT_ONETEXTURE_BLEND, this));
-
-		delete PMVSData;
-		delete PMFSData;
-		// now also remove the fixed pipeline data
-		delete FPVSData;
-		delete FPFSData;
+		delete[] vsFixedPipelineData;
+		delete[] fsFixedPipelineData;
 
 		// Create 2D material renderer.
+		c8* vs2DData = 0;
+		c8* fs2DData = 0;
+		loadShaderData(io::path("COGLES2Renderer2D.vsh"), io::path("COGLES2Renderer2D.fsh"), &vs2DData, &fs2DData);
 
-		core::stringc R2DVSPath = IRR_OGLES2_SHADER_PATH;
-		R2DVSPath += "COGLES2Renderer2D.vsh";
-
-		core::stringc R2DFSPath = IRR_OGLES2_SHADER_PATH;
-		R2DFSPath += "COGLES2Renderer2D.fsh";
-
-		io::IReadFile* R2DVSFile = FileSystem->createAndOpenFile(R2DVSPath);
-		io::IReadFile* R2DFSFile = FileSystem->createAndOpenFile(R2DFSPath);
-
-		c8* R2DVSData = 0;
-		c8* R2DFSData = 0;
-
-		Size = R2DVSFile->getSize();
-
-		if (Size)
-		{
-			R2DVSData = new c8[Size+1];
-			R2DVSFile->read(R2DVSData, Size);
-			R2DVSData[Size] = 0;
-		}
-
-		Size = R2DFSFile->getSize();
-
-		if (Size)
-		{
-			// if both handles are the same we must reset the file
-			if (R2DFSFile == PMVSFile)
-				R2DFSFile->seek(0);
-
-			R2DFSData = new c8[Size+1];
-			R2DFSFile->read(R2DFSData, Size);
-			R2DFSData[Size] = 0;
-		}
-
-		if (R2DVSFile)
-			R2DVSFile->drop();
-
-		if (R2DFSFile)
-			R2DFSFile->drop();
-
-		MaterialRenderer2D = new COGLES2Renderer2D(R2DVSData, R2DFSData, this);
-		delete R2DVSData;
-		delete R2DFSData;
+		MaterialRenderer2D = new COGLES2Renderer2D(vs2DData, fs2DData, this);
+		delete[] vs2DData;
+		delete[] fs2DData;
 	}
 
 
@@ -436,7 +344,7 @@ bool COGLES2Driver::endScene()
 {
 	CNullDriver::endScene();
 
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
     if (ContextManager)
 		ContextManager->swapBuffers();
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
@@ -459,6 +367,9 @@ bool COGLES2Driver::endScene()
 
 		if (backBuffer)
 		{
+			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			Material.ColorMask = ECP_ALL;
+
 			const f32 inv = 1.0f / 255.0f;
 			glClearColor(color.getRed() * inv, color.getGreen() * inv,
 						color.getBlue() * inv, color.getAlpha() * inv);
@@ -469,12 +380,13 @@ bool COGLES2Driver::endScene()
 		if (zBuffer)
 		{
 			glDepthMask(GL_TRUE);
-			LastMaterial.ZWriteEnable = true;
+			Material.ZWriteEnable = true;
+
 			mask |= GL_DEPTH_BUFFER_BIT;
 		}
 
 		glClear(mask);
-		testGLError();
+
 		return true;
 	}
 
@@ -524,8 +436,7 @@ bool COGLES2Driver::endScene()
 
 		glBindBuffer(GL_ARRAY_BUFFER, HWBuffer->vbo_verticesID);
 
-		//copy data to graphics card
-		glGetError(); // clear error storage
+		// copy data to graphics card
 		if (!newBuffer)
 			glBufferSubData(GL_ARRAY_BUFFER, 0, vertexCount * vertexSize, buffer.const_pointer());
 		else
@@ -540,7 +451,7 @@ bool COGLES2Driver::endScene()
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		return (glGetError() == GL_NO_ERROR);
+		return (!testGLError());
 	}
 
 
@@ -588,8 +499,7 @@ bool COGLES2Driver::endScene()
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, HWBuffer->vbo_indicesID);
 
-		//copy data to graphics card
-		glGetError(); // clear error storage
+		// copy data to graphics card
 		if (!newBuffer)
 			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indexCount * indexSize, indices);
 		else
@@ -604,7 +514,7 @@ bool COGLES2Driver::endScene()
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-		return (glGetError() == GL_NO_ERROR);
+		return (!testGLError());
 	}
 
 
@@ -1496,13 +1406,13 @@ bool COGLES2Driver::endScene()
 		if (CurrentTexture[stage]==texture)
 			return true;
 
-		CurrentTexture[stage] = texture;
+		CurrentTexture.set(stage,texture);
 
 		if (!texture)
 			return true;
 		else if (texture->getDriverType() != EDT_OGLES2)
 		{
-			CurrentTexture[stage] = 0;
+			CurrentTexture.set(stage, 0);
 			os::Printer::log("Fatal Error: Tried to set a texture not owned by this driver.", ELL_ERROR);
 			return false;
 		}
@@ -1572,7 +1482,7 @@ bool COGLES2Driver::endScene()
 
 
 	//! returns a device dependent texture from a software surface (IImage)
-	ITexture* COGLES2Driver::createDeviceDependentTextureCube(const io::path& name, IImage* posXImage, IImage* negXImage, 
+	ITexture* COGLES2Driver::createDeviceDependentTextureCube(const io::path& name, IImage* posXImage, IImage* negXImage,
 		IImage* posYImage, IImage* negYImage, IImage* posZImage, IImage* negZImage)
 	{
 		COGLES2Texture* texture = 0;
@@ -1583,7 +1493,7 @@ bool COGLES2Driver::endScene()
 		{
 			texture = new COGLES2Texture(name, posXImage, negXImage, posYImage, negYImage, posZImage, negZImage, this);
 		}
- 
+
  		return texture;
 	}
 
@@ -1691,7 +1601,7 @@ bool COGLES2Driver::endScene()
 		{
 			// Reset Texture Stages
 			BridgeCalls->setBlend(false);
-			BridgeCalls->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			BridgeCalls->setBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 
 			ResetRenderStates = true;
 		}
@@ -1771,7 +1681,8 @@ bool COGLES2Driver::endScene()
 		// ZWrite
 	//	if (resetAllRenderStates || lastmaterial.ZWriteEnable != material.ZWriteEnable)
 		{
-			if (material.ZWriteEnable && (AllowZWriteOnTransparent || !material.isTransparent()))
+			if (material.ZWriteEnable && (AllowZWriteOnTransparent || (material.BlendOperation == EBO_NONE &&
+					!MaterialRenderers[material.MaterialType].Renderer->isTransparent())))
 				BridgeCalls->setDepthMask(true);
 			else
 				BridgeCalls->setDepthMask(false);
@@ -1811,30 +1722,43 @@ bool COGLES2Driver::endScene()
 				(material.ColorMask & ECP_ALPHA)?GL_TRUE:GL_FALSE);
 		}
 
-		// Blend operation
-		if (resetAllRenderStates|| lastmaterial.BlendOperation != material.BlendOperation)
+		// Blend Equation
+		if (material.BlendOperation == EBO_NONE)
+		    BridgeCalls->setBlend(false);
+		else
 		{
-			if (material.BlendOperation==EBO_NONE)
-				BridgeCalls->setBlend(false);
-			else
-			{
-				BridgeCalls->setBlend(true);
+		    BridgeCalls->setBlend(true);
 
-				switch (material.BlendOperation)
-				{
-				case EBO_ADD:
-					glBlendEquation(GL_FUNC_ADD);
-					break;
-				case EBO_SUBTRACT:
-					glBlendEquation(GL_FUNC_SUBTRACT);
-					break;
-				case EBO_REVSUBTRACT:
-					glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
-					break;
-				default:
-					break;
-				}
+			switch (material.BlendOperation)
+			{
+			case EBO_ADD:
+				BridgeCalls->setBlendEquation(GL_FUNC_ADD);
+				break;
+			case EBO_SUBTRACT:
+				BridgeCalls->setBlendEquation(GL_FUNC_SUBTRACT);
+				break;
+			case EBO_REVSUBTRACT:
+				BridgeCalls->setBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
+				break;
+			default:
+				break;
 			}
+		}
+
+		// Blend Factor
+		if (IR(material.BlendFactor) & 0xFFFFFFFF)
+		{
+		    E_BLEND_FACTOR srcRGBFact = EBF_ZERO;
+		    E_BLEND_FACTOR dstRGBFact = EBF_ZERO;
+		    E_BLEND_FACTOR srcAlphaFact = EBF_ZERO;
+		    E_BLEND_FACTOR dstAlphaFact = EBF_ZERO;
+		    E_MODULATE_FUNC modulo = EMFN_MODULATE_1X;
+		    u32 alphaSource = 0;
+
+		    unpack_textureBlendFuncSeparate(srcRGBFact, dstRGBFact, srcAlphaFact, dstAlphaFact, modulo, alphaSource, material.BlendFactor);
+
+			BridgeCalls->setBlendFuncSeparate(getGLBlend(srcRGBFact), getGLBlend(dstRGBFact),
+				getGLBlend(srcAlphaFact), getGLBlend(dstAlphaFact));
 		}
 
 		// Anti aliasing
@@ -2456,6 +2380,9 @@ bool COGLES2Driver::endScene()
 		GLbitfield mask = 0;
 		if (clearBackBuffer)
 		{
+			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			Material.ColorMask = ECP_ALL;
+
 			const f32 inv = 1.0f / 255.0f;
 			glClearColor(color.getRed() * inv, color.getGreen() * inv,
 						color.getBlue() * inv, color.getAlpha() * inv);
@@ -2465,12 +2392,12 @@ bool COGLES2Driver::endScene()
 		if (clearZBuffer)
 		{
 			glDepthMask(GL_TRUE);
-			LastMaterial.ZWriteEnable = true;
+			Material.ZWriteEnable = true;
+
 			mask |= GL_DEPTH_BUFFER_BIT;
 		}
 
 		glClear(mask);
-		testGLError();
 
 		return true;
 	}
@@ -2489,14 +2416,10 @@ bool COGLES2Driver::endScene()
 	//! Clears the ZBuffer.
 	void COGLES2Driver::clearZBuffer()
 	{
-		GLboolean enabled = GL_TRUE;
-		glGetBooleanv(GL_DEPTH_WRITEMASK, &enabled);
-
 		glDepthMask(GL_TRUE);
-		glClear(GL_DEPTH_BUFFER_BIT);
+		Material.ZWriteEnable = true;
 
-		glDepthMask(enabled);
-		testGLError();
+		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
 
@@ -2617,6 +2540,15 @@ bool COGLES2Driver::endScene()
 		}
 	}
 
+	void COGLES2Driver::removeTexture(ITexture* texture)
+	{
+		if (!texture)
+			return;
+
+		CNullDriver::removeTexture(texture);
+		CurrentTexture.remove(texture);
+	}
+
 	void COGLES2Driver::deleteFramebuffers(s32 n, const u32 *framebuffers)
 	{
 		glDeleteFramebuffers(n, framebuffers);
@@ -2726,7 +2658,8 @@ bool COGLES2Driver::endScene()
 	}
 
 	COGLES2CallBridge::COGLES2CallBridge(COGLES2Driver* driver) : Driver(driver),
-		BlendSource(GL_ONE), BlendDestination(GL_ZERO), Blend(false),
+		BlendEquation(GL_FUNC_ADD), BlendSourceRGB(GL_ONE), BlendDestinationRGB(GL_ZERO),
+		BlendSourceAlpha(GL_ONE), BlendDestinationAlpha(GL_ZERO), Blend(false),
 		CullFaceMode(GL_BACK), CullFace(false),
 		DepthFunc(GL_LESS), DepthMask(true), DepthTest(false),
 		Program(0), ActiveTexture(GL_TEXTURE0), Viewport(core::rect<s32>(0, 0, 0, 0))
@@ -2750,14 +2683,48 @@ bool COGLES2Driver::endScene()
 		glDisable(GL_DEPTH_TEST);
 	}
 
+	void COGLES2CallBridge::setBlendEquation(GLenum mode)
+	{
+		if (BlendEquation != mode)
+		{
+			glBlendEquation(mode);
+
+			BlendEquation = mode;
+		}
+	}
+
 	void COGLES2CallBridge::setBlendFunc(GLenum source, GLenum destination)
 	{
-		if (BlendSource != source || BlendDestination != destination)
+		if (BlendSourceRGB != source || BlendDestinationRGB != destination ||
+		    BlendSourceAlpha != source || BlendDestinationAlpha != destination)
 		{
 			glBlendFunc(source, destination);
 
-			BlendSource = source;
-			BlendDestination = destination;
+			BlendSourceRGB = source;
+			BlendDestinationRGB = destination;
+			BlendSourceAlpha = source;
+			BlendDestinationAlpha = destination;
+		}
+	}
+
+	void COGLES2CallBridge::setBlendFuncSeparate(GLenum sourceRGB, GLenum destinationRGB, GLenum sourceAlpha, GLenum destinationAlpha)
+	{
+		if (sourceRGB != sourceAlpha || destinationRGB != destinationAlpha)
+		{
+		    if (BlendSourceRGB != sourceRGB || BlendDestinationRGB != destinationRGB ||
+		        BlendSourceAlpha != sourceAlpha || BlendDestinationAlpha != destinationAlpha)
+		    {
+		        glBlendFuncSeparate(sourceRGB, destinationRGB, sourceAlpha, destinationAlpha);
+
+				BlendSourceRGB = sourceRGB;
+				BlendDestinationRGB = destinationRGB;
+				BlendSourceAlpha = sourceAlpha;
+				BlendDestinationAlpha = destinationAlpha;
+		    }
+		}
+		else
+		{
+		    setBlendFunc(sourceRGB, destinationRGB);
 		}
 	}
 
@@ -2842,6 +2809,21 @@ bool COGLES2Driver::endScene()
 		}
 	}
 
+	void COGLES2CallBridge::resetTexture(const ITexture* texture)
+	{
+		for (u32 i = 0; i < MATERIAL_MAX_TEXTURES; ++i)
+		{
+			if (Texture[i] == texture)
+			{
+				setActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, 0);
+
+				Texture[i] = 0;
+				TextureType[i] = GL_TEXTURE_2D;
+			}
+		}
+	}
+
 	void COGLES2CallBridge::setActiveTexture(GLenum texture)
 	{
 		if (ActiveTexture != texture)
@@ -2902,7 +2884,7 @@ class IContextManager;
 
 IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
 		io::IFileSystem* io
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
         , IContextManager* contextManager
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
         , CIrrDeviceIPhone* device
@@ -2911,7 +2893,7 @@ IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
 {
 #ifdef _IRR_COMPILE_WITH_OGLES2_
 	return new COGLES2Driver(params, io
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
         , contextManager
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
         , device

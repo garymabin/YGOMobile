@@ -17,8 +17,9 @@ obj/local/x86/objs/Irrlicht/COGLESDriver.o: jni/../../COGLESDriver.cpp \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/linux/types.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/machine/kernel.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/sys/sysmacros.h \
- jni/../../CNullDriver.h ../../../include/IVideoDriver.h \
- ../../../include/rect.h ../../../include/irrTypes.h \
+ ../../../include/SIrrCreationParameters.h \
+ ../../../include/EDriverTypes.h ../../../include/EDeviceTypes.h \
+ ../../../include/dimension2d.h ../../../include/irrTypes.h \
  ../../../include/IrrCompileConfig.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/wchar.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/limits.h \
@@ -37,20 +38,22 @@ obj/local/x86/objs/Irrlicht/COGLESDriver.o: jni/../../COGLESDriver.cpp \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/malloc.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/sys/_wchar_limits.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/assert.h \
- ../../../include/dimension2d.h ../../../include/irrMath.h \
+ ../../../include/irrMath.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/math.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/stdlib.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/string.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/alloca.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/strings.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/memory.h \
+ ../../../include/ILogger.h ../../../include/IReferenceCounted.h \
  ../../../include/position2d.h ../../../include/vector2d.h \
- ../../../include/SColor.h ../../../include/ITexture.h \
- ../../../include/IReferenceCounted.h ../../../include/IImage.h \
- ../../../include/EDriverTypes.h ../../../include/path.h \
- ../../../include/irrString.h ../../../include/irrAllocator.h \
+ ../../../include/path.h ../../../include/irrString.h \
+ ../../../include/irrAllocator.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/new \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/cstddef \
+ jni/../../CNullDriver.h ../../../include/IVideoDriver.h \
+ ../../../include/rect.h ../../../include/SColor.h \
+ ../../../include/ITexture.h ../../../include/IImage.h \
  ../../../include/matrix4.h ../../../include/vector3d.h \
  ../../../include/plane3d.h ../../../include/aabbox3d.h \
  ../../../include/line3d.h ../../../include/irrArray.h \
@@ -77,16 +80,15 @@ obj/local/x86/objs/Irrlicht/COGLESDriver.o: jni/../../COGLESDriver.cpp \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
+ ../../../include/IAttributes.h ../../../include/IEventReceiver.h \
  ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- jni/../../CFPSCounter.h ../../../include/irrTypes.h \
- ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
- ../../../include/SLight.h ../../../include/SExposedVideoData.h \
+ ../../../include/irrList.h jni/../../CFPSCounter.h \
+ ../../../include/irrTypes.h ../../../include/S3DVertex.h \
+ ../../../include/SVertexIndex.h ../../../include/SLight.h \
+ ../../../include/SExposedVideoData.h \
  ../../../include/IMaterialRendererServices.h \
  ../../../include/EDriverFeatures.h ../../../include/fast_atof.h \
- ../../../include/SIrrCreationParameters.h \
- ../../../include/EDeviceTypes.h ../../../include/IContextManager.h \
+ ../../../include/IContextManager.h \
  ../../../include/SIrrCreationParameters.h \
  jni/../../COGLESExtensionHandler.h jni/../../CEGLManager.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/EGL/egl.h \
@@ -141,11 +143,13 @@ jni/../../COGLESDriver.h:
 
 /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/sys/sysmacros.h:
 
-jni/../../CNullDriver.h:
+../../../include/SIrrCreationParameters.h:
 
-../../../include/IVideoDriver.h:
+../../../include/EDriverTypes.h:
 
-../../../include/rect.h:
+../../../include/EDeviceTypes.h:
+
+../../../include/dimension2d.h:
 
 ../../../include/irrTypes.h:
 
@@ -185,8 +189,6 @@ jni/../../CNullDriver.h:
 
 /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/assert.h:
 
-../../../include/dimension2d.h:
-
 ../../../include/irrMath.h:
 
 /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/math.h:
@@ -201,19 +203,13 @@ jni/../../CNullDriver.h:
 
 /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/memory.h:
 
-../../../include/position2d.h:
-
-../../../include/vector2d.h:
-
-../../../include/SColor.h:
-
-../../../include/ITexture.h:
+../../../include/ILogger.h:
 
 ../../../include/IReferenceCounted.h:
 
-../../../include/IImage.h:
+../../../include/position2d.h:
 
-../../../include/EDriverTypes.h:
+../../../include/vector2d.h:
 
 ../../../include/path.h:
 
@@ -224,6 +220,18 @@ jni/../../CNullDriver.h:
 /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/new:
 
 /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/cstddef:
+
+jni/../../CNullDriver.h:
+
+../../../include/IVideoDriver.h:
+
+../../../include/rect.h:
+
+../../../include/SColor.h:
+
+../../../include/ITexture.h:
+
+../../../include/IImage.h:
 
 ../../../include/matrix4.h:
 
@@ -319,17 +327,15 @@ jni/../../IImagePresenter.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
-../../../include/IEventReceiver.h:
+../../../include/IAttributes.h:
 
-../../../include/ILogger.h:
+../../../include/IEventReceiver.h:
 
 ../../../include/Keycodes.h:
 
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
 
 jni/../../CFPSCounter.h:
 
@@ -348,10 +354,6 @@ jni/../../CFPSCounter.h:
 ../../../include/EDriverFeatures.h:
 
 ../../../include/fast_atof.h:
-
-../../../include/SIrrCreationParameters.h:
-
-../../../include/EDeviceTypes.h:
 
 ../../../include/IContextManager.h:
 

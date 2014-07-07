@@ -72,10 +72,10 @@ obj/local/armeabi-v7a/objs/Irrlicht/CSTLMeshWriter.o: \
  ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
- ../../../include/ILogger.h ../../../include/Keycodes.h \
- ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/IAnimatedMesh.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/IEventReceiver.h ../../../include/ILogger.h \
+ ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
+ ../../../include/irrList.h ../../../include/IAnimatedMesh.h \
  ../../../include/SSkinMeshBuffer.h ../../../include/IMeshBuffer.h \
  ../../../include/IMeshCache.h ../../../include/IWriteFile.h
 
@@ -283,6 +283,8 @@ jni/../../os.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
+../../../include/IAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -292,8 +294,6 @@ jni/../../os.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
 
 ../../../include/IAnimatedMesh.h:
 

@@ -65,11 +65,12 @@ obj/local/x86/objs/Irrlicht/CGUIMeshViewer.o: \
  ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
  ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
  ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
- ../../../include/EMessageBoxFlags.h ../../../include/IVideoDriver.h \
- ../../../include/ITexture.h ../../../include/IImage.h \
- ../../../include/EDriverTypes.h ../../../include/SMaterial.h \
- ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
- ../../../include/SVertexIndex.h ../../../include/EHardwareBufferFlags.h \
+ ../../../include/EMessageBoxFlags.h ../../../include/EFocusFlags.h \
+ ../../../include/IVideoDriver.h ../../../include/ITexture.h \
+ ../../../include/IImage.h ../../../include/EDriverTypes.h \
+ ../../../include/SMaterial.h ../../../include/IMeshBuffer.h \
+ ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
+ ../../../include/EHardwareBufferFlags.h \
  ../../../include/EPrimitiveTypes.h ../../../include/EDriverFeatures.h \
  ../../../include/SExposedVideoData.h ../../../include/IAnimatedMesh.h \
  ../../../include/IMesh.h ../../../include/IMesh.h jni/../../os.h \
@@ -248,6 +249,8 @@ jni/../../CGUIMeshViewer.h:
 ../../../include/IGUISkin.h:
 
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:
 
 ../../../include/IVideoDriver.h:
 

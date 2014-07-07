@@ -62,15 +62,16 @@ obj/local/armeabi-v7a/objs/Irrlicht/COctreeTriangleSelector.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
- ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- ../../../include/line2d.h ../../../include/quaternion.h \
- ../../../include/IXMLReader.h ../../../include/irrXML.h \
- ../../../include/EAttributes.h ../../../include/path.h jni/../../os.h \
- ../../../include/IrrCompileConfig.h ../../../include/irrTypes.h \
- ../../../include/irrString.h ../../../include/path.h \
- ../../../include/ILogger.h ../../../include/ITimer.h
+ ../../../include/IAttributes.h ../../../include/line2d.h \
+ ../../../include/quaternion.h ../../../include/IXMLReader.h \
+ ../../../include/irrXML.h ../../../include/EAttributes.h \
+ ../../../include/path.h ../../../include/IEventReceiver.h \
+ ../../../include/ILogger.h ../../../include/Keycodes.h \
+ ../../../include/ITriangleSelector.h ../../../include/irrList.h \
+ jni/../../os.h ../../../include/IrrCompileConfig.h \
+ ../../../include/irrTypes.h ../../../include/irrString.h \
+ ../../../include/path.h ../../../include/ILogger.h \
+ ../../../include/ITimer.h
 
 jni/../../COctreeTriangleSelector.h:
 
@@ -226,16 +227,6 @@ jni/../../CTriangleSelector.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
-../../../include/IEventReceiver.h:
-
-../../../include/ILogger.h:
-
-../../../include/Keycodes.h:
-
-../../../include/ITriangleSelector.h:
-
-../../../include/irrList.h:
-
 ../../../include/IAttributes.h:
 
 ../../../include/line2d.h:
@@ -249,6 +240,16 @@ jni/../../CTriangleSelector.h:
 ../../../include/EAttributes.h:
 
 ../../../include/path.h:
+
+../../../include/IEventReceiver.h:
+
+../../../include/ILogger.h:
+
+../../../include/Keycodes.h:
+
+../../../include/ITriangleSelector.h:
+
+../../../include/irrList.h:
 
 jni/../../os.h:
 

@@ -27,7 +27,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AboutSettingsFragment extends EventDialogPreferenceFragment implements OnPreferenceClickListener, OnClickListener {
@@ -42,8 +41,6 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 	
 	private static final int MSG_TYPE_CHECK_UPDATE = 0;
 	
-	private int mVersionCode;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,15 +51,7 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 		mOpensourcePref.setOnPreferenceClickListener(this);
 		mCheckUpdatePref = findPreference(Settings.KEY_PREF_ABOUT_CHECK_UPDATE);
 		mCheckUpdatePref.setOnPreferenceClickListener(this);
-		try {
-			Context context = StaticApplication.peekInstance();
-			PackageInfo pi = context.getPackageManager().getPackageInfo(
-					context.getPackageName(), 0);
-			mVersionCode = pi.versionCode;
-			mVersionPref.setSummary(pi.versionName);
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		}
+		mVersionPref.setSummary(StaticApplication.peekInstance().getVersionName());
 	}
 	
 	@Override
@@ -86,11 +75,14 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 	
 	@Override
 	public boolean handleMessage(Message msg) {
+		if (super.handleMessage(msg)) {
+			return true;
+		}
 		int type = msg.what;
 		if (type == MSG_TYPE_CHECK_UPDATE) {
 			VersionInfo info = (VersionInfo) msg.obj;
 			if (info != null) {
-				if (info.version <= mVersionCode) {
+				if (info.version <= StaticApplication.peekInstance().getVersionCode()) {
 					SuperToast.create(getActivity(), getResources().getString(R.string.settings_about_no_update),
 							SuperToast.Duration.VERY_SHORT).show();
 				} else {

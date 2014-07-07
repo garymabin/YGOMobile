@@ -76,11 +76,11 @@ obj/local/armeabi/objs/Irrlicht/CQ3LevelMesh.o: \
  ../../../include/IBoneSceneNode.h ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/quaternion.h \
+ ../../../include/EAttributes.h ../../../include/IEventReceiver.h \
  ../../../include/ILogger.h ../../../include/Keycodes.h \
  ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/line2d.h \
- ../../../include/quaternion.h ../../../include/EAttributes.h \
  ../../../include/SSkinMeshBuffer.h jni/../../os.h \
  ../../../include/irrTypes.h ../../../include/path.h \
  ../../../include/ILogger.h ../../../include/ITimer.h \
@@ -307,6 +307,14 @@ jni/../../CQ3LevelMesh.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
+../../../include/IAttributes.h:
+
+../../../include/line2d.h:
+
+../../../include/quaternion.h:
+
+../../../include/EAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -316,14 +324,6 @@ jni/../../CQ3LevelMesh.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
-
-../../../include/line2d.h:
-
-../../../include/quaternion.h:
-
-../../../include/EAttributes.h:
 
 ../../../include/SSkinMeshBuffer.h:
 

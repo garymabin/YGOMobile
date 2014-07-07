@@ -1028,9 +1028,6 @@ void Game::MainLoop() {
 		matManager.mATK.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
 		matManager.mATK.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	}
-	if (glversion != 0) {
-		matManager.mTRTexture.setFlag(video::EMF_LIGHTING, false);
-	}
 #endif
 	while(device->run()) {
 #ifdef _IRR_ANDROID_PLATFORM_

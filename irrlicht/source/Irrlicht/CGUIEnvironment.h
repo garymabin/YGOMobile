@@ -183,6 +183,10 @@ public:
 	virtual IGUITable* addTable(const core::rect<s32>& rectangle,
 		IGUIElement* parent=0, s32 id=-1, bool drawBackground=false) _IRR_OVERRIDE_;
 
+	//! Adds an element to display the information from the Irrlicht profiler
+	virtual IGUIProfiler* addProfilerDisplay(const core::rect<s32>& rectangle,
+		IGUIElement* parent=0, s32 id=-1) _IRR_OVERRIDE_;
+
 	//! sets the focus to an element
 	virtual bool setFocus(IGUIElement* element) _IRR_OVERRIDE_;
 
@@ -190,7 +194,7 @@ public:
 	virtual bool removeFocus(IGUIElement* element) _IRR_OVERRIDE_;
 
 	//! Returns if the element has focus
-	virtual bool hasFocus(IGUIElement* element, bool checkSubElements=false) const _IRR_OVERRIDE_;
+	virtual bool hasFocus(const IGUIElement* element, bool checkSubElements=false) const _IRR_OVERRIDE_;
 
 	//! Returns the element with the focus
 	virtual IGUIElement* getFocus() const _IRR_OVERRIDE_;
@@ -259,9 +263,16 @@ public:
 	//! reads an element
 	virtual void readGUIElement(io::IXMLReader* reader, IGUIElement* node) _IRR_OVERRIDE_;
 
-private:
+	//! Find the next element which would be selected when pressing the tab-key
+	virtual IGUIElement* getNextElement(bool reverse=false, bool group=false) _IRR_OVERRIDE_;
 
-	IGUIElement* getNextElement(bool reverse=false, bool group=false);
+	//! Set the way the gui will handle focus changes
+	virtual void setFocusBehavior(u32 flags) _IRR_OVERRIDE_;
+
+	//! Get the way the gui does handle focus changes
+	virtual u32 getFocusBehavior() const _IRR_OVERRIDE_;
+
+private:
 
 	void updateHoveredElement(core::position2d<s32> mousePos);
 
@@ -313,6 +324,7 @@ private:
 	io::IFileSystem* FileSystem;
 	IEventReceiver* UserReceiver;
 	IOSOperator* Operator;
+	u32 FocusFlags;
 	static const io::path DefaultFontName;
 };
 

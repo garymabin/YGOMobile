@@ -9,7 +9,6 @@ namespace ygo {
 
 void Game::DrawSelectionLine(irr::video::S3DVertex* vec, bool strip, int width, float* cv) {
 #ifdef _IRR_ANDROID_PLATFORM_
-	matManager.mOutLine.ColorMaterial = irr::video::ECM_NONE;
 	driver->setMaterial(matManager.mOutLine);
 	if(strip) {
 		if(linePattern < 15) {

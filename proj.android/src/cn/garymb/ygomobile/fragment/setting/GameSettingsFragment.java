@@ -11,6 +11,7 @@ import cn.garymb.ygomobile.common.ImageCopyTask;
 import cn.garymb.ygomobile.common.ImageCopyTask.ImageCopyListener;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.setting.Settings;
+import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 import cn.garymb.ygomobile.widget.BaseDialog;
 import cn.garymb.ygomobile.widget.ImagePreviewDialog;
@@ -137,8 +138,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment implemen
 	private void beginCrop(Uri source) {
 		Uri outputUri = Uri.fromFile(new File(getActivity().getCacheDir(),
 				"cropped"));
-		new Crop(source).withAspect(1024, 640).output(outputUri)
-				.withMaxSize(1024, 640).start(getActivity(), this);
+		new Crop(source).withAspect((int)DeviceUtils.getScreenHeight(), (int)DeviceUtils.getScreenWidth()).output(outputUri).start(getActivity(), this);
 	}
 
 	private void setNewImage(Uri uri) {

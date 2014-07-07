@@ -91,20 +91,37 @@ void CGUIButton::setSpriteBank(IGUISpriteBank* sprites)
 }
 
 
-void CGUIButton::setSprite(EGUI_BUTTON_STATE state, s32 index, video::SColor color, bool loop)
+void CGUIButton::setSprite(EGUI_BUTTON_STATE state, s32 index, video::SColor color, bool loop, bool scale)
 {
-	if (SpriteBank)
-	{
-		ButtonSprites[(u32)state].Index	= index;
-		ButtonSprites[(u32)state].Color	= color;
-		ButtonSprites[(u32)state].Loop	= loop;
-	}
-	else
-	{
-		ButtonSprites[(u32)state].Index = -1;
-	}
+	ButtonSprites[(u32)state].Index	= index;
+	ButtonSprites[(u32)state].Color	= color;
+	ButtonSprites[(u32)state].Loop	= loop;
+	ButtonSprites[(u32)state].Scale = scale;
 }
 
+//! Get the sprite-index for the given state or -1 when no sprite is set
+s32 CGUIButton::getSpriteIndex(EGUI_BUTTON_STATE state) const
+{
+	return ButtonSprites[(u32)state].Index;
+}
+
+//! Get the sprite color for the given state. Color is only used when a sprite is set.
+video::SColor CGUIButton::getSpriteColor(EGUI_BUTTON_STATE state) const
+{
+	return ButtonSprites[(u32)state].Color;
+}
+
+//! Returns if the sprite in the given state does loop
+bool CGUIButton::getSpriteLoop(EGUI_BUTTON_STATE state) const
+{
+	return ButtonSprites[(u32)state].Loop;
+}
+
+//! Returns if the sprite in the given state is scaled
+bool CGUIButton::getSpriteScale(EGUI_BUTTON_STATE state) const
+{
+	return ButtonSprites[(u32)state].Scale;
+}
 
 //! called if an event happened.
 bool CGUIButton::OnEvent(const SEvent& event)
@@ -333,6 +350,27 @@ void CGUIButton::draw()
 	IGUIElement::draw();
 }
 
+void CGUIButton::drawSprite(EGUI_BUTTON_STATE state, u32 startTime, const core::position2di& center)
+{
+	u32 stateIdx = (u32)state;
+
+	if (ButtonSprites[stateIdx].Index != -1)
+	{
+		if ( ButtonSprites[stateIdx].Scale )
+		{
+			const video::SColor colors[] = {ButtonSprites[stateIdx].Color,ButtonSprites[stateIdx].Color,ButtonSprites[stateIdx].Color,ButtonSprites[stateIdx].Color};
+			SpriteBank->draw2DSprite(ButtonSprites[stateIdx].Index, AbsoluteRect,
+					&AbsoluteClippingRect, colors,
+					os::Timer::getTime()-startTime, ButtonSprites[stateIdx].Loop);
+		}
+		else
+		{
+			SpriteBank->draw2DSprite(ButtonSprites[stateIdx].Index, center,
+				&AbsoluteClippingRect, ButtonSprites[stateIdx].Color, startTime, os::Timer::getTime(),
+				ButtonSprites[stateIdx].Loop, true);
+		}
+	}
+}
 
 //! sets another skin independent font. if this is set to zero, the button uses the font of the skin.
 void CGUIButton::setOverrideFont(IGUIFont* font)
@@ -364,6 +402,11 @@ IGUIFont* CGUIButton::getActiveFont() const
 	if (skin)
 		return skin->getFont(EGDF_BUTTON);
 	return 0;
+}
+
+void CGUIButton::setImage(EGUI_BUTTON_IMAGE_STATE state, video::ITexture* image, const core::rect<s32>& sourceRect) {
+   	setImage(image);
+	ImageRect = sourceRect; 
 }
 
 //! Sets an image which should be displayed on the button when it is in normal state.

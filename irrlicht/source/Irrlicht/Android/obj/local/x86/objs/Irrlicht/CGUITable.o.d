@@ -61,15 +61,15 @@ obj/local/x86/objs/Irrlicht/CGUITable.o: jni/../../CGUITable.cpp \
  ../../../include/irrArray.h ../../../include/heapsort.h \
  ../../../include/IXMLReader.h ../../../include/irrXML.h \
  ../../../include/EAttributes.h ../../../include/path.h \
- ../../../include/IGUISkin.h ../../../include/irrArray.h \
- ../../../include/IGUISkin.h ../../../include/IGUIEnvironment.h \
- ../../../include/EMessageBoxFlags.h ../../../include/IVideoDriver.h \
- ../../../include/ITexture.h ../../../include/IImage.h \
- ../../../include/EDriverTypes.h ../../../include/SMaterial.h \
- ../../../include/EMaterialTypes.h ../../../include/EMaterialFlags.h \
- ../../../include/SMaterialLayer.h ../../../include/IMeshBuffer.h \
- ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
- ../../../include/EHardwareBufferFlags.h \
+ ../../../include/irrArray.h ../../../include/IGUISkin.h \
+ ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
+ ../../../include/EMessageBoxFlags.h ../../../include/EFocusFlags.h \
+ ../../../include/IVideoDriver.h ../../../include/ITexture.h \
+ ../../../include/IImage.h ../../../include/EDriverTypes.h \
+ ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
+ ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
+ ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
+ ../../../include/SVertexIndex.h ../../../include/EHardwareBufferFlags.h \
  ../../../include/EPrimitiveTypes.h ../../../include/EDriverFeatures.h \
  ../../../include/SExposedVideoData.h ../../../include/IGUIFont.h \
  jni/../../CGUIScrollBar.h ../../../include/IGUIScrollBar.h \
@@ -235,15 +235,17 @@ jni/../../CGUITable.h:
 
 ../../../include/path.h:
 
-../../../include/IGUISkin.h:
-
 ../../../include/irrArray.h:
 
 ../../../include/IGUISkin.h:
 
 ../../../include/IGUIEnvironment.h:
 
+../../../include/IGUISkin.h:
+
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:
 
 ../../../include/IVideoDriver.h:
 

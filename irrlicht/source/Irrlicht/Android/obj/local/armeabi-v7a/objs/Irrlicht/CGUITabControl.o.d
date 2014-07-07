@@ -63,10 +63,11 @@ obj/local/armeabi-v7a/objs/Irrlicht/CGUITabControl.o: \
  ../../../include/IGUISkin.h ../../../include/irrArray.h \
  ../../../include/IGUISkin.h jni/../../CGUIButton.h \
  ../../../include/IGUIButton.h ../../../include/IGUISpriteBank.h \
- ../../../include/SColor.h ../../../include/IGUIEnvironment.h \
- ../../../include/EMessageBoxFlags.h ../../../include/IGUIFont.h \
+ ../../../include/ITexture.h ../../../include/IImage.h \
+ ../../../include/EDriverTypes.h ../../../include/SColor.h \
+ ../../../include/IGUIEnvironment.h ../../../include/EMessageBoxFlags.h \
+ ../../../include/EFocusFlags.h ../../../include/IGUIFont.h \
  ../../../include/IVideoDriver.h ../../../include/ITexture.h \
- ../../../include/IImage.h ../../../include/EDriverTypes.h \
  ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
  ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
  ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
@@ -243,21 +244,25 @@ jni/../../CGUIButton.h:
 
 ../../../include/IGUISpriteBank.h:
 
+../../../include/ITexture.h:
+
+../../../include/IImage.h:
+
+../../../include/EDriverTypes.h:
+
 ../../../include/SColor.h:
 
 ../../../include/IGUIEnvironment.h:
 
 ../../../include/EMessageBoxFlags.h:
 
+../../../include/EFocusFlags.h:
+
 ../../../include/IGUIFont.h:
 
 ../../../include/IVideoDriver.h:
 
 ../../../include/ITexture.h:
-
-../../../include/IImage.h:
-
-../../../include/EDriverTypes.h:
 
 ../../../include/SMaterial.h:
 

@@ -83,10 +83,10 @@ obj/local/x86/objs/Irrlicht/CLMTSMeshFileLoader.o: \
  ../../../include/IBoneSceneNode.h ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
- ../../../include/ILogger.h ../../../include/Keycodes.h \
- ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/SSkinMeshBuffer.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/IEventReceiver.h ../../../include/ILogger.h \
+ ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
+ ../../../include/irrList.h ../../../include/SSkinMeshBuffer.h \
  jni/../../os.h ../../../include/irrTypes.h ../../../include/path.h \
  ../../../include/ILogger.h ../../../include/ITimer.h
 
@@ -328,6 +328,8 @@ jni/../../CMeshTextureLoader.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
+../../../include/IAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -337,8 +339,6 @@ jni/../../CMeshTextureLoader.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
 
 ../../../include/SSkinMeshBuffer.h:
 

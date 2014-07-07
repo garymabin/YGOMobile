@@ -76,10 +76,22 @@ public:
 //			material.MaterialTypeParam != lastMaterial.MaterialTypeParam ||
 //			resetAllRenderstates)
 		{
-			E_BLEND_FACTOR srcFact,dstFact;
+			E_BLEND_FACTOR srcRGBFact,dstRGBFact,srcAlphaFact,dstAlphaFact;
 			E_MODULATE_FUNC modulate;
 			u32 alphaSource;
-			unpack_textureBlendFunc ( srcFact, dstFact, modulate, alphaSource, material.MaterialTypeParam );
+			unpack_textureBlendFuncSeparate(srcRGBFact, dstRGBFact, srcAlphaFact, dstAlphaFact, modulate, alphaSource, material.MaterialTypeParam);
+
+            Driver->getBridgeCalls()->setBlend(true);
+
+            if (Driver->queryFeature(EVDF_BLEND_SEPARATE))
+            {
+                Driver->getBridgeCalls()->setBlendFuncSeparate(Driver->getGLBlend(srcRGBFact), Driver->getGLBlend(dstRGBFact),
+                    Driver->getGLBlend(srcAlphaFact), Driver->getGLBlend(dstAlphaFact));
+            }
+            else
+            {
+                Driver->getBridgeCalls()->setBlendFunc(Driver->getGLBlend(srcRGBFact), Driver->getGLBlend(dstRGBFact));
+            }
 
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
 			glTexEnvf(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_MODULATE);
@@ -88,12 +100,11 @@ public:
 
 			glTexEnvf(GL_TEXTURE_ENV, GL_RGB_SCALE, (f32) modulate );
 
-			glBlendFunc( getGLBlend(srcFact), getGLBlend(dstFact) );
 			glEnable(GL_ALPHA_TEST);
 			glAlphaFunc(GL_GREATER, 0.f);
-			glEnable(GL_BLEND);
 
-			if ( textureBlendFunc_hasAlpha(srcFact) || textureBlendFunc_hasAlpha(dstFact) )
+			if (textureBlendFunc_hasAlpha(srcRGBFact) || textureBlendFunc_hasAlpha(dstRGBFact) ||
+                textureBlendFunc_hasAlpha(srcAlphaFact) || textureBlendFunc_hasAlpha(dstAlphaFact))
 			{
 				glTexEnvf(GL_TEXTURE_ENV, GL_COMBINE_ALPHA, GL_REPLACE);
 				glTexEnvf(GL_TEXTURE_ENV, GL_SRC0_ALPHA, GL_TEXTURE);
@@ -109,7 +120,7 @@ public:
 		glTexEnvf(GL_TEXTURE_ENV, GL_RGB_SCALE, 1.f );
 		glTexEnvf(GL_TEXTURE_ENV, GL_SRC1_RGB, GL_PREVIOUS);
 
-		glDisable(GL_BLEND);
+		Driver->getBridgeCalls()->setBlend(false);
 		glDisable(GL_ALPHA_TEST);
 	}
 
@@ -205,17 +216,16 @@ public:
 		Driver->setActiveTexture(0, material.getTexture(0));
 		Driver->setBasicRenderStates(material, lastMaterial, resetAllRenderstates);
 
+		Driver->getBridgeCalls()->setBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
+		Driver->getBridgeCalls()->setBlend(true);
+
 		if ((material.MaterialType != lastMaterial.MaterialType) || resetAllRenderstates)
-		{
-			glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			glEnable(GL_BLEND);
-		}
 	}
 
 	virtual void OnUnsetMaterial()
 	{
-		glDisable(GL_BLEND);
+		Driver->getBridgeCalls()->setBlend(false);
 	}
 
 	//! Returns if the material is transparent.
@@ -241,6 +251,9 @@ public:
 		Driver->setActiveTexture(0, material.getTexture(0));
 		Driver->setBasicRenderStates(material, lastMaterial, resetAllRenderstates);
 
+		Driver->getBridgeCalls()->setBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+		Driver->getBridgeCalls()->setBlend(true);
+
 		if (material.MaterialType != lastMaterial.MaterialType || resetAllRenderstates)
 		{
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
@@ -251,9 +264,6 @@ public:
 			glTexEnvf(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_MODULATE);
 			glTexEnvf(GL_TEXTURE_ENV, GL_SRC0_RGB, GL_PRIMARY_COLOR );
 			glTexEnvf(GL_TEXTURE_ENV, GL_SRC1_RGB, GL_TEXTURE);
-
-			glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-			glEnable(GL_BLEND);
 		}
 	}
 
@@ -268,7 +278,7 @@ public:
 		glTexEnvf(GL_TEXTURE_ENV, GL_SRC0_RGB, GL_TEXTURE );
 		glTexEnvf(GL_TEXTURE_ENV, GL_SRC1_RGB, GL_PREVIOUS);
 
-		glDisable(GL_BLEND);
+		Driver->getBridgeCalls()->setBlend(false);
 	}
 
 	//! Returns if the material is transparent.
@@ -294,6 +304,9 @@ public:
 		Driver->setActiveTexture(0, material.getTexture(0));
 		Driver->setBasicRenderStates(material, lastMaterial, resetAllRenderstates);
 
+		Driver->getBridgeCalls()->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Driver->getBridgeCalls()->setBlend(true);
+
 		if (material.MaterialType != lastMaterial.MaterialType || resetAllRenderstates
 			|| material.MaterialTypeParam != lastMaterial.MaterialTypeParam )
 		{
@@ -305,8 +318,6 @@ public:
 			glTexEnvf(GL_TEXTURE_ENV, GL_COMBINE_ALPHA, GL_REPLACE);
 			glTexEnvf(GL_TEXTURE_ENV, GL_SRC0_ALPHA, GL_TEXTURE);
 
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glEnable(GL_BLEND);
 			glEnable(GL_ALPHA_TEST);
 
 			glAlphaFunc(GL_GREATER, material.MaterialTypeParam);
@@ -316,7 +327,7 @@ public:
 	virtual void OnUnsetMaterial()
 	{
 		glDisable(GL_ALPHA_TEST);
-		glDisable(GL_BLEND);
+		Driver->getBridgeCalls()->setBlend(false);
 	}
 
 	//! Returns if the material is transparent.
@@ -587,6 +598,9 @@ public:
 		Driver->setActiveTexture(0, material.getTexture(0));
 		Driver->setBasicRenderStates(material, lastMaterial, resetAllRenderstates);
 
+		Driver->getBridgeCalls()->setBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
+		Driver->getBridgeCalls()->setBlend(true);
+
 		if (material.MaterialType != lastMaterial.MaterialType || resetAllRenderstates)
 		{
 			if (Driver->queryFeature(EVDF_MULTITEXTURE))
@@ -601,9 +615,6 @@ public:
 //			glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
 //			glEnable(GL_TEXTURE_GEN_S);
 //			glEnable(GL_TEXTURE_GEN_T);
-
-			glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
-			glEnable(GL_BLEND);
 		}
 	}
 
@@ -620,7 +631,7 @@ public:
 		{
 			Driver->extGlActiveTexture(GL_TEXTURE0);
 		}
-		glDisable(GL_BLEND);
+		Driver->getBridgeCalls()->setBlend(false);
 	}
 
 	//! Returns if the material is transparent.

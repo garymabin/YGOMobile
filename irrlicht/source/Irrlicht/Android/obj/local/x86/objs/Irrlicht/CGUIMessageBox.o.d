@@ -66,9 +66,10 @@ obj/local/x86/objs/Irrlicht/CGUIMessageBox.o: \
  ../../../include/EMessageBoxFlags.h ../../../include/IGUIStaticText.h \
  ../../../include/IGUIImage.h ../../../include/irrArray.h \
  ../../../include/IGUISkin.h ../../../include/IGUIEnvironment.h \
- ../../../include/IGUISkin.h ../../../include/IGUIButton.h \
- ../../../include/IGUIFont.h ../../../include/ITexture.h \
- ../../../include/IImage.h ../../../include/EDriverTypes.h
+ ../../../include/IGUISkin.h ../../../include/EFocusFlags.h \
+ ../../../include/IGUIButton.h ../../../include/IGUIFont.h \
+ ../../../include/ITexture.h ../../../include/IImage.h \
+ ../../../include/EDriverTypes.h
 
 jni/../../CGUIMessageBox.h:
 
@@ -243,6 +244,8 @@ jni/../../CGUIWindow.h:
 ../../../include/IGUIEnvironment.h:
 
 ../../../include/IGUISkin.h:
+
+../../../include/EFocusFlags.h:
 
 ../../../include/IGUIButton.h:
 

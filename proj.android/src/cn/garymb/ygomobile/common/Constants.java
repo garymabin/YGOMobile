@@ -52,6 +52,7 @@ public interface Constants {
 	public static final String PREF_FILE_COMMON = "pref_common";
 	public static final String PREF_KEY_DATA_VERSION = "pref_data_ver";
 	public static final String PREF_KEY_LAST_DECK = "pref_last_deck";
+	public static final String PREF_KEY_UPDATE_CHECK = "pref_last_update_check";
 	
 	public static final String PREF_FILE_DOWNLOAD_TASK = "pref_download_task";
 	
@@ -63,6 +64,8 @@ public interface Constants {
 	public static final String PREF_KEY_SERVER_ADDR = "pref_server_addr_";
 	public static final String PREF_KEY_SERVER_PORT = "pref_server_port_";
 	public static final String PREF_KEY_SERVER_INFO = "pref_server_info_";
+	
+	public static final long DAILY_MILLSECONDS = 24 * 3600 * 1000;
 	
 	
 	
@@ -77,7 +80,6 @@ public interface Constants {
 	public static final int ACTION_BAR_EVENT_TYPE_DONATE = 0x2005;
 	public static final int ACTION_BAR_EVENT_TYPE_PERSONAL_CENTER = 0x2006;
 	public static final int ACTION_BAR_EVENT_TYPE_RESET = 0x2006;
-	
 	
 	public static final int REQUEST_TYPE_CHECK_UPDATE = 0x3000;
 	

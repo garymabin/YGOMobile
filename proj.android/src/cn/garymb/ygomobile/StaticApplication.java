@@ -47,6 +47,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -100,7 +101,11 @@ public class StaticApplication extends Application {
 	private float mScreenHeight;
 
 	private float mDensity;
-
+	
+	private int mVersionCode;
+	
+	private String mVersionName;
+	
 	static {
 		System.loadLibrary("YGOMobile");
 	}
@@ -119,6 +124,13 @@ public class StaticApplication extends Application {
 		mCoreSkinPath = getCacheDir() + File.separator
 				+ Constants.CORE_SKIN_PATH;
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(this);
+		try {
+			PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
+			mVersionCode = info.versionCode;
+			mVersionName = info.versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
 		Controller.peekInstance();
 		checkAndCopyCoreConfig();
 		checkAndCopyGameSkin();
@@ -397,6 +409,20 @@ public class StaticApplication extends Application {
 				Settings.KEY_PREF_GAME_IMAGE_QUALITY,
 				Constants.DEFAULT_CARD_QUALITY_CONFIG));
 	}
+	
+	public void setLastCheckTime(long time) {
+		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE_COMMON,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putLong(Constants.PREF_KEY_UPDATE_CHECK, time);
+		editor.commit();
+	}
+	
+	public long getLastCheckTime() {
+		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE_COMMON,
+				Context.MODE_PRIVATE);
+		return sp.getLong(Constants.PREF_KEY_UPDATE_CHECK, 0);
+	}
 
 	public String getFontPath() {
 		return getDefaultResPath()
@@ -445,4 +471,11 @@ public class StaticApplication extends Application {
 		return mDensity;
 	}
 
+	public int getVersionCode() {
+		return mVersionCode;
+	}
+	
+	public String getVersionName() {
+		return mVersionName;
+	}
 }

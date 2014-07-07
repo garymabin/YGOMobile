@@ -63,12 +63,13 @@ obj/local/x86/objs/Irrlicht/CGUIWindow.o: jni/../../CGUIWindow.cpp \
  ../../../include/EAttributes.h ../../../include/path.h \
  ../../../include/EMessageBoxFlags.h ../../../include/IGUISkin.h \
  ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
- ../../../include/IVideoDriver.h ../../../include/ITexture.h \
- ../../../include/IImage.h ../../../include/EDriverTypes.h \
- ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
- ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
- ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
- ../../../include/SVertexIndex.h ../../../include/EHardwareBufferFlags.h \
+ ../../../include/EFocusFlags.h ../../../include/IVideoDriver.h \
+ ../../../include/ITexture.h ../../../include/IImage.h \
+ ../../../include/EDriverTypes.h ../../../include/SMaterial.h \
+ ../../../include/EMaterialTypes.h ../../../include/EMaterialFlags.h \
+ ../../../include/SMaterialLayer.h ../../../include/IMeshBuffer.h \
+ ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
+ ../../../include/EHardwareBufferFlags.h \
  ../../../include/EPrimitiveTypes.h ../../../include/EDriverFeatures.h \
  ../../../include/SExposedVideoData.h ../../../include/IGUIButton.h \
  ../../../include/IGUIFont.h ../../../include/IGUIFontBitmap.h \
@@ -239,6 +240,8 @@ jni/../../CGUIWindow.h:
 ../../../include/IGUIEnvironment.h:
 
 ../../../include/IGUISkin.h:
+
+../../../include/EFocusFlags.h:
 
 ../../../include/IVideoDriver.h:
 

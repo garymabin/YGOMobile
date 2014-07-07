@@ -79,11 +79,11 @@ obj/local/x86/objs/Irrlicht/COgreMeshFileLoader.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
+ ../../../include/IAttributes.h ../../../include/line2d.h \
+ ../../../include/quaternion.h ../../../include/EAttributes.h \
  ../../../include/IEventReceiver.h ../../../include/ILogger.h \
  ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- ../../../include/line2d.h ../../../include/quaternion.h \
- ../../../include/EAttributes.h ../../../include/SSkinMeshBuffer.h \
+ ../../../include/irrList.h ../../../include/SSkinMeshBuffer.h \
  ../../../include/S3DVertex.h ../../../include/irrpack.h \
  ../../../include/irrunpack.h jni/../../CMeshTextureLoader.h \
  ../../../include/IMeshTextureLoader.h jni/../../os.h \
@@ -310,6 +310,14 @@ jni/../../CSkinnedMesh.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
+../../../include/IAttributes.h:
+
+../../../include/line2d.h:
+
+../../../include/quaternion.h:
+
+../../../include/EAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -319,14 +327,6 @@ jni/../../CSkinnedMesh.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
-
-../../../include/line2d.h:
-
-../../../include/quaternion.h:
-
-../../../include/EAttributes.h:
 
 ../../../include/SSkinMeshBuffer.h:
 

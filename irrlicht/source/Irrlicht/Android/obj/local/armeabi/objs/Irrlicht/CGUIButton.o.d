@@ -59,11 +59,12 @@ obj/local/armeabi/objs/Irrlicht/CGUIButton.o: jni/../../CGUIButton.cpp \
  ../../../include/irrArray.h ../../../include/heapsort.h \
  ../../../include/IXMLReader.h ../../../include/irrXML.h \
  ../../../include/EAttributes.h ../../../include/path.h \
- ../../../include/IGUISpriteBank.h ../../../include/SColor.h \
- ../../../include/IGUISkin.h ../../../include/IGUIEnvironment.h \
- ../../../include/IGUISkin.h ../../../include/EMessageBoxFlags.h \
- ../../../include/IVideoDriver.h ../../../include/ITexture.h \
+ ../../../include/IGUISpriteBank.h ../../../include/ITexture.h \
  ../../../include/IImage.h ../../../include/EDriverTypes.h \
+ ../../../include/SColor.h ../../../include/IGUISkin.h \
+ ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
+ ../../../include/EMessageBoxFlags.h ../../../include/EFocusFlags.h \
+ ../../../include/IVideoDriver.h ../../../include/ITexture.h \
  ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
  ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
  ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
@@ -230,6 +231,12 @@ jni/../../CGUIButton.h:
 
 ../../../include/IGUISpriteBank.h:
 
+../../../include/ITexture.h:
+
+../../../include/IImage.h:
+
+../../../include/EDriverTypes.h:
+
 ../../../include/SColor.h:
 
 ../../../include/IGUISkin.h:
@@ -240,13 +247,11 @@ jni/../../CGUIButton.h:
 
 ../../../include/EMessageBoxFlags.h:
 
+../../../include/EFocusFlags.h:
+
 ../../../include/IVideoDriver.h:
 
 ../../../include/ITexture.h:
-
-../../../include/IImage.h:
-
-../../../include/EDriverTypes.h:
 
 ../../../include/SMaterial.h:
 

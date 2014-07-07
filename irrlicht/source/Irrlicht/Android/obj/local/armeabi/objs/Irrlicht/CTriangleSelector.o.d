@@ -61,12 +61,12 @@ obj/local/armeabi/objs/Irrlicht/CTriangleSelector.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
- ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- ../../../include/line2d.h ../../../include/quaternion.h \
- ../../../include/IXMLReader.h ../../../include/irrXML.h \
- ../../../include/EAttributes.h ../../../include/path.h \
+ ../../../include/IAttributes.h ../../../include/line2d.h \
+ ../../../include/quaternion.h ../../../include/IXMLReader.h \
+ ../../../include/irrXML.h ../../../include/EAttributes.h \
+ ../../../include/path.h ../../../include/IEventReceiver.h \
+ ../../../include/ILogger.h ../../../include/Keycodes.h \
+ ../../../include/ITriangleSelector.h ../../../include/irrList.h \
  ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
  ../../../include/SVertexIndex.h ../../../include/EPrimitiveTypes.h \
  ../../../include/IAnimatedMeshSceneNode.h ../../../include/ISceneNode.h \
@@ -234,16 +234,6 @@ jni/../../CTriangleSelector.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
-../../../include/IEventReceiver.h:
-
-../../../include/ILogger.h:
-
-../../../include/Keycodes.h:
-
-../../../include/ITriangleSelector.h:
-
-../../../include/irrList.h:
-
 ../../../include/IAttributes.h:
 
 ../../../include/line2d.h:
@@ -257,6 +247,16 @@ jni/../../CTriangleSelector.h:
 ../../../include/EAttributes.h:
 
 ../../../include/path.h:
+
+../../../include/IEventReceiver.h:
+
+../../../include/ILogger.h:
+
+../../../include/Keycodes.h:
+
+../../../include/ITriangleSelector.h:
+
+../../../include/irrList.h:
 
 ../../../include/IMeshBuffer.h:
 

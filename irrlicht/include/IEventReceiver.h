@@ -343,11 +343,15 @@ struct SEvent
 	//! Any kind of keyboard event.
 	struct SKeyInput
 	{
-		//! Character corresponding to the key (0, if not a character)
+		//! Character corresponding to the key (0, if not a character, value undefined in key releases)
 		wchar_t Char;
 
 		//! Key which has been pressed or released
 		EKEY_CODE Key;
+		
+		//! System dependent code. Only set for systems which are described below, otherwise undefined.
+		//! Android: int32_t with physical key as returned by AKeyEvent_getKeyCode
+		u32 SystemKeyCode;
 
 		//! If not true, then the key was left up
 		bool PressedDown:1;

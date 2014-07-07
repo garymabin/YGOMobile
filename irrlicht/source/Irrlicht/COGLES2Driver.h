@@ -10,18 +10,6 @@
 
 #include "IrrCompileConfig.h"
 
-#if defined(_IRR_WINDOWS_API_)
-// include windows headers for HWND
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#include <windows.h>
-#elif defined(_IRR_COMPILE_WITH_OSX_DEVICE_)
-#include "MacOSX/CIrrDeviceMacOSX.h"
-#elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
-#include "iOS/CIrrDeviceiOS.h"
-#endif
-
 #include "SIrrCreationParameters.h"
 
 #ifdef _IRR_COMPILE_WITH_OGLES2_
@@ -30,8 +18,19 @@
 #include "IMaterialRendererServices.h"
 #include "EDriverFeatures.h"
 #include "fast_atof.h"
-
 #include "COGLES2ExtensionHandler.h"
+#include "IContextManager.h"
+
+#if defined(_IRR_WINDOWS_API_)
+// include windows headers for HWND
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
+#include "iOS/CIrrDeviceiOS.h"
+#endif
+
 #ifdef _MSC_VER
 #pragma comment(lib, "libGLESv2.lib")
 #endif
@@ -56,7 +55,7 @@ namespace video
 		//! constructor
 		COGLES2Driver(const SIrrlichtCreationParameters& params,
 				io::IFileSystem* io
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
 		, IContextManager* contextManager
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
 		, CIrrDeviceIPhone* device
@@ -344,6 +343,8 @@ namespace video
 		ITexture* createDepthTexture(ITexture* texture, bool shared = true);
 		void removeDepthTexture(ITexture* texture);
 
+		void removeTexture(ITexture* texture);
+
 		void deleteFramebuffers(s32 n, const u32 *framebuffers);
 		void deleteRenderbuffers(s32 n, const u32 *renderbuffers);
 
@@ -363,8 +364,72 @@ namespace video
 		COGLES2CallBridge* getBridgeCalls() const;
 
 	private:
-		// Bridge calls.
-		COGLES2CallBridge* BridgeCalls;
+
+		class STextureStageCache
+		{
+		public:
+			STextureStageCache()
+			{
+				for (u32 i = 0; i < MATERIAL_MAX_TEXTURES; ++i)
+					CurrentTexture[i] = 0;
+			}
+
+			~STextureStageCache()
+			{
+				clear();
+			}
+
+			void set(u32 stage, const ITexture* tex)
+			{
+				if (stage < MATERIAL_MAX_TEXTURES)
+				{
+					const ITexture* oldTexture = CurrentTexture[stage];
+
+					if (tex)
+						tex->grab();
+
+					CurrentTexture[stage] = tex;
+
+					if (oldTexture)
+						oldTexture->drop();
+				}
+			}
+
+			const ITexture* operator[](int stage) const
+			{
+				if ((u32)stage < MATERIAL_MAX_TEXTURES)
+					return CurrentTexture[stage];
+				else
+					return 0;
+			}
+
+			void remove(ITexture* tex)
+			{
+				for (s32 i = MATERIAL_MAX_TEXTURES-1; i>= 0; --i)
+				{
+					if (CurrentTexture[i] == tex)
+					{
+						tex->drop();
+						CurrentTexture[i] = 0;
+					}
+				}
+			}
+
+			void clear()
+			{
+				for (u32 i = 0; i < MATERIAL_MAX_TEXTURES; ++i)
+				{
+					if (CurrentTexture[i])
+					{
+						CurrentTexture[i]->drop();
+						CurrentTexture[i] = 0;
+					}
+				}
+			}
+
+		private:
+			const ITexture* CurrentTexture[MATERIAL_MAX_TEXTURES];
+		};
 
 		void uploadClipPlane(u32 index);
 
@@ -394,6 +459,8 @@ namespace video
 
 		void createMaterialRenderers();
 
+		void loadShaderData(const io::path& vertexShaderName, const io::path& fragmentShaderName, c8** vertexShaderData, c8** fragmentShaderData);
+
 		core::stringw Name;
 		core::matrix4 Matrices[ETS_COUNT];
 
@@ -410,10 +477,11 @@ namespace video
 		bool ResetRenderStates;
 		bool Transformation3DChanged;
 		u8 AntiAlias;
+		irr::io::path OGLES2ShaderPath;
 
 		SMaterial Material, LastMaterial;
 		COGLES2Texture* RenderTargetTexture;
-		const ITexture* CurrentTexture[MATERIAL_MAX_TEXTURES];
+		STextureStageCache CurrentTexture;
 		core::array<ITexture*> DepthTextures;
 
 		struct SUserClipPlane
@@ -449,12 +517,14 @@ namespace video
 
 		COGLES2Renderer2D* MaterialRenderer2D;
 
+		COGLES2CallBridge* BridgeCalls;
+
 #if defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
 		CIrrDeviceIPhone* Device;
 		GLuint ViewFramebuffer;
 		GLuint ViewRenderbuffer;
 		GLuint ViewDepthRenderbuffer;
-#elif defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#elif defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
 		IContextManager* ContextManager;
 #endif
 	};
@@ -469,7 +539,11 @@ namespace video
 
 		// Blending calls.
 
+		void setBlendEquation(GLenum mode);
+
 		void setBlendFunc(GLenum source, GLenum destination);
+
+		void setBlendFuncSeparate(GLenum sourceRGB, GLenum destinationRGB, GLenum sourceAlpha, GLenum destinationAlpha);
 
 		void setBlend(bool enable);
 
@@ -493,6 +567,8 @@ namespace video
 
 		// Texture calls.
 
+		void resetTexture(const ITexture* texture);
+
 		void setActiveTexture(GLenum texture);
 
 		void getTexture(u32 stage, GLenum& type);
@@ -506,8 +582,11 @@ namespace video
 	private:
 		COGLES2Driver* Driver;
 
-		GLenum BlendSource;
-		GLenum BlendDestination;
+		GLenum BlendEquation;
+		GLenum BlendSourceRGB;
+		GLenum BlendDestinationRGB;
+		GLenum BlendSourceAlpha;
+		GLenum BlendDestinationAlpha;
 		bool Blend;
 
 		GLenum CullFaceMode;

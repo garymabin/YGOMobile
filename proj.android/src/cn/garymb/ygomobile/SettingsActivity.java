@@ -15,6 +15,7 @@ import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
+import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 import cn.garymb.ygomobile.widget.AppUpdateController;
 import cn.garymb.ygomobile.widget.AppUpdateDialog;
@@ -83,7 +84,6 @@ public class SettingsActivity extends PreferenceActivity implements
 	private Preference mAppUpdatePreference;
 
 	private EventHandler mHandler = new EventHandler(this);
-	private int mVersionCode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -130,15 +130,8 @@ public class SettingsActivity extends PreferenceActivity implements
 				mOpensourcePref.setOnPreferenceClickListener(this);
 				mAppUpdatePreference = findPreference(Settings.KEY_PREF_ABOUT_CHECK_UPDATE);
 				mAppUpdatePreference.setOnPreferenceClickListener(this);
-				try {
-					Context context = StaticApplication.peekInstance();
-					PackageInfo pi = context.getPackageManager()
-							.getPackageInfo(context.getPackageName(), 0);
-					mVersionCode = pi.versionCode;
-					mVersionPref.setSummary(pi.versionName);
-				} catch (NameNotFoundException e) {
-					e.printStackTrace();
-				}
+				mVersionPref.setSummary(StaticApplication.peekInstance()
+						.getVersionName());
 			}
 		} else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
 			// Load the legacy preferences headers
@@ -246,11 +239,13 @@ public class SettingsActivity extends PreferenceActivity implements
 	public void onClick(DialogInterface dialog, int which) {
 		if (which == DialogInterface.BUTTON_POSITIVE) {
 			if (dialog instanceof FileChooseDialog) {
-				String newUrl = ((FileChooseController)((FileChooseDialog) dialog).getController()).getUrl();
+				String newUrl = ((FileChooseController) ((FileChooseDialog) dialog)
+						.getController()).getUrl();
 				StaticApplication.peekInstance().setResourcePath(newUrl);
-				mGameResPath.setSummary(newUrl);		
-			} else if (dialog instanceof AppUpdateDialog)  {
-				String url = ((AppUpdateController)((AppUpdateDialog)dialog).getController()).getDownloadUrl();
+				mGameResPath.setSummary(newUrl);
+			} else if (dialog instanceof AppUpdateDialog) {
+				String url = ((AppUpdateController) ((AppUpdateDialog) dialog)
+						.getController()).getDownloadUrl();
 				new AppUpdateTask(this).execute(url);
 			}
 		}
@@ -316,8 +311,10 @@ public class SettingsActivity extends PreferenceActivity implements
 
 	private void beginCrop(Uri source) {
 		Uri outputUri = Uri.fromFile(new File(getCacheDir(), "cropped"));
-		new Crop(source).withAspect(1024, 640).output(outputUri)
-				.withMaxSize(1024, 640).start(this);
+		new Crop(source)
+				.withAspect((int) DeviceUtils.getScreenHeight(),
+						(int) DeviceUtils.getScreenWidth()).output(outputUri)
+				.start(this);
 	}
 
 	@Override
@@ -331,7 +328,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		if (type == MSG_TYPE_CHECK_UPDATE) {
 			VersionInfo info = (VersionInfo) msg.obj;
 			if (info != null) {
-				if (info.version <= mVersionCode) {
+				if (info.version <= StaticApplication.peekInstance().getVersionCode()) {
 					SuperToast.create(
 							this,
 							getResources().getString(

@@ -68,12 +68,12 @@ obj/local/armeabi/objs/Irrlicht/COBJMeshFileLoader.o: \
  ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
- ../../../include/ILogger.h ../../../include/Keycodes.h \
- ../../../include/ITriangleSelector.h ../../../include/triangle3d.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- ../../../include/line2d.h ../../../include/quaternion.h \
- ../../../include/EAttributes.h ../../../include/IAnimatedMesh.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/triangle3d.h \
+ ../../../include/quaternion.h ../../../include/EAttributes.h \
+ ../../../include/IEventReceiver.h ../../../include/ILogger.h \
+ ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
+ ../../../include/irrList.h ../../../include/IAnimatedMesh.h \
  ../../../include/SSkinMeshBuffer.h ../../../include/IMeshBuffer.h \
  ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
  ../../../include/EPrimitiveTypes.h ../../../include/irrString.h \
@@ -272,6 +272,16 @@ jni/../../COBJMeshFileLoader.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
+../../../include/IAttributes.h:
+
+../../../include/line2d.h:
+
+../../../include/triangle3d.h:
+
+../../../include/quaternion.h:
+
+../../../include/EAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -280,17 +290,7 @@ jni/../../COBJMeshFileLoader.h:
 
 ../../../include/ITriangleSelector.h:
 
-../../../include/triangle3d.h:
-
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
-
-../../../include/line2d.h:
-
-../../../include/quaternion.h:
-
-../../../include/EAttributes.h:
 
 ../../../include/IAnimatedMesh.h:
 

@@ -100,10 +100,22 @@ public:
 //			material.MaterialTypeParam != lastMaterial.MaterialTypeParam ||
 //			resetAllRenderstates)
 		{
-			E_BLEND_FACTOR srcFact,dstFact;
+            E_BLEND_FACTOR srcRGBFact,dstRGBFact,srcAlphaFact,dstAlphaFact;
 			E_MODULATE_FUNC modulate;
 			u32 alphaSource;
-			unpack_textureBlendFunc(srcFact, dstFact, modulate, alphaSource, material.MaterialTypeParam);
+			unpack_textureBlendFuncSeparate(srcRGBFact, dstRGBFact, srcAlphaFact, dstAlphaFact, modulate, alphaSource, material.MaterialTypeParam);
+
+            Driver->getBridgeCalls()->setBlend(true);
+
+            if (Driver->queryFeature(EVDF_BLEND_SEPARATE))
+            {
+                Driver->getBridgeCalls()->setBlendFuncSeparate(Driver->getGLBlend(srcRGBFact), Driver->getGLBlend(dstRGBFact),
+                    Driver->getGLBlend(srcAlphaFact), Driver->getGLBlend(dstAlphaFact));
+            }
+            else
+            {
+                Driver->getBridgeCalls()->setBlendFunc(Driver->getGLBlend(srcRGBFact), Driver->getGLBlend(dstRGBFact));
+            }
 
 #ifdef GL_ARB_texture_env_combine
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
@@ -119,12 +131,8 @@ public:
 			glTexEnvf(GL_TEXTURE_ENV, GL_RGB_SCALE_EXT, (f32) modulate );
 #endif
 
-			Driver->getBridgeCalls()->setBlendFunc(Driver->getGLBlend(srcFact), Driver->getGLBlend(dstFact));
-			Driver->getBridgeCalls()->setAlphaTest(true);
-			Driver->getBridgeCalls()->setAlphaFunc(GL_GREATER, 0.f);
-			Driver->getBridgeCalls()->setBlend(true);
-
-			if ( textureBlendFunc_hasAlpha(srcFact) || textureBlendFunc_hasAlpha(dstFact) )
+			if (textureBlendFunc_hasAlpha(srcRGBFact) || textureBlendFunc_hasAlpha(dstRGBFact) ||
+                textureBlendFunc_hasAlpha(srcAlphaFact) || textureBlendFunc_hasAlpha(dstAlphaFact))
 			{
 				if (alphaSource==EAS_VERTEX_COLOR)
 				{
@@ -164,16 +172,22 @@ public:
 
 	virtual void OnSetBaseMaterial(const SMaterial& material) _IRR_OVERRIDE_
 	{
-		E_BLEND_FACTOR srcFact,dstFact;
-		E_MODULATE_FUNC modulate;
-		u32 alphaSource;
-		unpack_textureBlendFunc(srcFact, dstFact, modulate, alphaSource, material.MaterialTypeParam);
+		E_BLEND_FACTOR srcRGBFact,dstRGBFact,srcAlphaFact,dstAlphaFact;
+        E_MODULATE_FUNC modulate;
+        u32 alphaSource;
+        unpack_textureBlendFuncSeparate(srcRGBFact, dstRGBFact, srcAlphaFact, dstAlphaFact, modulate, alphaSource, material.MaterialTypeParam);
 
-		Driver->getBridgeCalls()->setBlendFunc(Driver->getGLBlend(srcFact), Driver->getGLBlend(dstFact));
+        Driver->getBridgeCalls()->setBlend(true);
 
-		Driver->getBridgeCalls()->setAlphaTest(true);
-		Driver->getBridgeCalls()->setAlphaFunc(GL_GREATER, 0.f);
-		Driver->getBridgeCalls()->setBlend(true);
+        if (Driver->queryFeature(EVDF_BLEND_SEPARATE))
+        {
+            Driver->getBridgeCalls()->setBlendFuncSeparate(Driver->getGLBlend(srcRGBFact), Driver->getGLBlend(dstRGBFact),
+                Driver->getGLBlend(srcAlphaFact), Driver->getGLBlend(dstAlphaFact));
+        }
+        else
+        {
+            Driver->getBridgeCalls()->setBlendFunc(Driver->getGLBlend(srcRGBFact), Driver->getGLBlend(dstRGBFact));
+        }
 	}
 
 	virtual void OnUnsetMaterial() _IRR_OVERRIDE_
@@ -190,13 +204,11 @@ public:
 #endif
 
 		Driver->getBridgeCalls()->setBlend(false);
-		Driver->getBridgeCalls()->setAlphaTest(false);
 	}
 
 	virtual void OnUnsetBaseMaterial() _IRR_OVERRIDE_
 	{
 		Driver->getBridgeCalls()->setBlend(false);
-		Driver->getBridgeCalls()->setAlphaTest(false);
 	}
 
 	//! Returns if the material is transparent.
@@ -291,12 +303,11 @@ public:
 		Driver->disableTextures(1);
 		Driver->setBasicRenderStates(material, lastMaterial, resetAllRenderstates);
 
+		Driver->getBridgeCalls()->setBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
+		Driver->getBridgeCalls()->setBlend(true);
+
 		if ((material.MaterialType != lastMaterial.MaterialType) || resetAllRenderstates)
-		{
-			Driver->getBridgeCalls()->setBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			Driver->getBridgeCalls()->setBlend(true);
-		}
 	}
 
 	virtual void OnSetBaseMaterial(const SMaterial& material) _IRR_OVERRIDE_
@@ -342,6 +353,9 @@ public:
 		Driver->disableTextures(1);
 		Driver->setBasicRenderStates(material, lastMaterial, resetAllRenderstates);
 
+		Driver->getBridgeCalls()->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        Driver->getBridgeCalls()->setBlend(true);
+
 		if (material.MaterialType != lastMaterial.MaterialType || resetAllRenderstates)
 		{
 #ifdef GL_ARB_texture_env_combine
@@ -359,8 +373,6 @@ public:
 			glTexEnvf(GL_TEXTURE_ENV, GL_SOURCE0_RGB_EXT, GL_TEXTURE);
 			glTexEnvf(GL_TEXTURE_ENV, GL_SOURCE1_RGB_EXT, GL_PREVIOUS_EXT);
 #endif
-			Driver->getBridgeCalls()->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			Driver->getBridgeCalls()->setBlend(true);
 		}
 	}
 
@@ -416,6 +428,11 @@ public:
 		Driver->disableTextures(1);
 		Driver->setBasicRenderStates(material, lastMaterial, resetAllRenderstates);
 
+        Driver->getBridgeCalls()->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        Driver->getBridgeCalls()->setBlend(true);
+        Driver->getBridgeCalls()->setAlphaTest(true);
+        Driver->getBridgeCalls()->setAlphaFunc(GL_GREATER, material.MaterialTypeParam);
+
 		if (material.MaterialType != lastMaterial.MaterialType || resetAllRenderstates
 			|| material.MaterialTypeParam != lastMaterial.MaterialTypeParam )
 		{
@@ -434,11 +451,6 @@ public:
 			glTexEnvf(GL_TEXTURE_ENV, GL_COMBINE_ALPHA_EXT, GL_REPLACE);
 			glTexEnvf(GL_TEXTURE_ENV, GL_SOURCE0_ALPHA_EXT, GL_TEXTURE);
 #endif
-			Driver->getBridgeCalls()->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			Driver->getBridgeCalls()->setBlend(true);
-			Driver->getBridgeCalls()->setAlphaTest(true);
-
-			Driver->getBridgeCalls()->setAlphaFunc(GL_GREATER, material.MaterialTypeParam);
 		}
 	}
 
@@ -822,6 +834,9 @@ public:
 		Driver->disableTextures(2);
 		Driver->setBasicRenderStates(material, lastMaterial, resetAllRenderstates);
 
+		Driver->getBridgeCalls()->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        Driver->getBridgeCalls()->setBlend(true);
+
 		if (material.MaterialType != lastMaterial.MaterialType || resetAllRenderstates)
 		{
 #ifdef GL_ARB_texture_env_combine
@@ -862,9 +877,6 @@ public:
 			glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
 			glEnable(GL_TEXTURE_GEN_S);
 			glEnable(GL_TEXTURE_GEN_T);
-
-			Driver->getBridgeCalls()->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			Driver->getBridgeCalls()->setBlend(true);
 		}
 	}
 

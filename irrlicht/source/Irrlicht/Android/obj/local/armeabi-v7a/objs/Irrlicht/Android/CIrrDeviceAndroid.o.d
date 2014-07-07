@@ -102,7 +102,8 @@ obj/local/armeabi-v7a/objs/Irrlicht/Android/CIrrDeviceAndroid.o: \
  ../../../include/IReadFile.h \
  jni/../../Android/CAndroidAssetFileArchive.h \
  ../../../include/IFileArchive.h jni/../../CFileList.h \
- ../../../include/IFileList.h jni/../../CEGLManager.h \
+ ../../../include/IFileList.h jni/../../Android/CKeyEventWrapper.h \
+ jni/../../CEGLManager.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/EGL/egl.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/EGL/eglplatform.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/KHR/khrplatform.h \
@@ -115,13 +116,13 @@ obj/local/armeabi-v7a/objs/Irrlicht/Android/CIrrDeviceAndroid.o: \
  ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h \
- ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/line2d.h \
- ../../../include/quaternion.h ../../../include/EAttributes.h \
- ../../../include/IAnimatedMesh.h ../../../include/SSkinMeshBuffer.h \
- ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
- ../../../include/EGUIAlignment.h ../../../include/EMessageBoxFlags.h
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/quaternion.h \
+ ../../../include/EAttributes.h ../../../include/ITriangleSelector.h \
+ ../../../include/irrList.h ../../../include/IAnimatedMesh.h \
+ ../../../include/SSkinMeshBuffer.h ../../../include/IGUIEnvironment.h \
+ ../../../include/IGUISkin.h ../../../include/EGUIAlignment.h \
+ ../../../include/EMessageBoxFlags.h ../../../include/EFocusFlags.h
 
 jni/../../Android/CIrrDeviceAndroid.h:
 
@@ -399,6 +400,8 @@ jni/../../CFileList.h:
 
 ../../../include/IFileList.h:
 
+jni/../../Android/CKeyEventWrapper.h:
+
 jni/../../CEGLManager.h:
 
 /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/EGL/egl.h:
@@ -439,10 +442,6 @@ jni/../../CEGLManager.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
-../../../include/ITriangleSelector.h:
-
-../../../include/irrList.h:
-
 ../../../include/IAttributes.h:
 
 ../../../include/line2d.h:
@@ -450,6 +449,10 @@ jni/../../CEGLManager.h:
 ../../../include/quaternion.h:
 
 ../../../include/EAttributes.h:
+
+../../../include/ITriangleSelector.h:
+
+../../../include/irrList.h:
 
 ../../../include/IAnimatedMesh.h:
 
@@ -462,3 +465,5 @@ jni/../../CEGLManager.h:
 ../../../include/EGUIAlignment.h:
 
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:

@@ -52,15 +52,15 @@ obj/local/x86/objs/Irrlicht/CEGLManager.o: jni/../../CEGLManager.cpp \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/memory.h \
  ../../../include/ILogger.h ../../../include/IReferenceCounted.h \
  ../../../include/position2d.h ../../../include/vector2d.h \
- ../../../include/SExposedVideoData.h ../../../include/IContextManager.h \
- ../../../include/SExposedVideoData.h \
- ../../../include/SIrrCreationParameters.h ../../../include/irrString.h \
+ ../../../include/path.h ../../../include/irrString.h \
  ../../../include/irrAllocator.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/new \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/cstddef \
+ ../../../include/SExposedVideoData.h ../../../include/IContextManager.h \
+ ../../../include/SExposedVideoData.h \
+ ../../../include/SIrrCreationParameters.h ../../../include/irrString.h \
  jni/../../os.h ../../../include/irrTypes.h ../../../include/path.h \
- ../../../include/irrString.h ../../../include/ILogger.h \
- ../../../include/ITimer.h
+ ../../../include/ILogger.h ../../../include/ITimer.h
 
 jni/../../CEGLManager.h:
 
@@ -178,6 +178,16 @@ jni/../../CEGLManager.h:
 
 ../../../include/vector2d.h:
 
+../../../include/path.h:
+
+../../../include/irrString.h:
+
+../../../include/irrAllocator.h:
+
+/Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/new:
+
+/Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/cstddef:
+
 ../../../include/SExposedVideoData.h:
 
 ../../../include/IContextManager.h:
@@ -188,19 +198,11 @@ jni/../../CEGLManager.h:
 
 ../../../include/irrString.h:
 
-../../../include/irrAllocator.h:
-
-/Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/new:
-
-/Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/cxx-stl/system/include/cstddef:
-
 jni/../../os.h:
 
 ../../../include/irrTypes.h:
 
 ../../../include/path.h:
-
-../../../include/irrString.h:
 
 ../../../include/ILogger.h:
 

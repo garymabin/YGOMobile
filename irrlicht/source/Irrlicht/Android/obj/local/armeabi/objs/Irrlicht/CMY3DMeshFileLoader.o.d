@@ -75,11 +75,11 @@ obj/local/armeabi/objs/Irrlicht/CMY3DMeshFileLoader.o: \
  ../../../include/IBoneSceneNode.h ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/quaternion.h \
+ ../../../include/EAttributes.h ../../../include/IEventReceiver.h \
  ../../../include/ILogger.h ../../../include/Keycodes.h \
  ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/line2d.h \
- ../../../include/quaternion.h ../../../include/EAttributes.h \
  ../../../include/IAnimatedMesh.h ../../../include/SSkinMeshBuffer.h \
  ../../../include/irrpack.h ../../../include/irrunpack.h \
  jni/../../CMeshTextureLoader.h ../../../include/IMeshTextureLoader.h \
@@ -299,6 +299,14 @@ jni/../../CMY3DMeshFileLoader.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
+../../../include/IAttributes.h:
+
+../../../include/line2d.h:
+
+../../../include/quaternion.h:
+
+../../../include/EAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -308,14 +316,6 @@ jni/../../CMY3DMeshFileLoader.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
-
-../../../include/line2d.h:
-
-../../../include/quaternion.h:
-
-../../../include/EAttributes.h:
 
 ../../../include/IAnimatedMesh.h:
 

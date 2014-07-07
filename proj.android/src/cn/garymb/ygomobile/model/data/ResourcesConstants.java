@@ -105,6 +105,7 @@ public interface ResourcesConstants {
 	public static final int DIALOG_MODE_ADD_NEW_SERVER = 8;
 	public static final int DIALOG_MODE_EDIT_SERVER = 9;
 	public static final int DIALOG_MODE_DIRECTORY_CHOOSE = 10;
+	public static final int DIALOG_MODE_APP_UPDATE = 11;
 	
 	public static final String ROOM_INFO_NAME = "room.info.name";
 	public static final String ROOM_INFO_RULE = "room.info.rule";

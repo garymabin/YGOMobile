@@ -84,9 +84,9 @@ obj/local/armeabi-v7a/objs/Irrlicht/COGLES2Texture.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/Keycodes.h \
- ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h jni/../../CFPSCounter.h \
+ ../../../include/IAttributes.h ../../../include/IEventReceiver.h \
+ ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
+ ../../../include/irrList.h jni/../../CFPSCounter.h \
  ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
  ../../../include/SLight.h ../../../include/SExposedVideoData.h \
  ../../../include/IMaterialRendererServices.h \
@@ -335,6 +335,8 @@ jni/../../IImagePresenter.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
+../../../include/IAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/Keycodes.h:
@@ -342,8 +344,6 @@ jni/../../IImagePresenter.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
 
 jni/../../CFPSCounter.h:
 

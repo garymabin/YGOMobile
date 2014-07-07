@@ -52,18 +52,19 @@ obj/local/armeabi/objs/Irrlicht/CGUISpriteBank.o: \
  ../../../include/IGUISkin.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/EGUIAlignment.h ../../../include/EMessageBoxFlags.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
- ../../../include/Keycodes.h ../../../include/irrString.h \
- ../../../include/IXMLReader.h ../../../include/irrXML.h \
- ../../../include/path.h ../../../include/IVideoDriver.h \
- ../../../include/ITexture.h ../../../include/IImage.h \
- ../../../include/EDriverTypes.h ../../../include/matrix4.h \
- ../../../include/vector3d.h ../../../include/plane3d.h \
- ../../../include/aabbox3d.h ../../../include/line3d.h \
- ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
- ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
- ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
- ../../../include/SVertexIndex.h ../../../include/EHardwareBufferFlags.h \
+ ../../../include/EFocusFlags.h ../../../include/IEventReceiver.h \
+ ../../../include/ILogger.h ../../../include/Keycodes.h \
+ ../../../include/irrString.h ../../../include/IXMLReader.h \
+ ../../../include/irrXML.h ../../../include/path.h \
+ ../../../include/IVideoDriver.h ../../../include/ITexture.h \
+ ../../../include/IImage.h ../../../include/EDriverTypes.h \
+ ../../../include/matrix4.h ../../../include/vector3d.h \
+ ../../../include/plane3d.h ../../../include/aabbox3d.h \
+ ../../../include/line3d.h ../../../include/SMaterial.h \
+ ../../../include/EMaterialTypes.h ../../../include/EMaterialFlags.h \
+ ../../../include/SMaterialLayer.h ../../../include/IMeshBuffer.h \
+ ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
+ ../../../include/EHardwareBufferFlags.h \
  ../../../include/EPrimitiveTypes.h ../../../include/triangle3d.h \
  ../../../include/EDriverFeatures.h ../../../include/SExposedVideoData.h \
  ../../../include/ITexture.h
@@ -187,6 +188,8 @@ jni/../../CGUISpriteBank.h:
 ../../../include/EGUIAlignment.h:
 
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:
 
 ../../../include/IEventReceiver.h:
 

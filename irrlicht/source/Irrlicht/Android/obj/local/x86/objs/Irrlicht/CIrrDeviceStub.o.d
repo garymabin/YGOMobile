@@ -79,17 +79,17 @@ obj/local/x86/objs/Irrlicht/CIrrDeviceStub.o: \
  ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h \
- ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/line2d.h \
- ../../../include/quaternion.h ../../../include/IXMLReader.h \
- ../../../include/irrXML.h ../../../include/EAttributes.h \
- ../../../include/IAnimatedMesh.h ../../../include/SSkinMeshBuffer.h \
- ../../../include/IEventReceiver.h ../../../include/IFileSystem.h \
- ../../../include/IFileArchive.h ../../../include/IReadFile.h \
- ../../../include/coreutil.h ../../../include/IFileList.h \
- ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
- ../../../include/EGUIAlignment.h ../../../include/EMessageBoxFlags.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/quaternion.h \
+ ../../../include/IXMLReader.h ../../../include/irrXML.h \
+ ../../../include/EAttributes.h ../../../include/ITriangleSelector.h \
+ ../../../include/irrList.h ../../../include/IAnimatedMesh.h \
+ ../../../include/SSkinMeshBuffer.h ../../../include/IEventReceiver.h \
+ ../../../include/IFileSystem.h ../../../include/IFileArchive.h \
+ ../../../include/IReadFile.h ../../../include/coreutil.h \
+ ../../../include/IFileList.h ../../../include/IGUIEnvironment.h \
+ ../../../include/IGUISkin.h ../../../include/EGUIAlignment.h \
+ ../../../include/EMessageBoxFlags.h ../../../include/EFocusFlags.h \
  jni/../../os.h ../../../include/IrrCompileConfig.h \
  ../../../include/irrTypes.h ../../../include/irrString.h \
  ../../../include/path.h ../../../include/ILogger.h \
@@ -318,10 +318,6 @@ jni/../../CVideoModeList.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
-../../../include/ITriangleSelector.h:
-
-../../../include/irrList.h:
-
 ../../../include/IAttributes.h:
 
 ../../../include/line2d.h:
@@ -333,6 +329,10 @@ jni/../../CVideoModeList.h:
 ../../../include/irrXML.h:
 
 ../../../include/EAttributes.h:
+
+../../../include/ITriangleSelector.h:
+
+../../../include/irrList.h:
 
 ../../../include/IAnimatedMesh.h:
 
@@ -357,6 +357,8 @@ jni/../../CVideoModeList.h:
 ../../../include/EGUIAlignment.h:
 
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:
 
 jni/../../os.h:
 

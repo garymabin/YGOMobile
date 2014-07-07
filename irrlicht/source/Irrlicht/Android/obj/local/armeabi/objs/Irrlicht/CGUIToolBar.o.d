@@ -61,16 +61,18 @@ obj/local/armeabi/objs/Irrlicht/CGUIToolBar.o: jni/../../CGUIToolBar.cpp \
  ../../../include/EAttributes.h ../../../include/path.h \
  ../../../include/IGUISkin.h ../../../include/IGUIEnvironment.h \
  ../../../include/IGUISkin.h ../../../include/EMessageBoxFlags.h \
- ../../../include/IVideoDriver.h ../../../include/ITexture.h \
- ../../../include/IImage.h ../../../include/EDriverTypes.h \
- ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
- ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
- ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
- ../../../include/SVertexIndex.h ../../../include/EHardwareBufferFlags.h \
+ ../../../include/EFocusFlags.h ../../../include/IVideoDriver.h \
+ ../../../include/ITexture.h ../../../include/IImage.h \
+ ../../../include/EDriverTypes.h ../../../include/SMaterial.h \
+ ../../../include/EMaterialTypes.h ../../../include/EMaterialFlags.h \
+ ../../../include/SMaterialLayer.h ../../../include/IMeshBuffer.h \
+ ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
+ ../../../include/EHardwareBufferFlags.h \
  ../../../include/EPrimitiveTypes.h ../../../include/EDriverFeatures.h \
  ../../../include/SExposedVideoData.h ../../../include/IGUIButton.h \
  ../../../include/IGUIFont.h jni/../../CGUIButton.h \
- ../../../include/IGUISpriteBank.h ../../../include/SColor.h
+ ../../../include/IGUISpriteBank.h ../../../include/ITexture.h \
+ ../../../include/SColor.h
 
 jni/../../CGUIToolBar.h:
 
@@ -234,6 +236,8 @@ jni/../../CGUIToolBar.h:
 
 ../../../include/EMessageBoxFlags.h:
 
+../../../include/EFocusFlags.h:
+
 ../../../include/IVideoDriver.h:
 
 ../../../include/ITexture.h:
@@ -271,5 +275,7 @@ jni/../../CGUIToolBar.h:
 jni/../../CGUIButton.h:
 
 ../../../include/IGUISpriteBank.h:
+
+../../../include/ITexture.h:
 
 ../../../include/SColor.h:

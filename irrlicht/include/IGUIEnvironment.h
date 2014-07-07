@@ -9,6 +9,7 @@
 #include "IGUISkin.h"
 #include "rect.h"
 #include "EMessageBoxFlags.h"
+#include "EFocusFlags.h"
 #include "IEventReceiver.h"
 #include "IXMLReader.h"
 #include "path.h"
@@ -58,6 +59,7 @@ class IGUIComboBox;
 class IGUIToolBar;
 class IGUIButton;
 class IGUIWindow;
+class IGUIProfiler;
 class IGUIElementFactory;
 
 //! GUI Environment. Used as factory and manager of all other GUI elements.
@@ -105,7 +107,7 @@ public:
 	/** \param element Pointer to the element which is tested.
 	\param checkSubElements When true and focus is on a sub-element of element then it will still count as focused and return true
 	\return True if the element has focus, else false. */
-	virtual bool hasFocus(IGUIElement* element, bool checkSubElements=false) const = 0;
+	virtual bool hasFocus(const IGUIElement* element, bool checkSubElements=false) const = 0;
 
 	//! Returns the current video driver.
 	/** \return Pointer to the video driver. */
@@ -199,9 +201,9 @@ public:
 	more information. */
 	virtual IGUIFont* getBuiltInFont() const = 0;
 
-	//! Returns pointer to the sprite bank with the specified file name.
-	/** Loads the bank if it was not loaded before.
-	\param filename Filename of the sprite bank's origin.
+	//! Returns pointer to the sprite bank which was added with addEmptySpriteBank
+	/** TODO: This should load files in the future, but not implemented so far.
+	\param filename Name of a spritebank added with addEmptySpriteBank
 	\return Pointer to the sprite bank. Returns 0 if it could not be loaded.
 	This pointer should not be dropped. See IReferenceCounted::drop() for more information. */
 	virtual IGUISpriteBank* getSpriteBank(const io::path& filename) = 0;
@@ -262,9 +264,8 @@ public:
 	\param modal Defines if the dialog is modal. This means, that all other
 	gui elements which were created before the message box cannot be used
 	until this messagebox is removed.
-	\param flags Flags specifying the layout of the message box. For example
-	to create a message box with an OK and a CANCEL button on it, set this
-	to (EMBF_OK | EMBF_CANCEL).
+	\param flags Flags specifying the layout of the message box using ::EMESSAGE_BOX_FLAG.
+	Create a message box with an OK and CANCEL button for example with (EMBF_OK | EMBF_CANCEL).
 	\param parent Parent gui element of the message box.
 	\param id Id with which the gui element can be identified.
 	\param image Optional texture which will be displayed beside the text as an image
@@ -540,6 +541,14 @@ public:
 	virtual IGUITable* addTable(const core::rect<s32>& rectangle,
 		IGUIElement* parent=0, s32 id=-1, bool drawBackground=false) =0;
 
+	//! Adds an element to display the information from the Irrlicht profiler
+	/** \param rectangle Rectangle specifying the borders of the element.
+	\param parent Parent of the element. When 0 the environment itself will
+	be the parent.
+	\param id An identifier for the element. */
+	virtual IGUIProfiler* addProfilerDisplay(const core::rect<s32>& rectangle,
+		IGUIElement* parent=0, s32 id=-1) = 0;
+
 	//! Get the default element factory which can create all built-in elements
 	/** \return Pointer to the factory.
 	This pointer should not be dropped. See IReferenceCounted::drop() for
@@ -611,6 +620,25 @@ public:
 
 	//! reads an element
 	virtual void readGUIElement(io::IXMLReader* reader, IGUIElement* node) =0;
+
+	//! Find the next element which would be selected when pressing the tab-key
+	/** If you set the focus for the result you can manually force focus-changes like they
+	would happen otherwise by the tab-keys.
+	\param reverse When true it will search backward (toward lower TabOrder numbers, like shift+tab)
+	\param group When true it will search for the next tab-group (like ctrl+tab)
+	*/
+	virtual IGUIElement* getNextElement(bool reverse=false, bool group=false) = 0;
+
+	//! Set the way the gui will handle automatic focus changes
+	/** The default is (EFF_SET_ON_LMOUSE_DOWN | EFF_SET_ON_TAB).
+	with the left mouse button.
+	This does not affect the setFocus function itself - users can still call that whenever they want on any element.
+	\param flags A bitmask which is a combination of ::EFOCUS_FLAG flags.*/
+	virtual void setFocusBehavior(u32 flags) = 0;
+
+	//! Get the way the gui does handle focus changes
+	/** \returns A bitmask which is a combination of ::EFOCUS_FLAG flags.*/
+	virtual u32 getFocusBehavior() const = 0;
 };
 
 

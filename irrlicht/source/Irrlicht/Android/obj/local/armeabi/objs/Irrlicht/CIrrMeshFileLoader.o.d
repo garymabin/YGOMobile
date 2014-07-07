@@ -77,11 +77,11 @@ obj/local/armeabi/objs/Irrlicht/CIrrMeshFileLoader.o: \
  ../../../include/IBoneSceneNode.h ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/quaternion.h \
+ ../../../include/EAttributes.h ../../../include/IEventReceiver.h \
  ../../../include/ILogger.h ../../../include/Keycodes.h \
  ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/line2d.h \
- ../../../include/quaternion.h ../../../include/EAttributes.h \
  ../../../include/IAnimatedMesh.h ../../../include/SSkinMeshBuffer.h \
  jni/../../os.h ../../../include/irrTypes.h ../../../include/path.h \
  ../../../include/ILogger.h ../../../include/ITimer.h \
@@ -312,6 +312,14 @@ jni/../../CIrrMeshFileLoader.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
+../../../include/IAttributes.h:
+
+../../../include/line2d.h:
+
+../../../include/quaternion.h:
+
+../../../include/EAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -321,14 +329,6 @@ jni/../../CIrrMeshFileLoader.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
-
-../../../include/line2d.h:
-
-../../../include/quaternion.h:
-
-../../../include/EAttributes.h:
 
 ../../../include/IAnimatedMesh.h:
 

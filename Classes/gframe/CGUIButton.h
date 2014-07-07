@@ -10,6 +10,7 @@
 
 #include "IGUIButton.h"
 #include "IGUISpriteBank.h"
+#include "ITexture.h"
 #include "SColor.h"
 
 namespace irr
@@ -29,19 +30,22 @@ namespace gui
 		virtual ~CGUIButton();
 
 		//! called if an event happened.
-		virtual bool OnEvent(const SEvent& event);
+		virtual bool OnEvent(const SEvent& event) _IRR_OVERRIDE_;
 
 		//! draws the element and its children
-		virtual void draw();
+		virtual void draw() _IRR_OVERRIDE_;
 
 		//! sets another skin independent font. if this is set to zero, the button uses the font of the skin.
-		virtual void setOverrideFont(IGUIFont* font=0);
+		virtual void setOverrideFont(IGUIFont* font=0) _IRR_OVERRIDE_;
 
 		//! Gets the override font (if any)
-		virtual IGUIFont* getOverrideFont() const;
+		virtual IGUIFont* getOverrideFont() const _IRR_OVERRIDE_;
 
 		//! Get the font which is used right now for drawing
-		virtual IGUIFont* getActiveFont() const;
+		virtual IGUIFont* getActiveFont() const _IRR_OVERRIDE_;
+
+		//! Sets an image which should be displayed on the button when it is in the given state.
+		virtual void setImage(EGUI_BUTTON_IMAGE_STATE state, video::ITexture* image=0, const core::rect<s32>& sourceRect=core::rect<s32>(0,0,0,0))  _IRR_OVERRIDE_;
 
 		//! Sets an image which should be displayed on the button when it is in normal state.
 		virtual void setImage(video::ITexture* image=0);
@@ -56,7 +60,7 @@ namespace gui
 		virtual void setPressedImage(video::ITexture* image, const core::rect<s32>& pos);
 
 		//! Sets the sprite bank used by the button
-		virtual void setSpriteBank(IGUISpriteBank* bank=0);
+		virtual void setSpriteBank(IGUISpriteBank* bank=0) _IRR_OVERRIDE_;
 
 		//! Sets the animated sprite for a specific button state
 		/** \param index: Number of the sprite within the sprite bank, use -1 for no sprite
@@ -65,53 +69,77 @@ namespace gui
 		\param color: The color of the sprite
 		*/
 		virtual void setSprite(EGUI_BUTTON_STATE state, s32 index,
-				video::SColor color=video::SColor(255,255,255,255), bool loop=false);
+				video::SColor color=video::SColor(255,255,255,255),
+				bool loop=false, bool scale=false) _IRR_OVERRIDE_;
+
+		//! Get the sprite-index for the given state or -1 when no sprite is set
+		virtual s32 getSpriteIndex(EGUI_BUTTON_STATE state) const _IRR_OVERRIDE_;
+
+		//! Get the sprite color for the given state. Color is only used when a sprite is set.
+		virtual video::SColor getSpriteColor(EGUI_BUTTON_STATE state) const _IRR_OVERRIDE_;
+
+		//! Returns if the sprite in the given state does loop
+		virtual bool getSpriteLoop(EGUI_BUTTON_STATE state) const _IRR_OVERRIDE_;
+
+		//! Returns if the sprite in the given state is scaled
+		virtual bool getSpriteScale(EGUI_BUTTON_STATE state) const _IRR_OVERRIDE_;
 
 		//! Sets if the button should behave like a push button. Which means it
 		//! can be in two states: Normal or Pressed. With a click on the button,
 		//! the user can change the state of the button.
-		virtual void setIsPushButton(bool isPushButton=true);
+		virtual void setIsPushButton(bool isPushButton=true) _IRR_OVERRIDE_;
 
 		//! Checks whether the button is a push button
-		virtual bool isPushButton() const;
+		virtual bool isPushButton() const _IRR_OVERRIDE_;
 
 		//! Sets the pressed state of the button if this is a pushbutton
-		virtual void setPressed(bool pressed=true);
+		virtual void setPressed(bool pressed=true) _IRR_OVERRIDE_;
 
 		//! Returns if the button is currently pressed
-		virtual bool isPressed() const;
+		virtual bool isPressed() const _IRR_OVERRIDE_;
 
 		//! Sets if the button should use the skin to draw its border
-		virtual void setDrawBorder(bool border=true);
+		virtual void setDrawBorder(bool border=true) _IRR_OVERRIDE_;
 
 		//! Checks if the button face and border are being drawn
-		virtual bool isDrawingBorder() const;
+		virtual bool isDrawingBorder() const _IRR_OVERRIDE_;
 
 		//! Sets if the alpha channel should be used for drawing images on the button (default is false)
-		virtual void setUseAlphaChannel(bool useAlphaChannel=true);
+		virtual void setUseAlphaChannel(bool useAlphaChannel=true) _IRR_OVERRIDE_;
 
 		//! Checks if the alpha channel should be used for drawing images on the button
-		virtual bool isAlphaChannelUsed() const;
+		virtual bool isAlphaChannelUsed() const _IRR_OVERRIDE_;
 
 		//! Sets if the button should scale the button images to fit
-		virtual void setScaleImage(bool scaleImage=true);
+		virtual void setScaleImage(bool scaleImage=true) _IRR_OVERRIDE_;
 
 		//! Checks whether the button scales the used images
-		virtual bool isScalingImage() const;
+		virtual bool isScalingImage() const _IRR_OVERRIDE_;
 
 		//! Writes attributes of the element.
-		virtual void serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options) const;
+		virtual void serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options) const _IRR_OVERRIDE_;
 
 		//! Reads attributes of the element
-		virtual void deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options);
+		virtual void deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options) _IRR_OVERRIDE_;
 
 	protected:
+		void drawSprite(EGUI_BUTTON_STATE state, u32 startTime, const core::position2di& center);
 
 		struct ButtonSprite
 		{
+			ButtonSprite() : Index(-1), Loop(false), Scale(false)
+			{
+			}
+
+			bool operator==(const ButtonSprite& other) const
+			{
+				return Index == other.Index && Color == other.Color && Loop == other.Loop && Scale == other.Scale;
+			}
+
 			s32 Index;
 			video::SColor Color;
 			bool Loop;
+			bool Scale;
 		};
 
 		ButtonSprite ButtonSprites[EGBS_COUNT];

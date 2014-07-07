@@ -58,13 +58,15 @@ obj/local/x86/objs/Irrlicht/COGLESTexture.o: jni/../../COGLESTexture.cpp \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/GLES/glplatform.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/KHR/khrplatform.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/GLES/glext.h \
- jni/../../COGLESDriver.h jni/../../CNullDriver.h \
- ../../../include/IVideoDriver.h ../../../include/ITexture.h \
- ../../../include/irrArray.h ../../../include/heapsort.h \
- ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
- ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
- ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
- ../../../include/SVertexIndex.h ../../../include/EHardwareBufferFlags.h \
+ jni/../../COGLESDriver.h ../../../include/SIrrCreationParameters.h \
+ ../../../include/EDeviceTypes.h ../../../include/ILogger.h \
+ jni/../../CNullDriver.h ../../../include/IVideoDriver.h \
+ ../../../include/ITexture.h ../../../include/irrArray.h \
+ ../../../include/heapsort.h ../../../include/SMaterial.h \
+ ../../../include/EMaterialTypes.h ../../../include/EMaterialFlags.h \
+ ../../../include/SMaterialLayer.h ../../../include/IMeshBuffer.h \
+ ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
+ ../../../include/EHardwareBufferFlags.h \
  ../../../include/EPrimitiveTypes.h ../../../include/triangle3d.h \
  ../../../include/EDriverFeatures.h ../../../include/SExposedVideoData.h \
  ../../../include/IFileSystem.h ../../../include/IXMLReader.h \
@@ -83,16 +85,14 @@ obj/local/x86/objs/Irrlicht/COGLESTexture.o: jni/../../COGLESTexture.cpp \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
+ ../../../include/IAttributes.h ../../../include/IEventReceiver.h \
  ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- jni/../../CFPSCounter.h ../../../include/S3DVertex.h \
- ../../../include/SVertexIndex.h ../../../include/SLight.h \
- ../../../include/SExposedVideoData.h \
+ ../../../include/irrList.h jni/../../CFPSCounter.h \
+ ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
+ ../../../include/SLight.h ../../../include/SExposedVideoData.h \
  ../../../include/IMaterialRendererServices.h \
  ../../../include/EDriverFeatures.h ../../../include/fast_atof.h \
- ../../../include/SIrrCreationParameters.h \
- ../../../include/EDeviceTypes.h ../../../include/IContextManager.h \
+ ../../../include/IContextManager.h \
  ../../../include/SIrrCreationParameters.h \
  jni/../../COGLESExtensionHandler.h jni/../../CEGLManager.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-x86/usr/include/EGL/egl.h \
@@ -245,6 +245,12 @@ jni/../../COGLESTexture.h:
 
 jni/../../COGLESDriver.h:
 
+../../../include/SIrrCreationParameters.h:
+
+../../../include/EDeviceTypes.h:
+
+../../../include/ILogger.h:
+
 jni/../../CNullDriver.h:
 
 ../../../include/IVideoDriver.h:
@@ -333,17 +339,15 @@ jni/../../IImagePresenter.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
-../../../include/IEventReceiver.h:
+../../../include/IAttributes.h:
 
-../../../include/ILogger.h:
+../../../include/IEventReceiver.h:
 
 ../../../include/Keycodes.h:
 
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
 
 jni/../../CFPSCounter.h:
 
@@ -360,10 +364,6 @@ jni/../../CFPSCounter.h:
 ../../../include/EDriverFeatures.h:
 
 ../../../include/fast_atof.h:
-
-../../../include/SIrrCreationParameters.h:
-
-../../../include/EDeviceTypes.h:
 
 ../../../include/IContextManager.h:
 

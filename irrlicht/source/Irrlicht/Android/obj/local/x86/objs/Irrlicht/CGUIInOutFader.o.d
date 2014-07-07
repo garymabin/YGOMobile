@@ -63,13 +63,13 @@ obj/local/x86/objs/Irrlicht/CGUIInOutFader.o: \
  ../../../include/IXMLReader.h ../../../include/irrXML.h \
  ../../../include/EAttributes.h ../../../include/path.h \
  ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
- ../../../include/EMessageBoxFlags.h ../../../include/IVideoDriver.h \
- ../../../include/ITexture.h ../../../include/IImage.h \
- ../../../include/EDriverTypes.h ../../../include/SMaterial.h \
- ../../../include/EMaterialTypes.h ../../../include/EMaterialFlags.h \
- ../../../include/SMaterialLayer.h ../../../include/IMeshBuffer.h \
- ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
- ../../../include/EHardwareBufferFlags.h \
+ ../../../include/EMessageBoxFlags.h ../../../include/EFocusFlags.h \
+ ../../../include/IVideoDriver.h ../../../include/ITexture.h \
+ ../../../include/IImage.h ../../../include/EDriverTypes.h \
+ ../../../include/SMaterial.h ../../../include/EMaterialTypes.h \
+ ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
+ ../../../include/IMeshBuffer.h ../../../include/S3DVertex.h \
+ ../../../include/SVertexIndex.h ../../../include/EHardwareBufferFlags.h \
  ../../../include/EPrimitiveTypes.h ../../../include/EDriverFeatures.h \
  ../../../include/SExposedVideoData.h jni/../../os.h \
  ../../../include/irrTypes.h ../../../include/irrString.h \
@@ -239,6 +239,8 @@ jni/../../CGUIInOutFader.h:
 ../../../include/IGUISkin.h:
 
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:
 
 ../../../include/IVideoDriver.h:
 

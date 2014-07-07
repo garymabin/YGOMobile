@@ -170,6 +170,9 @@ void DuelClient::ClientEvent(bufferevent *bev, short events, void *ctx) {
 					mainGame->dInfo.isStarted = false;
 					mainGame->is_building = false;
 					mainGame->device->setEventReceiver(&mainGame->menuHandler);
+#ifdef _IRR_ANDROID_PLATFORM_
+		android::toggleOverlayView(mainGame->appMain, false);
+#endif
 					mainGame->ShowElement(mainGame->wLanWindow);
 					mainGame->gMutex.Unlock();
 				}
@@ -706,6 +709,9 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 		mainGame->btnJoinHost->setEnabled(true);
 		mainGame->btnJoinCancel->setEnabled(true);
 		mainGame->device->setEventReceiver(&mainGame->menuHandler);
+#ifdef _IRR_ANDROID_PLATFORM_
+		android::toggleOverlayView(mainGame->appMain, false);
+#endif
 		mainGame->ShowElement(mainGame->wLanWindow);
 		mainGame->gMutex.Unlock();
 		event_base_loopbreak(client_base);

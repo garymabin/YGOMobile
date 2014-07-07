@@ -233,7 +233,7 @@ public:
 	}
 
 
-	CNumbersAttribute(const char* name, core::vector3df value) :
+	CNumbersAttribute(const char* name, const core::vector3df& value) :
 		ValueI(), ValueF(), Count(3), IsFloat(true)
 	{
 		Name = name;
@@ -242,7 +242,7 @@ public:
 		ValueF.push_back(value.Z);
 	}
 
-	CNumbersAttribute(const char* name, core::rect<s32> value) :
+	CNumbersAttribute(const char* name, const core::rect<s32>& value) :
 		ValueI(), ValueF(), Count(4), IsFloat(false)
 	{
 		Name = name;
@@ -252,7 +252,7 @@ public:
 		ValueI.push_back(value.LowerRightCorner.Y);
 	}
 
-	CNumbersAttribute(const char* name, core::rect<f32> value) :
+	CNumbersAttribute(const char* name, const core::rect<f32>& value) :
 		ValueI(), ValueF(), Count(4), IsFloat(true)
 	{
 		Name = name;
@@ -262,7 +262,7 @@ public:
 		ValueF.push_back(value.LowerRightCorner.Y);
 	}
 
-	CNumbersAttribute(const char* name, core::matrix4 value) :
+	CNumbersAttribute(const char* name, const core::matrix4& value) :
 		ValueI(), ValueF(), Count(16), IsFloat(true)
 	{
 		Name = name;
@@ -271,7 +271,7 @@ public:
 				ValueF.push_back(value(r,c));
 	}
 
-	CNumbersAttribute(const char* name, core::quaternion value) :
+	CNumbersAttribute(const char* name, const core::quaternion& value) :
 		ValueI(), ValueF(), Count(4), IsFloat(true)
 	{
 		Name = name;
@@ -281,7 +281,7 @@ public:
 		ValueF.push_back(value.W);
 	}
 
-	CNumbersAttribute(const char* name, core::aabbox3d<f32> value) :
+	CNumbersAttribute(const char* name, const core::aabbox3d<f32>& value) :
 		ValueI(), ValueF(), Count(6), IsFloat(true)
 	{
 		Name = name;
@@ -293,7 +293,7 @@ public:
 		ValueF.push_back(value.MaxEdge.Z);
 	}
 
-	CNumbersAttribute(const char* name, core::plane3df value) :
+	CNumbersAttribute(const char* name, const core::plane3df& value) :
 		ValueI(), ValueF(), Count(4), IsFloat(true)
 	{
 		Name = name;
@@ -303,7 +303,7 @@ public:
 		ValueF.push_back(value.D);
 	}
 
-	CNumbersAttribute(const char* name, core::triangle3df value) :
+	CNumbersAttribute(const char* name, const core::triangle3df& value) :
 		ValueI(), ValueF(), Count(9), IsFloat(true)
 	{
 		Name = name;
@@ -318,7 +318,7 @@ public:
 		ValueF.push_back(value.pointC.Z);
 	}
 
-	CNumbersAttribute(const char* name, core::vector2df value) :
+	CNumbersAttribute(const char* name, const core::vector2df& value) :
 		ValueI(), ValueF(), Count(2), IsFloat(true)
 	{
 		Name = name;
@@ -326,7 +326,7 @@ public:
 		ValueF.push_back(value.Y);
 	}
 
-	CNumbersAttribute(const char* name, core::vector2di value) :
+	CNumbersAttribute(const char* name, const core::vector2di& value) :
 		ValueI(), ValueF(), Count(2), IsFloat(false)
 	{
 		Name = name;
@@ -334,7 +334,7 @@ public:
 		ValueI.push_back(value.Y);
 	}
 
-	CNumbersAttribute(const char* name, core::line2di value) :
+	CNumbersAttribute(const char* name, const core::line2di& value) :
 		ValueI(), ValueF(), Count(4), IsFloat(false)
 	{
 		Name = name;
@@ -344,7 +344,7 @@ public:
 		ValueI.push_back(value.end.Y);
 	}
 
-	CNumbersAttribute(const char* name, core::line2df value) :
+	CNumbersAttribute(const char* name, const core::line2df& value) :
 		ValueI(), ValueF(), Count(4), IsFloat(true)
 	{
 		Name = name;
@@ -354,7 +354,7 @@ public:
 		ValueF.push_back(value.end.Y);
 	}
 
-	CNumbersAttribute(const char* name, core::line3df value) :
+	CNumbersAttribute(const char* name, const core::line3df& value) :
 		ValueI(), ValueF(), Count(6), IsFloat(true)
 	{
 		Name = name;
@@ -366,7 +366,7 @@ public:
 		ValueF.push_back(value.end.Z);
 	}
 
-	CNumbersAttribute(const char* name, core::dimension2du value) :
+	CNumbersAttribute(const char* name, const core::dimension2du& value) :
 		ValueI(), ValueF(), Count(2), IsFloat(false)
 	{
 		Name = name;
@@ -375,7 +375,7 @@ public:
 	}
 
 
-	CNumbersAttribute(const char* name, core::dimension2df value) :
+	CNumbersAttribute(const char* name, const core::dimension2df& value) :
 		ValueI(), ValueF(), Count(2), IsFloat(true)
 	{
 		Name = name;
@@ -832,7 +832,7 @@ public:
 		//}
 	}
 
-	virtual void setPosition(core::position2di v) _IRR_OVERRIDE_
+	virtual void setPosition(const core::position2di& v) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -847,7 +847,7 @@ public:
 		}
 	}
 
-	virtual void setVector(core::vector3df v) _IRR_OVERRIDE_
+	virtual void setVector(const core::vector3df& v) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -903,7 +903,7 @@ public:
 		}
 	}
 
-	virtual void setRect(core::rect<s32> value) _IRR_OVERRIDE_
+	virtual void setRect(const core::rect<s32>& value) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -922,7 +922,7 @@ public:
 		}
 	}
 
-	virtual void setMatrix(core::matrix4 value) _IRR_OVERRIDE_
+	virtual void setMatrix(const core::matrix4& value) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -941,7 +941,7 @@ public:
 		}
 	}
 
-	virtual void setQuaternion(core::quaternion value)
+	virtual void setQuaternion(const core::quaternion& value)
 	{
 		reset();
 		if (IsFloat)
@@ -960,7 +960,7 @@ public:
 		}
 	}
 
-	virtual void setBoundingBox(core::aabbox3d<f32> value)
+	virtual void setBoundingBox(const core::aabbox3d<f32>& value)
 	{
 		reset();
 		if (IsFloat)
@@ -983,7 +983,7 @@ public:
 		}
 	}
 
-	virtual void setPlane(core::plane3df value) _IRR_OVERRIDE_
+	virtual void setPlane(const core::plane3df& value) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -1002,7 +1002,7 @@ public:
 		}
 	}
 
-	virtual void setTriangle3d(core::triangle3df value)
+	virtual void setTriangle3d(const core::triangle3df& value)
 	{
 		reset();
 		if (IsFloat)
@@ -1031,7 +1031,7 @@ public:
 		}
 	}
 
-	virtual void setVector2d(core::vector2df v) _IRR_OVERRIDE_
+	virtual void setVector2d(const core::vector2df& v) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -1046,7 +1046,7 @@ public:
 		}
 	}
 
-	virtual void setVector2d(core::vector2di v)
+	virtual void setVector2d(const core::vector2di& v)
 	{
 		reset();
 		if (IsFloat)
@@ -1061,7 +1061,7 @@ public:
 		}
 	}
 
-	virtual void setLine2d(core::line2di v) _IRR_OVERRIDE_
+	virtual void setLine2d(const core::line2di& v) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -1080,7 +1080,7 @@ public:
 		}
 	}
 
-	virtual void setLine2d(core::line2df v) _IRR_OVERRIDE_
+	virtual void setLine2d(const core::line2df& v) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -1099,7 +1099,7 @@ public:
 		}
 	}
 
-	virtual void setDimension2d(core::dimension2du v) _IRR_OVERRIDE_
+	virtual void setDimension2d(const core::dimension2du& v) _IRR_OVERRIDE_
 	{
 		reset();
 		if (IsFloat)
@@ -1268,6 +1268,14 @@ public:
 		setInt((s32)floatValue);
 	}
 
+	virtual core::stringc getString() _IRR_OVERRIDE_
+	{
+		char tmp[10];
+		const video::SColor c = getColor();
+		sprintf(tmp, "%02x%02x%02x%02x", c.getAlpha(), c.getRed(), c.getGreen(), c.getBlue());
+		return core::stringc(tmp);
+	}
+
 	virtual core::stringw getStringW() _IRR_OVERRIDE_
 	{
 		char tmp[10];
@@ -1279,7 +1287,9 @@ public:
 	virtual void setString(const char* text) _IRR_OVERRIDE_
 	{
 		u32 c;
-		if (sscanf(text, "%08x", &c)!=1)
+		int characters;
+		int items = sscanf(text, "%08x%n", &c, &characters);
+		if (items != 1 || characters != 8 )
 		{
 			CNumbersAttribute::setString(text);
 		}
@@ -1306,7 +1316,7 @@ class CVector3DAttribute : public CNumbersAttribute
 {
 public:
 
-	CVector3DAttribute(const char* name, core::vector3df value) : CNumbersAttribute(name, value) {}
+	CVector3DAttribute(const char* name, const core::vector3df& value) : CNumbersAttribute(name, value) {}
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1332,7 +1342,7 @@ class CVector2DAttribute : public CNumbersAttribute
 {
 public:
 
-	CVector2DAttribute(const char* name, core::vector2df value) : CNumbersAttribute(name, value) {}
+	CVector2DAttribute(const char* name, const core::vector2df& value) : CNumbersAttribute(name, value) {}
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1350,7 +1360,7 @@ class CPosition2DAttribute : public CNumbersAttribute
 {
 public:
 
-	CPosition2DAttribute(const char* name, core::position2di value) : CNumbersAttribute(name, value) {}
+	CPosition2DAttribute(const char* name, const core::position2di& value) : CNumbersAttribute(name, value) {}
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1370,7 +1380,7 @@ class CRectAttribute : public CNumbersAttribute
 {
 public:
 
-	CRectAttribute(const char* name, core::rect<s32> value) : CNumbersAttribute(name, value) { }
+	CRectAttribute(const char* name, const core::rect<s32>& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1389,7 +1399,7 @@ class CDimension2dAttribute : public CNumbersAttribute
 {
 public:
 
-	CDimension2dAttribute (const char* name, core::dimension2d<u32> value) : CNumbersAttribute(name, value) { }
+	CDimension2dAttribute (const char* name, const core::dimension2d<u32>& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1407,7 +1417,7 @@ class CMatrixAttribute : public CNumbersAttribute
 {
 public:
 
-	CMatrixAttribute(const char* name, core::matrix4 value) : CNumbersAttribute(name, value) { }
+	CMatrixAttribute(const char* name, const core::matrix4& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1430,7 +1440,7 @@ class CQuaternionAttribute : public CNumbersAttribute
 {
 public:
 
-	CQuaternionAttribute(const char* name, core::quaternion value) : CNumbersAttribute(name, value) { }
+	CQuaternionAttribute(const char* name, const core::quaternion& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1454,7 +1464,7 @@ class CBBoxAttribute : public CNumbersAttribute
 {
 public:
 
-	CBBoxAttribute(const char* name, core::aabbox3df value) : CNumbersAttribute(name, value) { }
+	CBBoxAttribute(const char* name, const core::aabbox3df& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1472,7 +1482,7 @@ class CPlaneAttribute : public CNumbersAttribute
 {
 public:
 
-	CPlaneAttribute(const char* name, core::plane3df value) : CNumbersAttribute(name, value) { }
+	CPlaneAttribute(const char* name, const core::plane3df& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1490,7 +1500,7 @@ class CTriangleAttribute : public CNumbersAttribute
 {
 public:
 
-	CTriangleAttribute(const char* name, core::triangle3df value) : CNumbersAttribute(name, value) { }
+	CTriangleAttribute(const char* name, const core::triangle3df& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1514,7 +1524,7 @@ class CLine2dAttribute : public CNumbersAttribute
 {
 public:
 
-	CLine2dAttribute(const char* name, core::line2df value) : CNumbersAttribute(name, value) { }
+	CLine2dAttribute(const char* name, const core::line2df& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1532,7 +1542,7 @@ class CLine3dAttribute : public CNumbersAttribute
 {
 public:
 
-	CLine3dAttribute(const char* name, core::line3df value) : CNumbersAttribute(name, value) { }
+	CLine3dAttribute(const char* name, const core::line3df& value) : CNumbersAttribute(name, value) { }
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_
 	{
@@ -1934,7 +1944,13 @@ public:
 		}
 	}
 
-	virtual void setTexture(video::ITexture* value)
+	virtual void setTexture(video::ITexture* texture, const path& filename) _IRR_OVERRIDE_
+	{
+		OverrideName = filename;
+		setTexture(texture);
+	};
+
+	void setTexture(video::ITexture* value)
 	{
 		if ( value == Value )
 			return;
@@ -2032,9 +2048,28 @@ public:
 
 	virtual void setString(const char* text) _IRR_OVERRIDE_
 	{
-		u32 tmp;
-		sscanf(text, "0x%x", &tmp);
-		Value = (void *) tmp;
+		size_t val = 0;
+		switch ( sizeof(void*) )
+		{
+			case 4:
+			{
+				unsigned int tmp; // not using an irrlicht type - sscanf with %x needs always unsigned int
+				sscanf(text, "0x%x", &tmp);
+				val = (size_t)tmp;
+			}
+			break;
+			case 8:
+			{
+#ifdef _MSC_VER
+				unsigned __int64 tmp = _strtoui64(text, NULL, 16);
+#else
+				unsigned long long tmp = strtoull(text, NULL, 16);
+#endif
+				val = (size_t)tmp;
+			}
+			break;
+		}
+		Value = (void *)val;
 	}
 
 	virtual E_ATTRIBUTE_TYPE getType() const _IRR_OVERRIDE_

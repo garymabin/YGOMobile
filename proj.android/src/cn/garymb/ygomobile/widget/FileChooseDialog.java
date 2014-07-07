@@ -8,8 +8,6 @@ public class FileChooseDialog extends BaseDialog {
 	
 	public FileChooseDialog(Context context, View view, OnClickListener listener, Bundle param) {
 		super(context, listener, view, param);
-		mListener = listener;
-		mParam = param;
 	}
 	
 	@Override

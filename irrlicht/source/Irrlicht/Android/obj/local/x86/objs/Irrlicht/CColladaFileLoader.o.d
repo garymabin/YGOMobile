@@ -76,11 +76,11 @@ obj/local/x86/objs/Irrlicht/CColladaFileLoader.o: \
  ../../../include/IBoneSceneNode.h ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/quaternion.h \
+ ../../../include/EAttributes.h ../../../include/IEventReceiver.h \
  ../../../include/ILogger.h ../../../include/Keycodes.h \
  ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/line2d.h \
- ../../../include/quaternion.h ../../../include/EAttributes.h \
  ../../../include/IAnimatedMesh.h ../../../include/SSkinMeshBuffer.h \
  ../../../include/irrMap.h jni/../../CAttributes.h \
  ../../../include/IAttributes.h jni/../../IAttribute.h \
@@ -318,6 +318,14 @@ jni/../../CColladaFileLoader.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
+../../../include/IAttributes.h:
+
+../../../include/line2d.h:
+
+../../../include/quaternion.h:
+
+../../../include/EAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -327,14 +335,6 @@ jni/../../CColladaFileLoader.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
-
-../../../include/line2d.h:
-
-../../../include/quaternion.h:
-
-../../../include/EAttributes.h:
 
 ../../../include/IAnimatedMesh.h:
 

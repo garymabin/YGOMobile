@@ -142,7 +142,9 @@ public abstract class EventDialogPreferenceFragment extends PreferenceFragment
 
 	@Override
 	public boolean handleMessage(Message msg) {
-		// TODO Auto-generated method stub
+		if (isDetached()) {
+			return true;
+		}
 		return false;
 	}
 

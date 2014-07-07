@@ -18,7 +18,7 @@ namespace gui
 //! constructor
 CGUIImage::CGUIImage(IGUIEnvironment* environment, IGUIElement* parent, s32 id, core::rect<s32> rectangle)
 : IGUIImage(environment, parent, id, rectangle), Texture(0), Color(255,255,255,255),
-	UseAlphaChannel(false), ScaleImage(false)
+	UseAlphaChannel(false), ScaleImage(false), DrawBounds(0.f, 0.f, 1.f, 1.f)
 {
 	#ifdef _DEBUG
 	setDebugName("CGUIImage");
@@ -78,24 +78,38 @@ void CGUIImage::draw()
 
 	if (Texture)
 	{
+		core::rect<s32> sourceRect(SourceRect);
+		if (sourceRect.getWidth() == 0 || sourceRect.getHeight() == 0)
+		{
+			sourceRect = core::rect<s32>(core::position2d<s32>(0,0), core::dimension2di(Texture->getOriginalSize()));
+		}
+
 		if (ScaleImage)
 		{
 			const video::SColor Colors[] = {Color,Color,Color,Color};
 
-			driver->draw2DImage(Texture, AbsoluteRect,
-				core::rect<s32>(core::position2d<s32>(0,0), core::dimension2di(Texture->getOriginalSize())),
-				&AbsoluteClippingRect, Colors, UseAlphaChannel);
+			core::rect<s32> clippingRect(AbsoluteClippingRect);
+			checkBounds(clippingRect);
+
+			driver->draw2DImage(Texture, AbsoluteRect, sourceRect,
+				&clippingRect, Colors, UseAlphaChannel);
 		}
 		else
 		{
-			driver->draw2DImage(Texture, AbsoluteRect.UpperLeftCorner,
-				core::rect<s32>(core::position2d<s32>(0,0), core::dimension2di(Texture->getOriginalSize())),
-				&AbsoluteClippingRect, Color, UseAlphaChannel);
+			core::rect<s32> clippingRect(AbsoluteRect.UpperLeftCorner, sourceRect.getSize());
+			checkBounds(clippingRect);
+			clippingRect.clipAgainst(AbsoluteClippingRect);
+
+			driver->draw2DImage(Texture, AbsoluteRect.UpperLeftCorner, sourceRect,
+				&clippingRect, Color, UseAlphaChannel);
 		}
 	}
 	else
 	{
-		skin->draw2DRectangle(this, skin->getColor(EGDC_3D_DARK_SHADOW), AbsoluteRect, &AbsoluteClippingRect);
+		core::rect<s32> clippingRect(AbsoluteClippingRect);
+		checkBounds(clippingRect);
+
+		skin->draw2DRectangle(this, skin->getColor(EGDC_3D_DARK_SHADOW), AbsoluteRect, &clippingRect);
 	}
 
 	IGUIElement::draw();
@@ -130,6 +144,37 @@ bool CGUIImage::isAlphaChannelUsed() const
 	return UseAlphaChannel;
 }
 
+//! Sets the source rectangle of the image. By default the full image is used.
+void CGUIImage::setSourceRect(const core::rect<s32>& sourceRect)
+{
+	SourceRect = sourceRect;
+}
+
+//! Returns the customized source rectangle of the image to be used.
+core::rect<s32> CGUIImage::getSourceRect() const
+{
+	return SourceRect;
+}
+
+//! Restrict target drawing-area.
+void CGUIImage::setDrawBounds(const core::rect<f32>& drawBoundUVs)
+{
+	DrawBounds = drawBoundUVs;
+	DrawBounds.UpperLeftCorner.X = core::clamp(DrawBounds.UpperLeftCorner.X, 0.f, 1.f);
+	DrawBounds.UpperLeftCorner.Y = core::clamp(DrawBounds.UpperLeftCorner.Y, 0.f, 1.f);
+	DrawBounds.LowerRightCorner.X = core::clamp(DrawBounds.LowerRightCorner.X, 0.f, 1.f);
+	DrawBounds.LowerRightCorner.X = core::clamp(DrawBounds.LowerRightCorner.X, 0.f, 1.f);
+	if ( DrawBounds.UpperLeftCorner.X > DrawBounds.LowerRightCorner.X )
+		DrawBounds.UpperLeftCorner.X = DrawBounds.LowerRightCorner.X;
+	if ( DrawBounds.UpperLeftCorner.Y > DrawBounds.LowerRightCorner.Y )
+		DrawBounds.UpperLeftCorner.Y = DrawBounds.LowerRightCorner.Y;
+}
+
+//! Get target drawing-area restrictions.
+core::rect<f32> CGUIImage::getDrawBounds() const
+{
+	return DrawBounds;
+}
 
 //! Writes attributes of the element.
 void CGUIImage::serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options=0) const
@@ -140,7 +185,11 @@ void CGUIImage::serializeAttributes(io::IAttributes* out, io::SAttributeReadWrit
 	out->addBool	("UseAlphaChannel", UseAlphaChannel);
 	out->addColor	("Color", Color);
 	out->addBool	("ScaleImage", ScaleImage);
-
+	out->addRect 	("SourceRect", SourceRect);
+	out->addFloat   ("DrawBoundsX1", DrawBounds.UpperLeftCorner.X);
+	out->addFloat   ("DrawBoundsY1", DrawBounds.UpperLeftCorner.Y);
+	out->addFloat   ("DrawBoundsX2", DrawBounds.LowerRightCorner.X);
+	out->addFloat   ("DrawBoundsY2", DrawBounds.LowerRightCorner.Y);
 }
 
 
@@ -149,10 +198,17 @@ void CGUIImage::deserializeAttributes(io::IAttributes* in, io::SAttributeReadWri
 {
 	IGUIImage::deserializeAttributes(in,options);
 
-	setImage(in->getAttributeAsTexture("Texture"));
-	setUseAlphaChannel(in->getAttributeAsBool("UseAlphaChannel"));
-	setColor(in->getAttributeAsColor("Color"));
-	setScaleImage(in->getAttributeAsBool("ScaleImage"));
+	setImage(in->getAttributeAsTexture("Texture", Texture));
+	setUseAlphaChannel(in->getAttributeAsBool("UseAlphaChannel", UseAlphaChannel));
+	setColor(in->getAttributeAsColor("Color", Color));
+	setScaleImage(in->getAttributeAsBool("ScaleImage", UseAlphaChannel));
+	setSourceRect(in->getAttributeAsRect("SourceRect", SourceRect));
+
+	DrawBounds.UpperLeftCorner.X = in->getAttributeAsFloat("DrawBoundsX1", DrawBounds.UpperLeftCorner.X);
+	DrawBounds.UpperLeftCorner.Y = in->getAttributeAsFloat("DrawBoundsY1", DrawBounds.UpperLeftCorner.Y);
+	DrawBounds.LowerRightCorner.X = in->getAttributeAsFloat("DrawBoundsX2", DrawBounds.LowerRightCorner.X);
+	DrawBounds.LowerRightCorner.Y = in->getAttributeAsFloat("DrawBoundsY2", DrawBounds.LowerRightCorner.Y);
+	setDrawBounds(DrawBounds);
 }
 
 

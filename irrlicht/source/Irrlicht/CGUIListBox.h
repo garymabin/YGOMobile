@@ -131,15 +131,18 @@ namespace gui
 		//! Sets whether to draw the background
 		virtual void setDrawBackground(bool draw) _IRR_OVERRIDE_;
 
+		//! Access the vertical scrollbar
+		virtual IGUIScrollBar* getVerticalScrollBar() const _IRR_OVERRIDE_;
+
 	private:
 
 		struct ListItem
 		{
-			ListItem() : icon(-1)
+			ListItem() : Icon(-1)
 			{}
 
-			core::stringw text;
-			s32 icon;
+			core::stringw Text;
+			s32 Icon;
 
 			// A multicolor extension
 			struct ListItemOverrideColor

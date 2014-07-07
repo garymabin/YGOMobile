@@ -55,10 +55,12 @@ CIrrDeviceStub::CIrrDeviceStub(const SIrrlichtCreationParameters& params)
 CIrrDeviceStub::~CIrrDeviceStub()
 {
 	VideoModeList->drop();
-	FileSystem->drop();
 
 	if (GUIEnvironment)
 		GUIEnvironment->drop();
+
+	if (SceneManager)
+		SceneManager->drop();
 
 	if (VideoDriver)
 		VideoDriver->drop();
@@ -66,8 +68,8 @@ CIrrDeviceStub::~CIrrDeviceStub()
 	if (ContextManager)
 		ContextManager->drop();
 
-	if (SceneManager)
-		SceneManager->drop();
+	if ( FileSystem )
+		FileSystem->drop();
 
 	if (InputReceivingSceneManager)
 		InputReceivingSceneManager->drop();
@@ -366,25 +368,25 @@ bool CIrrDeviceStub::activateAccelerometer(float updateInterval)
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::deactivateAccelerometer()
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::isAccelerometerActive()
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::isAccelerometerAvailable()
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::activateGyroscope(float updateInterval)
 {
@@ -396,37 +398,37 @@ bool CIrrDeviceStub::deactivateGyroscope()
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::isGyroscopeActive()
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::isGyroscopeAvailable()
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::activateDeviceMotion(float updateInterval)
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::deactivateDeviceMotion()
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::isDeviceMotionActive()
 {
     return false;
 }
-    
+
 //! No-op in this implementation
 bool CIrrDeviceStub::isDeviceMotionAvailable()
 {

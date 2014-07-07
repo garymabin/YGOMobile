@@ -14,13 +14,13 @@ public class AppUpdateController extends BaseDialogConfigController {
 
 	public AppUpdateController(DialogConfigUIBase configUI, View view, Bundle param) {
 		super(configUI, view);
-		mWebView = (WebView) view;
+		mWebView = (WebView) view.findViewById(R.id.web_content);
 		final Resources res = configUI.getContext().getResources();
 		int titleRes = param.getInt("titleRes");
 		int versionCode = param.getInt("version");
 		mDownloadUrl = ResourcesConstants.UPDATE_SERVER_URL + "/ygomobile/"+ versionCode + param.getString("url"); 
 		mWebView.loadUrl(ResourcesConstants.UPDATE_SERVER_URL + "/ygomobile/" + versionCode + "/changelog.html");
-		((WebView)view).getSettings().setDefaultTextEncodingName("utf-8");
+		mWebView.getSettings().setDefaultTextEncodingName("utf-8");
 		configUI.setTitle(titleRes);
 		configUI.setCancelButton(res.getString(R.string.button_cancel));
 		configUI.setPositiveButton(res.getString(R.string.button_update));

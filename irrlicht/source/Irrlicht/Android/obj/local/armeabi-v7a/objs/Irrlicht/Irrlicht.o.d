@@ -59,6 +59,7 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
  ../../../include/IIndexBuffer.h ../../../include/CVertexBuffer.h \
  ../../../include/CIndexBuffer.h ../../../include/CMeshBuffer.h \
  ../../../include/coreutil.h ../../../include/path.h \
+ ../../../include/IProfiler.h ../../../include/ITimer.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
  ../../../include/EDriverFeatures.h ../../../include/EDriverTypes.h \
  ../../../include/EGUIAlignment.h ../../../include/EGUIElementTypes.h \
@@ -77,11 +78,11 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
  ../../../include/irrpack.h ../../../include/irrunpack.h \
  ../../../include/IAnimatedMeshSceneNode.h ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
- ../../../include/ILogger.h ../../../include/Keycodes.h \
- ../../../include/ITriangleSelector.h ../../../include/irrList.h \
- ../../../include/IAttributes.h ../../../include/line2d.h \
- ../../../include/EAttributes.h ../../../include/IBoneSceneNode.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/EAttributes.h \
+ ../../../include/IEventReceiver.h ../../../include/ILogger.h \
+ ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
+ ../../../include/irrList.h ../../../include/IBoneSceneNode.h \
  ../../../include/IBillboardSceneNode.h \
  ../../../include/IBillboardTextSceneNode.h \
  ../../../include/ICameraSceneNode.h ../../../include/IContextManager.h \
@@ -95,15 +96,16 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
  ../../../include/IGUIColorSelectDialog.h ../../../include/IGUIComboBox.h \
  ../../../include/IGUIContextMenu.h ../../../include/IGUIEditBox.h \
  ../../../include/IGUIElementFactory.h ../../../include/IGUIEnvironment.h \
- ../../../include/IGUISkin.h ../../../include/IGUIFileOpenDialog.h \
- ../../../include/IGUIFont.h ../../../include/IGUIFontBitmap.h \
- ../../../include/IGUIImage.h ../../../include/IGUIInOutFader.h \
- ../../../include/IGUIListBox.h ../../../include/IGUIMeshViewer.h \
- ../../../include/IGUIScrollBar.h ../../../include/IGUISpinBox.h \
- ../../../include/IGUISpriteBank.h ../../../include/IGUIStaticText.h \
- ../../../include/IGUITabControl.h ../../../include/IGUITable.h \
- ../../../include/IGUIToolbar.h ../../../include/IGUIWindow.h \
- ../../../include/IGUITreeView.h ../../../include/IGUIImageList.h \
+ ../../../include/IGUISkin.h ../../../include/EFocusFlags.h \
+ ../../../include/IGUIFileOpenDialog.h ../../../include/IGUIFont.h \
+ ../../../include/IGUIFontBitmap.h ../../../include/IGUIImage.h \
+ ../../../include/IGUIInOutFader.h ../../../include/IGUIListBox.h \
+ ../../../include/IGUIMeshViewer.h ../../../include/IGUIScrollBar.h \
+ ../../../include/IGUISpinBox.h ../../../include/IGUISpriteBank.h \
+ ../../../include/IGUIStaticText.h ../../../include/IGUITabControl.h \
+ ../../../include/IGUITable.h ../../../include/IGUIToolbar.h \
+ ../../../include/IGUIWindow.h ../../../include/IGUITreeView.h \
+ ../../../include/IGUIImageList.h ../../../include/IGUIProfiler.h \
  ../../../include/IImageLoader.h ../../../include/IImageWriter.h \
  ../../../include/ILightSceneNode.h ../../../include/SLight.h \
  ../../../include/IMaterialRenderer.h \
@@ -129,8 +131,7 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
  ../../../include/IParticleRotationAffector.h \
  ../../../include/IQ3LevelMesh.h ../../../include/IRandomizer.h \
  ../../../include/IrrlichtDevice.h ../../../include/IVideoModeList.h \
- ../../../include/ITimer.h ../../../include/irrMap.h \
- ../../../include/ISceneCollisionManager.h \
+ ../../../include/irrMap.h ../../../include/ISceneCollisionManager.h \
  ../../../include/ISceneLoader.h ../../../include/ISceneManager.h \
  ../../../include/SceneParameters.h ../../../include/ISkinnedMesh.h \
  ../../../include/SSkinMeshBuffer.h \
@@ -336,6 +337,10 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
 
 ../../../include/path.h:
 
+../../../include/IProfiler.h:
+
+../../../include/ITimer.h:
+
 ../../../include/ECullingTypes.h:
 
 ../../../include/EDebugSceneTypes.h:
@@ -406,6 +411,12 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
 
 ../../../include/ISceneNodeAnimator.h:
 
+../../../include/IAttributes.h:
+
+../../../include/line2d.h:
+
+../../../include/EAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -415,12 +426,6 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
-
-../../../include/line2d.h:
-
-../../../include/EAttributes.h:
 
 ../../../include/IBoneSceneNode.h:
 
@@ -466,6 +471,8 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
 
 ../../../include/IGUISkin.h:
 
+../../../include/EFocusFlags.h:
+
 ../../../include/IGUIFileOpenDialog.h:
 
 ../../../include/IGUIFont.h:
@@ -499,6 +506,8 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
 ../../../include/IGUITreeView.h:
 
 ../../../include/IGUIImageList.h:
+
+../../../include/IGUIProfiler.h:
 
 ../../../include/IImageLoader.h:
 
@@ -567,8 +576,6 @@ obj/local/armeabi-v7a/objs/Irrlicht/Irrlicht.o: jni/../../Irrlicht.cpp \
 ../../../include/IrrlichtDevice.h:
 
 ../../../include/IVideoModeList.h:
-
-../../../include/ITimer.h:
 
 ../../../include/irrMap.h:
 

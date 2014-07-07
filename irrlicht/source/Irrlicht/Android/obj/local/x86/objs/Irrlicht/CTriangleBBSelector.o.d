@@ -63,12 +63,12 @@ obj/local/x86/objs/Irrlicht/CTriangleBBSelector.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
- ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- ../../../include/line2d.h ../../../include/quaternion.h \
- ../../../include/IXMLReader.h ../../../include/irrXML.h \
- ../../../include/EAttributes.h ../../../include/path.h
+ ../../../include/IAttributes.h ../../../include/line2d.h \
+ ../../../include/quaternion.h ../../../include/IXMLReader.h \
+ ../../../include/irrXML.h ../../../include/EAttributes.h \
+ ../../../include/path.h ../../../include/IEventReceiver.h \
+ ../../../include/ILogger.h ../../../include/Keycodes.h \
+ ../../../include/ITriangleSelector.h ../../../include/irrList.h
 
 jni/../../CTriangleBBSelector.h:
 
@@ -228,16 +228,6 @@ jni/../../CTriangleSelector.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
-../../../include/IEventReceiver.h:
-
-../../../include/ILogger.h:
-
-../../../include/Keycodes.h:
-
-../../../include/ITriangleSelector.h:
-
-../../../include/irrList.h:
-
 ../../../include/IAttributes.h:
 
 ../../../include/line2d.h:
@@ -251,3 +241,13 @@ jni/../../CTriangleSelector.h:
 ../../../include/EAttributes.h:
 
 ../../../include/path.h:
+
+../../../include/IEventReceiver.h:
+
+../../../include/ILogger.h:
+
+../../../include/Keycodes.h:
+
+../../../include/ITriangleSelector.h:
+
+../../../include/irrList.h:

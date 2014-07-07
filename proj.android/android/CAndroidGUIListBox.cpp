@@ -308,6 +308,10 @@ bool CAndroidGUIListBox::OnEvent(const SEvent& event)
 				}
 				return true;
 			}
+			else if (event.KeyInput.Key == KEY_TAB )
+			{
+				return false;
+			}
 			else if (event.KeyInput.PressedDown && event.KeyInput.Char)
 			{
 				// change selection based on text as it is typed.
@@ -906,6 +910,11 @@ void CAndroidGUIListBox::setDrawBackground(bool draw)
     DrawBack = draw;
 }
 
+//! Access the vertical scrollbar
+IGUIScrollBar* CAndroidGUIListBox::getVerticalScrollBar() const
+{
+	return ScrollBar;
+}
 
 } // end namespace gui
 } // end namespace irr

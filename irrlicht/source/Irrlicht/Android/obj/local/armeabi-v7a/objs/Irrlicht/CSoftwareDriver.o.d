@@ -80,9 +80,9 @@ obj/local/armeabi-v7a/objs/Irrlicht/CSoftwareDriver.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
- ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
+ ../../../include/IAttributes.h ../../../include/IEventReceiver.h \
+ ../../../include/ILogger.h ../../../include/Keycodes.h \
+ ../../../include/ITriangleSelector.h ../../../include/irrList.h \
  jni/../../CFPSCounter.h ../../../include/irrTypes.h \
  ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
  ../../../include/SLight.h ../../../include/SExposedVideoData.h \
@@ -321,6 +321,8 @@ jni/../../IImagePresenter.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
+../../../include/IAttributes.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -330,8 +332,6 @@ jni/../../IImagePresenter.h:
 ../../../include/ITriangleSelector.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
 
 jni/../../CFPSCounter.h:
 

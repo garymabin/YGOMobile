@@ -59,15 +59,15 @@ obj/local/armeabi-v7a/objs/Irrlicht/CTerrainTriangleSelector.o: \
  ../../../include/EDebugSceneTypes.h \
  ../../../include/ISceneNodeAnimator.h \
  ../../../include/ESceneNodeAnimatorTypes.h \
- ../../../include/IEventReceiver.h ../../../include/ILogger.h \
- ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
- ../../../include/SMaterial.h ../../../include/SColor.h \
- ../../../include/irrArray.h ../../../include/EMaterialTypes.h \
- ../../../include/EMaterialFlags.h ../../../include/SMaterialLayer.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
+ ../../../include/IAttributes.h ../../../include/SColor.h \
  ../../../include/line2d.h ../../../include/quaternion.h \
- ../../../include/IXMLReader.h ../../../include/irrXML.h \
- ../../../include/EAttributes.h ../../../include/path.h \
+ ../../../include/irrArray.h ../../../include/IXMLReader.h \
+ ../../../include/irrXML.h ../../../include/EAttributes.h \
+ ../../../include/path.h ../../../include/IEventReceiver.h \
+ ../../../include/ILogger.h ../../../include/Keycodes.h \
+ ../../../include/ITriangleSelector.h ../../../include/SMaterial.h \
+ ../../../include/EMaterialTypes.h ../../../include/EMaterialFlags.h \
+ ../../../include/SMaterialLayer.h ../../../include/irrList.h \
  ../../../include/IDynamicMeshBuffer.h ../../../include/IMeshBuffer.h \
  ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
  ../../../include/EHardwareBufferFlags.h \
@@ -218,6 +218,24 @@ jni/../../CTerrainSceneNode.h:
 
 ../../../include/ESceneNodeAnimatorTypes.h:
 
+../../../include/IAttributes.h:
+
+../../../include/SColor.h:
+
+../../../include/line2d.h:
+
+../../../include/quaternion.h:
+
+../../../include/irrArray.h:
+
+../../../include/IXMLReader.h:
+
+../../../include/irrXML.h:
+
+../../../include/EAttributes.h:
+
+../../../include/path.h:
+
 ../../../include/IEventReceiver.h:
 
 ../../../include/ILogger.h:
@@ -228,10 +246,6 @@ jni/../../CTerrainSceneNode.h:
 
 ../../../include/SMaterial.h:
 
-../../../include/SColor.h:
-
-../../../include/irrArray.h:
-
 ../../../include/EMaterialTypes.h:
 
 ../../../include/EMaterialFlags.h:
@@ -239,20 +253,6 @@ jni/../../CTerrainSceneNode.h:
 ../../../include/SMaterialLayer.h:
 
 ../../../include/irrList.h:
-
-../../../include/IAttributes.h:
-
-../../../include/line2d.h:
-
-../../../include/quaternion.h:
-
-../../../include/IXMLReader.h:
-
-../../../include/irrXML.h:
-
-../../../include/EAttributes.h:
-
-../../../include/path.h:
 
 ../../../include/IDynamicMeshBuffer.h:
 

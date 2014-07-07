@@ -64,6 +64,8 @@ namespace irr
 
 		void createDriver();
 
+		void createKeyMap();
+
 		video::SExposedVideoData& getExposedVideoData();
 
 		android_app* Android;
@@ -73,8 +75,12 @@ namespace irr
 		bool Focused;
 		bool Initialized;
 		bool Paused;
+	
+		JNIEnv* JNIEnvAttachedToVM;
 
 		video::SExposedVideoData ExposedVideoData;
+
+		core::array<EKEY_CODE> KeyMap;
 	};
 
 } // end namespace irr

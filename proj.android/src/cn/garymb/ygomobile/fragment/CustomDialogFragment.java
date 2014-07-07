@@ -19,7 +19,9 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.R;
+import cn.garymb.ygomobile.common.AppUpdateTask;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
+import cn.garymb.ygomobile.widget.AppUpdateController;
 import cn.garymb.ygomobile.widget.BaseDialogConfigController;
 import cn.garymb.ygomobile.widget.DialogConfigUIBase;
 import cn.garymb.ygomobile.widget.DonateDialogConfigController;
@@ -169,9 +171,14 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 			content = inflater.inflate(R.layout.create_server_content, null);
 			mController = new ServerDialogController(mSimpleUiWrapper, content, getArguments());
 			break;
-		case  ResourcesConstants.DIALOG_MODE_DIRECTORY_CHOOSE:
+		case ResourcesConstants.DIALOG_MODE_DIRECTORY_CHOOSE:
 			content = inflater.inflate(R.layout.file_browser_layout, null);
 			mController = new ServerDialogController(mSimpleUiWrapper, content, getArguments());
+			break;
+		case ResourcesConstants.DIALOG_MODE_APP_UPDATE:
+			content = inflater.inflate(R.layout.app_update_content, null);
+			mController = new AppUpdateController(mSimpleUiWrapper, content, getArguments());
+			break;
 		default:
 			break;
 		}
@@ -230,8 +237,12 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 				YGOServerInfo info = ((ServerDialogController) mController).getServerInfo();
 				Model.peekInstance().addNewServer(info);
 				((BaseFragment)getTargetFragment()).onEventFromChild(getTargetRequestCode(), FragmentNavigationListener.FRAGMENT_NAVIGATION_DUEL_CREATE_SERVER_EVENT, -1, -1, null);
-			case  ResourcesConstants.DIALOG_MODE_DIRECTORY_CHOOSE:
-				
+			case ResourcesConstants.DIALOG_MODE_DIRECTORY_CHOOSE:
+				break;
+			case ResourcesConstants.DIALOG_MODE_APP_UPDATE:
+				String url = ((AppUpdateController) mController).getDownloadUrl();
+				new AppUpdateTask(getActivity()).execute(url);
+				break;
 			default:
 				break;
 			}

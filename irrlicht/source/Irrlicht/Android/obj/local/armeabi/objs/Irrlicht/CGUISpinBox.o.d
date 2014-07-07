@@ -62,9 +62,11 @@ obj/local/armeabi/objs/Irrlicht/CGUISpinBox.o: jni/../../CGUISpinBox.cpp \
  jni/../../CGUIEditBox.h ../../../include/IGUIEditBox.h \
  ../../../include/irrArray.h ../../../include/IOSOperator.h \
  jni/../../CGUIButton.h ../../../include/IGUIButton.h \
- ../../../include/IGUISpriteBank.h ../../../include/SColor.h \
- ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
- ../../../include/EMessageBoxFlags.h ../../../include/IEventReceiver.h \
+ ../../../include/IGUISpriteBank.h ../../../include/ITexture.h \
+ ../../../include/IImage.h ../../../include/EDriverTypes.h \
+ ../../../include/SColor.h ../../../include/IGUIEnvironment.h \
+ ../../../include/IGUISkin.h ../../../include/EMessageBoxFlags.h \
+ ../../../include/EFocusFlags.h ../../../include/IEventReceiver.h \
  ../../../include/fast_atof.h
 
 jni/../../CGUISpinBox.h:
@@ -235,6 +237,12 @@ jni/../../CGUIButton.h:
 
 ../../../include/IGUISpriteBank.h:
 
+../../../include/ITexture.h:
+
+../../../include/IImage.h:
+
+../../../include/EDriverTypes.h:
+
 ../../../include/SColor.h:
 
 ../../../include/IGUIEnvironment.h:
@@ -242,6 +250,8 @@ jni/../../CGUIButton.h:
 ../../../include/IGUISkin.h:
 
 ../../../include/EMessageBoxFlags.h:
+
+../../../include/EFocusFlags.h:
 
 ../../../include/IEventReceiver.h:
 

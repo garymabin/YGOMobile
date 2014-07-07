@@ -66,13 +66,13 @@ obj/local/x86/objs/Irrlicht/CSceneManager.o: jni/../../CSceneManager.cpp \
  ../../../include/ISceneNode.h \
  ../../../include/IAttributeExchangingObject.h \
  ../../../include/ECullingTypes.h ../../../include/EDebugSceneTypes.h \
- ../../../include/ISceneNodeAnimator.h ../../../include/IEventReceiver.h \
- ../../../include/ILogger.h ../../../include/Keycodes.h \
- ../../../include/ITriangleSelector.h ../../../include/triangle3d.h \
- ../../../include/irrList.h ../../../include/IAttributes.h \
- ../../../include/line2d.h ../../../include/quaternion.h \
- ../../../include/IXMLReader.h ../../../include/irrXML.h \
- ../../../include/EAttributes.h ../../../include/IAnimatedMesh.h \
+ ../../../include/ISceneNodeAnimator.h ../../../include/IAttributes.h \
+ ../../../include/line2d.h ../../../include/triangle3d.h \
+ ../../../include/quaternion.h ../../../include/IXMLReader.h \
+ ../../../include/irrXML.h ../../../include/EAttributes.h \
+ ../../../include/IEventReceiver.h ../../../include/ILogger.h \
+ ../../../include/Keycodes.h ../../../include/ITriangleSelector.h \
+ ../../../include/irrList.h ../../../include/IAnimatedMesh.h \
  ../../../include/SSkinMeshBuffer.h ../../../include/IMeshBuffer.h \
  ../../../include/S3DVertex.h ../../../include/SVertexIndex.h \
  ../../../include/EPrimitiveTypes.h ../../../include/ISceneNode.h \
@@ -98,9 +98,11 @@ obj/local/x86/objs/Irrlicht/CSceneManager.o: jni/../../CSceneManager.cpp \
  ../../../include/ISceneUserDataSerializer.h \
  ../../../include/IGUIEnvironment.h ../../../include/IGUISkin.h \
  ../../../include/EGUIAlignment.h ../../../include/EMessageBoxFlags.h \
- ../../../include/IMaterialRenderer.h ../../../include/IReadFile.h \
- ../../../include/IWriteFile.h ../../../include/ISceneLoader.h \
- jni/../../os.h ../../../include/irrTypes.h ../../../include/path.h \
+ ../../../include/EFocusFlags.h ../../../include/IMaterialRenderer.h \
+ ../../../include/IReadFile.h ../../../include/IWriteFile.h \
+ ../../../include/ISceneLoader.h jni/../../EProfileIDs.h \
+ ../../../include/IProfiler.h ../../../include/ITimer.h jni/../../os.h \
+ ../../../include/irrTypes.h ../../../include/path.h \
  ../../../include/ILogger.h ../../../include/ITimer.h \
  jni/../../CSkinnedMesh.h ../../../include/ISkinnedMesh.h \
  ../../../include/SMeshBuffer.h ../../../include/CMeshBuffer.h \
@@ -361,21 +363,11 @@ jni/../../CSceneManager.h:
 
 ../../../include/ISceneNodeAnimator.h:
 
-../../../include/IEventReceiver.h:
-
-../../../include/ILogger.h:
-
-../../../include/Keycodes.h:
-
-../../../include/ITriangleSelector.h:
-
-../../../include/triangle3d.h:
-
-../../../include/irrList.h:
-
 ../../../include/IAttributes.h:
 
 ../../../include/line2d.h:
+
+../../../include/triangle3d.h:
 
 ../../../include/quaternion.h:
 
@@ -384,6 +376,16 @@ jni/../../CSceneManager.h:
 ../../../include/irrXML.h:
 
 ../../../include/EAttributes.h:
+
+../../../include/IEventReceiver.h:
+
+../../../include/ILogger.h:
+
+../../../include/Keycodes.h:
+
+../../../include/ITriangleSelector.h:
+
+../../../include/irrList.h:
 
 ../../../include/IAnimatedMesh.h:
 
@@ -483,6 +485,8 @@ jni/../../CMeshCache.h:
 
 ../../../include/EMessageBoxFlags.h:
 
+../../../include/EFocusFlags.h:
+
 ../../../include/IMaterialRenderer.h:
 
 ../../../include/IReadFile.h:
@@ -490,6 +494,12 @@ jni/../../CMeshCache.h:
 ../../../include/IWriteFile.h:
 
 ../../../include/ISceneLoader.h:
+
+jni/../../EProfileIDs.h:
+
+../../../include/IProfiler.h:
+
+../../../include/ITimer.h:
 
 jni/../../os.h:
 
