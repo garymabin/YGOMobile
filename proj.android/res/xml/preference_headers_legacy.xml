@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <Preference 
+        android:title="@string/settings_common">
+        <intent 
+            android:targetPackage="cn.garymb.ygomobile"
+            android:targetClass="cn.garymb.ygomobile.SettingsActivity"
+            android:action="cn.garymb.ygomobile.prefs.PREFS_COMMON" />
+    </Preference>
+    <Preference 
+        android:title="@string/settings_game">
+        <intent 
+            android:targetPackage="cn.garymb.ygomobile"
+            android:targetClass="cn.garymb.ygomobile.SettingsActivity"
+            android:action="cn.garymb.ygomobile.prefs.PREFS_GAME" />
+    </Preference>
+    <Preference 
+        android:title="@string/settings_about"
+        android:summary="@string/app_name" >
+        <intent 
+            android:targetPackage="cn.garymb.ygomobile"
+            android:targetClass="cn.garymb.ygomobile.SettingsActivity"
+            android:action="cn.garymb.ygomobile.prefs.PREFS_ABOUT" />
+    </Preference>
+</PreferenceScreen>

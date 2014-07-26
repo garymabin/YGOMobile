@@ -6,12 +6,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        style="@style/CheckBoxAppTheme"
         android:layout_centerVertical="true"
         android:layout_marginLeft="13.33dip"
         android:clickable="false"
         android:focusable="false"
-        android:scaleType="centerInside"
-        android:src="@drawable/file_select_checkbox" />
+   />
 
     <ImageView
         android:id="@+id/item_list_icon"

@@ -24,8 +24,6 @@ public class SharingItemDelegate extends SharingItemBase {
 	 * 
 	 */
 	public SharingItemDelegate(Context context) {
-		// TODO Auto-generated constructor stub
-		
 		mContext = context;
 	}
 	
@@ -40,11 +38,10 @@ public class SharingItemDelegate extends SharingItemBase {
 	}
 
 	/* (non-Javadoc)
-	 * @see cn.mabin.lanfileshare.ui.widget.SharingItemBase#getChecked()
+	 * @see cn.garymb.ygomoile.widget.filebrowser.SharingItemBase#getChecked()
 	 */
 	@Override
 	protected boolean getChecked() {
-		// TODO Auto-generated method stub
 		if (initialized) {
 			return mSelectable.getSelected();
 		} else {
@@ -55,11 +52,10 @@ public class SharingItemDelegate extends SharingItemBase {
 	}
 
 	/* (non-Javadoc)
-	 * @see cn.mabin.lanfileshare.ui.widget.SharingItemBase#setChecked(boolean)
+	 * @see cn.garymb.ygomoile.widget.filebrowser.SharingItemBase#setChecked(boolean)
 	 */
 	@Override
 	protected void setChecked(boolean isChecked) {
-		// TODO Auto-generated method stub
 		if (initialized) {
 			mSelectable.setSelected(isChecked);
 		} else {
@@ -69,11 +65,10 @@ public class SharingItemDelegate extends SharingItemBase {
 	}
 
 	/* (non-Javadoc)
-	 * @see cn.mabin.lanfileshare.ui.widget.SharingItemBase#toggle()
+	 * @see cn.garymb.ygomoile.widget.filebrowser.SharingItemBase#toggle()
 	 */
 	@Override
 	protected void toggle() {
-		// TODO Auto-generated method stub
 		if (initialized) {
 			mSelectable.setSelected(!mSelectable.getSelected());
 		} else {
@@ -83,20 +78,18 @@ public class SharingItemDelegate extends SharingItemBase {
 	}
 
 	/* (non-Javadoc)
-	 * @see cn.mabin.lanfileshare.ui.widget.SharingItemBase#getContext()
+	 * @see cn.garymb.ygomoile.widget.filebrowser.SharingItemBase#getContext()
 	 */
 	@Override
 	protected Context getContext() {
-		// TODO Auto-generated method stub
 		return mContext;
 	}
 	
 	/* (non-Javadoc)
-	 * @see cn.mabin.lanfileshare.ui.widget.ISharingItemInterface#toggoleBackground()
+	 * @see cn.garymb.ygomoile.widget.filebrowser.ISharingItemInterface#toggoleBackground()
 	 */
 	@Override
-	public void toggoleBackground() {
-		// TODO Auto-generated method stub
+	public void toggoleBackground(boolean isPressed) {
 	}
 
 	@Override

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <group android:id="@+id/filter_group_ot" >
+        <item
+            android:id="@+id/action_ot_none"
+            android:orderInCategory="0"
+            android:showAsAction="never"
+            android:title="@string/action_filter_none"/>
+        <item
+            android:id="@+id/action_ot_ocg"
+            android:orderInCategory="1"
+            android:showAsAction="never"
+            android:title="@string/action_filter_ot_ocg"/>
+        <item
+            android:id="@+id/action_ot_tcg"
+            android:orderInCategory="2"
+            android:showAsAction="never"
+            android:title="@string/action_filter_ot_tcg"/>
+        <item
+            android:id="@+id/action_ot_ocg_tcg"
+            android:orderInCategory="3"
+            android:showAsAction="never"
+            android:title="@string/action_filter_ot_ocgtcg"/>
+    </group>
+
+</menu>

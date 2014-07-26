@@ -291,7 +291,9 @@ public:
 	irr::gui::IGUICheckBox* chkAttribute[7];
 	//announce race
 	irr::gui::IGUIWindow* wANRace;
-	irr::gui::IGUICheckBox* chkRace[23];
+	//merge 0f2fb4
+	irr::gui::IGUICheckBox* chkRace[24];
+//	irr::gui::IGUICheckBox* chkRace[23];
 	//cmd menu
 	irr::gui::IGUIWindow* wCmdMenu;
 	irr::gui::IGUIButton* btnActivate;
@@ -369,6 +371,7 @@ public:
 	s32 ogles2TrasparentAlpha;
 	s32 ogles2BlendTexture;
 	irr::android::CustomShaderConstantSetCallBack customShadersCallback;
+	Signal externalSignal;
 #endif
 
 

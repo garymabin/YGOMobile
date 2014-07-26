@@ -2,7 +2,6 @@
 <cn.garymb.ygomobile.widget.filebrowser.FileTreeItem xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
     android:paddingTop="10.66dip"

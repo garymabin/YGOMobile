@@ -34,8 +34,17 @@ extern bool getDisplayMetrics(android_app* app, SDisplayMetrics & metrics);
 // Get SDCard path.
 extern irr::io::path getExternalStorageDir(android_app* app);
 
-// Get external files path.
-extern irr::io::path getExternalFilesDir(android_app* app);
+// Get cache path.
+extern irr::io::path getCacheDir(android_app* app);
+
+// Get database path.
+extern irr::io::path getDBDir(android_app* app);
+
+// Get global resource path
+extern irr::io::path getResourcePath(android_app* app);
+
+// Get card image path.
+extern irr::io::path getCardImagePath(android_app* app);
 
 //Toggle IME using global window token.
 extern void toggleGlobalIME(android_app* app, bool pShow);
@@ -56,7 +65,7 @@ extern bool perfromTrick(android_app* app);
 extern void toggleOverlayView(android_app* app, bool pShow);
 
 //Retrive customized resource directory()
-extern irr::io::path getCustomizedResourceDir(android_app* app);
+extern irr::io::path getCoreConfigVersion(android_app* app);
 
 //Retrive opengl version.
 extern int getOpenglVersion(android_app* app);
@@ -66,6 +75,18 @@ extern int getCardQuality(android_app* app);
 
 //Retrive local ip address(mostly for wifi only);
 extern int getLocalAddr(android_app* app);
+
+//Retrive font path.
+extern irr::io::path getFontPath(android_app* app);
+
+//Retrive last deck name.
+extern irr::io::path getLastDeck(android_app* app);
+
+//save last deck name.
+extern void setLastDeck(android_app* app, const char* deckname);
+
+//Retrive font antialias options
+extern bool getFontAntiAlias(android_app* app);
 
 //Show Android compat gui;
 extern void showAndroidComboBoxCompat(android_app* app, bool pShow, char** pContents, int count, int mode = 0);

@@ -9,7 +9,7 @@ namespace ygo {
 
 class ImageManager {
 public:
-	bool Initial();
+	bool Initial(const irr::io::path dir);
 	void SetDevice(irr::IrrlichtDevice* dev);
 	void ClearTexture();
 	void RemoveTexture(int code);

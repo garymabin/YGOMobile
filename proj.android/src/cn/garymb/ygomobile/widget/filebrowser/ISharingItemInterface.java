@@ -5,8 +5,6 @@
  *      Author: mabin
  */package cn.garymb.ygomobile.widget.filebrowser;
 
-import java.util.Observable;
-
 import cn.garymb.ygomobile.widget.filebrowser.SharingItemBase.SharingItemSelectListener;
 
 
@@ -17,5 +15,5 @@ import cn.garymb.ygomobile.widget.filebrowser.SharingItemBase.SharingItemSelectL
 public interface ISharingItemInterface {
 	public void setListener(SharingItemSelectListener listener);
 	public void setUrl(String url);
-	public void toggoleBackground();
+	public void toggoleBackground(boolean isPressed);
 }

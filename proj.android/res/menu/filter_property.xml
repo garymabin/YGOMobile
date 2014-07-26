@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <group android:id="@+id/filter_group_property" >
+        <item
+            android:id="@+id/action_property_none"
+            android:orderInCategory="0"
+            android:showAsAction="never"
+            android:title="@string/action_filter_none"/>
+        <item
+            android:id="@+id/action_property_land"
+            android:orderInCategory="1"
+            android:showAsAction="never"
+            android:title="@string/action_filter_property_land"/>
+        <item
+            android:id="@+id/action_property_water"
+            android:orderInCategory="2"
+            android:showAsAction="never"
+            android:title="@string/action_filter_property_water"/>
+        <item
+            android:id="@+id/action_property_hot"
+            android:orderInCategory="3"
+            android:showAsAction="never"
+            android:title="@string/action_filter_property_hot"/>
+        <item
+            android:id="@+id/action_property_wind"
+            android:orderInCategory="4"
+            android:showAsAction="never"
+            android:title="@string/action_filter_property_wind"/>
+        <item
+            android:id="@+id/action_property_light"
+            android:orderInCategory="5"
+            android:showAsAction="never"
+            android:title="@string/action_filter_property_light"/>
+        <item
+            android:id="@+id/action_property_dark"
+            android:orderInCategory="6"
+            android:showAsAction="never"
+            android:title="@string/action_filter_property_dark"/>
+        <item
+            android:id="@+id/action_property_god"
+            android:orderInCategory="7"
+            android:showAsAction="never"
+            android:title="@string/action_filter_property_god"/>
+    </group>
+
+</menu>

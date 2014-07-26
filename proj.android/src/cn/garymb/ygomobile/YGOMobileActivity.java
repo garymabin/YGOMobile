@@ -8,20 +8,20 @@ package cn.garymb.ygomobile;
 
 import java.nio.ByteBuffer;
 
-import com.google.analytics.tracking.android.EasyTracker;
-
 import cn.garymb.ygodata.YGOGameOptions;
+import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.core.IrrlichtBridge;
 import cn.garymb.ygomobile.core.NetworkController;
-import cn.garymb.ygomobile.core.StaticApplication;
-import cn.garymb.ygomobile.util.Constants;
+import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.widget.ComboBoxCompat;
 import cn.garymb.ygomobile.widget.EditWindowCompat;
-import cn.garymb.ygomobile.widget.overlay.DuelOverlayView;
-import cn.garymb.ygomobile.widget.overlay.DuelOverlayView.OnDuelOptionsSelectListener;
+import cn.garymb.ygomobile.widget.overlay.OverlayOvalView;
+import cn.garymb.ygomobile.widget.overlay.OverlayRectView;
+import cn.garymb.ygomobile.widget.overlay.OverlayOvalView.OnDuelOptionsSelectListener;
 import android.app.NativeActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,8 +32,6 @@ import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.PopupWindow.OnDismissListener;
@@ -67,6 +65,7 @@ public class YGOMobileActivity extends NativeActivity implements
 				if (isShow) {
 					if (mOverlayShowRequest) {
 						mOverlayView.hide();
+						mChainOverlayView.hide();
 					}
 					mGlobalEditText.fillContent(hint);
 					mGlobalEditText.showAtLocation(mContentView,
@@ -97,8 +96,10 @@ public class YGOMobileActivity extends NativeActivity implements
 				boolean isShow = msg.arg1 == 1;
 				if (isShow) {
 					mOverlayView.showAtScreen(0, 0);
+					mChainOverlayView.showAtScreen(mChainControlXPostion, mChainControlYPostion);
 				} else {
 					mOverlayView.removeFromScreen();
+					mChainOverlayView.removeFromScreen();
 				}
 			}
 			default:
@@ -108,6 +109,10 @@ public class YGOMobileActivity extends NativeActivity implements
 		}
 
 	}
+	
+	private static final int CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE = 205;
+	
+	private static final int CHAIN_CONTROL_PANEL_Y_REVERT_POSITION = 100;
 
 	public static final String TAG = "YGOMobile";
 	public static final int MSG_ID_TOGGLE_IME = 0x0;
@@ -129,33 +134,12 @@ public class YGOMobileActivity extends NativeActivity implements
 	private WakeLock mLock;
 	private View mContentView;
 	private volatile boolean mOverlayShowRequest = false;
-	private DuelOverlayView mOverlayView;
+	private OverlayRectView mChainOverlayView;
+	private OverlayOvalView mOverlayView;
 	private NetworkController mNetController;
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		switch (item.getItemId()) {
-		case R.id.item_save_log:
-			throw new RuntimeException(
-					"this is an runtime exception caused by user");
-		case R.id.item_advanced_settings: {
-			Intent settingIntent = new Intent(YGOMobileActivity.this,
-					AdvancedSettingsActivity.class);
-			startActivity(settingIntent);
-		}
-		default:
-			break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+	
+	private int mChainControlXPostion;
+	private int mChainControlYPostion;
 
 	@Override
 	protected void onStart() {
@@ -165,7 +149,6 @@ public class YGOMobileActivity extends NativeActivity implements
 			mLock = mPM.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG);
 		}
 		mLock.acquire();
-		EasyTracker.getInstance(getApplicationContext()).activityStart(this);
 	}
 
 	/*
@@ -179,6 +162,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		super.onPause();
 		if (mOverlayShowRequest) {
 			mOverlayView.removeFromScreen();
+			mChainOverlayView.removeFromScreen();
 		}
 	}
 
@@ -193,6 +177,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		super.onResume();
 		if (mOverlayShowRequest) {
 			mOverlayView.showAtScreen(0, 0);
+			mChainOverlayView.showAtScreen(mChainControlXPostion, mChainControlYPostion);
 		}
 	}
 
@@ -214,7 +199,6 @@ public class YGOMobileActivity extends NativeActivity implements
 		if (mLock != null) {
 			mLock.release();
 		}
-		EasyTracker.getInstance(getApplicationContext()).activityStop(this);
 	}
 
 	/**
@@ -233,9 +217,16 @@ public class YGOMobileActivity extends NativeActivity implements
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		mHandler = new EventHandler();
+		final Resources res = getResources();
+		mChainControlXPostion = (int)(CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE * DeviceUtils.getXScale());
+		mChainControlYPostion = (int)(DeviceUtils.getScreenWidth() - CHAIN_CONTROL_PANEL_Y_REVERT_POSITION * DeviceUtils.getYScale() -
+				(res.getDimensionPixelSize(R.dimen.chain_control_button_height) * 2 + 
+						res.getDimensionPixelSize(R.dimen.chain_control_margin)));
+		
+		setRequestedOrientation(StaticApplication.peekInstance().getGameScreenOritation());
+		
 		initExtraView();
 		mPM = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mNetController = new NetworkController(getApplicationContext());
@@ -275,7 +266,9 @@ public class YGOMobileActivity extends NativeActivity implements
 		mGlobalEditText.setEditActionListener(this);
 		mGlobalEditText.setOnDismissListener(this);
 
-		mOverlayView = new DuelOverlayView(this);
+		mChainOverlayView = new OverlayRectView(this);
+		mOverlayView = new OverlayOvalView(this);
+		mChainOverlayView.setDuelOpsListener(this);
 		mOverlayView.setDuelOpsListener(this);
 	}
 
@@ -438,6 +431,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		// TODO Auto-generated method stub
 		if (mOverlayShowRequest) {
 			mOverlayView.show();
+			mChainOverlayView.show();
 		}
 	}
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="card_filter_menu_listener"/>
+    <item type="id" name="card_filter_menu"/>
+    
+    <item type="id" name="card_filter_dialog_listener"/>
+    <item type="id" name="card_filter_dialog_type"/>
+    <item type="id" name="card_filter_dialog_title"/>
+</resources>

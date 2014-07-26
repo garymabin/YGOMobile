@@ -3,7 +3,8 @@
  *
  *  Created on: 2014年3月15日
  *      Author: mabin
- */package cn.garymb.ygomobile.widget.filebrowser;
+ */
+package cn.garymb.ygomobile.widget.filebrowser;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -18,18 +19,19 @@ import android.widget.RelativeLayout;
 
 /**
  * @author mabin
- *
+ * 
  */
-public class FileTreeItem extends RelativeLayout implements Observer, ISharingItemInterface {
-	
+public class FileTreeItem extends RelativeLayout implements Observer,
+		ISharingItemInterface {
+
 	private SelectableItem mItem;
 	private static float CHECKMARK_AREA = -1;
+
 	/**
 	 * @param context
 	 */
 	public FileTreeItem(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 		init(context);
 	}
 
@@ -39,7 +41,6 @@ public class FileTreeItem extends RelativeLayout implements Observer, ISharingIt
 	 */
 	public FileTreeItem(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
 		init(context);
 	}
 
@@ -50,26 +51,25 @@ public class FileTreeItem extends RelativeLayout implements Observer, ISharingIt
 	 */
 	public FileTreeItem(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		// TODO Auto-generated constructor stub
 		init(context);
 	}
-	
+
 	protected SharingItemDelegate mDelegate;
 
 	public void setListener(SharingItemSelectListener listener) {
 		mDelegate.setListener(listener);
 	}
-	
+
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		mItem = (SelectableItem) findViewById(R.id.sharing_checkbox);
 		mDelegate.setSelectable(mItem);
 	}
-	
+
 	public void setSelectbleVisibility(boolean visible) {
 		if (mItem != null) {
-			mItem.setVisibility(visible? View.VISIBLE : View.INVISIBLE);
+			mItem.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
 		}
 	}
 
@@ -80,25 +80,24 @@ public class FileTreeItem extends RelativeLayout implements Observer, ISharingIt
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		// TODO Auto-generated method stub
-		if (mItem.getVisibility() == View.INVISIBLE) {
-			return false;
-		}
 		boolean handled = false;
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			handled = true;
+			toggoleBackground(true);
 			break;
 
 		case MotionEvent.ACTION_CANCEL:
+			toggoleBackground(false);
 			break;
 
 		case MotionEvent.ACTION_UP:
 			if (event.getX() < CHECKMARK_AREA) {
 				mDelegate.toggleCheckMark();
-				toggoleBackground();
+				toggoleBackground(mDelegate.getChecked());
 			} else {
 				performClick();
+				toggoleBackground(false);
 				return false;
 			}
 			handled = true;
@@ -113,10 +112,11 @@ public class FileTreeItem extends RelativeLayout implements Observer, ISharingIt
 
 		return handled;
 	}
-	
-	public void toggoleBackground() {
-		if (mDelegate.getChecked()) {
-			setBackgroundColor(getResources().getColor(R.color.list_background_selcted));
+
+	public void toggoleBackground(boolean isPressed) {
+		if (isPressed) {
+			setBackgroundColor(getResources().getColor(
+					R.color.trasparent_dark_purple));
 		} else {
 			setBackgroundColor(getResources().getColor(R.color.white));
 		}
@@ -130,8 +130,6 @@ public class FileTreeItem extends RelativeLayout implements Observer, ISharingIt
 	 * @return
 	 **/
 	protected void init(Context context) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		if (CHECKMARK_AREA == -1) {
 			CHECKMARK_AREA = getResources().getDimensionPixelSize(
 					R.dimen.checkmark_area);
@@ -139,19 +137,18 @@ public class FileTreeItem extends RelativeLayout implements Observer, ISharingIt
 		mDelegate = new SharingItemDelegate(context);
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
 		mDelegate.update(observable, data);
 	}
 
 	@Override
 	public void setUrl(String url) {
-		// TODO Auto-generated method stub
 		mDelegate.setUrl(url);
 	}
 }

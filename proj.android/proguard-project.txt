@@ -5,6 +5,12 @@
 
 # keep this class so that logging will show 'ACRA' and not a obfuscated name like 'a'.
 # Note: if you are removing log messages elsewhere in this file then this isn't necessary
+
+-keep class android.support.v7.** { *; }
+-keep class android.support.v4.** { *; }
+-keep interface android.support.v7.** { *; }
+-keep interface android.support.v4.** { *; }
+
 -keep class org.acra.ACRA {
     *;
 }
@@ -57,9 +63,21 @@
     
 }
 #keep StaticApplication's C++ called method
--keep class cn.garymb.ygomobile.core.StaticApplication {
+-keep class cn.garymb.ygomobile.StaticApplication {
+    public java.lang.String getCardImagePath();
+    public java.lang.String getCoreConfigVersion();
     public java.lang.String getResourcePath();
+    public java.lang.String getFontPath();
+    public java.lang.String getDataBasePath();
+    public java.lang.String getCacheDir();
+    public java.lang.String getLastDeck();
+    public void setLastDeck(java.lang.String);
     public int getOpenglVersion();
     public int getCardQuality();
-    
+    public boolean getFontAntialias();
 }
+#keep settings
+-keep class cn.garymb.ygomobile.SettingsActivity
+
+#keep preferenceFragment
+-keep class cn.garymb.ygomobile.fragment.setting.** { *; }

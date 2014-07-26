@@ -6,9 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import cn.garymb.ygomobile.CheckActivity;
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.util.FileOpsUtils;
+import cn.garymb.ygomobile.StaticApplication;
+import cn.garymb.ygomobile.utils.FileOpsUtils;
 import cn.garymb.ygomobile.widget.filebrowser.SharingItemBase.SharingItemSelectListener;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -27,7 +27,8 @@ import android.widget.Toast;
  * @brief 文件浏览组件
  * @author join
  */
-public class FileBrowser extends ListView implements android.view.View.OnClickListener{
+public class FileBrowser extends ListView implements
+		android.view.View.OnClickListener {
 
 	static final String TAG = "FileBrowser";
 
@@ -43,6 +44,8 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 
 	private int fileResId;
 
+	/** 上级目录名称 */
+	private String parentDirName = ". .";
 
 	private int display = DISPLAY_FOLDER;
 
@@ -57,7 +60,7 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 	private FileListAdapter mListAdapter;
 	private OnBrowserListener mBrowserListener;
 	private SharingItemSelectListener mItemSelectListener;
-	
+
 	public FileBrowser(Context context) {
 		super(context);
 		initFileBrowser(context);
@@ -66,7 +69,7 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 	public FileBrowser(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
-	
+
 	public FileBrowser(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs);
 		initFileBrowser(context);
@@ -88,12 +91,11 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 		setVerticalFadingEdgeEnabled(false);
 		setHorizontalFadingEdgeEnabled(false);
 	}
-	
+
 	private void initFileBrowser(Context context) {
 		mListAdapter = new FileListAdapter(context);
 		setAdapter(mListAdapter);
-		rootDir = CheckActivity.sRootPair.second;
-		browse(rootDir); 
+		rootDir = StaticApplication.sRootPair.second;
 	}
 
 	public void browse(String dir) {
@@ -111,9 +113,11 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 		mListAdapter.notifyDataSetChanged();
 	}
 
-
 	private void updateFiles() {
 		fileList.clear();
+
+		if (!isRootDir())
+			fileList.add(null);
 
 		if (currentDir == null) {
 			return;
@@ -137,15 +141,16 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 			sortFileList(fileList);
 		}
 	}
-	
+
 	public boolean isRootDir() {
 		if (currentDir == null) {
-			//when sdcard is not inserted. we assume that null folder is still our root folder.
+			// when sdcard is not inserted. we assume that null folder is still
+			// our root folder.
 			return true;
 		}
 		return currentDir.getPath().equals(rootDir);
 	}
-	
+
 	public String getRootDir() {
 		return rootDir;
 	}
@@ -177,33 +182,33 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	public void toParentDir() {
 		currentDir = currentDir.getParentFile();
 		refresh();
 		if (mBrowserListener != null) {
-			mBrowserListener.toParentDir();
+			mBrowserListener.toParentDir(currentDir.getPath());
 		}
 	}
 
 	public interface OnBrowserListener {
 
 		public void onFileItemClick(String filename);
-		
+
 		public void onDirItemClick(String path);
-		
-		public void toParentDir();
+
+		public void toParentDir(String path);
 
 	}
-	
+
 	public void setOnBrowserListener(OnBrowserListener listener) {
 		this.mBrowserListener = listener;
 	}
-	
+
 	public void setItemSelectListener(SharingItemSelectListener listener) {
 		this.mItemSelectListener = listener;
 	}
-	
+
 	private class FileListAdapter extends BaseAdapter {
 
 		private Context mContext;
@@ -226,8 +231,10 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 		public long getItemId(int position) {
 			return position;
 		}
-		
-		/* (non-Javadoc)
+
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see android.widget.BaseAdapter#isEnabled(int)
 		 */
 		@Override
@@ -244,8 +251,9 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 		private View createView(int position, View convertView, ViewGroup parent) {
 			View v;
 			if (convertView == null) {
-				FileTreeItem view = (FileTreeItem) LayoutInflater.from(mContext).inflate(
-						R.layout.file_browser_list_item, null);
+				FileTreeItem view = (FileTreeItem) LayoutInflater
+						.from(mContext).inflate(
+								R.layout.file_browser_list_item, null);
 				view.setListener(mItemSelectListener);
 				view.setOnClickListener(FileBrowser.this);
 				v = view;
@@ -258,40 +266,48 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 		}
 
 		private void bindView(int position, View view) {
-			ImageView ivFile = (ImageView) view.findViewById(R.id.item_list_icon);
+			ImageView ivFile = (ImageView) view
+					.findViewById(R.id.item_list_icon);
 			TextView tvFile = (TextView) view.findViewById(R.id.item_list_name);
-			TextView propertyText = (TextView) view.findViewById(R.id.item_property_text);
-			SelectableItem checkbox = (SelectableItem) view.findViewById(R.id.sharing_checkbox);
+			TextView propertyText = (TextView) view
+					.findViewById(R.id.item_property_text);
+			SelectableItem checkbox = (SelectableItem) view
+					.findViewById(R.id.sharing_checkbox);
 			File current = fileList.get(position);
 
 			if (current == null) {
-				((FileTreeItem)view).setVisibility(View.GONE);
+				checkbox.setChecked(false);
+				((FileTreeItem) view).setSelectbleVisibility(false);
+				if (folderResId > 0)
+					ivFile.setImageResource(folderResId);
+				tvFile.setText(parentDirName);
 			} else {
-				String url = FileOpsUtils.getFilePathFromUrl(current.getAbsolutePath());
+				String url = FileOpsUtils.getFilePathFromUrl(current
+						.getAbsolutePath());
 				if (current.isDirectory()) {
 					if (folderResId > 0)
 						ivFile.setImageResource(folderResId);
 					tvFile.setText(current.getName());
-					((FileTreeItem)view).setUrl(url);
-					checkbox.setSelected(mItemSelectListener.isFileSelected(url));
-					((FileTreeItem)view).setSelectbleVisibility(true);
-				} else {
-					tvFile.setText(current.getName());
-					ivFile.setImageResource(fileResId);
-					((FileTreeItem)view).setSelectbleVisibility(false);
+					((FileTreeItem) view).setUrl(url);
+					((FileTreeItem) view).setSelectbleVisibility(true);
+					checkbox.setChecked(mItemSelectListener
+							.isFileSelected(url));
+					((FileTreeItem) view).toggoleBackground(mItemSelectListener
+							.isFileSelected(url));
+					propertyText.setText(FileOpsUtils.formatTime(current
+							.lastModified()));
 				}
-				((FileTreeItem)view).toggoleBackground();
-				propertyText.setText(FileOpsUtils.formatTime(current.lastModified()));
 			}
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		int position = (Integer) v.getTag();
 		File file = fileList.get(position);
 		if (file == null) {
@@ -299,7 +315,7 @@ public class FileBrowser extends ListView implements android.view.View.OnClickLi
 		} else if (file.isDirectory()) {
 			if (file.exists() && file.canRead()) {
 				currentDir = file;
-	            refresh(); // 刷新
+				refresh(); // 刷新
 				if (mBrowserListener != null) {
 					mBrowserListener.onDirItemClick(file.getPath());
 				}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AppTheme" parent="@style/_AppTheme"/>
+  
+  <style name="SettingsTheme" parent="@style/_AppTheme"/>
+
+  <style name="_AppTheme" parent="Theme.AppCompat.Light">
+      
+    <item name="android:buttonStyle">@style/ButtonAppTheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
+    
+    <item name="android:editTextStyle">@style/EditTextAppTheme</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxAppTheme</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerAppTheme</item>
+    
+    <item name="android:radioButtonStyle">@style/RadioButtonAppTheme</item>
+
+    <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/apptheme_btn_check_holo_light</item>
+    
+    <item name="android:spinnerDropDownItemStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>
+    
+    <item name="android:dropDownListViewStyle">@style/DropDownListViewTheme</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/DropDownSpinnerAppTheme</item>
+    
+    <item name="android:actionModeBackground">@drawable/ab_dark_purper</item>
+    
+    <item name="android:listChoiceIndicatorSingle">@drawable/apptheme_btn_radio_holo_light</item>
+    
+    <item name="android:actionBarItemBackground">@drawable/apptheme_list_selector_holo_light</item>
+    
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
+    
+    <item name="sdlDialogStyle">@style/CustomDialog</item>
+    
+  </style>
+
+</resources>

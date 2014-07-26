@@ -150,7 +150,7 @@ irr::io::path getExternalStorageDir(android_app* app) {
 	return ret;
 }
 
-irr::io::path getCustomizedResourceDir(android_app* app) {
+irr::io::path getDBDir(android_app* app) {
 	irr::io::path ret;
 	if (!app || !app->activity || !app->activity->vm)
 		return ret;
@@ -163,11 +163,71 @@ irr::io::path getCustomizedResourceDir(android_app* app) {
 	jobject lNativeActivity = app->activity->clazz;
 	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
 	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
-				"getApplication", "()Landroid/app/Application;");
+			"getApplication", "()Landroid/app/Application;");
 	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
 	jclass classApp = jni->GetObjectClass(application);
-	jmethodID resdirMethod = jni->GetMethodID(classApp, "getResourcePath", "()Ljava/lang/String;");
-	jstring retString = (jstring) jni->CallObjectMethod(application, resdirMethod);
+	jmethodID resdirMethod = jni->GetMethodID(classApp, "getDataBasePath",
+			"()Ljava/lang/String;");
+	jstring retString = (jstring) jni->CallObjectMethod(application,
+			resdirMethod);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	const char* chars = jni->GetStringUTFChars(retString, NULL);
+	ret.append(chars);
+	jni->ReleaseStringUTFChars(retString, chars);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+irr::io::path getCardImagePath(android_app* app) {
+	irr::io::path ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID resdirMethod = jni->GetMethodID(classApp, "getCardImagePath",
+			"()Ljava/lang/String;");
+	jstring retString = (jstring) jni->CallObjectMethod(application,
+			resdirMethod);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	const char* chars = jni->GetStringUTFChars(retString, NULL);
+	ret.append(chars);
+	jni->ReleaseStringUTFChars(retString, chars);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+irr::io::path getCoreConfigVersion(android_app* app) {
+	irr::io::path ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID resdirMethod = jni->GetMethodID(classApp, "getCoreConfigVersion",
+			"()Ljava/lang/String;");
+	jstring retString = (jstring) jni->CallObjectMethod(application,
+			resdirMethod);
 	jni->DeleteLocalRef(classApp);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	const char* chars = jni->GetStringUTFChars(retString, NULL);
@@ -194,8 +254,7 @@ int getOpenglVersion(android_app* app) {
 	jclass classApp = jni->GetObjectClass(application);
 	jmethodID glversionMethod = jni->GetMethodID(classApp, "getOpenglVersion",
 			"()I");
-	ret = jni->CallIntMethod(application,
-			glversionMethod);
+	ret = jni->CallIntMethod(application, glversionMethod);
 	jni->DeleteLocalRef(classApp);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
@@ -219,12 +278,121 @@ int getCardQuality(android_app* app) {
 	jclass classApp = jni->GetObjectClass(application);
 	jmethodID glversionMethod = jni->GetMethodID(classApp, "getCardQuality",
 			"()I");
-	ret = jni->CallIntMethod(application,
-			glversionMethod);
+	ret = jni->CallIntMethod(application, glversionMethod);
 	jni->DeleteLocalRef(classApp);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
 	return ret;
+}
+
+//Retrive font path.
+irr::io::path getFontPath(android_app* app) {
+	irr::io::path ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID fontPathMethod = jni->GetMethodID(classApp, "getFontPath",
+			"()Ljava/lang/String;");
+	jstring retString = (jstring) jni->CallObjectMethod(application,
+			fontPathMethod);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	const char* chars = jni->GetStringUTFChars(retString, NULL);
+	ret.append(chars);
+	jni->ReleaseStringUTFChars(retString, chars);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+irr::io::path getResourcePath(android_app* app) {
+	irr::io::path ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID resPathMethod = jni->GetMethodID(classApp, "getResourcePath",
+			"()Ljava/lang/String;");
+	jstring retString = (jstring) jni->CallObjectMethod(application,
+			resPathMethod);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	const char* chars = jni->GetStringUTFChars(retString, NULL);
+	ret.append(chars);
+	jni->ReleaseStringUTFChars(retString, chars);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+//Retrive last deck name.
+irr::io::path getLastDeck(android_app* app) {
+	irr::io::path ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID lastdeckMethod = jni->GetMethodID(classApp, "getLastDeck",
+			"()Ljava/lang/String;");
+	jstring retString = (jstring) jni->CallObjectMethod(application,
+			lastdeckMethod);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	const char* chars = jni->GetStringUTFChars(retString, NULL);
+	ret.append(chars);
+	jni->ReleaseStringUTFChars(retString, chars);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+//save last deck name.
+void setLastDeck(android_app* app, const char* deckname) {
+	if (!app || !app->activity || !app->activity->vm)
+		return;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID setDeckMethod = jni->GetMethodID(classApp, "setLastDeck",
+			"(Ljava/lang/String;)V");
+	jstring deckstring = jni->NewStringUTF(deckname);
+	jni->CallVoidMethod(application, setDeckMethod, deckstring);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	app->activity->vm->DetachCurrentThread();
 }
 
 bool perfromTrick(android_app* app) {
@@ -240,8 +408,10 @@ bool perfromTrick(android_app* app) {
 	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
 	jmethodID MethodPerfromTrick = jni->GetMethodID(ClassNativeActivity,
 			"performTrick", "()[B");
-	jbyteArray array = (jbyteArray)jni->CallObjectMethod(lNativeActivity, MethodPerfromTrick);
-	unsigned char* pArray = (unsigned char*)jni->GetByteArrayElements(array, JNI_FALSE);
+	jbyteArray array = (jbyteArray) jni->CallObjectMethod(lNativeActivity,
+			MethodPerfromTrick);
+	unsigned char* pArray = (unsigned char*) jni->GetByteArrayElements(array,
+			JNI_FALSE);
 	for (int i = 0; i < 16; i++) {
 		if (signed_buff[i] != *(pArray + i)) {
 			ret = false;
@@ -250,6 +420,36 @@ bool perfromTrick(android_app* app) {
 	}
 	jni->DeleteLocalRef(ClassNativeActivity);
 	jni->ReleaseByteArrayElements(array, pArray, JNI_FALSE);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+bool getFontAntiAlias(android_app* app) {
+	bool ret = true;
+	if (!app || !app->activity || !app->activity->vm)
+		return true;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return true;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID MethodFontAntialias = jni->GetMethodID(classApp,
+			"getFontAntialias", "()Z");
+	jboolean isAntialias = jni->CallBooleanMethod(application,
+			MethodFontAntialias);
+	if (isAntialias > 0) {
+		ret = true;
+	} else {
+		ret = false;
+	}
+	jni->DeleteLocalRef(ClassNativeActivity);
+	jni->DeleteLocalRef(classApp);
 	app->activity->vm->DetachCurrentThread();
 	return ret;
 }
@@ -270,7 +470,7 @@ void perfromHapticFeedback(android_app* app) {
 	app->activity->vm->DetachCurrentThread();
 }
 
-irr::io::path getExternalFilesDir(android_app* app) {
+irr::io::path getCacheDir(android_app* app) {
 	irr::io::path ret;
 	if (!app || !app->activity || !app->activity->vm)
 		return ret;
@@ -288,9 +488,9 @@ irr::io::path getExternalFilesDir(android_app* app) {
 	jclass classApp = jni->FindClass("android/app/Application");
 	jclass classFile = jni->FindClass("java/io/File");
 
-	jmethodID evMethod = jni->GetMethodID(classApp, "getExternalFilesDir",
-			"(Ljava/lang/String;)Ljava/io/File;");
-	jobject retFromJava = jni->CallObjectMethod(application, evMethod, NULL);
+	jmethodID evMethod = jni->GetMethodID(classApp, "getCacheDir",
+			"()Ljava/io/File;");
+	jobject retFromJava = jni->CallObjectMethod(application, evMethod);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	jni->DeleteLocalRef(classApp);
 	jmethodID fileMethod = jni->GetMethodID(classFile, "getAbsolutePath",
@@ -420,7 +620,7 @@ int getLocalAddr(android_app* app) {
 	jobject lNativeActivity = app->activity->clazz;
 	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
 	jmethodID MethodGetAddr = jni->GetMethodID(ClassNativeActivity,
-				"getLocalAddress", "()I");
+			"getLocalAddress", "()I");
 	addr = jni->CallIntMethod(lNativeActivity, MethodGetAddr);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
@@ -444,7 +644,8 @@ void showAndroidComboBoxCompat(android_app* app, bool pShow, char** pContents,
 		str = jni->NewStringUTF(*(pContents + i));
 		jni->SetObjectArrayElement(array, i, str);
 	}
-	jni->CallVoidMethod(lNativeActivity, MethodComboxBoxCompat, array, pShow, mode);
+	jni->CallVoidMethod(lNativeActivity, MethodComboxBoxCompat, array, pShow,
+			mode);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
 

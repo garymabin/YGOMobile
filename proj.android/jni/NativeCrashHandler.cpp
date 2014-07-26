@@ -3,6 +3,7 @@
 
 #include <jni.h>
 #include <android/log.h>
+#include <stdio.h>
 
 #include <unistd.h>
 #include <signal.h>

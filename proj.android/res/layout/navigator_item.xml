@@ -17,7 +17,6 @@
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="14.67sp"
-        android:textColor="@color/bottom_button_color"
         android:focusableInTouchMode="false" />
 
     <ImageView

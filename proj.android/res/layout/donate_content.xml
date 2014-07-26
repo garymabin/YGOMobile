@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <TextView
+            android:id="@+id/donate_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/support_us_des"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/donate_header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dip"
+            android:text="@string/support_via"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <cn.garymb.ygomobile.widget.DonateItemsLayout
+            android:id="@+id/donate_via_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </cn.garymb.ygomobile.widget.DonateItemsLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip" >
+
+            <TextView
+                android:id="@+id/donate_extra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/support_extra"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/qrcode_view"
+                android:layout_width="200dip"
+                android:layout_height="200dip"
+                android:layout_below="@id/donate_extra"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/qrcode" 
+                android:contentDescription="@string/app_name"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

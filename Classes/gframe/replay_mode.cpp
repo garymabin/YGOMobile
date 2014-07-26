@@ -58,15 +58,22 @@ int ReplayMode::ReplayThread(void* param) {
 	mtrandom rnd;
 	int seed = rh.seed;
 	rnd.reset(seed);
+	unsigned char buffer[40];
 	if(rh.flag & REPLAY_TAG) {
-		cur_replay.ReadData(mainGame->dInfo.hostname, 40);
-		cur_replay.ReadData(mainGame->dInfo.hostname_tag, 40);
-		cur_replay.ReadData(mainGame->dInfo.clientname_tag, 40);
-		cur_replay.ReadData(mainGame->dInfo.clientname, 40);
+		cur_replay.ReadData(buffer, 40);
+		BufferIO::CopyWStr((unsigned short*)&buffer[0], mainGame->dInfo.hostname, 20);
+		cur_replay.ReadData(buffer, 40);
+		BufferIO::CopyWStr((unsigned short*)&buffer[0], mainGame->dInfo.hostname_tag, 20);
+		cur_replay.ReadData(buffer, 40);
+		BufferIO::CopyWStr((unsigned short*)&buffer[0], mainGame->dInfo.clientname_tag, 20);
+		cur_replay.ReadData(buffer, 40);
+		BufferIO::CopyWStr((unsigned short*)&buffer[0], mainGame->dInfo.clientname, 20);
 		mainGame->dInfo.isTag = true;
 	} else {
-		cur_replay.ReadData(mainGame->dInfo.hostname, 40);
-		cur_replay.ReadData(mainGame->dInfo.clientname, 40);
+		cur_replay.ReadData(buffer, 40);
+		BufferIO::CopyWStr((unsigned short*)&buffer[0], mainGame->dInfo.hostname, 20);
+		cur_replay.ReadData(buffer, 40);
+		BufferIO::CopyWStr((unsigned short*)&buffer[0], mainGame->dInfo.clientname, 20);
 	}
 	set_card_reader((card_reader)DataManager::CardReader);
 	set_message_handler((message_handler)MessageHandler);
@@ -153,6 +160,11 @@ int ReplayMode::ReplayThread(void* param) {
 			is_continuing = ReplayAnalyze(engineBuffer, len);
 		}
 	}
+	if(mainGame->dInfo.isReplaySkiping) {
+		mainGame->dInfo.isReplaySkiping = false;
+		mainGame->dField.RefreshAllCards();
+		mainGame->gMutex.Unlock();
+	}
 	end_duel(pduel);
 	if(!is_closing) {
 		mainGame->actionSignal.Reset();
@@ -196,6 +208,7 @@ bool ReplayMode::ReplayAnalyze(char* msg, unsigned int len) {
 		switch (mainGame->dInfo.curMsg) {
 		case MSG_RETRY: {
 			if(mainGame->dInfo.isReplaySkiping) {
+				mainGame->dInfo.isReplaySkiping = false;
 				mainGame->dField.RefreshAllCards();
 				mainGame->gMutex.Unlock();
 			}
@@ -214,6 +227,7 @@ bool ReplayMode::ReplayAnalyze(char* msg, unsigned int len) {
 		}
 		case MSG_WIN: {
 			if(mainGame->dInfo.isReplaySkiping) {
+				mainGame->dInfo.isReplaySkiping = false;
 				mainGame->dField.RefreshAllCards();
 				mainGame->gMutex.Unlock();
 			}

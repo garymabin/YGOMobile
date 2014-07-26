@@ -13,31 +13,36 @@
 namespace irr {
 namespace android {
 
-YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), m_proomName(NULL), m_proomPasswd(NULL){
+YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), m_proomName(NULL), m_proomPasswd(NULL),
+		m_phostInfo(NULL){
 	//read ip addr
 	char log[128];
 	char * rawdata = (char*)data;
 	int tmplength = ::BufferIO::ReadInt32(rawdata);
-	sprintf(log, "%d", tmplength);
-	irr::os::Printer::log(log);
-	m_pipAddr = new char[tmplength + 1];
-	memset(m_pipAddr, 0, tmplength + 1);
-	memcpy(m_pipAddr, rawdata, tmplength);
-	rawdata += tmplength;
+	if (tmplength != 0) {
+		m_pipAddr = new char[tmplength + 1];
+		memset(m_pipAddr, 0, tmplength + 1);
+		memcpy(m_pipAddr, rawdata, tmplength);
+		rawdata += tmplength;
+	}
 
 	//read user name
 	tmplength = ::BufferIO::ReadInt32(rawdata);
-	m_puserName = new char[tmplength + 1];
-	memset(m_puserName, 0, tmplength + 1);
-	memcpy(m_puserName, rawdata, tmplength);
-	rawdata += tmplength;
+	if (tmplength != 0) {
+		m_puserName = new char[tmplength + 1];
+		memset(m_puserName, 0, tmplength + 1);
+		memcpy(m_puserName, rawdata, tmplength);
+		rawdata += tmplength;
+	}
 
 	//read room name
 	tmplength = ::BufferIO::ReadInt32(rawdata);
-	m_proomName = new char[tmplength + 1];
-	memset(m_proomName, 0, tmplength + 1);
-	memcpy(m_proomName, rawdata, tmplength);
-	rawdata += tmplength;
+	if (tmplength != 0) {
+		m_proomName = new char[tmplength + 1];
+		memset(m_proomName, 0, tmplength + 1);
+		memcpy(m_proomName, rawdata, tmplength);
+		rawdata += tmplength;
+	}
 
 	//read room password
 	tmplength = ::BufferIO::ReadInt32(rawdata);
@@ -46,17 +51,29 @@ YGOGameOptions::YGOGameOptions(void* data): m_pipAddr(NULL), m_puserName(NULL), 
 		memcpy(m_proomPasswd, rawdata, tmplength);
 		rawdata += tmplength;
 	}
+	//read host info
+	tmplength = ::BufferIO::ReadInt32(rawdata);
+	if (tmplength != 0) {
+		m_phostInfo = new char[tmplength + 1];
+		memset(m_phostInfo, 0, tmplength + 1);
+		memcpy(m_phostInfo, rawdata, tmplength);
+		rawdata += tmplength;
+	}
 
 	m_port = ::BufferIO::ReadInt32(rawdata);
 	m_mode = ::BufferIO::ReadInt32(rawdata);
-	m_rule = ::BufferIO::ReadInt32(rawdata);
-	m_startLP = ::BufferIO::ReadInt32(rawdata);
-	m_startHand = ::BufferIO::ReadInt32(rawdata);
-	m_drawCount = ::BufferIO::ReadInt32(rawdata);
+	m_isCompleteOptions = ::BufferIO::ReadInt32(rawdata) == 1;
 
-	m_enablePriority = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
-	m_noDeckCheck = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
-	m_noDeckShuffle = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
+	if (m_isCompleteOptions) {
+		m_rule = ::BufferIO::ReadInt32(rawdata);
+		m_startLP = ::BufferIO::ReadInt32(rawdata);
+		m_startHand = ::BufferIO::ReadInt32(rawdata);
+		m_drawCount = ::BufferIO::ReadInt32(rawdata);
+
+		m_enablePriority = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
+		m_noDeckCheck = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
+		m_noDeckShuffle = ::BufferIO::ReadInt32(rawdata) == 1 ? 'T' : 'F';
+	}
 }
 
 YGOGameOptions::~YGOGameOptions() {

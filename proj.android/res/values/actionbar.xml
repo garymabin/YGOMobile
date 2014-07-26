@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="action_basic_group"/>
+    <item type="id" name="action_extra_group"/>
+    
+    <item type="id" name="action_new"/>
+    <item type="id" name="action_filter"/>
+    <item type="id" name="action_settings"/>
+    <item type="id" name="action_search"/>
+    <item type="id" name="action_play"/>
+    <item type="id" name="action_loading"/>
+    <item type="id" name="action_support"/>
+    <item type="id" name="action_reset"/>
+</resources>

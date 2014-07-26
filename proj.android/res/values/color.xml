@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <color name="main_title_bar">#4b536e</color>
-    <color name="search_box_text_color">#626262</color>
-    <color name="recent_file_background">#f1f1f1</color>
-    <color name="recent_file_text_color">#454545</color>
-    <color name="recent_file_divider_color">#d9d9d9</color>
-    <color name="file_category_name_text_color">#333333</color>
-    <color name="file_category_count_text_color">#a1a5a9</color>
-    <color name="bottom_button_color">#666666</color>
     <color name="file_name_text_color">#333333</color>
     <color name="file_property_text_color">#a1a5a9</color>
-    <color name="file_line_divider_color">#e0e0e0</color>
     <color name="navigator_dir_text_color">#666666</color>
     <color name="navigator_dir_text_color_selected">#ff8a00</color>
     <color name="white">#ffffff</color>
-    <color name="yellow">#f9f902</color>
-    <color name="red">#ffff0000</color>
-    <color name="light_blue">#87CEFA</color>
-    <color name="dk_gray">#ff444444</color>
-    <color name="medium_gray">#ff888888</color>
-    <color name="light_gray">#ffCCCCCC</color>
-    <color name="light_green">#7FFFD4</color>
-    <color name="dark_gold">#FF7F24</color>
 	<color name="black">#000000</color>
-	<color name="translucent_dark_gray">#80222222</color>
-	<color name="blue">#FF0000AA</color>
-	<color name="translucent_green">#80008B00</color>
-	<color name="list_background_selcted">#15000000</color>
-	<color name="grid_background_selcted">#7F000000</color>
-	<color name="color_bottom_tab_bg">#353a3f</color>
-	<color name="item_summary_text_color">#898989</color>
+	
+	<color name="holo_gray_light">#33999999</color>
 	<color name="low_translucent_cover">#10000000</color>
+	<color name="file_line_divider_color">#e0e0e0</color>
+	
+	
+	<!-- for navigation drawer & actionbar title -->
+	<color name="trasparent_dark_purple">#669933CC</color>
+	<color name="less_trasparent_dark_purple">#339933CC</color>
+	<color name="dark_trasparent_dark_purple">#999933CC</color>
+	<color name="dark_purple">#9933CC</color>
+	
 </resources>

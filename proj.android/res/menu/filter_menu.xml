@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/filter_menu_type"
+        android:icon="@drawable/ic_action_type"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/action_filter_string_type"/>
+    <item
+        android:id="@+id/filter_menu_race"
+        android:icon="@drawable/ic_action_filter_race"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:title="@string/action_filter_string_race"/>
+    <item
+        android:id="@+id/filter_menu_property"
+        android:icon="@drawable/ic_action_filter_property"
+        android:orderInCategory="3"
+        android:showAsAction="always"
+        android:title="@string/action_filter_string_property"/>
+    <item
+        android:id="@+id/filter_menu_more"
+        android:icon="@drawable/ic_action_navigation_next_item"
+        android:orderInCategory="4"
+        android:showAsAction="always"
+        android:title="@string/action_filter_string_more"/>
+
+</menu>

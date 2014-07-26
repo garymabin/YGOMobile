@@ -1,31 +1,168 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="menu_savelog">保存日志</string>
-    <string name="menu_advanced_settings">高级设置</string>
+<resources>
     <string name="app_name">YGOMobile</string>
     <string name="crash_title">应用程序崩溃</string>
-    <string name="crashed">w(ﾟДﾟ)w.. YGOMobile 崩溃啦！</string>
-    <string name="crash_dialog_comment_prompt">YGOMobile 崩溃了喵，请将错误日志通过邮件发送给俺们喵，有其他想法可以在下面反馈喵!</string>
+    <string name="crashed">w(ﾟДﾟ)w.. YGOMobile崩溃啦！</string>
+    <string name="crash_dialog_comment_prompt">YGOMobile崩溃了喵，请将错误日志通过邮件发送给俺们喵，有其他想法可以在下面反馈喵!</string>
+    
+    <string name="ignore_chain">忽略连锁</string>
+    <string name="react_chain">显示连锁</string>
     <string name="crash_dialog_ok_toast">感谢喵!</string>
-    <string name="button_cancel">取消</string>
+    <string name="action_settings">设置</string>
+    <string name="action_support">支持我们</string>
+    <string name="action_reset">重置</string>
+    <string name="action_play">开始游戏</string>
+    <string name="action_search">搜索</string>
+    <string name="item_type_text">类别：</string>
+    <string name="item_ot_text">归属：</string>
+    <string name="item_name_text">名称：</string>
+    <string name="item_level_text">星级：</string>
+    <string name="item_race_text">种族：</string>
+    <string name="item_attr_text">属性：</string>
+    <string name="item_atk_text">攻击力：</string>
+    <string name="item_def_text">防御力：</string>
+    <string name="item_des_text">卡片描述：</string>
+    <string name="item_wiki_text">卡片调整：</string>
+    <string name="wiki_hint_text">&lt;&lt;p>&lt;a href="wiki">&lt;u>来自ourocg.cn的链接&lt;/u>&lt;/a></string>
+    
+    <string name="access_denied">无访问权限！</string>
+    <string name="choose_folder">选择目录：</string>
+    <string name="root_dir">根目录</string>
+    
+    <string name="button_update">更新</string>
+    <string name="button_create">创建</string>
     <string name="button_ok">确定</string>
-    <string name="combobox_choose_item">请选择一项</string>
-    <string name="choose_resource_dir">请选择资源目录</string>
-    <string name="res_error_sdcard_not_avail">Sdcard卡不可用！</string>
-    <string name="res_error_not_exist">资源目录不可用，请重新指定目录！</string>
-    <string name="res_error_config_not_exist">配置文件不可用，请重新指定目录！</string>
-    <string name="res_error_db_file_not_exist">卡片数据库不可用，请重新指定目录！</string>
-    <string name="res_error_unknown">未知错误！</string>
-    <string name="access_denied">拒绝访问！</string>
-    <string name="file_browser_directory_items">共<xliff>%1$1d</xliff>项</string>
-    <string name="file_navigator_root_dir">根目录</string>
-    <string name="text_select_res">请选择资源目录</string>
-    <string name="advanced_settings">高级设置</string>
+    <string name="button_cancel">取消</string>
     <string name="cancel">取消</string>
-    <string name="opengl">Opengl</string>
-    <string name="restart_hint">请重启游戏以生效</string>
-    <string name="refresh_texture">R</string>
-    <string name="ignore_chain">S</string>
-    <string name="react_chain">A</string>
-    <string name="card_quality">卡图质量</string>
+    <string name="combobox_choose_item">请选择一项</string>
+    <string name="action_filter">筛选</string>
+    <string name="action_filter_none">（无）</string>
+    <string name="action_filter_string_type">种类</string>
+    <string name="action_filter_string_race">种族</string>
+    <string name="action_filter_string_property">属性</string>
+    <string name="action_filter_string_more">更多</string>
+    <string name="action_filter_type_spell">魔法</string>
+    <string name="action_filter_type_spell_quick_play">速攻</string>
+    <string name="action_filter_type_spell_ritual">仪式</string>
+    <string name="action_filter_type_spell_equip">装备</string>
+    <string name="action_filter_type_spell_field">场地</string>
+    <string name="action_filter_type_spell_continuous">永续</string>
+    <string name="action_filter_type_trap">陷阱</string>
+    <string name="action_filter_type_trap_continuous">永续</string>
+    <string name="action_filter_type_trap_counter">反击</string>
+    <string name="action_filter_type_monster">怪物</string>
+    <string name="action_filter_type_monster_normal">通常</string>
+    <string name="action_filter_type_monster_effect">效果</string>
+    <string name="action_filter_type_monster_fusion">融合</string>
+    <string name="action_filter_type_monster_ritual">仪式</string>
+    <string name="action_filter_type_monster_synchro">同调</string>
+    <string name="action_filter_type_monster_xyz">超量</string>
+    <string name="action_filter_type_monster_tunner">调整</string>
+    <string name="action_filter_type_monster_gemini">二重</string>
+    <string name="action_filter_type_monster_union">同盟</string>
+    <string name="action_filter_type_monster_token">衍生物</string>
+    <string name="action_filter_type_monster_spirit">灵魂</string>
+    <string name="action_filter_type_monster_flip">反转</string>
+    <string name="action_filter_type_monster_toon">卡通</string>
+    <string name="action_filter_type_monster_pendulum">摇摆</string>
+    
+    <string name="action_filter_property_land">地</string>
+    <string name="action_filter_property_water">水</string>
+    <string name="action_filter_property_hot">炎</string>
+    <string name="action_filter_property_wind">风</string>
+    <string name="action_filter_property_light">光</string>
+    <string name="action_filter_property_dark">暗</string>
+    <string name="action_filter_property_god">神</string>
+    
+    
+    <string name="action_filter_race_warrior">战士</string>
+    <string name="action_filter_race_magic">魔法使</string>
+    <string name="action_filter_race_angel">天使</string>
+    <string name="action_filter_race_devil">恶魔</string>
+    <string name="action_filter_race_ud">不死</string>
+    <string name="action_filter_race_machanical">机械</string>
+    <string name="action_filter_race_land">地</string>
+    <string name="action_filter_race_water">水</string>
+    <string name="action_filter_race_hot">炎</string>
+    <string name="action_filter_race_rock">岩石</string>
+    <string name="action_filter_race_birds">鸟兽</string>
+    <string name="action_filter_race_plant">植物</string>
+    <string name="action_filter_race_insect">昆虫</string>
+    <string name="action_filter_race_thunder">雷</string>
+    <string name="action_filter_race_dragon">龙</string>
+    <string name="action_filter_race_orc">兽</string>
+    <string name="action_filter_race_orc_warrior">兽战士</string>
+    <string name="action_filter_race_dinosaur">恐龙</string>
+    <string name="action_filter_race_fish">鱼</string>
+    <string name="action_filter_race_sea_otter">海龙</string>
+    <string name="action_filter_race_reptile">爬虫</string>
+    <string name="action_filter_race_telekenesis">念动力</string>
+    <string name="action_filter_race_devine_beast">幻神兽</string>
+    <string name="action_filter_race_bramna">创造神</string>
+    <string name="action_filter_race_phantom_dragon">幻龙</string>
+    
+    <string name="action_filter_ot_ocg">OCG</string>
+    <string name="action_filter_ot_tcg">TCG</string>
+    <string name="action_filter_ot_ocgtcg">OCG/TCG</string>
+    
+    <string name="action_filter_atk">攻击力</string>
+    <string name="action_filter_def">防御力</string>
+    <string name="card_search_hint">请输入卡片名称或者代码</string>
+    
+    <string name="action_filter_level">星等</string>
+    <string name="action_filter_effect">效果</string>
+    
+    <string name="donate">捐助</string>
+    <string name="support_us_des">YGOMobile属于个人开源项目，您的支持将会让我更加努力优化软件质量，改进软件服务</string>
+    <string name="support_via">您可以通过以下方式对我们进行捐助：</string>
+    <string name="support_extra">如果这不是您的常用设备，您也可以用其他手机扫描下面二维码进行捐助</string>
+    <string name="support_method_alipay_wap">通过wap网页进行捐助</string>
+    <string name="support_method_alipay_mobile_installed">通过已安装的手机钱包进行捐助</string>
+    <string name="support_method_alipay_mobile_not_installed">提示下载手机钱包后进行捐助</string>
+    <string name="settings_common">常规设置</string>
+    <string name="settings_game">游戏设置</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_common_sub_common">常规</string>
+    <string name="settings_about_sub_about">关于</string>
+    <string name="settings_common_card_image_network_pref">2/3G网络下不下载卡图</string>
+    <string name="settings_game_screen_orientation">游戏中锁定屏幕方向</string>
+    <string name="settings_game_font_antialias">开启字体抗锯齿</string>
+    <string name="settings_game_font_antialias_summary">关闭此选项可提高游戏帧数</string>
+    <string name="settings_about_author_pref">作者</string>
+    <string name="settings_about_version_pref">版本</string>
+    <string name="settings_about_opensource_pref">开源许可</string>
+    <string name="settings_about_check_update">检查更新</string>
+    <string name="settings_about_no_update">当前已经是最新版本！</string>
+    <string name="settings_about_change_log">版本更新记录</string>
+    <string name="settings_about_new_version">新版本</string>
+    <string name="settings_game_card_quality">卡图质量</string>
+    <string name="settings_game_card_path">卡图存放路径</string>
+    <string name="settings_game_font_name">字体列表</string>
+    <string name="settings_game_res_path">资源路径</string>
+    <string name="settings_category_diy">个性化</string>
+    <string name="settings_game_diy_cover">游戏背景</string>
+    <string name="settings_game_diy_des">当前使用图片：</string>
+    <string name="settings_game_diy_history_des">历史图片：</string>
+    <string name="settings_game_cover">背景图</string>
+    
+    <string name="image_not_load_toast">无法加载指定图片</string>
+    
+    <string name="copying_image">正在拷贝图片</string>
+    
+    <string name="server_user_name">用户名：</string>
+    <string name="server_name">名称：</string>
+    <string name="server_ip">IP地址:</string>
+    <string name="server_port">端口:</string>
+    <string name="server_info">主机密码（可选）：</string>
+    <string name="action_new_server">添加服务器</string>
+    <string name="action_edit_server">编辑服务器</string>
+    
+    <string name="range_to">到</string>
+    
+    <string name="action_delete">删除</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_connect">连接</string>
+    
+    <string name="toast_delete">已删除 %1$s</string>
+    <string name="exit_hint">"再按一次退出YGOMobile喵！"</string>
 </resources>
