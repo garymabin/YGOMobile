@@ -1,0 +1,354 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DCEED1961983CB0B00D49E51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEED1951983CB0B00D49E51 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCEED1FD1983D49D00D49E51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCEED1F81983D49D00D49E51 /* crypto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCEED1CF1983D49D00D49E51;
+			remoteInfo = crypto;
+		};
+		DCEED1FF1983D49D00D49E51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCEED1F81983D49D00D49E51 /* crypto.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCEED1DF1983D49D00D49E51;
+			remoteInfo = cryptoTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DCEED1901983CB0B00D49E51 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DCEED1921983CB0B00D49E51 /* libopenssl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenssl.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCEED1951983CB0B00D49E51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DCEED1991983CB0B00D49E51 /* openssl-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openssl-Prefix.pch"; sourceTree = "<group>"; };
+		DCEED1A31983CB0B00D49E51 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DCEED1A61983CB0B00D49E51 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		DCEED1AD1983CB0B00D49E51 /* opensslTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "opensslTests-Info.plist"; sourceTree = "<group>"; };
+		DCEED1AF1983CB0B00D49E51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCEED1B11983CB0B00D49E51 /* opensslTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = opensslTests.m; sourceTree = "<group>"; };
+		DCEED1C51983D44600D49E51 /* openssl */ = {isa = PBXFileReference; lastKnownFileType = folder; name = openssl; path = ../../../openssl/include/openssl; sourceTree = "<group>"; };
+		DCEED1F81983D49D00D49E51 /* crypto.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = crypto.xcodeproj; path = crypto/crypto.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCEED18F1983CB0B00D49E51 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCEED1961983CB0B00D49E51 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DCEED1891983CB0B00D49E51 = {
+			isa = PBXGroup;
+			children = (
+				DCEED1F81983D49D00D49E51 /* crypto.xcodeproj */,
+				DCEED1C41983D3D000D49E51 /* include */,
+				DCEED1971983CB0B00D49E51 /* openssl */,
+				DCEED1AB1983CB0B00D49E51 /* opensslTests */,
+				DCEED1941983CB0B00D49E51 /* Frameworks */,
+				DCEED1931983CB0B00D49E51 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DCEED1931983CB0B00D49E51 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCEED1921983CB0B00D49E51 /* libopenssl.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCEED1941983CB0B00D49E51 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCEED1951983CB0B00D49E51 /* Foundation.framework */,
+				DCEED1A31983CB0B00D49E51 /* XCTest.framework */,
+				DCEED1A61983CB0B00D49E51 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DCEED1971983CB0B00D49E51 /* openssl */ = {
+			isa = PBXGroup;
+			children = (
+				DCEED1981983CB0B00D49E51 /* Supporting Files */,
+			);
+			path = openssl;
+			sourceTree = "<group>";
+		};
+		DCEED1981983CB0B00D49E51 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCEED1991983CB0B00D49E51 /* openssl-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCEED1AB1983CB0B00D49E51 /* opensslTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCEED1B11983CB0B00D49E51 /* opensslTests.m */,
+				DCEED1AC1983CB0B00D49E51 /* Supporting Files */,
+			);
+			path = opensslTests;
+			sourceTree = "<group>";
+		};
+		DCEED1AC1983CB0B00D49E51 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCEED1AD1983CB0B00D49E51 /* opensslTests-Info.plist */,
+				DCEED1AE1983CB0B00D49E51 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCEED1C41983D3D000D49E51 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				DCEED1C51983D44600D49E51 /* openssl */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		DCEED1F91983D49D00D49E51 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCEED1FE1983D49D00D49E51 /* libcrypto.a */,
+				DCEED2001983D49D00D49E51 /* cryptoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DCEED1911983CB0B00D49E51 /* openssl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCEED1B51983CB0B00D49E51 /* Build configuration list for PBXNativeTarget "openssl" */;
+			buildPhases = (
+				DCEED18E1983CB0B00D49E51 /* Sources */,
+				DCEED18F1983CB0B00D49E51 /* Frameworks */,
+				DCEED1901983CB0B00D49E51 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = openssl;
+			productName = openssl;
+			productReference = DCEED1921983CB0B00D49E51 /* libopenssl.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCEED18A1983CB0B00D49E51 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "garymabin@gmail.com";
+			};
+			buildConfigurationList = DCEED18D1983CB0B00D49E51 /* Build configuration list for PBXProject "openssl" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DCEED1891983CB0B00D49E51;
+			productRefGroup = DCEED1931983CB0B00D49E51 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = DCEED1F91983D49D00D49E51 /* Products */;
+					ProjectRef = DCEED1F81983D49D00D49E51 /* crypto.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				DCEED1911983CB0B00D49E51 /* openssl */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		DCEED1FE1983D49D00D49E51 /* libcrypto.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libcrypto.a;
+			remoteRef = DCEED1FD1983D49D00D49E51 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DCEED2001983D49D00D49E51 /* cryptoTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = cryptoTests.xctest;
+			remoteRef = DCEED1FF1983D49D00D49E51 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCEED18E1983CB0B00D49E51 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DCEED1AE1983CB0B00D49E51 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCEED1AF1983CB0B00D49E51 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DCEED1B31983CB0B00D49E51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DCEED1B41983CB0B00D49E51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DCEED1B61983CB0B00D49E51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/openssl.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openssl/openssl-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DCEED1B71983CB0B00D49E51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/openssl.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openssl/openssl-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DCEED18D1983CB0B00D49E51 /* Build configuration list for PBXProject "openssl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCEED1B31983CB0B00D49E51 /* Debug */,
+				DCEED1B41983CB0B00D49E51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCEED1B51983CB0B00D49E51 /* Build configuration list for PBXNativeTarget "openssl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCEED1B61983CB0B00D49E51 /* Debug */,
+				DCEED1B71983CB0B00D49E51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DCEED18A1983CB0B00D49E51 /* Project object */;
+}

@@ -1,18 +1,18 @@
 //
-//  YGOMobileTests.m
-//  YGOMobileTests
+//  opensslTests.m
+//  opensslTests
 //
-//  Created by 马彬 on 14-4-14.
+//  Created by 马彬 on 14-7-26.
 //  Copyright (c) 2014年 garymabin@gmail.com. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface YGOMobileTests : XCTestCase
+@interface opensslTests : XCTestCase
 
 @end
 
-@implementation YGOMobileTests
+@implementation opensslTests
 
 - (void)setUp
 {

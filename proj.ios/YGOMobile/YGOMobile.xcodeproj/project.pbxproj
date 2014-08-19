@@ -12,47 +12,47 @@
 		DC22DAA418FAF17C00E267B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DAA318FAF17C00E267B4 /* UIKit.framework */; };
 		DC22DAA618FAF17C00E267B4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DAA518FAF17C00E267B4 /* CoreData.framework */; };
 		DC22DAAC18FAF17C00E267B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC22DAAA18FAF17C00E267B4 /* InfoPlist.strings */; };
-		DC22DAAE18FAF17C00E267B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC22DAAD18FAF17C00E267B4 /* main.m */; };
 		DC22DAB218FAF17C00E267B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC22DAB118FAF17C00E267B4 /* AppDelegate.m */; };
 		DC22DAB518FAF17C00E267B4 /* YGOMobile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC22DAB318FAF17C00E267B4 /* YGOMobile.xcdatamodeld */; };
 		DC22DAB718FAF17C00E267B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC22DAB618FAF17C00E267B4 /* Images.xcassets */; };
-		DC22DABE18FAF17C00E267B4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DABD18FAF17C00E267B4 /* XCTest.framework */; };
-		DC22DABF18FAF17C00E267B4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DA9F18FAF17C00E267B4 /* Foundation.framework */; };
-		DC22DAC018FAF17C00E267B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DAA318FAF17C00E267B4 /* UIKit.framework */; };
-		DC22DAC118FAF17C00E267B4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DAA518FAF17C00E267B4 /* CoreData.framework */; };
-		DC22DAC918FAF17C00E267B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC22DAC718FAF17C00E267B4 /* InfoPlist.strings */; };
-		DC22DACB18FAF17C00E267B4 /* YGOMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC22DACA18FAF17C00E267B4 /* YGOMobileTests.m */; };
-		DC22DAD518FAF2A300E267B4 /* Classes in Sources */ = {isa = PBXBuildFile; fileRef = DC22DAD418FAF2A300E267B4 /* Classes */; };
+		DC86B7FE19834E3000C9010C /* libIrrlicht.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC86B7F919834A7C00C9010C /* libIrrlicht.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DC22DAC218FAF17C00E267B4 /* PBXContainerItemProxy */ = {
+		DC86B7F819834A7C00C9010C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = DC22DA9418FAF17C00E267B4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC22DA9B18FAF17C00E267B4;
-			remoteInfo = YGOMobile;
-		};
-		DCCD112818FED290005B92E5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DCCD112318FED290005B92E5 /* iOS.xcodeproj */;
+			containerPortal = DC86B7F419834A7C00C9010C /* iOS.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5E7CF31215516E370014DCBA;
 			remoteInfo = Irrlicht;
 		};
-		DCCD112A18FED290005B92E5 /* PBXContainerItemProxy */ = {
+		DC86B7FA19834A9000C9010C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = DCCD112318FED290005B92E5 /* iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5ED2483E1731568400A13B86;
-			remoteInfo = HelloWorldMobile;
-		};
-		DCCD112C18FED2FB005B92E5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DCCD112318FED290005B92E5 /* iOS.xcodeproj */;
+			containerPortal = DC86B7F419834A7C00C9010C /* iOS.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 5E7CF31115516E370014DCBA;
 			remoteInfo = Irrlicht;
+		};
+		DCEED0221983B4B600D49E51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCEECFF41983B4B600D49E51;
+			remoteInfo = ocgcore;
+		};
+		DCEED1491983C70100D49E51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCEED1441983C70000D49E51 /* libevent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCEED11B1983C70000D49E51;
+			remoteInfo = libevent;
+		};
+		DCEED14B1983C70100D49E51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCEED1441983C70000D49E51 /* libevent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCEED12B1983C70000D49E51;
+			remoteInfo = libeventTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -64,19 +64,15 @@
 		DC22DAA518FAF17C00E267B4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DC22DAA918FAF17C00E267B4 /* YGOMobile-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YGOMobile-Info.plist"; sourceTree = "<group>"; };
 		DC22DAAB18FAF17C00E267B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DC22DAAD18FAF17C00E267B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DC22DAAF18FAF17C00E267B4 /* YGOMobile-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YGOMobile-Prefix.pch"; sourceTree = "<group>"; };
 		DC22DAB018FAF17C00E267B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DC22DAB118FAF17C00E267B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DC22DAB418FAF17C00E267B4 /* YGOMobile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YGOMobile.xcdatamodel; sourceTree = "<group>"; };
 		DC22DAB618FAF17C00E267B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		DC22DABC18FAF17C00E267B4 /* YGOMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YGOMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC22DABD18FAF17C00E267B4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DC22DAC618FAF17C00E267B4 /* YGOMobileTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YGOMobileTests-Info.plist"; sourceTree = "<group>"; };
-		DC22DAC818FAF17C00E267B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DC22DACA18FAF17C00E267B4 /* YGOMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YGOMobileTests.m; sourceTree = "<group>"; };
-		DC22DAD418FAF2A300E267B4 /* Classes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Classes; path = ../../Classes; sourceTree = "<group>"; };
-		DCCD112318FED290005B92E5 /* iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iOS.xcodeproj; path = ../../irrlicht/source/Irrlicht/iOS/iOS.xcodeproj; sourceTree = "<group>"; };
+		DC86B7F419834A7C00C9010C /* iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iOS.xcodeproj; path = ../../irrlicht/source/Irrlicht/iOS/iOS.xcodeproj; sourceTree = "<group>"; };
+		DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ocgcore.xcodeproj; path = ../../Classes/ocgcore/ocgcore/ocgcore.xcodeproj; sourceTree = "<group>"; };
+		DCEED1441983C70000D49E51 /* libevent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libevent.xcodeproj; path = ../../Classes/libevent/libevent/libevent.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,21 +80,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC86B7FE19834E3000C9010C /* libIrrlicht.a in Frameworks */,
 				DC22DAA218FAF17C00E267B4 /* CoreGraphics.framework in Frameworks */,
 				DC22DAA618FAF17C00E267B4 /* CoreData.framework in Frameworks */,
 				DC22DAA418FAF17C00E267B4 /* UIKit.framework in Frameworks */,
 				DC22DAA018FAF17C00E267B4 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC22DAB918FAF17C00E267B4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DC22DABE18FAF17C00E267B4 /* XCTest.framework in Frameworks */,
-				DC22DAC118FAF17C00E267B4 /* CoreData.framework in Frameworks */,
-				DC22DAC018FAF17C00E267B4 /* UIKit.framework in Frameworks */,
-				DC22DABF18FAF17C00E267B4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,9 +94,10 @@
 		DC22DA9318FAF17C00E267B4 = {
 			isa = PBXGroup;
 			children = (
-				DC22DAD418FAF2A300E267B4 /* Classes */,
+				DCEED1441983C70000D49E51 /* libevent.xcodeproj */,
+				DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */,
+				DC86B7F419834A7C00C9010C /* iOS.xcodeproj */,
 				DC22DAA718FAF17C00E267B4 /* YGOMobile */,
-				DC22DAC418FAF17C00E267B4 /* YGOMobileTests */,
 				DC22DA9E18FAF17C00E267B4 /* Frameworks */,
 				DC22DA9D18FAF17C00E267B4 /* Products */,
 			);
@@ -120,7 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				DC22DA9C18FAF17C00E267B4 /* YGOMobile.app */,
-				DC22DABC18FAF17C00E267B4 /* YGOMobileTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,7 +114,6 @@
 		DC22DA9E18FAF17C00E267B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DCCD112318FED290005B92E5 /* iOS.xcodeproj */,
 				DC22DA9F18FAF17C00E267B4 /* Foundation.framework */,
 				DC22DAA118FAF17C00E267B4 /* CoreGraphics.framework */,
 				DC22DAA318FAF17C00E267B4 /* UIKit.framework */,
@@ -155,35 +140,32 @@
 			children = (
 				DC22DAA918FAF17C00E267B4 /* YGOMobile-Info.plist */,
 				DC22DAAA18FAF17C00E267B4 /* InfoPlist.strings */,
-				DC22DAAD18FAF17C00E267B4 /* main.m */,
 				DC22DAAF18FAF17C00E267B4 /* YGOMobile-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DC22DAC418FAF17C00E267B4 /* YGOMobileTests */ = {
+		DC86B7F519834A7C00C9010C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC22DACA18FAF17C00E267B4 /* YGOMobileTests.m */,
-				DC22DAC518FAF17C00E267B4 /* Supporting Files */,
+				DC86B7F919834A7C00C9010C /* libIrrlicht.a */,
 			);
-			path = YGOMobileTests;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		DC22DAC518FAF17C00E267B4 /* Supporting Files */ = {
+		DCEED01E1983B4B600D49E51 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC22DAC618FAF17C00E267B4 /* YGOMobileTests-Info.plist */,
-				DC22DAC718FAF17C00E267B4 /* InfoPlist.strings */,
+				DCEED0231983B4B600D49E51 /* libocgcore.a */,
 			);
-			name = "Supporting Files";
+			name = Products;
 			sourceTree = "<group>";
 		};
-		DCCD112418FED290005B92E5 /* Products */ = {
+		DCEED1451983C70000D49E51 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DCCD112918FED290005B92E5 /* libIrrlicht.a */,
-				DCCD112B18FED290005B92E5 /* HelloWorldMobile.app */,
+				DCEED14A1983C70100D49E51 /* liblibevent.a */,
+				DCEED14C1983C70100D49E51 /* libeventTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,30 +184,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				DCCD112D18FED2FB005B92E5 /* PBXTargetDependency */,
+				DC86B7FB19834A9000C9010C /* PBXTargetDependency */,
 			);
 			name = YGOMobile;
 			productName = YGOMobile;
 			productReference = DC22DA9C18FAF17C00E267B4 /* YGOMobile.app */;
 			productType = "com.apple.product-type.application";
-		};
-		DC22DABB18FAF17C00E267B4 /* YGOMobileTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC22DAD118FAF17C00E267B4 /* Build configuration list for PBXNativeTarget "YGOMobileTests" */;
-			buildPhases = (
-				DC22DAB818FAF17C00E267B4 /* Sources */,
-				DC22DAB918FAF17C00E267B4 /* Frameworks */,
-				DC22DABA18FAF17C00E267B4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DC22DAC318FAF17C00E267B4 /* PBXTargetDependency */,
-			);
-			name = YGOMobileTests;
-			productName = YGOMobileTests;
-			productReference = DC22DABC18FAF17C00E267B4 /* YGOMobileTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -235,11 +199,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "garymabin@gmail.com";
-				TargetAttributes = {
-					DC22DABB18FAF17C00E267B4 = {
-						TestTargetID = DC22DA9B18FAF17C00E267B4;
-					};
-				};
 			};
 			buildConfigurationList = DC22DA9718FAF17C00E267B4 /* Build configuration list for PBXProject "YGOMobile" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -253,31 +212,52 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = DCCD112418FED290005B92E5 /* Products */;
-					ProjectRef = DCCD112318FED290005B92E5 /* iOS.xcodeproj */;
+					ProductGroup = DC86B7F519834A7C00C9010C /* Products */;
+					ProjectRef = DC86B7F419834A7C00C9010C /* iOS.xcodeproj */;
+				},
+				{
+					ProductGroup = DCEED1451983C70000D49E51 /* Products */;
+					ProjectRef = DCEED1441983C70000D49E51 /* libevent.xcodeproj */;
+				},
+				{
+					ProductGroup = DCEED01E1983B4B600D49E51 /* Products */;
+					ProjectRef = DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
 				DC22DA9B18FAF17C00E267B4 /* YGOMobile */,
-				DC22DABB18FAF17C00E267B4 /* YGOMobileTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		DCCD112918FED290005B92E5 /* libIrrlicht.a */ = {
+		DC86B7F919834A7C00C9010C /* libIrrlicht.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libIrrlicht.a;
-			remoteRef = DCCD112818FED290005B92E5 /* PBXContainerItemProxy */;
+			remoteRef = DC86B7F819834A7C00C9010C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DCCD112B18FED290005B92E5 /* HelloWorldMobile.app */ = {
+		DCEED0231983B4B600D49E51 /* libocgcore.a */ = {
 			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = HelloWorldMobile.app;
-			remoteRef = DCCD112A18FED290005B92E5 /* PBXContainerItemProxy */;
+			fileType = archive.ar;
+			path = libocgcore.a;
+			remoteRef = DCEED0221983B4B600D49E51 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DCEED14A1983C70100D49E51 /* liblibevent.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = liblibevent.a;
+			remoteRef = DCEED1491983C70100D49E51 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DCEED14C1983C70100D49E51 /* libeventTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = libeventTests.xctest;
+			remoteRef = DCEED14B1983C70100D49E51 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -292,14 +272,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC22DABA18FAF17C00E267B4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DC22DAC918FAF17C00E267B4 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -307,33 +279,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC22DAD518FAF2A300E267B4 /* Classes in Sources */,
 				DC22DAB518FAF17C00E267B4 /* YGOMobile.xcdatamodeld in Sources */,
 				DC22DAB218FAF17C00E267B4 /* AppDelegate.m in Sources */,
-				DC22DAAE18FAF17C00E267B4 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC22DAB818FAF17C00E267B4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DC22DACB18FAF17C00E267B4 /* YGOMobileTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DC22DAC318FAF17C00E267B4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC22DA9B18FAF17C00E267B4 /* YGOMobile */;
-			targetProxy = DC22DAC218FAF17C00E267B4 /* PBXContainerItemProxy */;
-		};
-		DCCD112D18FED2FB005B92E5 /* PBXTargetDependency */ = {
+		DC86B7FB19834A9000C9010C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Irrlicht;
-			targetProxy = DCCD112C18FED2FB005B92E5 /* PBXContainerItemProxy */;
+			targetProxy = DC86B7FA19834A9000C9010C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -342,14 +299,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC22DAAB18FAF17C00E267B4 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DC22DAC718FAF17C00E267B4 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC22DAC818FAF17C00E267B4 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -440,6 +389,7 @@
 					"/Users/mabin/git/YGOMobile/irrlicht/source/Irrlicht/iOS/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = /Users/mabin/git/YGOMobile/Classes;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -457,47 +407,8 @@
 					"/Users/mabin/git/YGOMobile/irrlicht/source/Irrlicht/iOS/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = /Users/mabin/git/YGOMobile/Classes;
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		DC22DAD218FAF17C00E267B4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YGOMobile.app/YGOMobile";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YGOMobile/YGOMobile-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "YGOMobileTests/YGOMobileTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		DC22DAD318FAF17C00E267B4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YGOMobile.app/YGOMobile";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YGOMobile/YGOMobile-Prefix.pch";
-				INFOPLIST_FILE = "YGOMobileTests/YGOMobileTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -518,15 +429,6 @@
 			buildConfigurations = (
 				DC22DACF18FAF17C00E267B4 /* Debug */,
 				DC22DAD018FAF17C00E267B4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DC22DAD118FAF17C00E267B4 /* Build configuration list for PBXNativeTarget "YGOMobileTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC22DAD218FAF17C00E267B4 /* Debug */,
-				DC22DAD318FAF17C00E267B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
