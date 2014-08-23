@@ -426,23 +426,23 @@ void Game::DrawMisc() {
 	}
 	pcard = dField.szone[0][6];
 	if(pcard) {
-		adFont->draw(pcard->lscstring, recti(386 * mainGame->xScale, 398 * mainGame->yScale, 398 * mainGame->xScale, 418 * mainGame->yScale), 0xff000000, true, false, 0);
-		adFont->draw(pcard->lscstring, recti(387 * mainGame->xScale, 399 * mainGame->yScale, 399 * mainGame->xScale, 419 * mainGame->yScale), 0xffffffff, true, false, 0);
+		adFont->draw(pcard->lscstring, recti(426 * mainGame->xScale, 394 * mainGame->yScale, 438 * mainGame->xScale, 414 * mainGame->yScale), 0xff000000, true, false, 0);
+		adFont->draw(pcard->lscstring, recti(427 * mainGame->xScale, 395 * mainGame->yScale, 439 * mainGame->xScale, 415 * mainGame->yScale), 0xffffffff, true, false, 0);
 	}
 	pcard = dField.szone[0][7];
 	if(pcard) {
-		adFont->draw(pcard->rscstring, recti(880 * mainGame->xScale, 398 * mainGame->yScale, 912 * mainGame->xScale, 418 * mainGame->yScale), 0xff000000, true, false, 0);
-		adFont->draw(pcard->rscstring, recti(881 * mainGame->xScale, 399 * mainGame->yScale, 913 * mainGame->xScale, 419 * mainGame->yScale), 0xffffffff, true, false, 0);
+		adFont->draw(pcard->rscstring, recti(880 * mainGame->xScale, 394 * mainGame->yScale, 912 * mainGame->xScale, 414 * mainGame->yScale), 0xff000000, true, false, 0);
+		adFont->draw(pcard->rscstring, recti(881 * mainGame->xScale, 395 * mainGame->yScale, 913 * mainGame->xScale, 415 * mainGame->yScale), 0xffffffff, true, false, 0);
 	}
 	pcard = dField.szone[1][6];
 	if(pcard) {
-		adFont->draw(pcard->lscstring, recti(834 * mainGame->xScale, 245 * mainGame->yScale, 866 * mainGame->xScale, 265 * mainGame->yScale), 0xff000000, true, false, 0);
-		adFont->draw(pcard->lscstring, recti(835 * mainGame->xScale, 246 * mainGame->yScale, 867 * mainGame->xScale, 266 * mainGame->yScale), 0xffffffff, true, false, 0);
+		adFont->draw(pcard->lscstring, recti(839 * mainGame->xScale, 245 * mainGame->yScale, 871 * mainGame->xScale, 265 * mainGame->yScale), 0xff000000, true, false, 0);
+		adFont->draw(pcard->lscstring, recti(840 * mainGame->xScale, 246 * mainGame->yScale, 872 * mainGame->xScale, 266 * mainGame->yScale), 0xffffffff, true, false, 0);
 	}
 	pcard = dField.szone[1][7];
 	if(pcard) {
-		adFont->draw(pcard->rscstring, recti(428 * mainGame->xScale, 245 * mainGame->yScale, 460 * mainGame->xScale, 265 * mainGame->yScale), 0xff000000, true, false, 0);
-		adFont->draw(pcard->rscstring, recti(429 * mainGame->xScale, 246 * mainGame->yScale, 461 * mainGame->xScale, 266 * mainGame->yScale), 0xffffffff, true, false, 0);
+		adFont->draw(pcard->rscstring, recti(463 * mainGame->xScale, 245 * mainGame->yScale, 495 * mainGame->xScale, 265 * mainGame->yScale), 0xff000000, true, false, 0);
+		adFont->draw(pcard->rscstring, recti(464 * mainGame->xScale, 246 * mainGame->yScale, 496 * mainGame->xScale, 266 * mainGame->yScale), 0xffffffff, true, false, 0);
 	}
 	if(dField.extra[0].size()) {
 		numFont->draw(dataManager.GetNumString(dField.extra[0].size()), recti(330 * mainGame->xScale, 562 * mainGame->yScale, 381 * mainGame->xScale, 552 * mainGame->yScale), 0xff000000, true, false, 0);

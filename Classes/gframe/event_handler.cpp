@@ -738,11 +738,10 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 							myswprintf(formatBuffer, L"%d", sort_list[pos + i]);
 						else
 							myswprintf(formatBuffer, L"");
-					} else {
-						myswprintf(formatBuffer, L"%ls[%d]",
-								dataManager.FormatLocation(
-										selectable_cards[i + pos]->location),
-								selectable_cards[i + pos]->sequence + 1);
+					}
+					else{
+						myswprintf(formatBuffer, L"%ls[%d]", dataManager.FormatLocation(selectable_cards[i + pos]->location,
+							selectable_cards[i + pos]->sequence), selectable_cards[i + pos]->sequence + 1);
 					}
 
 					mainGame->stCardPos[i]->setText(formatBuffer);
@@ -919,6 +918,23 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 					for(int32 i = (int32)extra[hovered_controler].size() - 1; i >= 0 ; --i)
 						selectable_cards.push_back(extra[hovered_controler][i]);
 					myswprintf(formatBuffer, L"%ls(%d)", dataManager.GetSysString(1006), extra[hovered_controler].size());
+					mainGame->wCardSelect->setText(formatBuffer);
+					break;
+				}
+				}
+				if(selectable_cards.size())
+					ShowSelectCard(true);
+				break;
+			}
+			if(mainGame->dInfo.player_type == 7) {
+				if(mainGame->wCardSelect->isVisible())
+					break;
+				selectable_cards.clear();
+				switch(hovered_location) {
+				case LOCATION_GRAVE: {
+					for(int32 i = (int32)grave[hovered_controler].size() - 1; i >= 0 ; --i)
+						selectable_cards.push_back(grave[hovered_controler][i]);
+					myswprintf(formatBuffer, L"%ls(%d)", dataManager.GetSysString(1004), grave[hovered_controler].size());
 					mainGame->wCardSelect->setText(formatBuffer);
 					break;
 				}
