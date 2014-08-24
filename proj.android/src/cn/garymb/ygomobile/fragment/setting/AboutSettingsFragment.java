@@ -1,11 +1,11 @@
 package cn.garymb.ygomobile.fragment.setting;
 
 import com.github.johnpersano.supertoasts.SuperToast;
+import com.umeng.update.UmengUpdateAgent;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.AppUpdateTask;
-import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.widget.AppUpdateController;
@@ -14,11 +14,8 @@ import cn.garymb.ygomobile.widget.BaseDialog;
 import cn.garymb.ygomobile.widget.WebViewDialog;
 import android.annotation.TargetApi;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -68,7 +65,8 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 			bundle.putInt("titleRes", R.string.settings_about_change_log);
 			showDialog(DIALOG_TYPE_VERSION, bundle);
 		} else if (preference.equals(mCheckUpdatePref)) {
-			Controller.peekInstance().asyncCheckUpdate(Message.obtain(mHandler, MSG_TYPE_CHECK_UPDATE));
+			UmengUpdateAgent.forceUpdate(getActivity());
+//			Controller.peekInstance().asyncCheckUpdate(Message.obtain(mHandler, MSG_TYPE_CHECK_UPDATE));
 		}
 		return false;
 	}

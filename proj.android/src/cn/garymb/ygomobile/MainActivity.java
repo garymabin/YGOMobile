@@ -15,6 +15,7 @@ import cn.garymb.ygomobile.model.data.VersionInfo;
 import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.umeng.update.UmengUpdateAgent;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,7 +79,8 @@ public class MainActivity extends ActionBarActivity implements
 						android.R.layout.simple_spinner_dropdown_item,
 						mDuelList), this);
 		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
-		checkUpdateIfNeeded();
+//		checkUpdateIfNeeded();
+		UmengUpdateAgent.update(this);
 	}
 
 	private void checkUpdateIfNeeded() {

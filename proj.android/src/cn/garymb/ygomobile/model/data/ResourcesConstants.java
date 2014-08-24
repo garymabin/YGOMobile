@@ -28,7 +28,7 @@ public interface ResourcesConstants {
 	
 	public static final String DEFAULT_MC_SERVER_NAME = "MyCard";
 	
-	public static final String DEFAULT_MC_SERVER_ADDR = "122.0.65.73";
+	public static final String DEFAULT_MC_SERVER_ADDR = "182.254.142.247";
 	
 	public static final int DEFAULT_MC_SERVER_PORT = 7911;
 	

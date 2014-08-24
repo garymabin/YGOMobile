@@ -49,6 +49,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
@@ -93,7 +94,7 @@ public class StaticApplication extends Application {
 	private String mCoreConfigVersion;
 
 	private String mDataBasePath;
-
+	
 	private String mCoreSkinPath;
 
 	private float mScreenWidth;
@@ -132,9 +133,19 @@ public class StaticApplication extends Application {
 			e.printStackTrace();
 		}
 		Controller.peekInstance();
-		checkAndCopyCoreConfig();
+		loadCoreConfigVersion();
+		String newConfigVersion = null;
+		try {
+			newConfigVersion = getAssets().list(Constants.CORE_CONFIG_PATH)[0];
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		boolean needsUpdate = !mCoreConfigVersion.equals(newConfigVersion);
+		mCoreConfigVersion = newConfigVersion;
+		saveCoreConfigVersion();
+		checkAndCopyCoreConfig(needsUpdate);
 		checkAndCopyGameSkin();
-		checkAndCopyDatabase();
+		checkAndCopyDatabase(needsUpdate);
 		checkAndCopyFonts();
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		mScreenWidth = metrics.widthPixels;
@@ -155,8 +166,8 @@ public class StaticApplication extends Application {
 		}
 	}
 
-	private void checkAndCopyDatabase() {
-		if (!checkDataBase()) {
+	private void checkAndCopyDatabase(boolean needsUpdate) {
+		if (!checkDataBase(needsUpdate)) {
 			try {
 				new File(mDataBasePath).mkdirs();
 				copyRawData(mDataBasePath + YGOCardsProvider.DATABASE_NAME,
@@ -222,14 +233,17 @@ public class StaticApplication extends Application {
 	}
 
 	@SuppressLint("SdCardPath")
-	private boolean checkDataBase() {
+	private boolean checkDataBase(boolean needsUpdate) {
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
 			mDataBasePath = getApplicationInfo().dataDir + "/databases/";
 		} else {
 			mDataBasePath = "/data/data/" + getPackageName() + "/databases/";
 		}
-		return new File(mDataBasePath + YGOCardsProvider.DATABASE_NAME)
-				.exists();
+		if (needsUpdate) {
+			new File(mDataBasePath + YGOCardsProvider.DATABASE_NAME).delete();
+			return false;
+		}
+		return new File(mDataBasePath + YGOCardsProvider.DATABASE_NAME).exists();
 	}
 
 	private void checkAndCopyGameSkin() {
@@ -257,18 +271,17 @@ public class StaticApplication extends Application {
 		}
 	}
 
-	private void checkAndCopyCoreConfig() {
-		loadCoreConfigVersion();
+	private void checkAndCopyCoreConfig(boolean needsUpdate) {
 		File internalCacheDir = getCacheDir();
 		if (internalCacheDir != null) {
 			File coreConfigDir = new File(internalCacheDir,
 					Constants.CORE_CONFIG_PATH);
 			if (coreConfigDir != null && coreConfigDir.exists()
-					&& coreConfigDir.isDirectory()) {
+					&& coreConfigDir.isDirectory() && !needsUpdate) {
 				return;
 			}
-			if (coreConfigDir != null && coreConfigDir.exists()
-					&& !coreConfigDir.isDirectory()) {
+			if (needsUpdate || (coreConfigDir != null && coreConfigDir.exists()
+					&& !coreConfigDir.isDirectory())) {
 				coreConfigDir.delete();
 			}
 			// we need to copy from configs from assets;
@@ -283,11 +296,6 @@ public class StaticApplication extends Application {
 							+ assetcopycount);
 					continue;
 				}
-			}
-			String[] versions = coreConfigDir.list();
-			if (versions != null && !versions[0].equals(mCoreConfigVersion)) {
-				mCoreConfigVersion = versions[0];
-				saveCoreConfigVersion();
 			}
 		}
 	}
@@ -457,6 +465,10 @@ public class StaticApplication extends Application {
 
 	public float getScreenWidth() {
 		return mScreenWidth;
+	}
+	
+	public float getSmallerSize() {
+		return mScreenHeight < mScreenWidth ? mScreenHeight : mScreenWidth;
 	}
 
 	public float getXScale() {

@@ -3,9 +3,9 @@ package cn.garymb.ygomobile.common;
 import java.io.File;
 import java.io.IOException;
 
-import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.utils.BitmapUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;

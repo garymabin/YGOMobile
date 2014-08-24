@@ -24,6 +24,10 @@ public class DeviceUtils {
 		return StaticApplication.peekInstance().getScreenWidth();
 	}
 	
+	public static float getSmallerSize() {
+		return StaticApplication.peekInstance().getSmallerSize();
+	}
+	
 	public static float getScreenHeight() {
 		return StaticApplication.peekInstance().getScreenHeight();
 	}

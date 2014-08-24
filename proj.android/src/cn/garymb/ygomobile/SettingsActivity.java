@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.soundcloud.android.crop.Crop;
+import com.umeng.update.UmengUpdateAgent;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.AppUpdateTask;

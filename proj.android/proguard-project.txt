@@ -81,3 +81,13 @@
 
 #keep preferenceFragment
 -keep class cn.garymb.ygomobile.fragment.setting.** { *; }
+
+-keepclassmembers class * {
+   public <init>(org.json.JSONObject);
+}
+
+-keep public class cn.garymb.ygomobile.R$*{
+public static final int *;
+}
+
+-keep class com.umeng.** { *; }

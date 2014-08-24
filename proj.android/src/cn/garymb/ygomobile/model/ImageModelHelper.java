@@ -1,4 +1,4 @@
-package cn.garymb.ygomobie.model;
+package cn.garymb.ygomobile.model;
 
 import java.util.Iterator;
 import java.util.LinkedList;

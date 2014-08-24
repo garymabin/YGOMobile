@@ -1,9 +1,9 @@
 package cn.garymb.ygomobile.core;
 
-import cn.garymb.ygomobie.model.IDataObserver;
-import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.actionbar.ActionBarController;
+import cn.garymb.ygomobile.model.IDataObserver;
+import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.net.NetworkStatusManager;
 
 import android.os.Handler;

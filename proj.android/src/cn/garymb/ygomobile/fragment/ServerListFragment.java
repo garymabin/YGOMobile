@@ -7,11 +7,11 @@ import com.github.johnpersano.supertoasts.util.OnClickWrapper;
 
 import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.YGOMobileActivity;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.model.data.DataStore;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.widget.ServerOperationPanel;

@@ -1,13 +1,13 @@
 package cn.garymb.ygomobile.fragment;
 
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobie.model.IDataObserver;
-import cn.garymb.ygomobie.model.Model;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.core.images.BitmapHolder;
 import cn.garymb.ygomobile.core.images.ImageFileDownloadTaskHolder;
 import cn.garymb.ygomobile.core.images.CardImageItemController;
+import cn.garymb.ygomobile.model.IDataObserver;
+import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;

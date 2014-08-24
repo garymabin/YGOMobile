@@ -96,7 +96,7 @@ public class YGOMobileActivity extends NativeActivity implements
 				boolean isShow = msg.arg1 == 1;
 				if (isShow) {
 					mOverlayView.showAtScreen(0, 0);
-					mChainOverlayView.showAtScreen(mChainControlXPostion, mChainControlYPostion);
+					mChainOverlayView.showAtScreen(sChainControlXPostion, sChainControlYPostion);
 				} else {
 					mOverlayView.removeFromScreen();
 					mChainOverlayView.removeFromScreen();
@@ -138,8 +138,16 @@ public class YGOMobileActivity extends NativeActivity implements
 	private OverlayOvalView mOverlayView;
 	private NetworkController mNetController;
 	
-	private int mChainControlXPostion;
-	private int mChainControlYPostion;
+	private static int sChainControlXPostion;
+	private static int sChainControlYPostion;
+	
+	static {
+		final Resources res = StaticApplication.peekInstance().getResources();
+		sChainControlXPostion = (int)(CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE * DeviceUtils.getXScale());
+		sChainControlYPostion = (int)(DeviceUtils.getSmallerSize() - CHAIN_CONTROL_PANEL_Y_REVERT_POSITION * DeviceUtils.getYScale() -
+				(res.getDimensionPixelSize(R.dimen.chain_control_button_height) * 2 + 
+						res.getDimensionPixelSize(R.dimen.chain_control_margin)));
+	}
 
 	@Override
 	protected void onStart() {
@@ -177,7 +185,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		super.onResume();
 		if (mOverlayShowRequest) {
 			mOverlayView.showAtScreen(0, 0);
-			mChainOverlayView.showAtScreen(mChainControlXPostion, mChainControlYPostion);
+			mChainOverlayView.showAtScreen(sChainControlXPostion, sChainControlYPostion);
 		}
 	}
 
@@ -220,11 +228,6 @@ public class YGOMobileActivity extends NativeActivity implements
 		super.onCreate(savedInstanceState);
 		mHandler = new EventHandler();
 		final Resources res = getResources();
-		mChainControlXPostion = (int)(CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE * DeviceUtils.getXScale());
-		mChainControlYPostion = (int)(DeviceUtils.getScreenWidth() - CHAIN_CONTROL_PANEL_Y_REVERT_POSITION * DeviceUtils.getYScale() -
-				(res.getDimensionPixelSize(R.dimen.chain_control_button_height) * 2 + 
-						res.getDimensionPixelSize(R.dimen.chain_control_margin)));
-		
 		setRequestedOrientation(StaticApplication.peekInstance().getGameScreenOritation());
 		
 		initExtraView();
