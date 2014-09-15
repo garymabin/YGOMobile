@@ -13,7 +13,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.text.TextUtils;
@@ -42,7 +41,7 @@ public class CommonSettingsFragment extends EventDialogPreferenceFragment implem
 	public boolean onPreferenceClick(Preference preference) {
 		if (preference.getKey().equals(Settings.KEY_PREF_GAME_RESOURCE_PATH)) {
 			Bundle bundle = new Bundle();
-			bundle.putString("root", Environment.getExternalStorageDirectory().getAbsolutePath());
+			bundle.putString("root", "/"/*Environment.getExternalStorageDirectory().getAbsolutePath()*/);
 			bundle.putString("current", StaticApplication.peekInstance().getResourcePath());
 			showDialog(0, bundle);
 		}

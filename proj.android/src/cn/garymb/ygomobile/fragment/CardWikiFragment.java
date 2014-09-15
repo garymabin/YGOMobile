@@ -163,7 +163,7 @@ public class CardWikiFragment extends BaseFragment implements
 			mEffectPanel.setCardFilterDelegate(mCardFilter);
 			break;
 		case Constants.ACTION_BAR_EVENT_TYPE_RESET:
-			if (!isDetached()) {
+			if (isAdded()) {
 				resetFilters();
 				getLoaderManager().restartLoader(QUERY_SOURCE_LOADER_ID, null,
 						this);

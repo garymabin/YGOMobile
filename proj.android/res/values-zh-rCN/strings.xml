@@ -27,6 +27,8 @@
     
     <string name="access_denied">无访问权限！</string>
     <string name="choose_folder">选择目录：</string>
+    <string name="choose_file">选择文件：</string>
+    <string name="choose_all">选择文件或目录：</string>
     <string name="root_dir">根目录</string>
     
     <string name="button_update">更新</string>
@@ -141,6 +143,11 @@
     <string name="settings_game_res_path">资源路径</string>
     <string name="settings_category_diy">个性化</string>
     <string name="settings_game_diy_cover">游戏背景</string>
+    <string name="settings_game_diy_card_db">自定义卡片数据库</string>
+    <string name="settings_game_reset_card_db">重置卡片数据库</string>
+    <string name="settings_game_reset_card_db_confirm">是否要重置卡片数据库？</string>
+    <string name="settings_game_reset_card_db_des">使用内置的卡片数据库</string>
+    <string name="settings_game_diy_card_db_des">使用自定义的卡片数据库</string>
     <string name="settings_game_diy_des">当前使用图片：</string>
     <string name="settings_game_diy_history_des">历史图片：</string>
     <string name="settings_game_cover">背景图</string>
@@ -148,6 +155,16 @@
     <string name="image_not_load_toast">无法加载指定图片</string>
     
     <string name="copying_image">正在拷贝图片</string>
+    
+    <string name="loading_card_db">正在导入卡片数据库</string>
+    <string name="resume_card_db">导入卡片数据库失败，正在恢复原始数据库</string>
+    <string name="loading_card_success">"导入成功，卡查变更需要完全退出游戏后生效！"</string>
+    <string name="loading_card_failed">"导入失败"</string>
+    
+    <string name="reseting_card_db">正在重置卡片数据库</string>
+    
+     <string name="reset_card_success">"重置成功，卡查变更需要完全退出游戏后生效！"</string>
+    <string name="reset_card_failed">"重置失败"</string>
     
     <string name="server_user_name">用户名：</string>
     <string name="server_name">名称：</string>

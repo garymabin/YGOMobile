@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.model.Model;
-import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.utils.BitmapUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 import android.app.ProgressDialog;
@@ -17,7 +15,7 @@ import android.os.Bundle;
 public class ImageCopyTask extends AsyncTask<String, Void, Bundle> {
 	
 	public interface ImageCopyListener {
-		void onCopyFinished(Bundle result);
+		void onImageCopyFinished(Bundle result);
 	}
 
 	private ProgressDialog mWaitDialog;
@@ -62,7 +60,7 @@ public class ImageCopyTask extends AsyncTask<String, Void, Bundle> {
 		mWaitDialog.dismiss();
 		mWaitDialog = null;
 		if (mListener != null && result != null) {
-			mListener.onCopyFinished(result);
+			mListener.onImageCopyFinished(result);
 		}
 		mListener = null;
 	}

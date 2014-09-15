@@ -3,12 +3,16 @@ package cn.garymb.ygomobile;
 import java.io.File;
 import java.util.List;
 
+import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.soundcloud.android.crop.Crop;
-import com.umeng.update.UmengUpdateAgent;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.AppUpdateTask;
+import cn.garymb.ygomobile.common.CardDBCopyTask;
+import cn.garymb.ygomobile.common.CardDBResetTask;
+import cn.garymb.ygomobile.common.CardDBCopyTask.CardDBCopyListener;
+import cn.garymb.ygomobile.common.CardDBResetTask.CardDBResetListener;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.common.ImageCopyTask;
 import cn.garymb.ygomobile.common.ImageCopyTask.ImageCopyListener;
@@ -23,24 +27,22 @@ import cn.garymb.ygomobile.widget.AppUpdateDialog;
 import cn.garymb.ygomobile.widget.FileChooseController;
 import cn.garymb.ygomobile.widget.FileChooseDialog;
 import cn.garymb.ygomobile.widget.ImagePreviewDialog;
+import cn.garymb.ygomobile.widget.SimpleDialog;
 import cn.garymb.ygomobile.widget.WebViewDialog;
+import cn.garymb.ygomobile.widget.filebrowser.FileBrowser;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Handler.Callback;
@@ -59,7 +61,7 @@ import android.widget.Toast;
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener, OnPreferenceClickListener, OnClickListener,
-		android.view.View.OnClickListener, ImageCopyListener, Callback {
+		android.view.View.OnClickListener, ImageCopyListener, Callback, CardDBCopyListener, CardDBResetListener {
 
 	public static class EventHandler extends Handler {
 		public EventHandler(Callback back) {
@@ -72,6 +74,8 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final int DIALOG_ID_FOLDER_CHOOSE = 2;
 	private static final int DIALOG_ID_IMAGE_PREVIEW = 3;
 	private static final int DIALOG_ID_APP_UPDATE = 4;
+	private static final int DIALOG_ID_CARD_DB_FILE_CHOOSE = 5;
+	private static final int DIALOG_ID_CARD_DB_RESET = 6;
 
 	private static final int MSG_TYPE_CHECK_UPDATE = 0;
 
@@ -82,7 +86,10 @@ public class SettingsActivity extends PreferenceActivity implements
 	private ListPreference mCardQualityPreference;
 	private ListPreference mFontNamePreference;
 	private Preference mCoverDiyPreference;
+	private Preference mCardDBDiyPreference;
 	private Preference mAppUpdatePreference;
+	
+	private Preference mCardDBResetPrefernece;
 
 	private EventHandler mHandler = new EventHandler(this);
 
@@ -123,6 +130,10 @@ public class SettingsActivity extends PreferenceActivity implements
 
 				mCoverDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_COVER);
 				mCoverDiyPreference.setOnPreferenceClickListener(this);
+				mCardDBDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_CARD_DB);
+				mCardDBDiyPreference.setOnPreferenceClickListener(this);
+				mCardDBResetPrefernece = findPreference(Settings.KEY_PREF_GAME_RESET_CARD_DB);
+				mCardDBResetPrefernece.setOnPreferenceClickListener(this);
 			} else if (action.equals(Constants.SETTINGS_ACTION_ABOUT)) {
 				addPreferencesFromResource(R.xml.preference_about);
 				mVersionPref = findPreference(Settings.KEY_PREF_ABOUT_VERSION);
@@ -160,6 +171,8 @@ public class SettingsActivity extends PreferenceActivity implements
 			View view = getLayoutInflater().inflate(
 					R.layout.app_update_content, null);
 			return new AppUpdateDialog(this, this, view, args);
+		} else if (id == DIALOG_ID_CARD_DB_RESET){
+			return new SimpleDialog(this, this, null, args);
 		} else {
 			dlg = super.onCreateDialog(id);
 		}
@@ -215,8 +228,8 @@ public class SettingsActivity extends PreferenceActivity implements
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_GAME_RESOURCE_PATH)) {
 			Bundle bundle = new Bundle();
-			bundle.putString("root", Environment.getExternalStorageDirectory()
-					.getAbsolutePath());
+			bundle.putString("root", "/"/*Environment.getExternalStorageDirectory()
+					.getAbsolutePath()*/);
 			bundle.putString("current", StaticApplication.peekInstance()
 					.getResourcePath());
 			showDialog(DIALOG_ID_FOLDER_CHOOSE, bundle);
@@ -232,6 +245,22 @@ public class SettingsActivity extends PreferenceActivity implements
 				Settings.KEY_PREF_ABOUT_CHECK_UPDATE)) {
 			Controller.peekInstance().asyncCheckUpdate(
 					Message.obtain(mHandler, MSG_TYPE_CHECK_UPDATE));
+		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
+			Bundle bundle = new Bundle();
+			bundle.putString("root", "/");
+			bundle.putInt("mode", FileBrowser.BROWSE_MODE_FILES);
+			showDialog(DIALOG_ID_CARD_DB_FILE_CHOOSE, bundle);
+		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_RESET_CARD_DB)) {
+			Bundle bundle = new Bundle();
+			bundle.putString(
+					"message",
+					getResources().getString(
+							R.string.settings_game_reset_card_db_confirm));
+			bundle.putString(
+					"title",
+					getResources().getString(
+							R.string.settings_game_reset_card_db));
+			showDialog(DIALOG_ID_CARD_DB_RESET, bundle);
 		}
 		return false;
 	}
@@ -242,12 +271,33 @@ public class SettingsActivity extends PreferenceActivity implements
 			if (dialog instanceof FileChooseDialog) {
 				String newUrl = ((FileChooseController) ((FileChooseDialog) dialog)
 						.getController()).getUrl();
-				StaticApplication.peekInstance().setResourcePath(newUrl);
-				mGameResPath.setSummary(newUrl);
+				int mode = ((FileChooseController) ((FileChooseDialog) dialog)
+						.getController()).getMode();
+				if (mode == FileBrowser.BROWSE_MODE_DIRS) {
+					StaticApplication.peekInstance().setResourcePath(newUrl);
+					mGameResPath.setSummary(newUrl);
+				} else {
+					CardDBCopyTask task = new CardDBCopyTask(this);
+					task.setCardDBCopyListener(this);
+					if (Build.VERSION.SDK_INT >= 11) {
+						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, newUrl);
+					} else {
+						task.execute(newUrl);
+					}
+					
+				}
 			} else if (dialog instanceof AppUpdateDialog) {
 				String url = ((AppUpdateController) ((AppUpdateDialog) dialog)
 						.getController()).getDownloadUrl();
 				new AppUpdateTask(this).execute(url);
+			} else if (dialog instanceof SimpleDialog) {
+				CardDBResetTask task = new CardDBResetTask(this);
+				task.setCardDBResetListener(this);
+				if (Build.VERSION.SDK_INT >= 11) {
+					task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+				} else {
+					task.execute();
+				}
 			}
 		}
 	}
@@ -319,7 +369,7 @@ public class SettingsActivity extends PreferenceActivity implements
 	}
 
 	@Override
-	public void onCopyFinished(Bundle result) {
+	public void onImageCopyFinished(Bundle result) {
 		showDialog(DIALOG_ID_IMAGE_PREVIEW, result);
 	}
 
@@ -346,5 +396,24 @@ public class SettingsActivity extends PreferenceActivity implements
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void onCardDBCopyFinished(Boolean result) {
+		SuperActivityToast.create(this,
+				result ? getResources().getString(R.string.loading_card_success) :
+					getResources().getString(R.string.loading_card_success),
+				SuperToast.Duration.MEDIUM).show();		
+	}
+
+	@Override
+	public void onCardDBResetFinished(Boolean result) {
+		SuperActivityToast.create(
+				this,
+				result ? getResources()
+						.getString(R.string.reset_card_success)
+						: getResources().getString(
+								R.string.reset_card_failed),
+				SuperToast.Duration.MEDIUM).show();		
 	}
 }

@@ -16,10 +16,7 @@ import static org.acra.ReportField.USER_CRASH_DATE;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
@@ -34,13 +31,12 @@ import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.core.CrashSender;
 import cn.garymb.ygomobile.net.http.ThreadSafeHttpClientFactory;
-import cn.garymb.ygomobile.provider.YGOCardsProvider;
 import cn.garymb.ygomobile.setting.Settings;
+import cn.garymb.ygomobile.utils.DatabaseUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 
 import com.github.nativehandler.NativeCrashHandler;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -49,9 +45,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
-import android.content.res.AssetManager;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -121,10 +114,15 @@ public class StaticApplication extends Application {
 		ACRA.getErrorReporter().setReportSender(sender);
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
 		sRootPair = Pair.create(getResources().getString(R.string.root_dir),
-				Environment.getExternalStorageDirectory().getPath());
+				"/"/*"Environment.getExternalStorageDirectory().getPath()"*/);
 		mCoreSkinPath = getCacheDir() + File.separator
 				+ Constants.CORE_SKIN_PATH;
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(this);
+		if (android.os.Build.VERSION.SDK_INT >= 17) {
+			mDataBasePath = getApplicationInfo().dataDir + "/databases/";
+		} else {
+			mDataBasePath = "/data/data/" + getPackageName() + "/databases/";
+		}
 		try {
 			PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
 			mVersionCode = info.versionCode;
@@ -145,7 +143,7 @@ public class StaticApplication extends Application {
 		saveCoreConfigVersion();
 		checkAndCopyCoreConfig(needsUpdate);
 		checkAndCopyGameSkin();
-		checkAndCopyDatabase(needsUpdate);
+		DatabaseUtils.checkAndCopyFromInternalDatabase(this, mDataBasePath, needsUpdate);
 		checkAndCopyFonts();
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		mScreenWidth = metrics.widthPixels;
@@ -159,92 +157,13 @@ public class StaticApplication extends Application {
 			try {
 				new File(getDefaultResPath() + Constants.FONT_DIRECTORY)
 						.mkdirs();
-				copyRawData(getFontPath(), R.raw.fonts);
+				FileOpsUtils.copyRawData(getFontPath(), R.raw.fonts);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	private void checkAndCopyDatabase(boolean needsUpdate) {
-		if (!checkDataBase(needsUpdate)) {
-			try {
-				new File(mDataBasePath).mkdirs();
-				copyRawData(mDataBasePath + YGOCardsProvider.DATABASE_NAME,
-						R.raw.cards);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			doSomeTrickOnDatabase();
-		}
-	}
-
-	private void doSomeTrickOnDatabase() {
-		SQLiteDatabase db = null;
-		try {
-			String myPath = mDataBasePath + YGOCardsProvider.DATABASE_NAME;
-			db = SQLiteDatabase.openDatabase(myPath, null,
-					SQLiteDatabase.OPEN_READWRITE);
-		} catch (SQLiteException e) {
-			e.printStackTrace();
-		}
-		try {
-			db.beginTransaction();
-			db.execSQL("ALTER TABLE datas RENAME TO datas_backup;");
-			db.execSQL("CREATE TABLE datas (_id integer PRIMARY KEY, ot integer, alias integer, setcode integer, type integer,"
-					+ " atk integer, def integer, level integer, race integer, attribute integer, category integer);");
-			db.execSQL("INSERT INTO datas (_id, ot, alias, setcode, type, atk, def, level, race, attribute, category) "
-					+ "SELECT id, ot, alias, setcode, type, atk, def, level, race, attribute, category FROM datas_backup;");
-			db.execSQL("DROP TABLE datas_backup;");
-			db.execSQL("ALTER TABLE texts RENAME TO texts_backup;");
-			db.execSQL("CREATE TABLE texts (_id integer PRIMARY KEY, name varchar(128), desc varchar(1024),"
-					+ " str1 varchar(256), str2 varchar(256), str3 varchar(256), str4 varchar(256), str5 varchar(256),"
-					+ " str6 varchar(256), str7 varchar(256), str8 varchar(256), str9 varchar(256), str10 varchar(256),"
-					+ " str11 varchar(256), str12 varchar(256), str13 varchar(256), str14 varchar(256), str15 varchar(256), str16 varchar(256));");
-			db.execSQL("INSERT INTO texts (_id, name, desc, str1, str2, str3, str4, str5, str6, str7, str8, str9, str10, str11, str12, str13, str14, str15, str16)"
-					+ " SELECT id, name, desc, str1, str2, str3, str4, str5, str6, str7, str8, str9, str10, str11, str12, str13, str14, str15, str16 FROM texts_backup;");
-			db.execSQL("DROP TABLE texts_backup;");
-			db.setTransactionSuccessful();
-		} finally {
-			db.endTransaction();
-		}
-		if (db != null) {
-			db.close();
-		}
-	}
-
-	private void copyRawData(String path, int resId) throws IOException {
-		// Open your local db as the input stream
-		InputStream myInput = getResources().openRawResource(resId);
-		// Path to the just created empty db
-		// Open the empty db as the output stream
-		OutputStream myOutput = new FileOutputStream(path);
-		// transfer bytes from the inputfile to the outputfile
-		byte[] buffer = new byte[1024];
-		int length;
-		while ((length = myInput.read(buffer)) > 0) {
-			myOutput.write(buffer, 0, length);
-		}
-		// Close the streams
-		myOutput.flush();
-		myOutput.close();
-		myInput.close();
-
-	}
-
-	@SuppressLint("SdCardPath")
-	private boolean checkDataBase(boolean needsUpdate) {
-		if (android.os.Build.VERSION.SDK_INT >= 17) {
-			mDataBasePath = getApplicationInfo().dataDir + "/databases/";
-		} else {
-			mDataBasePath = "/data/data/" + getPackageName() + "/databases/";
-		}
-		if (needsUpdate) {
-			new File(mDataBasePath + YGOCardsProvider.DATABASE_NAME).delete();
-			return false;
-		}
-		return new File(mDataBasePath + YGOCardsProvider.DATABASE_NAME).exists();
-	}
 
 	private void checkAndCopyGameSkin() {
 		File coreSkinDir = new File(mCoreSkinPath);

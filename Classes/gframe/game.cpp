@@ -1285,7 +1285,7 @@ void Game::LoadConfig() {
 	wchar_t wstr[256];
 	gameConf.antialias = 0;
 	gameConf.serverport = 7911;
-	gameConf.textfontsize = 12;
+	gameConf.textfontsize = 15;
 	gameConf.gamename[0] = 0;
 	BufferIO::DecodeUTF8(android::getLastDeck(appMain).c_str(), wstr);
 	BufferIO::CopyWStr(wstr, gameConf.lastdeck, 64);

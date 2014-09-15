@@ -29,6 +29,10 @@ import android.widget.Toast;
  */
 public class FileBrowser extends ListView implements
 		android.view.View.OnClickListener {
+	
+	public static final int BROWSE_MODE_DIRS = 0;
+	public static final int BROWSE_MODE_FILES = 1;
+	public static final int BROWSE_MODE_ALL = 2;
 
 	static final String TAG = "FileBrowser";
 
@@ -43,11 +47,13 @@ public class FileBrowser extends ListView implements
 	private int folderResId;
 
 	private int fileResId;
+	
+	private int mBrowseMode = BROWSE_MODE_DIRS;
 
 	/** 上级目录名称 */
 	private String parentDirName = ". .";
 
-	private int display = DISPLAY_FOLDER;
+	private int display = DISPLAY_ALL;
 
 	public static final int DISPLAY_ALL = -1;
 	public static final int DISPLAY_FILE = 0;
@@ -106,6 +112,10 @@ public class FileBrowser extends ListView implements
 		}
 		currentDir = file;
 		refresh();
+	}
+	
+	public void setBrowserMode(int mode) {
+		mBrowseMode = mode;	
 	}
 
 	public void refresh() {
@@ -287,15 +297,35 @@ public class FileBrowser extends ListView implements
 				if (current.isDirectory()) {
 					if (folderResId > 0)
 						ivFile.setImageResource(folderResId);
+					if (mBrowseMode == BROWSE_MODE_FILES) {
+						((FileTreeItem) view).setSelectbleVisibility(false);
+					} else {
+						((FileTreeItem) view).setSelectbleVisibility(true);
+						checkbox.setChecked(mItemSelectListener
+								.isFileSelected(url));
+						((FileTreeItem) view).toggoleBackground(mItemSelectListener
+								.isFileSelected(url));
+					}
 					tvFile.setText(current.getName());
 					((FileTreeItem) view).setUrl(url);
-					((FileTreeItem) view).setSelectbleVisibility(true);
-					checkbox.setChecked(mItemSelectListener
-							.isFileSelected(url));
-					((FileTreeItem) view).toggoleBackground(mItemSelectListener
-							.isFileSelected(url));
 					propertyText.setText(FileOpsUtils.formatTime(current
 							.lastModified()));
+				} else {
+					tvFile.setText(current.getName());
+					if (fileResId > 0) {
+						ivFile.setImageResource(fileResId);
+					}
+					((FileTreeItem)view).setUrl(url);
+					if (mBrowseMode == BROWSE_MODE_DIRS) {
+						((FileTreeItem) view).setSelectbleVisibility(false);
+					} else {
+						((FileTreeItem)view).setSelectbleVisibility(true);
+						checkbox.setSelected(mItemSelectListener
+								.isFileSelected(url));
+						((FileTreeItem) view).toggoleBackground(mItemSelectListener
+								.isFileSelected(url));
+					}
+					propertyText.setText(FileOpsUtils.formatReadableFileSize(current.length()));
 				}
 			}
 		}

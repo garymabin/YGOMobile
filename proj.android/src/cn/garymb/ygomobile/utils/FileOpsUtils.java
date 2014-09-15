@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import cn.garymb.ygomobile.Constants;
+import cn.garymb.ygomobile.StaticApplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -212,5 +213,23 @@ public final class FileOpsUtils {
 			inputChannel.close();
 			outputChannel.close();
 		}
+	}
+	
+	public static void copyRawData(String path, int resId) throws IOException {
+		// Open your local db as the input stream
+		InputStream myInput = StaticApplication.peekInstance().getResources().openRawResource(resId);
+		// Path to the just created empty db
+		// Open the empty db as the output stream
+		OutputStream myOutput = new FileOutputStream(path);
+		// transfer bytes from the inputfile to the outputfile
+		byte[] buffer = new byte[1024];
+		int length;
+		while ((length = myInput.read(buffer)) > 0) {
+			myOutput.write(buffer, 0, length);
+		}
+		// Close the streams
+		myOutput.flush();
+		myOutput.close();
+		myInput.close();
 	}
 }

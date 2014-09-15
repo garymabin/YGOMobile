@@ -16,6 +16,8 @@ public class FileChooseController extends BaseDialogConfigController implements 
 	private String mUrl;
 	private FileBrowser mFileBrowser;
 	private FolderNavigator mNavigator;
+	
+	private int mMode;
 
 	public FileChooseController(DialogConfigUIBase configUI, View view, Bundle param) {
 		super(configUI, view);
@@ -23,11 +25,19 @@ public class FileChooseController extends BaseDialogConfigController implements 
 		final Resources res = configUI.getContext().getResources();
 		String rootDir = param.getString("root");
 		mUrl = param.getString("current");
-		configUI.setTitle(R.string.choose_folder);
+		mMode = param.getInt("mode", FileBrowser.BROWSE_MODE_DIRS);
+		if (mMode == FileBrowser.BROWSE_MODE_ALL) {
+			configUI.setTitle(R.string.choose_all);
+		} else if (mMode == FileBrowser.BROWSE_MODE_DIRS) {
+			configUI.setTitle(R.string.choose_folder); 
+		} else if (mMode == FileBrowser.BROWSE_MODE_FILES) {
+			configUI.setTitle(R.string.choose_file);
+		}
 		mFileBrowser = (FileBrowser) view.findViewById(R.id.file_browser);
 		mNavigator = (FolderNavigator) view.findViewById(R.id.folder_navigator);
 		mNavigator.setNavigateItemChangeListener(this);
 		
+		mFileBrowser.setBrowserMode(mMode);
 		mFileBrowser.setOnBrowserListener(mNavigator);
 		mFileBrowser.setItemSelectListener(this);
 		mFileBrowser.browse(rootDir);
@@ -64,6 +74,10 @@ public class FileChooseController extends BaseDialogConfigController implements 
 	
 	public String getUrl() {
 		return mUrl;
+	}
+	
+	public int getMode() {
+		return mMode;
 	}
 
 	@Override

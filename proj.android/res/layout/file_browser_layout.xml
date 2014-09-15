@@ -30,7 +30,6 @@
         android:fadingEdge="none"
         android:scrollingCache="false"
         join:back_resp="true"
-        join:display="folder"
         join:file_def="@drawable/ic_file"
         join:folder_def="@drawable/ic_dir" />
 

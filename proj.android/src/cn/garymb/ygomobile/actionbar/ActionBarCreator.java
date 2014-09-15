@@ -78,7 +78,7 @@ public class ActionBarCreator {
 
 	public void createMenu(final Menu menu) {
 		int index = 0;
-		menu.removeGroup(Menu.NONE);
+		menu.clear();
 		if (mSettings) {
 			MenuItem item = menu.add(Menu.NONE, R.id.action_settings, index++,
 					R.string.action_settings);

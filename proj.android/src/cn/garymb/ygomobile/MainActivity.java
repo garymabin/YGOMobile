@@ -21,15 +21,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.WindowCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.OnNavigationListener;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 
 public class MainActivity extends ActionBarActivity implements
@@ -67,13 +70,14 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mFragmentManager = getSupportFragmentManager();
+		supportRequestWindowFeature(Window.FEATURE_ACTION_BAR);
 		setContentView(R.layout.activity_main);
-		initActionBar();
 		setTitle(R.string.app_name);
 		mController = Controller.peekInstance();
 		mActionBarCreator = new ActionBarCreator(this);
 		mHandler = new EventHandler(this);
 		mDuelList = getResources().getStringArray(R.array.duel_list);
+		initActionBar();
 		mActionBar
 				.setListNavigationCallbacks(new ArrayAdapter<String>(this,
 						android.R.layout.simple_spinner_dropdown_item,
@@ -83,23 +87,23 @@ public class MainActivity extends ActionBarActivity implements
 		UmengUpdateAgent.update(this);
 	}
 
-	private void checkUpdateIfNeeded() {
-		boolean isCheckNeeded = true;
-		long lasttime = StaticApplication.peekInstance().getLastCheckTime();
-		long currenttime = 0;
-		if (lasttime != 0) {
-			currenttime = System.currentTimeMillis();
-			if (currenttime - lasttime < Constants.DAILY_MILLSECONDS) {
-				isCheckNeeded = false;
-			}
-		}
-		if (isCheckNeeded) {
-			StaticApplication.peekInstance().setLastCheckTime(currenttime);
-			Controller.peekInstance().asyncCheckUpdate(
-					Message.obtain(mHandler,
-							Constants.REQUEST_TYPE_CHECK_UPDATE));
-		}
-	}
+//	private void checkUpdateIfNeeded() {
+//		boolean isCheckNeeded = true;
+//		long lasttime = StaticApplication.peekInstance().getLastCheckTime();
+//		long currenttime = 0;
+//		if (lasttime != 0) {
+//			currenttime = System.currentTimeMillis();
+//			if (currenttime - lasttime < Constants.DAILY_MILLSECONDS) {
+//				isCheckNeeded = false;
+//			}
+//		}
+//		if (isCheckNeeded) {
+//			StaticApplication.peekInstance().setLastCheckTime(currenttime);
+//			Controller.peekInstance().asyncCheckUpdate(
+//					Message.obtain(mHandler,
+//							Constants.REQUEST_TYPE_CHECK_UPDATE));
+//		}
+//	}
 
 	@Override
 	protected void onResume() {
@@ -138,14 +142,14 @@ public class MainActivity extends ActionBarActivity implements
 		mActionBarCreator.createMenu(menu);
 		return super.onPrepareOptionsMenu(menu);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		mMenu = menu;
 		mActionBarCreator.createMenu(menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-
+	
 	public Menu getMenu() {
 		return mMenu;
 	}

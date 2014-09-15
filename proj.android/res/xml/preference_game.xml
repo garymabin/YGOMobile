@@ -29,16 +29,26 @@
             android:persistent="true"
             android:title="@string/settings_game_card_quality" />
     </PreferenceCategory>
-    
     <PreferenceCategory android:title="@string/settings_category_diy" >
         <cn.garymb.ygomobile.widget.preference.MyListPreference
             android:key="pref_key_game_font_name"
             android:persistent="true"
             android:title="@string/settings_game_font_name" />
+
         <Preference
             android:key="settings_game_diy_cover"
             android:persistent="true"
             android:title="@string/settings_game_diy_cover" />
+        <Preference
+            android:key="settings_game_diy_card_db"
+            android:persistent="true"
+            android:summary="@string/settings_game_diy_card_db_des"
+            android:title="@string/settings_game_diy_card_db" />
+        <Preference
+            android:key="settings_reset_card_db"
+            android:persistent="true"
+            android:summary="@string/settings_game_reset_card_db_des"
+            android:title="@string/settings_game_reset_card_db" />
     </PreferenceCategory>
 
 </PreferenceScreen>

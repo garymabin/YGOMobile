@@ -217,7 +217,7 @@ public class YGOArrayStore {
 	}
 	
 	public String getCardOT(int code) {
-		if (code < 1 || code > mOTArray.length) {
+		if (code < 1 || code >= mOTArray.length) {
 			return mUnknown;
 		} else {
 			return mOTArray[code];
