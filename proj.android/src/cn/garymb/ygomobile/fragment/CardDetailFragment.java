@@ -52,17 +52,12 @@ public class CardDetailFragment extends BaseFragment implements
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		mActivity.onActionBarChange(
-				Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE,
-				FRAGMENT_ID_CARD_DETAIL, 0, null);
 	}
 	
 	@Override
 	public void onDetach() {
 		Log.d(TAG, "onDetach : E");
 		super.onDetach();
-		int currentSecltion = mViewPager.getCurrentItem();
-		((BaseFragment)getTargetFragment()).onEventFromChild(getTargetRequestCode(), FRAGMENT_NAVIGATION_BACK_EVENT, currentSecltion - mInitPos, -1, null);
 	}
 
 	@Override
@@ -82,10 +77,19 @@ public class CardDetailFragment extends BaseFragment implements
 		mViewPager.setOnPageChangeListener(this);
 		mViewPager.setCurrentItem(mInitPos);
 		view.setOnTouchListener(this);
+		mActivity.onActionBarChange(
+				Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE,
+				FRAGMENT_ID_CARD_DETAIL, 0, null);
 		return view;
 	}
-
+	
 	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		int currentSecltion = mViewPager.getCurrentItem();
+		((BaseFragment)getTargetFragment()).onEventFromChild(getTargetRequestCode(), FRAGMENT_NAVIGATION_BACK_EVENT, currentSecltion - mInitPos, -1, null);
+	}
+
 	public boolean onTouch(View v, MotionEvent event) {
 		return true;
 	}

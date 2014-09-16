@@ -99,6 +99,7 @@ public class YGOArrayStore {
 		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_CONTINUOUS, TYPE_CONTINUOUS);
 		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_EQUIP, TYPE_EQUIP);
 		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_FIELD, TYPE_FIELD);
+		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_RITUAL, TYPE_RITUAL);
 		sTypeMaps.add(spellArray);
 		
 		//trap card

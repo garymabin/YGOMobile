@@ -3,6 +3,7 @@
     android:id="@+id/content_frame"
     android:background="@color/holo_gray_light"
     android:layout_width="match_parent"
+    android:paddingTop="@dimen/abc_action_bar_default_height"
     android:layout_height="match_parent"
     tools:ignore="MergeRootFrame" >
 

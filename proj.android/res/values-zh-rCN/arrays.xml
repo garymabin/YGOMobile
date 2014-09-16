@@ -88,6 +88,7 @@
         <item>魔法｜永续</item>
         <item>魔法｜装备</item>
         <item>魔法｜场地</item>
+        <item>魔法｜仪式</item>
     </string-array>
     <string-array name="card_trap_type">
         <item>陷阱</item>

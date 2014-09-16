@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,6 +69,8 @@ public abstract class TabFragment extends BaseFragment {
 		mViewPager = (ViewPager) contentView.findViewById(R.id.mViewPager);
 		initView();
 		setUpListener();
+		mViewPager.setCurrentItem(0);
+		((CompoundButton) rg_nav_content.getChildAt(0)).setChecked(true);
 		return contentView;
 	}
 	

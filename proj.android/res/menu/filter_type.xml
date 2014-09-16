@@ -107,28 +107,28 @@
                     android:showAsAction="never"
                     android:title="@string/action_filter_none"/>
                 <item
+                    android:id="@+id/action_spell_quick_play"
+                    android:orderInCategory="1"
+                    android:showAsAction="never"
+                    android:title="@string/action_filter_type_spell_quick_play"/>
+                <item
                     android:id="@+id/action_spell_continuous"
                     android:orderInCategory="2"
                     android:showAsAction="never"
                     android:title="@string/action_filter_type_spell_continuous"/>
                 <item
-                    android:id="@+id/action_spell_quick_play"
-                    android:orderInCategory="3"
-                    android:showAsAction="never"
-                    android:title="@string/action_filter_type_spell_quick_play"/>
-                <item
                     android:id="@+id/action_spell_equip"
-                    android:orderInCategory="4"
+                    android:orderInCategory="3"
                     android:showAsAction="never"
                     android:title="@string/action_filter_type_spell_equip"/>
                 <item
                     android:id="@+id/action_spell_field"
-                    android:orderInCategory="5"
+                    android:orderInCategory="4"
                     android:showAsAction="never"
                     android:title="@string/action_filter_type_spell_field"/>
                 <item
                     android:id="@+id/action_spell_ritual"
-                    android:orderInCategory="6"
+                    android:orderInCategory="5"
                     android:showAsAction="never"
                     android:title="@string/action_filter_type_spell_ritual"/>
             </group>

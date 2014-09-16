@@ -57,5 +57,4 @@ public class FreeDuelTabFragment extends TabFragment {
 			addTab(i++, title, mTabCount);
 		}
 	}
-
 }
