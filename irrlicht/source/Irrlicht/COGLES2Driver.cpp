@@ -1,7 +1,4 @@
-// Copyright (C) 2013 Patryk Nadrowski
-// Heavily based on the OpenGL driver implemented by Nikolaus Gebhardt
-// OpenGL ES driver implemented by Christian Stehno and first OpenGL ES 2.0
-// driver implemented by Amundis.
+// Copyright (C) 2014 Patryk Nadrowski
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in Irrlicht.h
 
@@ -272,67 +269,180 @@ COGLES2Driver::~COGLES2Driver()
 
 	void COGLES2Driver::createMaterialRenderers()
 	{
-		// Load shaders from files
+		// Create callbacks.
 
-		// Fixed pipeline.
-		c8* vsFixedPipelineData = 0;
-		c8* fsFixedPipelineData = 0;
-		loadShaderData(io::path("COGLES2FixedPipeline.vsh"), io::path("COGLES2FixedPipeline.fsh"), &vsFixedPipelineData, &fsFixedPipelineData);
+		COGLES2MaterialSolidCB* SolidCB = new COGLES2MaterialSolidCB();
+		COGLES2MaterialSolid2CB* Solid2LayerCB = new COGLES2MaterialSolid2CB();
+		COGLES2MaterialLightmapCB* LightmapCB = new COGLES2MaterialLightmapCB(1.f);
+		COGLES2MaterialLightmapCB* LightmapAddCB = new COGLES2MaterialLightmapCB(1.f);
+		COGLES2MaterialLightmapCB* LightmapM2CB = new COGLES2MaterialLightmapCB(2.f);
+		COGLES2MaterialLightmapCB* LightmapM4CB = new COGLES2MaterialLightmapCB(4.f);
+		COGLES2MaterialLightmapCB* LightmapLightingCB = new COGLES2MaterialLightmapCB(1.f);
+		COGLES2MaterialLightmapCB* LightmapLightingM2CB = new COGLES2MaterialLightmapCB(2.f);
+		COGLES2MaterialLightmapCB* LightmapLightingM4CB = new COGLES2MaterialLightmapCB(4.f);
+		COGLES2MaterialSolid2CB* DetailMapCB = new COGLES2MaterialSolid2CB();
+		COGLES2MaterialReflectionCB* SphereMapCB = new COGLES2MaterialReflectionCB();
+		COGLES2MaterialReflectionCB* Reflection2LayerCB = new COGLES2MaterialReflectionCB();
+		COGLES2MaterialSolidCB* TransparentAddColorCB = new COGLES2MaterialSolidCB();
+		COGLES2MaterialSolidCB* TransparentAlphaChannelCB = new COGLES2MaterialSolidCB();
+		COGLES2MaterialSolidCB* TransparentAlphaChannelRefCB = new COGLES2MaterialSolidCB();
+		COGLES2MaterialSolidCB* TransparentVertexAlphaCB = new COGLES2MaterialSolidCB();
+		COGLES2MaterialReflectionCB* TransparentReflection2LayerCB = new COGLES2MaterialReflectionCB();
+		COGLES2MaterialNormalMapCB* NormalMapCB = new COGLES2MaterialNormalMapCB();
+		COGLES2MaterialNormalMapCB* NormalMapAddColorCB = new COGLES2MaterialNormalMapCB();
+		COGLES2MaterialNormalMapCB* NormalMapVertexAlphaCB = new COGLES2MaterialNormalMapCB();
+		COGLES2MaterialParallaxMapCB* ParallaxMapCB = new COGLES2MaterialParallaxMapCB();
+		COGLES2MaterialParallaxMapCB* ParallaxMapAddColorCB = new COGLES2MaterialParallaxMapCB();
+		COGLES2MaterialParallaxMapCB* ParallaxMapVertexAlphaCB = new COGLES2MaterialParallaxMapCB();
+		COGLES2MaterialOneTextureBlendCB* OneTextureBlendCB = new COGLES2MaterialOneTextureBlendCB();
 
-		// Create fixed pipeline materials.
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_SOLID, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_SOLID_2_LAYER, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_ADD, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_M2, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_M4, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_LIGHTING, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_LIGHTING_M2, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_LIGHTMAP_LIGHTING_M4, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_DETAIL_MAP, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_SPHERE_MAP, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_REFLECTION_2_LAYER, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_ADD_COLOR, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_ALPHA_CHANNEL, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_ALPHA_CHANNEL_REF, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_VERTEX_ALPHA, this));
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_TRANSPARENT_REFLECTION_2_LAYER, this));
-		// do not remove fsFixedPipelineData here, we need it later on for ONE_TEXTURE_BLEND material
+		// Create built-in materials.
 
-		// Normal Mapping.
-		c8* vsNormalMapData = 0;
-		c8* fsNormalMapData = 0;
-		loadShaderData(io::path("COGLES2NormalMap.vsh"), io::path("COGLES2NormalMap.fsh"), &vsNormalMapData, &fsNormalMapData);
+		core::stringc VertexShader = OGLES2ShaderPath + "COGLES2Solid.vsh";
+		core::stringc FragmentShader = OGLES2ShaderPath + "COGLES2Solid.fsh";
 
-		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(vsNormalMapData, fsNormalMapData, EMT_NORMAL_MAP_SOLID, this));
-		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(vsNormalMapData, fsNormalMapData, EMT_NORMAL_MAP_TRANSPARENT_ADD_COLOR, this));
-		addAndDropMaterialRenderer(new COGLES2NormalMapRenderer(vsNormalMapData, fsNormalMapData, EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA, this));
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, SolidCB, EMT_SOLID, 0, EGSL_DEFAULT);
 
-		delete[] vsNormalMapData;
-		delete[] fsNormalMapData;
+		VertexShader = OGLES2ShaderPath + "COGLES2Solid2.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2Solid2Layer.fsh";
 
-		// Parallax Mapping.
-		c8* vsParallaxMapData = 0;
-		c8* fsParallaxMapData = 0;
-		loadShaderData(io::path("COGLES2ParallaxMap.vsh"), io::path("COGLES2ParallaxMap.fsh"), &vsParallaxMapData, &fsParallaxMapData);
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, Solid2LayerCB, EMT_SOLID, 0, EGSL_DEFAULT);
 
-		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(vsParallaxMapData, fsParallaxMapData, EMT_PARALLAX_MAP_SOLID, this));
-		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(vsParallaxMapData, fsParallaxMapData, EMT_PARALLAX_MAP_TRANSPARENT_ADD_COLOR, this));
-		addAndDropMaterialRenderer(new COGLES2ParallaxMapRenderer(vsParallaxMapData, fsParallaxMapData, EMT_PARALLAX_MAP_TRANSPARENT_VERTEX_ALPHA, this));
+		VertexShader = OGLES2ShaderPath + "COGLES2Solid2.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2LightmapModulate.fsh";
 
-		delete[] vsParallaxMapData;
-		delete[] fsParallaxMapData;
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapCB, EMT_SOLID, 0, EGSL_DEFAULT);
 
-		addAndDropMaterialRenderer(new COGLES2FixedPipelineRenderer(vsFixedPipelineData, fsFixedPipelineData, EMT_ONETEXTURE_BLEND, this));
+		FragmentShader = OGLES2ShaderPath + "COGLES2LightmapAdd.fsh";
 
-		delete[] vsFixedPipelineData;
-		delete[] fsFixedPipelineData;
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapAddCB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		FragmentShader = OGLES2ShaderPath + "COGLES2LightmapModulate.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapM2CB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapM4CB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapLightingCB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapLightingM2CB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapLightingM4CB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		VertexShader = OGLES2ShaderPath + "COGLES2Solid2.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2DetailMap.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, DetailMapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		VertexShader = OGLES2ShaderPath + "COGLES2SphereMap.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2SphereMap.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, SphereMapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		VertexShader = OGLES2ShaderPath + "COGLES2Reflection2Layer.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2Reflection2Layer.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, Reflection2LayerCB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		VertexShader = OGLES2ShaderPath + "COGLES2Solid.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2Solid.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentAddColorCB, EMT_TRANSPARENT_ADD_COLOR, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentAlphaChannelCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+
+		FragmentShader = OGLES2ShaderPath + "COGLES2TransparentAlphaChannelRef.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentAlphaChannelRefCB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		FragmentShader = OGLES2ShaderPath + "COGLES2TransparentVertexAlpha.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+
+		VertexShader = OGLES2ShaderPath + "COGLES2Reflection2Layer.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2Reflection2Layer.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentReflection2LayerCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+
+		VertexShader = OGLES2ShaderPath + "COGLES2NormalMap.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2NormalMap.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, NormalMapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, NormalMapAddColorCB, EMT_TRANSPARENT_ADD_COLOR, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, NormalMapVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+
+		VertexShader = OGLES2ShaderPath + "COGLES2ParallaxMap.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2ParallaxMap.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, ParallaxMapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, ParallaxMapAddColorCB, EMT_TRANSPARENT_ADD_COLOR, 0, EGSL_DEFAULT);
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, ParallaxMapVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+
+		VertexShader = OGLES2ShaderPath + "COGLES2Solid.vsh";
+		FragmentShader = OGLES2ShaderPath + "COGLES2OneTextureBlend.fsh";
+
+		addHighLevelShaderMaterialFromFiles(VertexShader, "main", EVST_VS_2_0, FragmentShader, "main", EPST_PS_2_0, "", "main",
+			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, OneTextureBlendCB, EMT_ONETEXTURE_BLEND, 0, EGSL_DEFAULT);
+
+		// Drop callbacks.
+
+		SolidCB->drop();
+		Solid2LayerCB->drop();
+		LightmapCB->drop();
+		LightmapAddCB->drop();
+		LightmapM2CB->drop();
+		LightmapM4CB->drop();
+		LightmapLightingCB->drop();
+		LightmapLightingM2CB->drop();
+		LightmapLightingM4CB->drop();
+		DetailMapCB->drop();
+		SphereMapCB->drop();
+		Reflection2LayerCB->drop();
+		TransparentAddColorCB->drop();
+		TransparentAlphaChannelCB->drop();
+		TransparentAlphaChannelRefCB->drop();
+		TransparentVertexAlphaCB->drop();
+		TransparentReflection2LayerCB->drop();
+		NormalMapCB->drop();
+		NormalMapAddColorCB->drop();
+		NormalMapVertexAlphaCB->drop();
+		ParallaxMapCB->drop();
+		ParallaxMapAddColorCB->drop();
+		ParallaxMapVertexAlphaCB->drop();
+		OneTextureBlendCB->drop();
 
 		// Create 2D material renderer.
+
 		c8* vs2DData = 0;
 		c8* fs2DData = 0;
 		loadShaderData(io::path("COGLES2Renderer2D.vsh"), io::path("COGLES2Renderer2D.fsh"), &vs2DData, &fs2DData);
-
 		MaterialRenderer2D = new COGLES2Renderer2D(vs2DData, fs2DData, this);
 		delete[] vs2DData;
 		delete[] fs2DData;
@@ -367,8 +477,7 @@ bool COGLES2Driver::endScene()
 
 		if (backBuffer)
 		{
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-			Material.ColorMask = ECP_ALL;
+			BridgeCalls->setColorMask(true, true, true, true);
 
 			const f32 inv = 1.0f / 255.0f;
 			glClearColor(color.getRed() * inv, color.getGreen() * inv,
@@ -379,9 +488,7 @@ bool COGLES2Driver::endScene()
 
 		if (zBuffer)
 		{
-			glDepthMask(GL_TRUE);
-			Material.ZWriteEnable = true;
-
+			BridgeCalls->setDepthMask(true);
 			mask |= GL_DEPTH_BUFFER_BIT;
 		}
 
@@ -660,131 +767,85 @@ bool COGLES2Driver::endScene()
 			const void* indexList, u32 primitiveCount,
 			E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType)
 	{
-		testGLError();
-		if (!checkPrimitiveCount(primitiveCount))
-			return;
-
-		setRenderStates3DMode();
-
-		drawVertexPrimitiveList2d3d(vertices, vertexCount, (const u16*)indexList, primitiveCount, vType, pType, iType);
-	}
-
-
-	void COGLES2Driver::drawVertexPrimitiveList2d3d(const void* vertices, u32 vertexCount,
-			const void* indexList, u32 primitiveCount,
-			E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType, bool threed)
-	{
 		if (!primitiveCount || !vertexCount)
 			return;
 
-		if (!threed && !checkPrimitiveCount(primitiveCount))
+		if (!checkPrimitiveCount(primitiveCount))
 			return;
 
 		CNullDriver::drawVertexPrimitiveList(vertices, vertexCount, indexList, primitiveCount, vType, pType, iType);
 
-		//TODO: treat #ifdef GL_OES_point_size_array outside this if
+		setRenderStates3DMode();
+
+		glEnableVertexAttribArray(EVA_POSITION);
+		glEnableVertexAttribArray(EVA_COLOR);
+		glEnableVertexAttribArray(EVA_NORMAL);
+		glEnableVertexAttribArray(EVA_TCOORD0);
+
+		switch (vType)
 		{
-			glEnableVertexAttribArray(EVA_COLOR);
-			glEnableVertexAttribArray(EVA_POSITION);
-			if ((pType != scene::EPT_POINTS) && (pType != scene::EPT_POINT_SPRITES))
+		case EVT_STANDARD:
+			if (vertices)
 			{
-				glEnableVertexAttribArray(EVA_TCOORD0);
+				glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+				glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Normal);
+				glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+				glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].TCoords);
 			}
-#ifdef GL_OES_point_size_array
-			else if (FeatureAvailable[IRR_OES_point_size_array] && (Material.Thickness == 0.0f))
-				glEnableClientState(GL_POINT_SIZE_ARRAY_OES);
-#endif
-			if (threed && (pType != scene::EPT_POINTS) && (pType != scene::EPT_POINT_SPRITES))
+			else
 			{
-				glEnableVertexAttribArray(EVA_NORMAL);
+				glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), 0);
+				glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertex), buffer_offset(12));
+				glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), buffer_offset(24));
+				glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex), buffer_offset(28));
 			}
 
-			switch (vType)
+			break;
+		case EVT_2TCOORDS:
+			glEnableVertexAttribArray(EVA_TCOORD1);
+
+			if (vertices)
 			{
-			case EVT_STANDARD:
-				if (vertices)
-				{
-#ifdef GL_OES_point_size_array
-					if ((pType == scene::EPT_POINTS) || (pType == scene::EPT_POINT_SPRITES))
-					{
-						if (FeatureAvailable[IRR_OES_point_size_array] && (Material.Thickness == 0.0f))
-							glPointSizePointerOES(GL_FLOAT, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Normal.X);
-					}
-					else
-#endif
-						glVertexAttribPointer(EVA_POSITION, (threed ? 3 : 2), GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
-					if (threed)
-						glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Normal);
-					glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
-					glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].TCoords);
-
-				}
-				else
-				{
-					glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), 0);
-					glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertex), buffer_offset(12));
-					glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), buffer_offset(24));
-					glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex), buffer_offset(28));
-				}
-
-				if (CurrentTexture[1])
-				{
-					// There must be some optimisation here as it uses the same texture coord !
-					glEnableVertexAttribArray(EVA_TCOORD1);
-					if (vertices)
-						glVertexAttribPointer(EVA_TCOORD1, 2, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].TCoords);
-					else
-						glVertexAttribPointer(EVA_TCOORD1, 2, GL_FLOAT, false, sizeof(S3DVertex), buffer_offset(28));
-				}
-				break;
-			case EVT_2TCOORDS:
-				glEnableVertexAttribArray(EVA_TCOORD1);
-				if (vertices)
-				{
-					glVertexAttribPointer(EVA_POSITION, (threed ? 3 : 2), GL_FLOAT, false, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].Pos);
-					if (threed)
-						glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].Normal);
-					glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].Color);
-					glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].TCoords);
-					glVertexAttribPointer(EVA_TCOORD1, 2, GL_FLOAT, false, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].TCoords2);
-				}
-				else
-				{
-					glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex2TCoords), buffer_offset(0));
-					glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertex2TCoords), buffer_offset(12));
-					glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex2TCoords), buffer_offset(24));
-					glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex2TCoords), buffer_offset(28));
-					glVertexAttribPointer(EVA_TCOORD1, 2, GL_FLOAT, false, sizeof(S3DVertex2TCoords), buffer_offset(36));
-
-				}
-				break;
-			case EVT_TANGENTS:
-				glEnableVertexAttribArray(EVA_TANGENT);
-				glEnableVertexAttribArray(EVA_BINORMAL);
-				if (vertices)
-				{
-					glVertexAttribPointer(EVA_POSITION, (threed ? 3 : 2), GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Pos);
-					if (threed)
-						glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Normal);
-					glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Color);
-					glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].TCoords);
-					glVertexAttribPointer(EVA_TANGENT, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Tangent);
-					glVertexAttribPointer(EVA_BINORMAL, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Binormal);
-				}
-				else
-				{
-					glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(0));
-					glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(12));
-					glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertexTangents), buffer_offset(24));
-					glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(28));
-					glVertexAttribPointer(EVA_TANGENT, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(36));
-					glVertexAttribPointer(EVA_BINORMAL, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(48));
-				}
-				break;
+				glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].Pos);
+				glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].Normal);
+				glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].Color);
+				glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].TCoords);
+				glVertexAttribPointer(EVA_TCOORD1, 2, GL_FLOAT, false, sizeof(S3DVertex2TCoords), &(static_cast<const S3DVertex2TCoords*>(vertices))[0].TCoords2);
 			}
+			else
+			{
+				glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex2TCoords), buffer_offset(0));
+				glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertex2TCoords), buffer_offset(12));
+				glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex2TCoords), buffer_offset(24));
+				glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex2TCoords), buffer_offset(28));
+				glVertexAttribPointer(EVA_TCOORD1, 2, GL_FLOAT, false, sizeof(S3DVertex2TCoords), buffer_offset(36));
+			}
+			break;
+		case EVT_TANGENTS:
+			glEnableVertexAttribArray(EVA_TANGENT);
+			glEnableVertexAttribArray(EVA_BINORMAL);
+
+			if (vertices)
+			{
+				glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Pos);
+				glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Normal);
+				glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Color);
+				glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].TCoords);
+				glVertexAttribPointer(EVA_TANGENT, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Tangent);
+				glVertexAttribPointer(EVA_BINORMAL, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), &(static_cast<const S3DVertexTangents*>(vertices))[0].Binormal);
+			}
+			else
+			{
+				glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(0));
+				glVertexAttribPointer(EVA_NORMAL, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(12));
+				glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertexTangents), buffer_offset(24));
+				glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(28));
+				glVertexAttribPointer(EVA_TANGENT, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(36));
+				glVertexAttribPointer(EVA_BINORMAL, 3, GL_FLOAT, false, sizeof(S3DVertexTangents), buffer_offset(48));
+			}
+			break;
 		}
 
-		// draw everything
 		GLenum indexSize = 0;
 
 		switch (iType)
@@ -813,41 +874,8 @@ bool COGLES2Driver::endScene()
 		{
 			case scene::EPT_POINTS:
 			case scene::EPT_POINT_SPRITES:
-			{
-#ifdef GL_OES_point_sprite
-				if (pType == scene::EPT_POINT_SPRITES && FeatureAvailable[IRR_OES_point_sprite])
-					glEnable(GL_POINT_SPRITE_OES);
-#endif
-				// if ==0 we use the point size array
-				if (Material.Thickness != 0.f)
-				{
-//						float quadratic[] = {0.0f, 0.0f, 10.01f};
-					//TODO : OpenGL ES 2.0 Port GL_POINT_DISTANCE_ATTENUATION
-					//glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION, quadratic);
-//						float maxParticleSize = 1.0f;
-					//TODO : OpenGL ES 2.0 Port GL_POINT_SIZE_MAX
-					//glGetFloatv(GL_POINT_SIZE_MAX, &maxParticleSize);
-//			maxParticleSize=maxParticleSize<Material.Thickness?maxParticleSize:Material.Thickness;
-//			glPointParameterf(GL_POINT_SIZE_MAX,maxParticleSize);
-//			glPointParameterf(GL_POINT_SIZE_MIN,Material.Thickness);
-					//TODO : OpenGL ES 2.0 Port GL_POINT_FADE_THRESHOLD_SIZE
-					//glPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE, 60.0f);
-					//glPointSize(Material.Thickness);
-				}
-#ifdef GL_OES_point_sprite
-				if (pType == scene::EPT_POINT_SPRITES && FeatureAvailable[IRR_OES_point_sprite])
-					glTexEnvf(GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE);
-#endif
 				glDrawArrays(GL_POINTS, 0, primitiveCount);
-#ifdef GL_OES_point_sprite
-				if (pType == scene::EPT_POINT_SPRITES && FeatureAvailable[IRR_OES_point_sprite])
-				{
-					glDisable(GL_POINT_SPRITE_OES);
-					glTexEnvf(GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_FALSE);
-				}
-#endif
-			}
-			break;
+				break;
 			case scene::EPT_LINE_STRIP:
 				glDrawElements(GL_LINE_STRIP, primitiveCount + 1, indexSize, indexList);
 				break;
@@ -866,41 +894,27 @@ bool COGLES2Driver::endScene()
 			case scene::EPT_TRIANGLES:
 				glDrawElements((LastMaterial.Wireframe) ? GL_LINES : (LastMaterial.PointCloud) ? GL_POINTS : GL_TRIANGLES, primitiveCount*3, indexSize, indexList);
 				break;
-			case scene::EPT_QUAD_STRIP:
-// TODO ogl-es
-//		glDrawElements(GL_QUAD_STRIP, primitiveCount*2+2, indexSize, indexList);
-				break;
-			case scene::EPT_QUADS:
-// TODO ogl-es
-//		glDrawElements(GL_QUADS, primitiveCount*4, indexSize, indexList);
-				break;
-			case scene::EPT_POLYGON:
-// TODO ogl-es
-//		glDrawElements(GL_POLYGON, primitiveCount, indexSize, indexList);
+			default:
 				break;
 		}
 
+		switch (vType)
 		{
-			if (vType == EVT_TANGENTS)
-			{
-				glDisableVertexAttribArray(EVA_TANGENT);
-				glDisableVertexAttribArray(EVA_BINORMAL);
-			}
-			if ((vType != EVT_STANDARD) || CurrentTexture[1])
-			{
-				glDisableVertexAttribArray(EVA_TCOORD1);
-			}
-
-#ifdef GL_OES_point_size_array
-			if (FeatureAvailable[IRR_OES_point_size_array] && (Material.Thickness == 0.0f))
-				glDisableClientState(GL_POINT_SIZE_ARRAY_OES);
-#endif
-			glDisableVertexAttribArray(EVA_POSITION);
-			glDisableVertexAttribArray(EVA_NORMAL);
-			glDisableVertexAttribArray(EVA_COLOR);
-			glDisableVertexAttribArray(EVA_TCOORD0);
+		case EVT_2TCOORDS:
+			glDisableVertexAttribArray(EVA_TCOORD1);
+			break;
+		case EVT_TANGENTS:
+			glDisableVertexAttribArray(EVA_TANGENT);
+			glDisableVertexAttribArray(EVA_BINORMAL);
+			break;
+		default:
+			break;
 		}
-		testGLError();
+
+		glDisableVertexAttribArray(EVA_POSITION);
+		glDisableVertexAttribArray(EVA_NORMAL);
+		glDisableVertexAttribArray(EVA_COLOR);
+		glDisableVertexAttribArray(EVA_TCOORD0);
 	}
 
 
@@ -1016,13 +1030,28 @@ bool COGLES2Driver::endScene()
 			return;
 		setRenderStates2DMode(color.getAlpha() < 255, true, useAlphaChannelOfTexture);
 
+		f32 left = (f32)poss.UpperLeftCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 right = (f32)poss.LowerRightCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 down = 2.f - (f32)poss.LowerRightCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+		f32 top = 2.f - (f32)poss.UpperLeftCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+
 		u16 indices[] = {0, 1, 2, 3};
 		S3DVertex vertices[4];
-		vertices[0] = S3DVertex((f32)poss.UpperLeftCorner.X, (f32)poss.UpperLeftCorner.Y, 0, 0, 0, 1, color, tcoords.UpperLeftCorner.X, tcoords.UpperLeftCorner.Y);
-		vertices[1] = S3DVertex((f32)poss.LowerRightCorner.X, (f32)poss.UpperLeftCorner.Y, 0, 0, 0, 1, color, tcoords.LowerRightCorner.X, tcoords.UpperLeftCorner.Y);
-		vertices[2] = S3DVertex((f32)poss.LowerRightCorner.X, (f32)poss.LowerRightCorner.Y, 0, 0, 0, 1, color, tcoords.LowerRightCorner.X, tcoords.LowerRightCorner.Y);
-		vertices[3] = S3DVertex((f32)poss.UpperLeftCorner.X, (f32)poss.LowerRightCorner.Y, 0, 0, 0, 1, color, tcoords.UpperLeftCorner.X, tcoords.LowerRightCorner.Y);
-		drawVertexPrimitiveList2d3d(vertices, 4, indices, 2, video::EVT_STANDARD, scene::EPT_TRIANGLE_FAN, EIT_16BIT, false);
+		vertices[0] = S3DVertex(left, top, 0, 0, 0, 1, color, tcoords.UpperLeftCorner.X, tcoords.UpperLeftCorner.Y);
+		vertices[1] = S3DVertex(right, top, 0, 0, 0, 1, color, tcoords.LowerRightCorner.X, tcoords.UpperLeftCorner.Y);
+		vertices[2] = S3DVertex(right, down, 0, 0, 0, 1, color, tcoords.LowerRightCorner.X, tcoords.LowerRightCorner.Y);
+		vertices[3] = S3DVertex(left, down, 0, 0, 0, 1, color, tcoords.UpperLeftCorner.X, tcoords.LowerRightCorner.Y);
+
+		glEnableVertexAttribArray(EVA_POSITION);
+		glEnableVertexAttribArray(EVA_COLOR);
+		glEnableVertexAttribArray(EVA_TCOORD0);
+		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+		glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+		glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].TCoords);
+		glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, indices);
+		glDisableVertexAttribArray(EVA_TCOORD0);
+		glDisableVertexAttribArray(EVA_COLOR);
+		glDisableVertexAttribArray(EVA_POSITION);
 	}
 
 
@@ -1138,16 +1167,21 @@ bool COGLES2Driver::endScene()
 
 			setRenderStates2DMode(color.getAlpha() < 255, true, useAlphaChannelOfTexture);
 
-			vtx.push_back(S3DVertex((f32)poss.UpperLeftCorner.X, (f32)poss.UpperLeftCorner.Y, 0.0f,
+			f32 left = (f32)poss.UpperLeftCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+			f32 right = (f32)poss.LowerRightCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+			f32 down = 2.f - (f32)poss.LowerRightCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+			f32 top = 2.f - (f32)poss.UpperLeftCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+
+			vtx.push_back(S3DVertex(left, top, 0.0f,
 					0.0f, 0.0f, 0.0f, color,
 					tcoords.UpperLeftCorner.X, tcoords.UpperLeftCorner.Y));
-			vtx.push_back(S3DVertex((f32)poss.LowerRightCorner.X, (f32)poss.UpperLeftCorner.Y, 0.0f,
+			vtx.push_back(S3DVertex(right, top, 0.0f,
 					0.0f, 0.0f, 0.0f, color,
 					tcoords.LowerRightCorner.X, tcoords.UpperLeftCorner.Y));
-			vtx.push_back(S3DVertex((f32)poss.LowerRightCorner.X, (f32)poss.LowerRightCorner.Y, 0.0f,
+			vtx.push_back(S3DVertex(right, down, 0.0f,
 					0.0f, 0.0f, 0.0f, color,
 					tcoords.LowerRightCorner.X, tcoords.LowerRightCorner.Y));
-			vtx.push_back(S3DVertex((f32)poss.UpperLeftCorner.X, (f32)poss.LowerRightCorner.Y, 0.0f,
+			vtx.push_back(S3DVertex(left, down, 0.0f,
 					0.0f, 0.0f, 0.0f, color,
 					tcoords.UpperLeftCorner.X, tcoords.LowerRightCorner.Y));
 
@@ -1163,10 +1197,16 @@ bool COGLES2Driver::endScene()
 
 		if (vtx.size())
 		{
-			drawVertexPrimitiveList2d3d(vtx.pointer(), vtx.size(),
-				indices.pointer(), indices.size() / 3,
-				EVT_STANDARD, scene::EPT_TRIANGLES,
-				EIT_16BIT, false);
+			glEnableVertexAttribArray(EVA_POSITION);
+			glEnableVertexAttribArray(EVA_COLOR);
+			glEnableVertexAttribArray(EVA_TCOORD0);
+			glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &vtx[0].Pos);
+			glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &vtx[0].Color);
+			glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex), &vtx[0].TCoords);
+			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, indices.pointer());
+			glDisableVertexAttribArray(EVA_TCOORD0);
+			glDisableVertexAttribArray(EVA_COLOR);
+			glDisableVertexAttribArray(EVA_POSITION);
 		}
 	}
 
@@ -1207,27 +1247,44 @@ bool COGLES2Driver::endScene()
 							useColor[2].getAlpha() < 255 || useColor[3].getAlpha() < 255,
 							true, useAlphaChannelOfTexture);
 
+		const core::dimension2d<u32>& renderTargetSize = getCurrentRenderTargetSize();
+
 		if (clipRect)
 		{
 			if (!clipRect->isValid())
 				return;
 
 			glEnable(GL_SCISSOR_TEST);
-			const core::dimension2d<u32>& renderTargetSize = getCurrentRenderTargetSize();
 			glScissor(clipRect->UpperLeftCorner.X, renderTargetSize.Height - clipRect->LowerRightCorner.Y,
 					clipRect->getWidth(), clipRect->getHeight());
 		}
 
+		f32 left = (f32)destRect.UpperLeftCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 right = (f32)destRect.LowerRightCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 down = 2.f - (f32)destRect.LowerRightCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+		f32 top = 2.f - (f32)destRect.UpperLeftCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+
 		u16 indices[] = {0, 1, 2, 3};
 		S3DVertex vertices[4];
-		vertices[0] = S3DVertex((f32)destRect.UpperLeftCorner.X, (f32)destRect.UpperLeftCorner.Y, 0, 0, 0, 1, useColor[0], tcoords.UpperLeftCorner.X, tcoords.UpperLeftCorner.Y);
-		vertices[1] = S3DVertex((f32)destRect.LowerRightCorner.X, (f32)destRect.UpperLeftCorner.Y, 0, 0, 0, 1, useColor[3], tcoords.LowerRightCorner.X, tcoords.UpperLeftCorner.Y);
-		vertices[2] = S3DVertex((f32)destRect.LowerRightCorner.X, (f32)destRect.LowerRightCorner.Y, 0, 0, 0, 1, useColor[2], tcoords.LowerRightCorner.X, tcoords.LowerRightCorner.Y);
-		vertices[3] = S3DVertex((f32)destRect.UpperLeftCorner.X, (f32)destRect.LowerRightCorner.Y, 0, 0, 0, 1, useColor[1], tcoords.UpperLeftCorner.X, tcoords.LowerRightCorner.Y);
-		drawVertexPrimitiveList2d3d(vertices, 4, indices, 2, video::EVT_STANDARD, scene::EPT_TRIANGLE_FAN, EIT_16BIT, false);
+		vertices[0] = S3DVertex(left, top, 0, 0, 0, 1, useColor[0], tcoords.UpperLeftCorner.X, tcoords.UpperLeftCorner.Y);
+		vertices[1] = S3DVertex(right, top, 0, 0, 0, 1, useColor[3], tcoords.LowerRightCorner.X, tcoords.UpperLeftCorner.Y);
+		vertices[2] = S3DVertex(right, down, 0, 0, 0, 1, useColor[2], tcoords.LowerRightCorner.X, tcoords.LowerRightCorner.Y);
+		vertices[3] = S3DVertex(left, down, 0, 0, 0, 1, useColor[1], tcoords.UpperLeftCorner.X, tcoords.LowerRightCorner.Y);
+
+		glEnableVertexAttribArray(EVA_POSITION);
+		glEnableVertexAttribArray(EVA_COLOR);
+		glEnableVertexAttribArray(EVA_TCOORD0);
+		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+		glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+		glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].TCoords);
+		glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, indices);
+		glDisableVertexAttribArray(EVA_TCOORD0);
+		glDisableVertexAttribArray(EVA_COLOR);
+		glDisableVertexAttribArray(EVA_POSITION);
 
 		if (clipRect)
 			glDisable(GL_SCISSOR_TEST);
+
 		testGLError();
 	}
 
@@ -1248,13 +1305,14 @@ bool COGLES2Driver::endScene()
 			return;
 		setRenderStates2DMode(color.getAlpha() < 255, true, useAlphaChannelOfTexture);
 
+		const core::dimension2d<u32>& renderTargetSize = getCurrentRenderTargetSize();
+
 		if (clipRect)
 		{
 			if (!clipRect->isValid())
 				return;
 
 			glEnable(GL_SCISSOR_TEST);
-			const core::dimension2d<u32>& renderTargetSize = getCurrentRenderTargetSize();
 			glScissor(clipRect->UpperLeftCorner.X, renderTargetSize.Height - clipRect->LowerRightCorner.Y,
 					clipRect->getWidth(), clipRect->getHeight());
 		}
@@ -1270,6 +1328,7 @@ bool COGLES2Driver::endScene()
 		core::array<u16> quadIndices;
 		vertices.reallocate(indices.size()*4);
 		quadIndices.reallocate(indices.size()*3);
+
 		for (u32 i = 0; i < indices.size(); ++i)
 		{
 			const s32 currentIndex = indices[i];
@@ -1284,11 +1343,16 @@ bool COGLES2Driver::endScene()
 
 			const core::rect<s32> poss(targetPos, sourceRects[currentIndex].getSize());
 
+			f32 left = (f32)poss.UpperLeftCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+			f32 right = (f32)poss.LowerRightCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+			f32 down = 2.f - (f32)poss.LowerRightCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+			f32 top = 2.f - (f32)poss.UpperLeftCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+
 			const u32 vstart = vertices.size();
-			vertices.push_back(S3DVertex((f32)poss.UpperLeftCorner.X, (f32)poss.UpperLeftCorner.Y, 0, 0, 0, 1, color, tcoords.UpperLeftCorner.X, tcoords.UpperLeftCorner.Y));
-			vertices.push_back(S3DVertex((f32)poss.LowerRightCorner.X, (f32)poss.UpperLeftCorner.Y, 0, 0, 0, 1, color, tcoords.LowerRightCorner.X, tcoords.UpperLeftCorner.Y));
-			vertices.push_back(S3DVertex((f32)poss.LowerRightCorner.X, (f32)poss.LowerRightCorner.Y, 0, 0, 0, 1, color, tcoords.LowerRightCorner.X, tcoords.LowerRightCorner.Y));
-			vertices.push_back(S3DVertex((f32)poss.UpperLeftCorner.X, (f32)poss.LowerRightCorner.Y, 0, 0, 0, 1, color, tcoords.UpperLeftCorner.X, tcoords.LowerRightCorner.Y));
+			vertices.push_back(S3DVertex(left, top, 0, 0, 0, 1, color, tcoords.UpperLeftCorner.X, tcoords.UpperLeftCorner.Y));
+			vertices.push_back(S3DVertex(right, top, 0, 0, 0, 1, color, tcoords.LowerRightCorner.X, tcoords.UpperLeftCorner.Y));
+			vertices.push_back(S3DVertex(right, down, 0, 0, 0, 1, color, tcoords.LowerRightCorner.X, tcoords.LowerRightCorner.Y));
+			vertices.push_back(S3DVertex(left, down, 0, 0, 0, 1, color, tcoords.UpperLeftCorner.X, tcoords.LowerRightCorner.Y));
 			quadIndices.push_back(vstart);
 			quadIndices.push_back(vstart+1);
 			quadIndices.push_back(vstart+2);
@@ -1298,13 +1362,24 @@ bool COGLES2Driver::endScene()
 
 			targetPos.X += sourceRects[currentIndex].getWidth();
 		}
+
 		if (vertices.size())
-			drawVertexPrimitiveList2d3d(vertices.pointer(), vertices.size(),
-					quadIndices.pointer(), vertices.size()/2,
-					video::EVT_STANDARD, scene::EPT_TRIANGLES,
-					EIT_16BIT, false);
+		{
+			glEnableVertexAttribArray(EVA_POSITION);
+			glEnableVertexAttribArray(EVA_COLOR);
+			glEnableVertexAttribArray(EVA_TCOORD0);
+			glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &vertices[0].Pos);
+			glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &vertices[0].Color);
+			glVertexAttribPointer(EVA_TCOORD0, 2, GL_FLOAT, false, sizeof(S3DVertex), &vertices[0].TCoords);
+			glDrawElements(GL_TRIANGLES, quadIndices.size(), GL_UNSIGNED_SHORT, quadIndices.pointer());
+			glDisableVertexAttribArray(EVA_TCOORD0);
+			glDisableVertexAttribArray(EVA_COLOR);
+			glDisableVertexAttribArray(EVA_POSITION);
+		}
+
 		if (clipRect)
 			glDisable(GL_SCISSOR_TEST);
+
 		testGLError();
 	}
 
@@ -1325,13 +1400,27 @@ bool COGLES2Driver::endScene()
 		if (!pos.isValid())
 			return;
 
+		const core::dimension2d<u32>& renderTargetSize = getCurrentRenderTargetSize();
+
+		f32 left = (f32)pos.UpperLeftCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 right = (f32)pos.LowerRightCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 down = 2.f - (f32)pos.LowerRightCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+		f32 top = 2.f - (f32)pos.UpperLeftCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+
 		u16 indices[] = {0, 1, 2, 3};
 		S3DVertex vertices[4];
-		vertices[0] = S3DVertex((f32)pos.UpperLeftCorner.X, (f32)pos.UpperLeftCorner.Y, 0, 0, 0, 1, color, 0, 0);
-		vertices[1] = S3DVertex((f32)pos.LowerRightCorner.X, (f32)pos.UpperLeftCorner.Y, 0, 0, 0, 1, color, 0, 0);
-		vertices[2] = S3DVertex((f32)pos.LowerRightCorner.X, (f32)pos.LowerRightCorner.Y, 0, 0, 0, 1, color, 0, 0);
-		vertices[3] = S3DVertex((f32)pos.UpperLeftCorner.X, (f32)pos.LowerRightCorner.Y, 0, 0, 0, 1, color, 0, 0);
-		drawVertexPrimitiveList2d3d(vertices, 4, indices, 2, video::EVT_STANDARD, scene::EPT_TRIANGLE_FAN, EIT_16BIT, false);
+		vertices[0] = S3DVertex(left, top, 0, 0, 0, 1, color, 0, 0);
+		vertices[1] = S3DVertex(right, top, 0, 0, 0, 1, color, 0, 0);
+		vertices[2] = S3DVertex(right, down, 0, 0, 0, 1, color, 0, 0);
+		vertices[3] = S3DVertex(left, down, 0, 0, 0, 1, color, 0, 0);
+
+		glEnableVertexAttribArray(EVA_POSITION);
+		glEnableVertexAttribArray(EVA_COLOR);
+		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+		glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+		glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, indices);
+		glDisableVertexAttribArray(EVA_COLOR);
+		glDisableVertexAttribArray(EVA_POSITION);
 	}
 
 
@@ -1356,13 +1445,27 @@ bool COGLES2Driver::endScene()
 				colorLeftDown.getAlpha() < 255 ||
 				colorRightDown.getAlpha() < 255, false, false);
 
+		const core::dimension2d<u32>& renderTargetSize = getCurrentRenderTargetSize();
+
+		f32 left = (f32)pos.UpperLeftCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 right = (f32)pos.LowerRightCorner.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 down = 2.f - (f32)pos.LowerRightCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+		f32 top = 2.f - (f32)pos.UpperLeftCorner.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+
 		u16 indices[] = {0, 1, 2, 3};
 		S3DVertex vertices[4];
-		vertices[0] = S3DVertex((f32)pos.UpperLeftCorner.X, (f32)pos.UpperLeftCorner.Y, 0, 0, 0, 1, colorLeftUp, 0, 0);
-		vertices[1] = S3DVertex((f32)pos.LowerRightCorner.X, (f32)pos.UpperLeftCorner.Y, 0, 0, 0, 1, colorRightUp, 0, 0);
-		vertices[2] = S3DVertex((f32)pos.LowerRightCorner.X, (f32)pos.LowerRightCorner.Y, 0, 0, 0, 1, colorRightDown, 0, 0);
-		vertices[3] = S3DVertex((f32)pos.UpperLeftCorner.X, (f32)pos.LowerRightCorner.Y, 0, 0, 0, 1, colorLeftDown, 0, 0);
-		drawVertexPrimitiveList2d3d(vertices, 4, indices, 2, video::EVT_STANDARD, scene::EPT_TRIANGLE_FAN, EIT_16BIT, false);
+		vertices[0] = S3DVertex(left, top, 0, 0, 0, 1, colorLeftUp, 0, 0);
+		vertices[1] = S3DVertex(right, top, 0, 0, 0, 1, colorRightUp, 0, 0);
+		vertices[2] = S3DVertex(right, down, 0, 0, 0, 1, colorRightDown, 0, 0);
+		vertices[3] = S3DVertex(left, down, 0, 0, 0, 1, colorLeftDown, 0, 0);
+
+		glEnableVertexAttribArray(EVA_POSITION);
+		glEnableVertexAttribArray(EVA_COLOR);
+		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+		glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+		glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, indices);
+		glDisableVertexAttribArray(EVA_COLOR);
+		glDisableVertexAttribArray(EVA_POSITION);
 	}
 
 
@@ -1370,14 +1473,33 @@ bool COGLES2Driver::endScene()
 	void COGLES2Driver::draw2DLine(const core::position2d<s32>& start,
 			const core::position2d<s32>& end, SColor color)
 	{
-		disableTextures();
-		setRenderStates2DMode(color.getAlpha() < 255, false, false);
+		if (start==end)
+			drawPixel(start.X, start.Y, color);
+		else
+		{
+			disableTextures();
+			setRenderStates2DMode(color.getAlpha() < 255, false, false);
 
-		u16 indices[] = {0, 1};
-		S3DVertex vertices[2];
-		vertices[0] = S3DVertex((f32)start.X, (f32)start.Y, 0, 0, 0, 1, color, 0, 0);
-		vertices[1] = S3DVertex((f32)end.X, (f32)end.Y, 0, 0, 0, 1, color, 1, 1);
-		drawVertexPrimitiveList2d3d(vertices, 2, indices, 1, video::EVT_STANDARD, scene::EPT_LINES, EIT_16BIT, false);
+			const core::dimension2d<u32>& renderTargetSize = getCurrentRenderTargetSize();
+
+			f32 startX = (f32)start.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+			f32 endX = (f32)end.X / (f32)renderTargetSize.Width * 2.f - 1.f;
+			f32 startY = 2.f - (f32)start.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+			f32 endY = 2.f - (f32)end.Y / (f32)renderTargetSize.Height * 2.f - 1.f;
+
+			u16 indices[] = {0, 1};
+			S3DVertex vertices[2];
+			vertices[0] = S3DVertex(startX, startY, 0, 0, 0, 1, color, 0, 0);
+			vertices[1] = S3DVertex(endX, endY, 0, 0, 0, 1, color, 1, 1);
+
+			glEnableVertexAttribArray(EVA_POSITION);
+			glEnableVertexAttribArray(EVA_COLOR);
+			glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+			glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+			glDrawElements(GL_LINES, 2, GL_UNSIGNED_SHORT, indices);
+			glDisableVertexAttribArray(EVA_COLOR);
+			glDisableVertexAttribArray(EVA_POSITION);
+		}
 	}
 
 
@@ -1391,10 +1513,19 @@ bool COGLES2Driver::endScene()
 		disableTextures();
 		setRenderStates2DMode(color.getAlpha() < 255, false, false);
 
-		u16 indices[] = {0};
+		f32 X = (f32)x / (f32)renderTargetSize.Width * 2.f - 1.f;
+		f32 Y = 2.f - (f32)y / (f32)renderTargetSize.Height * 2.f - 1.f;
+
 		S3DVertex vertices[1];
-		vertices[0] = S3DVertex((f32)x, (f32)y, 0, 0, 0, 1, color, 0, 0);
-		drawVertexPrimitiveList2d3d(vertices, 1, indices, 1, video::EVT_STANDARD, scene::EPT_POINTS, EIT_16BIT, false);
+		vertices[0] = S3DVertex(X, Y, 0, 0, 0, 1, color, 0, 0);
+
+		glEnableVertexAttribArray(EVA_POSITION);
+		glEnableVertexAttribArray(EVA_COLOR);
+		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+		glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+		glDrawArrays(GL_POINTS, 0, 1);
+		glDisableVertexAttribArray(EVA_COLOR);
+		glDisableVertexAttribArray(EVA_POSITION);
 	}
 
 
@@ -1636,91 +1767,85 @@ bool COGLES2Driver::endScene()
 	void COGLES2Driver::setBasicRenderStates(const SMaterial& material, const SMaterial& lastmaterial, bool resetAllRenderStates)
 	{
 		// ZBuffer
-		if (resetAllRenderStates || lastmaterial.ZBuffer != material.ZBuffer)
+		switch (material.ZBuffer)
 		{
-			switch (material.ZBuffer)
-			{
-				case ECFN_NEVER: // it will be ECFN_DISABLED after merge
-					BridgeCalls->setDepthTest(false);
-					break;
-				case ECFN_LESSEQUAL:
-					BridgeCalls->setDepthTest(true);
-					BridgeCalls->setDepthFunc(GL_LEQUAL);
-					break;
-				case ECFN_EQUAL:
-					BridgeCalls->setDepthTest(true);
-					BridgeCalls->setDepthFunc(GL_EQUAL);
-					break;
-				case ECFN_LESS:
-					BridgeCalls->setDepthTest(true);
-					BridgeCalls->setDepthFunc(GL_LESS);
-					break;
-				case ECFN_NOTEQUAL:
-					BridgeCalls->setDepthTest(true);
-					BridgeCalls->setDepthFunc(GL_NOTEQUAL);
-					break;
-				case ECFN_GREATEREQUAL:
-					BridgeCalls->setDepthTest(true);
-					BridgeCalls->setDepthFunc(GL_GEQUAL);
-					break;
-				case ECFN_GREATER:
-					BridgeCalls->setDepthTest(true);
-					BridgeCalls->setDepthFunc(GL_GREATER);
-					break;
-				case ECFN_ALWAYS:
-					BridgeCalls->setDepthTest(true);
-					BridgeCalls->setDepthFunc(GL_ALWAYS);
-					break;
-				/*case ECFN_NEVER:
-					BridgeCalls->setDepthTest(true);
-					BridgeCalls->setDepthFunc(GL_NEVER);
-					break;*/
-			}
+			case ECFN_NEVER: // it will be ECFN_DISABLED after merge
+				BridgeCalls->setDepthTest(false);
+				break;
+			case ECFN_LESSEQUAL:
+				BridgeCalls->setDepthTest(true);
+				BridgeCalls->setDepthFunc(GL_LEQUAL);
+				break;
+			case ECFN_EQUAL:
+				BridgeCalls->setDepthTest(true);
+				BridgeCalls->setDepthFunc(GL_EQUAL);
+				break;
+			case ECFN_LESS:
+				BridgeCalls->setDepthTest(true);
+				BridgeCalls->setDepthFunc(GL_LESS);
+				break;
+			case ECFN_NOTEQUAL:
+				BridgeCalls->setDepthTest(true);
+				BridgeCalls->setDepthFunc(GL_NOTEQUAL);
+				break;
+			case ECFN_GREATEREQUAL:
+				BridgeCalls->setDepthTest(true);
+				BridgeCalls->setDepthFunc(GL_GEQUAL);
+				break;
+			case ECFN_GREATER:
+				BridgeCalls->setDepthTest(true);
+				BridgeCalls->setDepthFunc(GL_GREATER);
+				break;
+			case ECFN_ALWAYS:
+				BridgeCalls->setDepthTest(true);
+				BridgeCalls->setDepthFunc(GL_ALWAYS);
+				break;
+			/*case ECFN_NEVER:
+				BridgeCalls->setDepthTest(true);
+				BridgeCalls->setDepthFunc(GL_NEVER);
+				break;*/
+			default:
+				break;
 		}
 
 		// ZWrite
-	//	if (resetAllRenderStates || lastmaterial.ZWriteEnable != material.ZWriteEnable)
+		if (material.ZWriteEnable && (AllowZWriteOnTransparent || (material.BlendOperation == EBO_NONE &&
+				!MaterialRenderers[material.MaterialType].Renderer->isTransparent())))
 		{
-			if (material.ZWriteEnable && (AllowZWriteOnTransparent || (material.BlendOperation == EBO_NONE &&
-					!MaterialRenderers[material.MaterialType].Renderer->isTransparent())))
-				BridgeCalls->setDepthMask(true);
-			else
-				BridgeCalls->setDepthMask(false);
+			BridgeCalls->setDepthMask(true);
+		}
+		else
+		{
+			BridgeCalls->setDepthMask(false);
 		}
 
 		// Back face culling
-		if (resetAllRenderStates || (lastmaterial.FrontfaceCulling != material.FrontfaceCulling) || (lastmaterial.BackfaceCulling != material.BackfaceCulling))
+		if ((material.FrontfaceCulling) && (material.BackfaceCulling))
 		{
-			if ((material.FrontfaceCulling) && (material.BackfaceCulling))
-			{
-				BridgeCalls->setCullFaceFunc(GL_FRONT_AND_BACK);
-				BridgeCalls->setCullFace(true);
-			}
-			else
-			if (material.BackfaceCulling)
-			{
-				BridgeCalls->setCullFaceFunc(GL_BACK);
-				BridgeCalls->setCullFace(true);
-			}
-			else
-			if (material.FrontfaceCulling)
-			{
-				BridgeCalls->setCullFaceFunc(GL_FRONT);
-				BridgeCalls->setCullFace(true);
-			}
-			else
-				BridgeCalls->setCullFace(false);
+			BridgeCalls->setCullFaceFunc(GL_FRONT_AND_BACK);
+			BridgeCalls->setCullFace(true);
+		}
+		else if (material.BackfaceCulling)
+		{
+			BridgeCalls->setCullFaceFunc(GL_BACK);
+			BridgeCalls->setCullFace(true);
+		}
+		else if (material.FrontfaceCulling)
+		{
+			BridgeCalls->setCullFaceFunc(GL_FRONT);
+			BridgeCalls->setCullFace(true);
+		}
+		else
+		{
+			BridgeCalls->setCullFace(false);
 		}
 
 		// Color Mask
-		if (resetAllRenderStates || lastmaterial.ColorMask != material.ColorMask)
-		{
-			glColorMask(
-				(material.ColorMask & ECP_RED)?GL_TRUE:GL_FALSE,
-				(material.ColorMask & ECP_GREEN)?GL_TRUE:GL_FALSE,
-				(material.ColorMask & ECP_BLUE)?GL_TRUE:GL_FALSE,
-				(material.ColorMask & ECP_ALPHA)?GL_TRUE:GL_FALSE);
-		}
+		BridgeCalls->setColorMask(
+			(material.ColorMask & ECP_RED)?GL_TRUE:GL_FALSE,
+			(material.ColorMask & ECP_GREEN)?GL_TRUE:GL_FALSE,
+			(material.ColorMask & ECP_BLUE)?GL_TRUE:GL_FALSE,
+			(material.ColorMask & ECP_ALPHA)?GL_TRUE:GL_FALSE);
 
 		// Blend Equation
 		if (material.BlendOperation == EBO_NONE)
@@ -1760,6 +1885,9 @@ bool COGLES2Driver::endScene()
 			BridgeCalls->setBlendFuncSeparate(getGLBlend(srcRGBFact), getGLBlend(dstRGBFact),
 				getGLBlend(srcAlphaFact), getGLBlend(dstAlphaFact));
 		}
+
+		if (resetAllRenderStates || lastmaterial.Thickness != material.Thickness)
+			glLineWidth(core::clamp(static_cast<GLfloat>(material.Thickness), DimAliasedLine[0], DimAliasedLine[1]));
 
 		// Anti aliasing
 		if (resetAllRenderStates || lastmaterial.AntiAliasing != material.AntiAliasing)
@@ -2002,43 +2130,41 @@ bool COGLES2Driver::endScene()
 
 
 	//! Draws a shadow volume into the stencil buffer.
-	void COGLES2Driver::drawStencilShadowVolume(const core::vector3df* triangles, s32 count, bool zfail)
+	void COGLES2Driver::drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible)
 	{
+		const u32 count=triangles.size();
 		if (!StencilBuffer || !count)
 			return;
 
-		// unset last 3d material
-		if (CurrentRenderMode == ERM_3D &&
-			static_cast<u32>(Material.MaterialType) < MaterialRenderers.size())
+		bool fog = Material.FogEnable;
+		bool lighting = Material.Lighting;
+		E_MATERIAL_TYPE materialType = Material.MaterialType;
+
+		Material.FogEnable = false;
+		Material.Lighting = false;
+		Material.MaterialType = EMT_SOLID; // Dedicated material in future.
+
+		setRenderStates3DMode();
+
+		BridgeCalls->setDepthTest(true);
+		BridgeCalls->setDepthFunc(GL_LESS);
+		BridgeCalls->setDepthMask(false);
+
+		if (!(debugDataVisible & (scene::EDS_SKELETON|scene::EDS_MESH_WIRE_OVERLAY)))
 		{
-			MaterialRenderers[Material.MaterialType].Renderer->OnUnsetMaterial();
-			ResetRenderStates = true;
+			BridgeCalls->setColorMask(false, false, false, false);
+			glEnable(GL_STENCIL_TEST);
 		}
 
-		// store current OGLES state
-		const GLboolean cullFaceEnabled = glIsEnabled(GL_CULL_FACE);
-		GLint cullFaceMode;
-		glGetIntegerv(GL_CULL_FACE_MODE, &cullFaceMode);
-		GLint depthFunc;
-		glGetIntegerv(GL_DEPTH_FUNC, &depthFunc);
-		GLboolean depthMask;
-		glGetBooleanv(GL_DEPTH_WRITEMASK, &depthMask);
-
-		glDepthFunc(GL_LEQUAL);
-		glDepthMask(GL_FALSE); // no depth buffer writing
-		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE); // no color buffer drawing
-		glEnable(GL_STENCIL_TEST);
-		glEnable(GL_POLYGON_OFFSET_FILL);
-		glPolygonOffset(0.0f, 1.0f);
-
 		glEnableVertexAttribArray(EVA_POSITION);
+		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(core::vector3df), triangles.const_pointer());
 
-		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(core::vector3df), &triangles[0]);
 		glStencilMask(~0);
 		glStencilFunc(GL_ALWAYS, 0, ~0);
 
 		GLenum decr = GL_DECR;
 		GLenum incr = GL_INCR;
+
 #if defined(GL_OES_stencil_wrap)
 		if (FeatureAvailable[IRR_OES_stencil_wrap])
 		{
@@ -2046,43 +2172,37 @@ bool COGLES2Driver::endScene()
 			incr = GL_INCR_WRAP_OES;
 		}
 #endif
-		glEnable(GL_CULL_FACE);
-		if (!zfail)
-		{
-			// ZPASS Method
 
-			glCullFace(GL_BACK);
+		BridgeCalls->setCullFace(true);
+
+		if (zfail)
+		{
+			BridgeCalls->setCullFaceFunc(GL_FRONT);
+			glStencilOp(GL_KEEP, incr, GL_KEEP);
+			glDrawArrays(GL_TRIANGLES, 0, count);
+
+			BridgeCalls->setCullFaceFunc(GL_BACK);
+			glStencilOp(GL_KEEP, decr, GL_KEEP);
+			glDrawArrays(GL_TRIANGLES, 0, count);
+		}
+		else // zpass
+		{
+			BridgeCalls->setCullFaceFunc(GL_BACK);
 			glStencilOp(GL_KEEP, GL_KEEP, incr);
 			glDrawArrays(GL_TRIANGLES, 0, count);
 
-			glCullFace(GL_FRONT);
+			BridgeCalls->setCullFaceFunc(GL_FRONT);
 			glStencilOp(GL_KEEP, GL_KEEP, decr);
-			glDrawArrays(GL_TRIANGLES, 0, count);
-		}
-		else
-		{
-			// ZFAIL Method
-
-			glStencilOp(GL_KEEP, incr, GL_KEEP);
-			glCullFace(GL_FRONT);
-			glDrawArrays(GL_TRIANGLES, 0, count);
-
-			glStencilOp(GL_KEEP, decr, GL_KEEP);
-			glCullFace(GL_BACK);
 			glDrawArrays(GL_TRIANGLES, 0, count);
 		}
 
 		glDisableVertexAttribArray(EVA_POSITION);
-		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
 		glDisable(GL_STENCIL_TEST);
-		if (cullFaceEnabled)
-			glEnable(GL_CULL_FACE);
-		else
-			glDisable(GL_CULL_FACE);
-		glCullFace(cullFaceMode);
-		glDepthFunc(depthFunc);
-		glDepthMask(depthMask);
-		testGLError();
+
+		Material.FogEnable = fog;
+		Material.Lighting = lighting;
+		Material.MaterialType = materialType;
 	}
 
 
@@ -2093,57 +2213,39 @@ bool COGLES2Driver::endScene()
 		if (!StencilBuffer)
 			return;
 
+		setRenderStates2DMode(true, false, false);
+
 		disableTextures();
 
-		// store attributes
-		GLboolean depthMask;
-		glGetBooleanv(GL_DEPTH_WRITEMASK, &depthMask);
-//			GLint shadeModel;
-		//TODO : OpenGL ES 2.0 Port glGetIntegerv
-		//glGetIntegerv(GL_SHADE_MODEL, &shadeModel);
+		BridgeCalls->setDepthMask(false);
+		BridgeCalls->setColorMask(true, true, true, true);
 
-		glDepthMask(GL_FALSE);
-
-		//TODO : OpenGL ES 2.0 Port glShadeModel
-		//glShadeModel(GL_FLAT);
-		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+		BridgeCalls->setBlend(true);
+		BridgeCalls->setBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glEnable(GL_STENCIL_TEST);
 		glStencilFunc(GL_NOTEQUAL, 0, ~0);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 
-		// draw a shadow rectangle covering the entire screen using stencil buffer
-		//Wrapper->glMatrixMode(GL_MODELVIEW);
-		//TODO : OpenGL ES 2.0 Port glPushMatrix
-		//glPushMatrix();
-		//Wrapper->glLoadIdentity();
-		//Wrapper->glMatrixMode(GL_PROJECTION);
-		//TODO : OpenGL ES 2.0 Port glPushMatrix
-		//glPushMatrix();
-		//Wrapper->glLoadIdentity();
-
 		u16 indices[] = {0, 1, 2, 3};
 		S3DVertex vertices[4];
-		vertices[0] = S3DVertex(-1.f, -1.f, 0.9f, 0, 0, 1, leftDownEdge, 0, 0);
-		vertices[1] = S3DVertex(-1.f, 1.f, 0.9f, 0, 0, 1, leftUpEdge, 0, 0);
-		vertices[2] = S3DVertex(1.f, 1.f, 0.9f, 0, 0, 1, rightUpEdge, 0, 0);
-		vertices[3] = S3DVertex(1.f, -1.f, 0.9f, 0, 0, 1, rightDownEdge, 0, 0);
-		drawVertexPrimitiveList2d3d(vertices, 4, indices, 2, video::EVT_STANDARD, scene::EPT_TRIANGLE_FAN, EIT_16BIT, false);
+		vertices[0] = S3DVertex(-1.f, 1.f, 0.9f, 0, 0, 1, leftDownEdge, 0, 0);
+		vertices[1] = S3DVertex(1.f, 1.f, 0.9f, 0, 0, 1, leftUpEdge, 0, 0);
+		vertices[2] = S3DVertex(1.f, -1.f, 0.9f, 0, 0, 1, rightUpEdge, 0, 0);
+		vertices[3] = S3DVertex(-1.f, -1.f, 0.9f, 0, 0, 1, rightDownEdge, 0, 0);
+
+		glEnableVertexAttribArray(EVA_POSITION);
+		glEnableVertexAttribArray(EVA_COLOR);
+		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+		glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+		glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, indices);
+		glDisableVertexAttribArray(EVA_COLOR);
+		glDisableVertexAttribArray(EVA_POSITION);
 
 		if (clearStencilBuffer)
 			glClear(GL_STENCIL_BUFFER_BIT);
 
-		// restore settings
-		//TODO : OpenGL ES 2.0 Port glPopMatrix
-		//glPopMatrix();
-		//Wrapper->glMatrixMode(GL_MODELVIEW);
-		//TODO : OpenGL ES 2.0 Port glPopMatrix
-		//glPopMatrix();
 		glDisable(GL_STENCIL_TEST);
-
-		glDepthMask(depthMask);
-		//TODO : OpenGL ES 2.0 Port glShadeModel
-		//glShadeModel(shadeModel);
 	}
 
 
@@ -2157,7 +2259,14 @@ bool COGLES2Driver::endScene()
 		S3DVertex vertices[2];
 		vertices[0] = S3DVertex(start.X, start.Y, start.Z, 0, 0, 1, color, 0, 0);
 		vertices[1] = S3DVertex(end.X, end.Y, end.Z, 0, 0, 1, color, 0, 0);
-		drawVertexPrimitiveList2d3d(vertices, 2, indices, 1, video::EVT_STANDARD, scene::EPT_LINES);
+
+		glEnableVertexAttribArray(EVA_POSITION);
+		glEnableVertexAttribArray(EVA_COLOR);
+		glVertexAttribPointer(EVA_POSITION, 3, GL_FLOAT, false, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Pos);
+		glVertexAttribPointer(EVA_COLOR, 4, GL_UNSIGNED_BYTE, true, sizeof(S3DVertex), &(static_cast<const S3DVertex*>(vertices))[0].Color);
+		glDrawElements(GL_LINES, 2, GL_UNSIGNED_SHORT, indices);
+		glDisableVertexAttribArray(EVA_COLOR);
+		glDisableVertexAttribArray(EVA_POSITION);
 	}
 
 
@@ -2378,10 +2487,10 @@ bool COGLES2Driver::endScene()
 		}
 
 		GLbitfield mask = 0;
+
 		if (clearBackBuffer)
 		{
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-			Material.ColorMask = ECP_ALL;
+			BridgeCalls->setColorMask(true, true, true, true);
 
 			const f32 inv = 1.0f / 255.0f;
 			glClearColor(color.getRed() * inv, color.getGreen() * inv,
@@ -2389,11 +2498,10 @@ bool COGLES2Driver::endScene()
 
 			mask |= GL_COLOR_BUFFER_BIT;
 		}
+
 		if (clearZBuffer)
 		{
-			glDepthMask(GL_TRUE);
-			Material.ZWriteEnable = true;
-
+			BridgeCalls->setDepthMask(true);
 			mask |= GL_DEPTH_BUFFER_BIT;
 		}
 
@@ -2416,9 +2524,7 @@ bool COGLES2Driver::endScene()
 	//! Clears the ZBuffer.
 	void COGLES2Driver::clearZBuffer()
 	{
-		glDepthMask(GL_TRUE);
-		Material.ZWriteEnable = true;
-
+		BridgeCalls->setDepthMask(true);
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
@@ -2666,6 +2772,9 @@ bool COGLES2Driver::endScene()
 	{
 		// Initial OpenGL values from specification.
 
+		for (u32 i = 0; i < 4; ++i)
+			ColorMask[i] = true;
+
 		for (u32 i = 0; i < MATERIAL_MAX_TEXTURES; ++i)
 		{
 			Texture[i] = 0;
@@ -2674,6 +2783,8 @@ bool COGLES2Driver::endScene()
 
 		glBlendFunc(GL_ONE, GL_ZERO);
 		glDisable(GL_BLEND);
+
+		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 
 		glCullFace(GL_BACK);
 		glDisable(GL_CULL_FACE);
@@ -2738,6 +2849,19 @@ bool COGLES2Driver::endScene()
 				glDisable(GL_BLEND);
 
 			Blend = enable;
+		}
+	}
+
+	void COGLES2CallBridge::setColorMask(bool red, bool green, bool blue, bool alpha)
+	{
+		if (ColorMask[0] != red || ColorMask[1] != green || ColorMask[2] != blue || ColorMask[3] != alpha)
+		{
+			glColorMask(red, green, blue, alpha);
+
+			ColorMask[0] = red;
+			ColorMask[1] = green;
+			ColorMask[2] = blue;
+			ColorMask[3] = alpha;
 		}
 	}
 

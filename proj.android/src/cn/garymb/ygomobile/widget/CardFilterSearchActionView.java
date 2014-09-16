@@ -57,7 +57,8 @@ public class CardFilterSearchActionView extends SearchView implements ICardFilte
 		} else { 
 			if (TextUtils.isDigitsOnly(mFilterString)){
 				return " (datas." + YGOCards.Datas._ID
-						+ " = " + mFilterString + ")";
+						+ " = " + mFilterString + ")" + "OR ( " + YGOCards.Texts.NAME
+						+ " LIKE '%" + mFilterString + "%' )";
 			} else {
 				return " ( " + YGOCards.Texts.NAME
 						+ " LIKE '%" + mFilterString + "%' )";

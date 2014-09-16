@@ -1,21 +1,22 @@
-// Copyright (C) 2009-2010 Amundis
-// Heavily based on the OpenGL driver implemented by Nikolaus Gebhardt
-// and OpenGL ES driver implemented by Christian Stehno
-// This file is part of the "Irrlicht Engine".
-// For conditions of distribution and use, see copyright notice in Irrlicht.h
+/* Attributes */
 
 attribute vec4 inVertexPosition;
 attribute vec4 inVertexColor;
 attribute vec2 inTexCoord0;
 
-uniform mat4 uOrthoMatrix;
+/* Uniforms */
 
+uniform float uThickness;
+
+/* Varyings */
+
+varying vec2 vTextureCoord;
 varying vec4 vVertexColor;
-varying vec2 vTexCoord;
 
-void main(void)
+void main()
 {
-	gl_Position = uOrthoMatrix * inVertexPosition;
+	gl_Position = inVertexPosition;
+	gl_PointSize = uThickness;
+	vTextureCoord = inTexCoord0;
 	vVertexColor = inVertexColor.bgra;
-	vTexCoord = inTexCoord0;
 }
