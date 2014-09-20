@@ -683,8 +683,6 @@ namespace video
 
 		// Texture calls.
 
-		void resetTexture(const ITexture* texture);
-
 		void setActiveTexture(GLenum texture);
 
 		void setClientActiveTexture(GLenum texture);

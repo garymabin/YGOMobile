@@ -106,9 +106,9 @@ obj/local/armeabi/objs/Irrlicht/COGLES2Driver.o: \
  ../../../include/IMaterialRenderer.h \
  ../../../include/IShaderConstantSetCallBack.h \
  jni/../../COGLES2FixedPipelineRenderer.h \
- jni/../../COGLES2NormalMapRenderer.h ../../../include/vector3d.h \
- ../../../include/SColor.h jni/../../COGLES2ParallaxMapRenderer.h \
- jni/../../COGLES2Renderer2D.h jni/../../CImage.h ../../../include/rect.h \
+ jni/../../COGLES2NormalMapRenderer.h \
+ jni/../../COGLES2ParallaxMapRenderer.h jni/../../COGLES2Renderer2D.h \
+ jni/../../CImage.h ../../../include/rect.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/sources/android/native_app_glue/android_native_app_glue.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/poll.h \
  /Users/mabin/Downloads/eclipse/android-ndk-r9d/platforms/android-9/arch-arm/usr/include/linux/poll.h \
@@ -424,10 +424,6 @@ jni/../../COGLES2MaterialRenderer.h:
 jni/../../COGLES2FixedPipelineRenderer.h:
 
 jni/../../COGLES2NormalMapRenderer.h:
-
-../../../include/vector3d.h:
-
-../../../include/SColor.h:
 
 jni/../../COGLES2ParallaxMapRenderer.h:
 

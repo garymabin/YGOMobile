@@ -1,4 +1,7 @@
-// Copyright (C) 2014 Patryk Nadrowski
+// Copyright (C) 2013 Patryk Nadrowski
+// Heavily based on the OpenGL driver implemented by Nikolaus Gebhardt
+// OpenGL ES driver implemented by Christian Stehno and first OpenGL ES 2.0
+// driver implemented by Amundis.
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in Irrlicht.h
 
@@ -9,194 +12,38 @@
 
 #ifdef _IRR_COMPILE_WITH_OGLES2_
 
-#include "IShaderConstantSetCallBack.h"
-#include "IMaterialRendererServices.h"
+#include "COGLES2MaterialRenderer.h"
 
 namespace irr
 {
 namespace video
 {
 
-class COGLES2MaterialBaseCB : public IShaderConstantSetCallBack
+//! Class for rendering fixed pipeline stuff with OpenGL ES 2.0
+class COGLES2FixedPipelineRenderer : public COGLES2MaterialRenderer
 {
 public:
-	COGLES2MaterialBaseCB();
+	//! Constructor
+	COGLES2FixedPipelineRenderer(const c8* vertexShaderProgram,
+		const c8* pixelShaderProgram, E_MATERIAL_TYPE baseMaterial,
+		COGLES2Driver* driver);
 
-	virtual void OnSetMaterial(const SMaterial& material);
-	virtual void OnSetConstants(IMaterialRendererServices* services, s32 userData);
+	//! Destructor
+	~COGLES2FixedPipelineRenderer();
 
-protected:
-	bool FirstUpdateBase;
+	virtual void OnSetMaterial(const SMaterial& material, const SMaterial& lastMaterial,
+		bool resetAllRenderstates, IMaterialRendererServices* services);
 
-	s32 WVPMatrixID;
-	s32 WVMatrixID;
-	s32 NMatrixID;
-
-	s32 MaterialAmbientID;
-	s32 MaterialDiffuseID;
-	s32 MaterialSpecularID;
-	s32 MaterialShininessID;
-
-	s32 LightCountID;
-	s32 LightTypeID;
-	s32 LightPositionID;
-	s32 LightDirectionID;
-	s32 LightAttenuationID;
-	s32 LightAmbientID;
-	s32 LightDiffuseID;
-	s32 LightSpecularID;
-
-	s32 FogEnableID;
-	s32 FogTypeID;
-	s32 FogColorID;
-	s32 FogStartID;
-	s32 FogEndID;
-	s32 FogDensityID;
-
-	s32 ThicknessID;
-
-	bool LightEnable;
-	SColorf MaterialAmbient;
-	SColorf MaterialDiffuse;
-	SColorf MaterialSpecular;
-	f32 MaterialShininess;
-
-	s32 LightType[8];
-	core::vector3df LightPosition[8];
-	core::vector3df LightDirection[8];
-	core::vector3df LightAttenuation[8];
-	SColorf LightAmbient[8];
-	SColorf LightDiffuse[8];
-	SColorf LightSpecular[8];
-
-	s32 FogEnable;
-	s32 FogType;
-	SColorf FogColor;
-	f32 FogStart;
-	f32 FogEnd;
-	f32 FogDensity;
-
-	f32 Thickness;
-};
-
-class COGLES2MaterialSolidCB : public COGLES2MaterialBaseCB
-{
-public:
-	COGLES2MaterialSolidCB();
-
-	virtual void OnSetMaterial(const SMaterial& material);
-	virtual void OnSetConstants(IMaterialRendererServices* services, s32 userData);
+	virtual bool OnRender(IMaterialRendererServices* service, E_VERTEX_TYPE vtxtype);
 
 protected:
-	bool FirstUpdate;
-
-	s32 TMatrix0ID;
-	s32 AlphaRefID;
-	s32 TextureUsage0ID;
-	s32 TextureUnit0ID;
-
-	f32 AlphaRef;
-	s32 TextureUsage0;
-	s32 TextureUnit0;
+	int yy;
+	COGLES2MaterialRenderer* SharedRenderer;
 };
 
-class COGLES2MaterialSolid2CB : public COGLES2MaterialBaseCB
-{
-public:
-	COGLES2MaterialSolid2CB();
 
-	virtual void OnSetMaterial(const SMaterial& material);
-	virtual void OnSetConstants(IMaterialRendererServices* services, s32 userData);
-
-protected:
-	bool FirstUpdate;
-
-	s32 TMatrix0ID;
-	s32 TMatrix1ID;
-	s32 TextureUsage0ID;
-	s32 TextureUsage1ID;
-	s32 TextureUnit0ID;
-	s32 TextureUnit1ID;
-
-	s32 TextureUsage0;
-	s32 TextureUsage1;
-	s32 TextureUnit0;
-	s32 TextureUnit1;
-};
-
-class COGLES2MaterialLightmapCB : public COGLES2MaterialBaseCB
-{
-public:
-	COGLES2MaterialLightmapCB(float modulate);
-
-	virtual void OnSetMaterial(const SMaterial& material);
-	virtual void OnSetConstants(IMaterialRendererServices* services, s32 userData);
-
-protected:
-	bool FirstUpdate;
-
-	s32 TMatrix0ID;
-	s32 TMatrix1ID;
-	s32 ModulateID;
-	s32 TextureUsage0ID;
-	s32 TextureUsage1ID;
-	s32 TextureUnit0ID;
-	s32 TextureUnit1ID;
-
-	f32 Modulate;
-	s32 TextureUsage0;
-	s32 TextureUsage1;
-	s32 TextureUnit0;
-	s32 TextureUnit1;
-};
-
-class COGLES2MaterialReflectionCB : public COGLES2MaterialBaseCB
-{
-public:
-	COGLES2MaterialReflectionCB();
-
-	virtual void OnSetMaterial(const SMaterial& material);
-	virtual void OnSetConstants(IMaterialRendererServices* services, s32 userData);
-
-protected:
-	bool FirstUpdate;
-
-	s32 TMatrix0ID;
-	s32 TextureUsage0ID;
-	s32 TextureUsage1ID;
-	s32 TextureUnit0ID;
-	s32 TextureUnit1ID;
-
-	s32 TextureUsage0;
-	s32 TextureUsage1;
-	s32 TextureUnit0;
-	s32 TextureUnit1;
-};
-
-class COGLES2MaterialOneTextureBlendCB : public COGLES2MaterialBaseCB
-{
-public:
-	COGLES2MaterialOneTextureBlendCB();
-
-	virtual void OnSetMaterial(const SMaterial& material);
-	virtual void OnSetConstants(IMaterialRendererServices* services, s32 userData);
-
-protected:
-	bool FirstUpdate;
-
-	s32 TMatrix0ID;
-	s32 BlendTypeID;
-	s32 TextureUsage0ID;
-	s32 TextureUnit0ID;
-
-	s32 BlendType;
-	s32 TextureUsage0;
-	s32 TextureUnit0;
-};
-
-}
-}
+} // end namespace video
+} // end namespace irr
 
 #endif
 #endif
-
