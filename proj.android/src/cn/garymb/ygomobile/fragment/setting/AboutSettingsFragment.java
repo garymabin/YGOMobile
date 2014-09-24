@@ -36,8 +36,6 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 	private static final int DIALOG_TYPE_OPEN_SOURCE = 1;
 	private static final int DIALOG_TYPE_APP_UPDATE = 2;
 	
-	private static final int MSG_TYPE_CHECK_UPDATE = 0;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,35 +64,10 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 			showDialog(DIALOG_TYPE_VERSION, bundle);
 		} else if (preference.equals(mCheckUpdatePref)) {
 			UmengUpdateAgent.forceUpdate(getActivity());
-//			Controller.peekInstance().asyncCheckUpdate(Message.obtain(mHandler, MSG_TYPE_CHECK_UPDATE));
 		}
 		return false;
 	}
 	
-	@Override
-	public boolean handleMessage(Message msg) {
-		if (super.handleMessage(msg)) {
-			return true;
-		}
-		int type = msg.what;
-		if (type == MSG_TYPE_CHECK_UPDATE) {
-			VersionInfo info = (VersionInfo) msg.obj;
-			if (info != null) {
-				if (info.version <= StaticApplication.peekInstance().getVersionCode()) {
-					SuperToast.create(getActivity(), getResources().getString(R.string.settings_about_no_update),
-							SuperToast.Duration.VERY_SHORT).show();
-				} else {
-					Bundle bundle = new Bundle();
-					bundle.putInt("version", info.version);
-					bundle.putInt("titleRes", R.string.settings_about_new_version);
-					bundle.putString("url", info.url);
-					showDialog(DIALOG_TYPE_APP_UPDATE, bundle);
-				}
-			}
-		}
-		return false;
-	}
-
 	@Override
 	public BaseDialog onCreateDialog(int type, Bundle param) {
 		if (type == DIALOG_TYPE_OPEN_SOURCE || type == DIALOG_TYPE_VERSION) {

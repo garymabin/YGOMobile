@@ -14,6 +14,9 @@ public interface ResourcesConstants {
 	
 	public static final String WIKI_SEARCH_URL = "http://www.ourocg.cn/S.aspx?key=";
 	
+	public static final String SERVER_LIST_URL = "http://my-card.in/servers.json";
+	public static final String ROOM_LIST_URL = "ws://my-card.in/rooms.json";
+	
 	public static final String UPDATE_SERVER_URL = "http://23.252.108.13";
 	
 	public static final String VERSION_UPDATE_URL = "/ygomobile/version.json";

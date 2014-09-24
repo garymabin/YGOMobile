@@ -80,6 +80,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#000000</item>
     </style>
 
     <style name="room_item_edit_content">
@@ -97,7 +98,7 @@
         <item name="android:textColor">#000000</item>
     </style>
 
-    <style name="room_item_spinner" parent="@style/room_item_label">
+    <style name="room_item_spinner" parent="@style/room_item_content">
         <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
         <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_light</item>
     </style>

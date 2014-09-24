@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
+
     <string name="app_name">YGOMobile</string>
     <string name="crash_title">应用程序崩溃</string>
     <string name="crashed">w(ﾟДﾟ)w.. YGOMobile崩溃啦！</string>
     <string name="crash_dialog_comment_prompt">YGOMobile崩溃了喵，请将错误日志通过邮件发送给俺们喵，有其他想法可以在下面反馈喵!</string>
-    
     <string name="ignore_chain">忽略时点</string>
     <string name="react_chain">显示时点</string>
     <string name="crash_dialog_ok_toast">感谢喵!</string>
@@ -24,18 +24,38 @@
     <string name="item_des_text">卡片描述：</string>
     <string name="item_wiki_text">卡片调整：</string>
     <string name="wiki_hint_text">&lt;&lt;p>&lt;a href="wiki">&lt;u>来自ourocg.cn的链接&lt;/u>&lt;/a></string>
-    
+    <string name="ongoing">进行中</string>
+    <string name="pending">等待中</string>
     <string name="access_denied">无访问权限！</string>
     <string name="choose_folder">选择目录：</string>
     <string name="choose_file">选择文件：</string>
     <string name="choose_all">选择文件或目录：</string>
     <string name="root_dir">根目录</string>
-    
     <string name="button_update">更新</string>
     <string name="button_create">创建</string>
     <string name="button_ok">确定</string>
     <string name="button_cancel">取消</string>
+    <string name="button_join">加入</string>
+    <string name="password">密码</string>
     <string name="cancel">取消</string>
+    <string name="life_point_hint">Life point</string>
+    
+    <string name="action_new_room">创建房间</string>
+    <string name="quick_join">快速加入</string>
+    <string name="create_room">创建房间</string>
+    <string name="room_password">房间密码</string>
+    <string name="show_password">显示密码</string>
+    <string name="card_limit">卡片允许</string>
+    <string name="duel_mode">决斗模式</string>
+    <string name="room_name">房间名称</string>
+    <string name="init_lp">初始LP</string>
+    <string name="init_hands">初始手牌数</string>
+    <string name="draw_count">每回合抽卡</string>
+    <string name="room_advanced_options">显示高级选项</string>
+    <string name="duel_info">决斗信息</string>
+    <string name="duel_options">决斗选项</string>
+    <string name="quick_join_hint">房间名$密码</string>
+    <string name="input_invalid_msg">用户名与密码长度之和不能超过<xliff>%1$d</xliff>个字符</string>
     <string name="combobox_choose_item">请选择一项</string>
     <string name="action_filter">筛选</string>
     <string name="action_filter_none">（无）</string>
@@ -67,7 +87,6 @@
     <string name="action_filter_type_monster_flip">反转</string>
     <string name="action_filter_type_monster_toon">卡通</string>
     <string name="action_filter_type_monster_pendulum">摇摆</string>
-    
     <string name="action_filter_property_land">地</string>
     <string name="action_filter_property_water">水</string>
     <string name="action_filter_property_hot">炎</string>
@@ -75,8 +94,6 @@
     <string name="action_filter_property_light">光</string>
     <string name="action_filter_property_dark">暗</string>
     <string name="action_filter_property_god">神</string>
-    
-    
     <string name="action_filter_race_warrior">战士</string>
     <string name="action_filter_race_magic">魔法使</string>
     <string name="action_filter_race_angel">天使</string>
@@ -102,18 +119,14 @@
     <string name="action_filter_race_devine_beast">幻神兽</string>
     <string name="action_filter_race_bramna">创造神</string>
     <string name="action_filter_race_phantom_dragon">幻龙</string>
-    
     <string name="action_filter_ot_ocg">OCG</string>
     <string name="action_filter_ot_tcg">TCG</string>
     <string name="action_filter_ot_ocgtcg">OCG/TCG</string>
-    
     <string name="action_filter_atk">攻击力</string>
     <string name="action_filter_def">防御力</string>
     <string name="card_search_hint">请输入卡片名称或者代码</string>
-    
     <string name="action_filter_level">星等</string>
     <string name="action_filter_effect">效果</string>
-    
     <string name="donate">捐助</string>
     <string name="support_us_des">YGOMobile属于个人开源项目，您的支持将会让我更加努力优化软件质量，改进软件服务</string>
     <string name="support_via">您可以通过以下方式对我们进行捐助：</string>
@@ -151,21 +164,15 @@
     <string name="settings_game_diy_des">当前使用图片：</string>
     <string name="settings_game_diy_history_des">历史图片：</string>
     <string name="settings_game_cover">背景图</string>
-    
     <string name="image_not_load_toast">无法加载指定图片</string>
-    
     <string name="copying_image">正在拷贝图片</string>
-    
     <string name="loading_card_db">正在导入卡片数据库</string>
     <string name="resume_card_db">导入卡片数据库失败，正在恢复原始数据库</string>
     <string name="loading_card_success">"导入成功，卡查变更需要完全退出游戏后生效！"</string>
     <string name="loading_card_failed">"导入失败"</string>
-    
     <string name="reseting_card_db">正在重置卡片数据库</string>
-    
-     <string name="reset_card_success">"重置成功，卡查变更需要完全退出游戏后生效！"</string>
+    <string name="reset_card_success">"重置成功，卡查变更需要完全退出游戏后生效！"</string>
     <string name="reset_card_failed">"重置失败"</string>
-    
     <string name="server_user_name">用户名：</string>
     <string name="server_name">名称：</string>
     <string name="server_ip">IP地址:</string>
@@ -173,13 +180,13 @@
     <string name="server_info">主机密码（可选）：</string>
     <string name="action_new_server">添加服务器</string>
     <string name="action_edit_server">编辑服务器</string>
-    
     <string name="range_to">到</string>
-    
     <string name="action_delete">删除</string>
     <string name="action_edit">编辑</string>
     <string name="action_connect">连接</string>
-    
     <string name="toast_delete">已删除 %1$s</string>
     <string name="exit_hint">"再按一次退出YGOMobile喵！"</string>
+    <string name="loading">正在加载中</string>
+    <string name="quick_join_error">无法找到房间</string>
+    <string name="to_be_finished">"敬请期待"</string>
 </resources>

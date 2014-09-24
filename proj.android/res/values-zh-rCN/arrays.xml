@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="fragment_items">
+        <item>对战</item>
+        <item>卡查</item>
+        <item>卡组管理</item>
+        <item>卡图管理</item>
+    </string-array>
+    <string-array name="duel_mode">
+        <item>单局模式</item>
+        <item>比赛模式</item>
+        <item>双人模式</item>
+    </string-array>
     <string-array name="card_quality">
         <item>速度优先</item>
         <item>质量优先</item>
     </string-array>
     <string-array name="duel_list">
-        <item>决斗</item>
-        <item>卡查</item>
+        <item>房间列表</item>
+        <item>自由连接</item>
     </string-array>
     <string-array name="free_mode">
         <item>服务器列表</item>

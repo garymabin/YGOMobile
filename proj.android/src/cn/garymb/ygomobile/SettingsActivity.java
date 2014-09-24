@@ -6,6 +6,7 @@ import java.util.List;
 import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.soundcloud.android.crop.Crop;
+import com.umeng.update.UmengUpdateAgent;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.AppUpdateTask;
@@ -16,7 +17,6 @@ import cn.garymb.ygomobile.common.CardDBResetTask.CardDBResetListener;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.common.ImageCopyTask;
 import cn.garymb.ygomobile.common.ImageCopyTask.ImageCopyListener;
-import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
@@ -243,8 +243,7 @@ public class SettingsActivity extends PreferenceActivity implements
 			showDialog(DIALOG_ID_IMAGE_PREVIEW, bundle);
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_ABOUT_CHECK_UPDATE)) {
-			Controller.peekInstance().asyncCheckUpdate(
-					Message.obtain(mHandler, MSG_TYPE_CHECK_UPDATE));
+			UmengUpdateAgent.forceUpdate(this);
 		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
 			Bundle bundle = new Bundle();
 			bundle.putString("root", "/");

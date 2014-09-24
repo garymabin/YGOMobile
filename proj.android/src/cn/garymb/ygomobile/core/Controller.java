@@ -39,6 +39,19 @@ public class Controller {
 		return INSTANCE;
 		
 	}
+	
+	public void asyncUpdateMycardServer(Message msg) {
+		mUpdateController.asyncUpdateMycardServer(msg);
+	}
+
+	public void asyncUpdateRoomList(Message msg) {
+		mUpdateController.asyncUpdateRoomList(msg);
+		
+	}
+
+	public void stopUpdateRoomList() {
+		mUpdateController.stopUpdateRoomList();
+	}
 
 	public boolean handleActionBarEvent(MenuItem item) {
 		return mActionBarController.handleAction(item);
@@ -98,10 +111,6 @@ public class Controller {
 	
 	public void unregisterForActionReset(Handler h) {
 		mActionBarController.unregisterForActionReset(h);
-	}
-	
-	public void asyncCheckUpdate(Message msg) {
-		mUpdateController.asyncCheckUpdate(msg);
 	}
 	
 	public void downloadNewAppVersion(String url) {
@@ -165,5 +174,9 @@ public class Controller {
 	
 	public void unregisterDataObserver(IDataObserver observer) {
 		mModel.unregisterDataObserver(observer);
+	}
+
+	public String getLoginName() {
+		return "YGOMobile";
 	}
 }

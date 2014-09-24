@@ -16,6 +16,8 @@
 	<string-array name="duel_list">
         <item>决斗</item>
         <item>卡查</item>
+        <item>卡组管理</item>
+        <item>卡图管理</item>
     </string-array>
     
 	<string-array name="free_mode">
