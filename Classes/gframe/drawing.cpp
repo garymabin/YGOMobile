@@ -313,12 +313,6 @@ void Game::DrawMisc() {
 			it.setScale(0.6f);
 			it.setTranslation(dField.chains[i].chain_pos);
 			matManager.mTRTexture.setTexture(0, imageManager.tNumber);
-#ifdef _IRR_ANDROID_PLATFORM_
-			matManager.vChainNum[0].Color = SColor(255, 255, 255, 255);
-			matManager.vChainNum[1].Color = SColor(255, 255, 255, 255);
-			matManager.vChainNum[2].Color = SColor(255, 255, 255, 255);
-			matManager.vChainNum[3].Color = SColor(255, 255, 255, 255);
-#endif
 			matManager.vChainNum[0].TCoords = vector2df(0.19375f * (i % 5), 0.2421875f * (i / 5));
 			matManager.vChainNum[1].TCoords = vector2df(0.19375f * (i % 5 + 1), 0.2421875f * (i / 5));
 			matManager.vChainNum[2].TCoords = vector2df(0.19375f * (i % 5), 0.2421875f * (i / 5 + 1));
