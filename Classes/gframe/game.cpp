@@ -1052,6 +1052,7 @@ void Game::MainLoop() {
 		if(imageManager.tBackGround) {
 			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
 		}
+		driver->enableMaterial2D(false);
 #else
 		if(imageManager.tBackGround)
 			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
@@ -1065,10 +1066,21 @@ void Game::MainLoop() {
 			driver->setMaterial(irr::video::IdentityMaterial);
 			driver->clearZBuffer();
 		} else if(is_building) {
+#ifdef _IRR_ANDROID_PLATFORM_
+			driver->enableMaterial2D(true);
+			DrawDeckBd();
+			driver->enableMaterial2D(false);
+		}
+		driver->enableMaterial2D(true);
+		DrawGUI();
+		DrawSpec();
+		driver->enableMaterial2D(false);
+#else
 			DrawDeckBd();
 		}
 		DrawGUI();
 		DrawSpec();
+#endif
 		gMutex.Unlock();
 		if(signalFrame > 0) {
 			signalFrame--;
