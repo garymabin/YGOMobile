@@ -179,6 +179,8 @@ void Game::DrawBackGround() {
 	}
 }
 void Game::DrawCards() {
+	for(auto cit = dField.overlay_cards.begin(); cit != dField.overlay_cards.end(); ++cit)
+		DrawCard(*cit);
 	for(int p = 0; p < 2; ++p) {
 		for(int i = 0; i < 5; ++i)
 			if(dField.mzone[p][i])
@@ -197,8 +199,6 @@ void Game::DrawCards() {
 		for(size_t i = 0; i < dField.extra[p].size(); ++i)
 			DrawCard(dField.extra[p][i]);
 	}
-	for(auto cit = dField.overlay_cards.begin(); cit != dField.overlay_cards.end(); ++cit)
-		DrawCard(*cit);
 }
 void Game::DrawCard(ClientCard* pcard) {
 	driver->setTransform(irr::video::ETS_WORLD, pcard->mTransform);
