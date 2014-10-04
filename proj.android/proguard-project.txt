@@ -75,6 +75,8 @@
     public int getOpenglVersion();
     public int getCardQuality();
     public boolean getFontAntialias();
+    public boolean isSoundEffectEnabled();
+    public void playSoundEffect(java.lang.String);
 }
 #keep settings
 -keep class cn.garymb.ygomobile.SettingsActivity

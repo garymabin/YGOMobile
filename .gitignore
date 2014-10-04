@@ -9,6 +9,7 @@
 *.class
 
 # generated files
+irrlicht/source/Irrlicht/Android/obj/
 bin/
 gen/
 obj/

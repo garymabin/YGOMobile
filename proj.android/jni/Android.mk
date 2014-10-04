@@ -24,11 +24,12 @@ endif
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)
 LOCAL_C_INCLUDES := ../irrlicht/include
-LOCAL_C_INCLUDES  += ../irrlicht/source/Irrlicht
+LOCAL_C_INCLUDES += ../irrlicht/source/Irrlicht
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../Classes/freetype/include
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../Classes/sqlite3
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../Classes/libevent/include
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../Classes/google-breakpad/src/client/linux
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/android/tremolo/Tremolo
 
 LOCAL_SRC_FILES := $(LOCAL_PATH)/android/android_tools.cpp \
 				$(LOCAL_PATH)/android/xstring.cpp \
@@ -38,6 +39,10 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/android/android_tools.cpp \
 				$(LOCAL_PATH)/android/CAndroidGUIListBox.cpp \
 				$(LOCAL_PATH)/android/CustomShaderConstantSetCallBack.cpp \
 				$(LOCAL_PATH)/android/YGOGameOptions.cpp \
+				$(LOCAL_PATH)/android/AndroidSoundEffectPlayer.cpp \
+				$(LOCAL_PATH)/android/OpenSLSoundTracker.cpp \
+				$(LOCAL_PATH)/android/SoundPoolWrapperTracker.cpp \
+				$(LOCAL_PATH)/android/OSLOgg.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIEditBox.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIButton.cpp \
 				$(LOCAL_PATH)/../Classes/gframe/CGUIComboBox.cpp \
@@ -65,9 +70,10 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/android/android_tools.cpp \
 				$(LOCAL_PATH)/jni/cn_garymb_ygomobile_core_IrrlichtBridge.cpp \
 				$(LOCAL_PATH)/jni/NativeCrashHandler.cpp
 
-LOCAL_LDLIBS := -lEGL -llog -lGLESv1_CM -lGLESv2 -lz -landroid
+LOCAL_LDLIBS := -lEGL -llog -lGLESv1_CM -lGLESv2 -lz -landroid -lOpenSLES
 
 LOCAL_STATIC_LIBRARIES := Irrlicht android_native_app_glue
+LOCAL_STATIC_LIBRARIES += libvorbisidec
 LOCAL_STATIC_LIBRARIES += libssl_static
 LOCAL_STATIC_LIBRARIES += libcrypto_static
 LOCAL_STATIC_LIBRARIES += libevent2
@@ -79,6 +85,8 @@ LOCAL_STATIC_LIBRARIES += libft2
 
 include $(BUILD_SHARED_LIBRARY)
 $(call import-add-path,$(LOCAL_PATH)/../Classes)
+$(call import-add-path,$(LOCAL_PATH)/android)
+$(call import-module,tremolo)
 $(call import-module,openssl)
 $(call import-module,libevent)
 $(call import-module,sqlite3)

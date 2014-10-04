@@ -227,13 +227,13 @@ public class YGOMobileActivity extends NativeActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mHandler = new EventHandler();
-		final Resources res = getResources();
 		setRequestedOrientation(StaticApplication.peekInstance().getGameScreenOritation());
 		
 		initExtraView();
 		mPM = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mNetController = new NetworkController(getApplicationContext());
 		handleExternalCommand();
+		
 	}
 
 	/*

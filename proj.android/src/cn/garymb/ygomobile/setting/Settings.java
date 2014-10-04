@@ -20,6 +20,7 @@ public final class Settings {
 	public static final String KEY_PREF_GAME_RESOURCE_PATH = "pref_key_game_res_path";
 	public static final String KEY_PREF_GAME_IMAGE_QUALITY = "pref_key_game_image_quality";
 	public static final String KEY_PREF_GAME_OGLES_CONFIG = "pref_key_game_ogles_config";
+	public static final String KEY_PREF_GAME_SOUND_EFFECT = "pref_key_game_sound_effect";
 	
 	//game diy
 	public static final String KEY_PREF_GAME_FONT_NAME = "pref_key_game_font_name";

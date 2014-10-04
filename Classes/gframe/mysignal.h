@@ -42,6 +42,7 @@ private:
 
 #include <sys/time.h>
 #include <pthread.h>
+#include <errno.h>
 
 class Signal {
 public:
