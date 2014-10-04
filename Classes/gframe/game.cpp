@@ -15,6 +15,7 @@
 #endif
 
 #ifdef _IRR_ANDROID_PLATFORM_
+#include <android/AndroidSoundEffectPlayer.h>
 #include <android/CAndroidGUIEditBox.h>
 #include <android/CAndroidGUIComboBox.h>
 #include <android/CAndroidGUIListBox.h>
@@ -64,6 +65,8 @@ bool Game::Initialize() {
 		return false;
 	}
 	android::initJavaBridge(app, device);
+	soundEffectPlayer = new AndroidSoundEffectPlayer(app);
+	soundEffectPlayer->setSEEnabled(android::isSoundEffectEnabled(app));
 	app->onInputEvent = android::handleInput;
 	ILogger* logger = device->getLogger();
 	IFileSystem * fs = device->getFileSystem();
@@ -1142,6 +1145,7 @@ void Game::MainLoop() {
 	usleep(500000);
 #endif
 	SaveConfig();
+	delete soundEffectPlayer;
 	usleep(500000);
 //	device->drop();
 }

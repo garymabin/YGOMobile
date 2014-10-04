@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
@@ -45,6 +47,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.content.res.AssetManager;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -87,7 +92,7 @@ public class StaticApplication extends Application {
 	private String mCoreConfigVersion;
 
 	private String mDataBasePath;
-	
+
 	private String mCoreSkinPath;
 
 	private float mScreenWidth;
@@ -95,11 +100,15 @@ public class StaticApplication extends Application {
 	private float mScreenHeight;
 
 	private float mDensity;
-	
+
 	private int mVersionCode;
-	
+
 	private String mVersionName;
-	
+
+	private SoundPool mSoundEffectPool;
+
+	private Map<String, Integer> mSoundIdMap;
+
 	static {
 		System.loadLibrary("YGOMobile");
 	}
@@ -113,8 +122,8 @@ public class StaticApplication extends Application {
 		CrashSender sender = new CrashSender(this);
 		ACRA.getErrorReporter().setReportSender(sender);
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
-		sRootPair = Pair.create(getResources().getString(R.string.root_dir),
-				"/"/*"Environment.getExternalStorageDirectory().getPath()"*/);
+		sRootPair = Pair
+				.create(getResources().getString(R.string.root_dir), "/"/* "Environment.getExternalStorageDirectory().getPath()" */);
 		mCoreSkinPath = getCacheDir() + File.separator
 				+ Constants.CORE_SKIN_PATH;
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -124,7 +133,8 @@ public class StaticApplication extends Application {
 			mDataBasePath = "/data/data/" + getPackageName() + "/databases/";
 		}
 		try {
-			PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
+			PackageInfo info = getPackageManager().getPackageInfo(
+					getPackageName(), 0);
 			mVersionCode = info.versionCode;
 			mVersionName = info.versionName;
 		} catch (NameNotFoundException e) {
@@ -143,14 +153,45 @@ public class StaticApplication extends Application {
 		saveCoreConfigVersion();
 		checkAndCopyCoreConfig(needsUpdate);
 		checkAndCopyGameSkin();
-		DatabaseUtils.checkAndCopyFromInternalDatabase(this, mDataBasePath, needsUpdate);
+		DatabaseUtils.checkAndCopyFromInternalDatabase(this, mDataBasePath,
+				needsUpdate);
 		checkAndCopyFonts();
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		mScreenWidth = metrics.widthPixels;
 		mScreenHeight = metrics.heightPixels;
-
+		initSoundEffectPool();
 	}
 
+	@Override
+	public void onTerminate() {
+		super.onTerminate();
+		mSoundEffectPool.release();
+	}
+
+	private void initSoundEffectPool() {
+		mSoundEffectPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+		AssetManager am = getAssets();
+		String[] sounds;
+		mSoundIdMap = new HashMap<String, Integer>();
+		try {
+			sounds = am.list("sound");
+			for (String sound : sounds) {
+				String path = "sound" + File.separator + sound;
+				mSoundIdMap.put(path, mSoundEffectPool.load(
+						am.openFd(path), 1));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void playSoundEffect(String path) {
+		Integer id = mSoundIdMap.get(path);
+		if (id != null) {
+			mSoundEffectPool.play(id, 0.5f, 0.5f, 2, 0, 1.0f);
+		}
+	}
+	
 	private void checkAndCopyFonts() {
 		File file = new File(getFontPath());
 		if (!file.exists()) {
@@ -163,7 +204,6 @@ public class StaticApplication extends Application {
 			}
 		}
 	}
-
 
 	private void checkAndCopyGameSkin() {
 		File coreSkinDir = new File(mCoreSkinPath);
@@ -199,8 +239,9 @@ public class StaticApplication extends Application {
 					&& coreConfigDir.isDirectory() && !needsUpdate) {
 				return;
 			}
-			if (needsUpdate || (coreConfigDir != null && coreConfigDir.exists()
-					&& !coreConfigDir.isDirectory())) {
+			if (needsUpdate
+					|| (coreConfigDir != null && coreConfigDir.exists() && !coreConfigDir
+							.isDirectory())) {
 				coreConfigDir.delete();
 			}
 			// we need to copy from configs from assets;
@@ -336,7 +377,7 @@ public class StaticApplication extends Application {
 				Settings.KEY_PREF_GAME_IMAGE_QUALITY,
 				Constants.DEFAULT_CARD_QUALITY_CONFIG));
 	}
-	
+
 	public void setLastCheckTime(long time) {
 		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE_COMMON,
 				Context.MODE_PRIVATE);
@@ -344,7 +385,7 @@ public class StaticApplication extends Application {
 		editor.putLong(Constants.PREF_KEY_UPDATE_CHECK, time);
 		editor.commit();
 	}
-	
+
 	public long getLastCheckTime() {
 		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE_COMMON,
 				Context.MODE_PRIVATE);
@@ -385,7 +426,7 @@ public class StaticApplication extends Application {
 	public float getScreenWidth() {
 		return mScreenWidth;
 	}
-	
+
 	public float getSmallerSize() {
 		return mScreenHeight < mScreenWidth ? mScreenHeight : mScreenWidth;
 	}
@@ -395,7 +436,7 @@ public class StaticApplication extends Application {
 	}
 
 	public float getYScale() {
-		return (mScreenHeight > mScreenWidth ? mScreenWidth :  mScreenHeight) / 640.0f;
+		return (mScreenHeight > mScreenWidth ? mScreenWidth : mScreenHeight) / 640.0f;
 	}
 
 	public float getDensity() {
@@ -405,8 +446,13 @@ public class StaticApplication extends Application {
 	public int getVersionCode() {
 		return mVersionCode;
 	}
-	
+
 	public String getVersionName() {
 		return mVersionName;
+	}
+
+	public boolean isSoundEffectEnabled() {
+		return mSettingsPref.getBoolean(Settings.KEY_PREF_GAME_SOUND_EFFECT,
+				true);
 	}
 }

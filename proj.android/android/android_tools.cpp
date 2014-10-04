@@ -390,6 +390,9 @@ void setLastDeck(android_app* app, const char* deckname) {
 			"(Ljava/lang/String;)V");
 	jstring deckstring = jni->NewStringUTF(deckname);
 	jni->CallVoidMethod(application, setDeckMethod, deckstring);
+	if (deckstring) {
+		jni->DeleteLocalRef(deckstring);
+	}
 	jni->DeleteLocalRef(classApp);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
@@ -625,6 +628,35 @@ int getLocalAddr(android_app* app) {
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
 	return addr;
+}
+
+bool isSoundEffectEnabled(android_app* app) {
+	bool isEnabled = false;
+	if (!app || !app->activity || !app->activity->vm)
+		return isEnabled;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return true;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID MethodCheckSE = jni->GetMethodID(classApp, "isSoundEffectEnabled",
+			"()Z");
+	jboolean result = jni->CallBooleanMethod(application, MethodCheckSE);
+	if (result > 0) {
+		isEnabled = true;
+	} else {
+		isEnabled = false;
+	}
+	jni->DeleteLocalRef(ClassNativeActivity);
+	jni->DeleteLocalRef(classApp);
+	app->activity->vm->DetachCurrentThread();
+	return isEnabled;
 }
 
 void showAndroidComboBoxCompat(android_app* app, bool pShow, char** pContents,
