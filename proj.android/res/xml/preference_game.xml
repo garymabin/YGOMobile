@@ -4,6 +4,11 @@
     <PreferenceCategory android:title="@string/app_name" >
         <CheckBoxPreference
             android:defaultValue="true"
+            android:key="pref_key_game_sound_effect"
+            android:persistent="true"
+            android:title="@string/settings_game_enable_sound_effect" />
+        <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_game_screen_orientation"
             android:persistent="true"
             android:title="@string/settings_game_screen_orientation" />

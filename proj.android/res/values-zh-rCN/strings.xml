@@ -127,6 +127,7 @@
     <string name="settings_common_sub_common">常规</string>
     <string name="settings_about_sub_about">关于</string>
     <string name="settings_common_card_image_network_pref">2/3G网络下不下载卡图</string>
+    <string name="settings_game_enable_sound_effect">开启音效</string>
     <string name="settings_game_screen_orientation">游戏中锁定屏幕方向</string>
     <string name="settings_game_font_antialias">开启字体抗锯齿</string>
     <string name="settings_game_font_antialias_summary">关闭此选项可提高游戏帧数</string>

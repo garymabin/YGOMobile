@@ -88,6 +88,8 @@ extern void setLastDeck(android_app* app, const char* deckname);
 //Retrive font antialias options
 extern bool getFontAntiAlias(android_app* app);
 
+extern bool isSoundEffectEnabled(android_app* app);
+
 //Show Android compat gui;
 extern void showAndroidComboBoxCompat(android_app* app, bool pShow, char** pContents, int count, int mode = 0);
 

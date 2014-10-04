@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <vector>
 #include <list>
+#include "IYGOSoundEffectPlayer.h"
 
 namespace ygo {
 
@@ -363,6 +364,7 @@ public:
 	irr::gui::IGUIButton* btnLeaveGame;
 	float xScale;
 	float yScale;
+	IYGOSoundEffectPlayer* soundEffectPlayer;
 #ifdef _IRR_ANDROID_PLATFORM_
 	android_app* appMain;
 	int glversion;
