@@ -124,6 +124,9 @@ public:
 	void SetNoWait(bool nowait) {
 		_nowait = nowait;
 	}
+	bool GetNoWait() {
+		return _nowait;
+	}
 private:
 	pthread_mutex_t _mutex;
 	pthread_cond_t _cond;

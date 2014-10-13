@@ -86,12 +86,15 @@ public class SettingsActivity extends PreferenceActivity implements
 	private ListPreference mCardQualityPreference;
 	private ListPreference mFontNamePreference;
 	private Preference mCoverDiyPreference;
+	private Preference mCardBackBiyPreference;
 	private Preference mCardDBDiyPreference;
 	private Preference mAppUpdatePreference;
 	
 	private Preference mCardDBResetPrefernece;
 
 	private EventHandler mHandler = new EventHandler(this);
+	
+	private Bundle mImageParam;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +133,8 @@ public class SettingsActivity extends PreferenceActivity implements
 
 				mCoverDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_COVER);
 				mCoverDiyPreference.setOnPreferenceClickListener(this);
+				mCardBackBiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_CARD_BACK);
+				mCardBackBiyPreference.setOnPreferenceClickListener(this);
 				mCardDBDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_CARD_DB);
 				mCardDBDiyPreference.setOnPreferenceClickListener(this);
 				mCardDBResetPrefernece = findPreference(Settings.KEY_PREF_GAME_RESET_CARD_DB);
@@ -195,6 +200,18 @@ public class SettingsActivity extends PreferenceActivity implements
 			return true;
 		}
 	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putBundle("image_param", mImageParam);
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle state) {
+		super.onRestoreInstanceState(state);
+		mImageParam = state.getBundle("image_param");
+	}
 
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -240,6 +257,18 @@ public class SettingsActivity extends PreferenceActivity implements
 					+ File.separator
 					+ Constants.CORE_SKIN_COVER);
 			bundle.putIntArray("orig_size", Constants.CORE_SKIN_COVER_SIZE);
+			bundle.putInt("title_res", R.string.settings_game_cover);
+			mImageParam = bundle;
+			showDialog(DIALOG_ID_IMAGE_PREVIEW, bundle);
+		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_DIY_CARD_BACK)) {
+			Bundle bundle = new Bundle();
+			bundle.putString("url", StaticApplication.peekInstance()
+					.getCoreSkinPath()
+					+ File.separator
+					+ Constants.CORE_SKIN_CARD_BACK);
+			bundle.putIntArray("orig_size", Constants.CORE_SKIN_CARD_BACK_SIZE);
+			bundle.putInt("title_res", R.string.settings_game_card_back);
+			mImageParam = bundle;
 			showDialog(DIALOG_ID_IMAGE_PREVIEW, bundle);
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_ABOUT_CHECK_UPDATE)) {
@@ -344,19 +373,15 @@ public class SettingsActivity extends PreferenceActivity implements
 				}
 			}
 		}
+		mImageParam.putString("src_url", path);
 		if (Build.VERSION.SDK_INT >= 11) {
 			ImageCopyTask task = new ImageCopyTask(this);
 			task.setImageCopyListener(this);
-			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, path,
-					StaticApplication.peekInstance().getCoreSkinPath()
-							+ File.separator + Constants.CORE_SKIN_COVER);
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mImageParam);
 		} else {
 			ImageCopyTask task = new ImageCopyTask(this);
 			task.setImageCopyListener(this);
-			task.execute(path, StaticApplication.peekInstance()
-					.getCoreSkinPath()
-					+ File.separator
-					+ Constants.CORE_SKIN_COVER);
+			task.execute(mImageParam);
 		}
 	}
 

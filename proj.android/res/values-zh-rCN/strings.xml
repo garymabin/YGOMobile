@@ -144,6 +144,7 @@
     <string name="settings_game_res_path">资源路径</string>
     <string name="settings_category_diy">个性化</string>
     <string name="settings_game_diy_cover">游戏背景</string>
+    <string name="settings_game_diy_card_back">卡背</string>
     <string name="settings_game_diy_card_db">自定义卡片数据库</string>
     <string name="settings_game_reset_card_db">重置卡片数据库</string>
     <string name="settings_game_reset_card_db_confirm">是否要重置卡片数据库？</string>
@@ -152,6 +153,7 @@
     <string name="settings_game_diy_des">当前使用图片：</string>
     <string name="settings_game_diy_history_des">历史图片：</string>
     <string name="settings_game_cover">背景图</string>
+    <string name="settings_game_card_back">卡背图</string>
     
     <string name="image_not_load_toast">无法加载指定图片</string>
     

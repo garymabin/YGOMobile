@@ -424,7 +424,7 @@ bool perfromTrick(android_app* app) {
 	jni->DeleteLocalRef(ClassNativeActivity);
 	jni->ReleaseByteArrayElements(array, pArray, JNI_FALSE);
 	app->activity->vm->DetachCurrentThread();
-	return true;
+	return ret;
 }
 
 bool getFontAntiAlias(android_app* app) {

@@ -7,7 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class CardDBCopyTask extends AsyncTask<String, Void, Boolean> {
+public class CardDBCopyTask extends AsyncTask<String, Boolean, Boolean> {
 
 	public interface CardDBCopyListener {
 		void onCardDBCopyFinished(Boolean result);
@@ -36,16 +36,27 @@ public class CardDBCopyTask extends AsyncTask<String, Void, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(String... params) {
-		String dataBasePath = StaticApplication.peekInstance().getDataBasePath();
-		Boolean result = DatabaseUtils.checkAndCopyFromExternalDatabase(StaticApplication.peekInstance(),
-				params[0], dataBasePath, true);
+		String dataBasePath = StaticApplication.peekInstance()
+				.getDataBasePath();
+		Boolean result = DatabaseUtils
+				.checkAndCopyFromExternalDatabase(
+						StaticApplication.peekInstance(), params[0],
+						dataBasePath, true);
 		if (!result) {
-			mWaitDialog.setMessage(StaticApplication.peekInstance()
-					.getResources().getString(R.string.resume_card_db));
+			publishProgress(false);
 			DatabaseUtils.checkAndCopyFromInternalDatabase(
 					StaticApplication.peekInstance(), dataBasePath, true);
 		}
 		return result;
+	}
+
+	@Override
+	protected void onProgressUpdate(Boolean... values) {
+		super.onProgressUpdate(values);
+		if (!values[0]) {
+			mWaitDialog.setMessage(StaticApplication.peekInstance()
+					.getResources().getString(R.string.resume_card_db));
+		}
 	}
 
 	@Override

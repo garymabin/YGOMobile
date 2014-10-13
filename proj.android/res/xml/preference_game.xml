@@ -45,6 +45,10 @@
             android:persistent="true"
             android:title="@string/settings_game_diy_cover" />
         <Preference
+            android:key="settings_game_diy_card_back"
+            android:persistent="true"
+            android:title="@string/settings_game_diy_card_back" />
+        <Preference
             android:key="settings_game_diy_card_db"
             android:persistent="true"
             android:summary="@string/settings_game_diy_card_db_des"

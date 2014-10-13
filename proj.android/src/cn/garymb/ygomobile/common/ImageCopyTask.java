@@ -5,14 +5,13 @@ import java.io.IOException;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.model.Model;
-import cn.garymb.ygomobile.utils.BitmapUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-public class ImageCopyTask extends AsyncTask<String, Void, Bundle> {
+public class ImageCopyTask extends AsyncTask<Bundle, Void, Bundle> {
 	
 	public interface ImageCopyListener {
 		void onImageCopyFinished(Bundle result);
@@ -39,20 +38,17 @@ public class ImageCopyTask extends AsyncTask<String, Void, Bundle> {
 	}
 
 	@Override
-	protected Bundle doInBackground(String... params) {
-		Bundle bundle = null;
+	protected Bundle doInBackground(Bundle... params) {
 		try {
-			bundle = new Bundle();
-			FileOpsUtils.copyFileUsingFileChannels(new File(params[0]),
-					new File(params[1]));
-			Model.peekInstance().removeBitmap(params[1], Constants.IMAGE_TYPE_ORIGINAL);
-			bundle.putString("url", params[1]);
-			bundle.putIntArray("orig_size", BitmapUtils.decodeImageSize(params[1]));
+			String src = params[0].getString("src_url");
+			String dst = params[0].getString("url");
+			FileOpsUtils.copyFileUsingFileChannels(new File(src), new File(dst));
+			Model.peekInstance().removeBitmap(dst, Constants.IMAGE_TYPE_ORIGINAL);
 		} catch (IOException e) {
 			e.printStackTrace();
-			bundle = null;
+			params[0] = null;
 		}
-		return bundle;
+		return params[0];
 	}
 	
 	@Override
