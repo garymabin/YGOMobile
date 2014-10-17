@@ -1,0 +1,389 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DCBECA2F19EC0517004E4F8C /* ftbase.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2619EC0517004E4F8C /* ftbase.c */; };
+		DCBECA3019EC0517004E4F8C /* ftbbox.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2719EC0517004E4F8C /* ftbbox.c */; };
+		DCBECA3119EC0517004E4F8C /* ftbitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2819EC0517004E4F8C /* ftbitmap.c */; };
+		DCBECA3219EC0517004E4F8C /* ftgasp.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2919EC0517004E4F8C /* ftgasp.c */; };
+		DCBECA3319EC0517004E4F8C /* ftglyph.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2A19EC0517004E4F8C /* ftglyph.c */; };
+		DCBECA3419EC0517004E4F8C /* ftinit.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2B19EC0517004E4F8C /* ftinit.c */; };
+		DCBECA3519EC0517004E4F8C /* ftstroke.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2C19EC0517004E4F8C /* ftstroke.c */; };
+		DCBECA3619EC0517004E4F8C /* ftsystem.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2D19EC0517004E4F8C /* ftsystem.c */; };
+		DCBECA3719EC0517004E4F8C /* ftxf86.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA2E19EC0517004E4F8C /* ftxf86.c */; };
+		DCBECA3919EC052F004E4F8C /* raster.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA3819EC052F004E4F8C /* raster.c */; };
+		DCBECA3B19EC0540004E4F8C /* sfnt.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA3A19EC0540004E4F8C /* sfnt.c */; };
+		DCBECA3D19EC054D004E4F8C /* smooth.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA3C19EC054D004E4F8C /* smooth.c */; };
+		DCBECA3F19EC0561004E4F8C /* autofit.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA3E19EC0561004E4F8C /* autofit.c */; };
+		DCBECA4119EC0577004E4F8C /* truetype.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA4019EC0577004E4F8C /* truetype.c */; };
+		DCBECA4319EC058C004E4F8C /* cff.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA4219EC058C004E4F8C /* cff.c */; };
+		DCBECA4519EC05A0004E4F8C /* psnames.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA4419EC05A0004E4F8C /* psnames.c */; };
+		DCBECA4719EC05B2004E4F8C /* pshinter.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA4619EC05B2004E4F8C /* pshinter.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DCBEC9F219EC04C4004E4F8C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DCBEC9F419EC04C4004E4F8C /* libfreetype.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libfreetype.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCBEC9F719EC04C4004E4F8C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DCBEC9FB19EC04C4004E4F8C /* freetype-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "freetype-Prefix.pch"; sourceTree = "<group>"; };
+		DCBEC9FC19EC04C4004E4F8C /* freetype.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = freetype.h; sourceTree = "<group>"; };
+		DCBEC9FE19EC04C4004E4F8C /* freetype.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = freetype.m; sourceTree = "<group>"; };
+		DCBECA0519EC04C5004E4F8C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DCBECA0819EC04C5004E4F8C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		DCBECA0F19EC04C5004E4F8C /* freetypeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "freetypeTests-Info.plist"; sourceTree = "<group>"; };
+		DCBECA1119EC04C5004E4F8C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCBECA1319EC04C5004E4F8C /* freetypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = freetypeTests.m; sourceTree = "<group>"; };
+		DCBECA2619EC0517004E4F8C /* ftbase.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftbase.c; path = ../src/base/ftbase.c; sourceTree = "<group>"; };
+		DCBECA2719EC0517004E4F8C /* ftbbox.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftbbox.c; path = ../src/base/ftbbox.c; sourceTree = "<group>"; };
+		DCBECA2819EC0517004E4F8C /* ftbitmap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftbitmap.c; path = ../src/base/ftbitmap.c; sourceTree = "<group>"; };
+		DCBECA2919EC0517004E4F8C /* ftgasp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftgasp.c; path = ../src/base/ftgasp.c; sourceTree = "<group>"; };
+		DCBECA2A19EC0517004E4F8C /* ftglyph.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftglyph.c; path = ../src/base/ftglyph.c; sourceTree = "<group>"; };
+		DCBECA2B19EC0517004E4F8C /* ftinit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftinit.c; path = ../src/base/ftinit.c; sourceTree = "<group>"; };
+		DCBECA2C19EC0517004E4F8C /* ftstroke.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftstroke.c; path = ../src/base/ftstroke.c; sourceTree = "<group>"; };
+		DCBECA2D19EC0517004E4F8C /* ftsystem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftsystem.c; path = ../src/base/ftsystem.c; sourceTree = "<group>"; };
+		DCBECA2E19EC0517004E4F8C /* ftxf86.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ftxf86.c; path = ../src/base/ftxf86.c; sourceTree = "<group>"; };
+		DCBECA3819EC052F004E4F8C /* raster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = raster.c; path = ../src/raster/raster.c; sourceTree = "<group>"; };
+		DCBECA3A19EC0540004E4F8C /* sfnt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sfnt.c; path = ../src/sfnt/sfnt.c; sourceTree = "<group>"; };
+		DCBECA3C19EC054D004E4F8C /* smooth.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = smooth.c; path = ../src/smooth/smooth.c; sourceTree = "<group>"; };
+		DCBECA3E19EC0561004E4F8C /* autofit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = autofit.c; path = ../src/autofit/autofit.c; sourceTree = "<group>"; };
+		DCBECA4019EC0577004E4F8C /* truetype.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = truetype.c; path = ../src/truetype/truetype.c; sourceTree = "<group>"; };
+		DCBECA4219EC058C004E4F8C /* cff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cff.c; path = ../src/cff/cff.c; sourceTree = "<group>"; };
+		DCBECA4419EC05A0004E4F8C /* psnames.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = psnames.c; path = ../src/psnames/psnames.c; sourceTree = "<group>"; };
+		DCBECA4619EC05B2004E4F8C /* pshinter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pshinter.c; path = ../src/pshinter/pshinter.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCBEC9F119EC04C4004E4F8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DCBEC9EB19EC04C4004E4F8C = {
+			isa = PBXGroup;
+			children = (
+				DCBECA4619EC05B2004E4F8C /* pshinter.c */,
+				DCBECA4419EC05A0004E4F8C /* psnames.c */,
+				DCBECA4219EC058C004E4F8C /* cff.c */,
+				DCBECA4019EC0577004E4F8C /* truetype.c */,
+				DCBECA3E19EC0561004E4F8C /* autofit.c */,
+				DCBECA3C19EC054D004E4F8C /* smooth.c */,
+				DCBECA3A19EC0540004E4F8C /* sfnt.c */,
+				DCBECA3819EC052F004E4F8C /* raster.c */,
+				DCBECA2619EC0517004E4F8C /* ftbase.c */,
+				DCBECA2719EC0517004E4F8C /* ftbbox.c */,
+				DCBECA2819EC0517004E4F8C /* ftbitmap.c */,
+				DCBECA2919EC0517004E4F8C /* ftgasp.c */,
+				DCBECA2A19EC0517004E4F8C /* ftglyph.c */,
+				DCBECA2B19EC0517004E4F8C /* ftinit.c */,
+				DCBECA2C19EC0517004E4F8C /* ftstroke.c */,
+				DCBECA2D19EC0517004E4F8C /* ftsystem.c */,
+				DCBECA2E19EC0517004E4F8C /* ftxf86.c */,
+				DCBEC9F919EC04C4004E4F8C /* freetype */,
+				DCBECA0D19EC04C5004E4F8C /* freetypeTests */,
+				DCBEC9F619EC04C4004E4F8C /* Frameworks */,
+				DCBEC9F519EC04C4004E4F8C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DCBEC9F519EC04C4004E4F8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCBEC9F419EC04C4004E4F8C /* libfreetype.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCBEC9F619EC04C4004E4F8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCBEC9F719EC04C4004E4F8C /* Foundation.framework */,
+				DCBECA0519EC04C5004E4F8C /* XCTest.framework */,
+				DCBECA0819EC04C5004E4F8C /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DCBEC9F919EC04C4004E4F8C /* freetype */ = {
+			isa = PBXGroup;
+			children = (
+				DCBEC9FC19EC04C4004E4F8C /* freetype.h */,
+				DCBEC9FE19EC04C4004E4F8C /* freetype.m */,
+				DCBEC9FA19EC04C4004E4F8C /* Supporting Files */,
+			);
+			path = freetype;
+			sourceTree = "<group>";
+		};
+		DCBEC9FA19EC04C4004E4F8C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCBEC9FB19EC04C4004E4F8C /* freetype-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCBECA0D19EC04C5004E4F8C /* freetypeTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECA1319EC04C5004E4F8C /* freetypeTests.m */,
+				DCBECA0E19EC04C5004E4F8C /* Supporting Files */,
+			);
+			path = freetypeTests;
+			sourceTree = "<group>";
+		};
+		DCBECA0E19EC04C5004E4F8C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECA0F19EC04C5004E4F8C /* freetypeTests-Info.plist */,
+				DCBECA1019EC04C5004E4F8C /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DCBEC9F319EC04C4004E4F8C /* freetype */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCBECA1719EC04C5004E4F8C /* Build configuration list for PBXNativeTarget "freetype" */;
+			buildPhases = (
+				DCBEC9F019EC04C4004E4F8C /* Sources */,
+				DCBEC9F119EC04C4004E4F8C /* Frameworks */,
+				DCBEC9F219EC04C4004E4F8C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = freetype;
+			productName = freetype;
+			productReference = DCBEC9F419EC04C4004E4F8C /* libfreetype.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCBEC9EC19EC04C4004E4F8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "garymabin@gmail.com";
+			};
+			buildConfigurationList = DCBEC9EF19EC04C4004E4F8C /* Build configuration list for PBXProject "freetype" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DCBEC9EB19EC04C4004E4F8C;
+			productRefGroup = DCBEC9F519EC04C4004E4F8C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCBEC9F319EC04C4004E4F8C /* freetype */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCBEC9F019EC04C4004E4F8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCBECA4719EC05B2004E4F8C /* pshinter.c in Sources */,
+				DCBECA4519EC05A0004E4F8C /* psnames.c in Sources */,
+				DCBECA4319EC058C004E4F8C /* cff.c in Sources */,
+				DCBECA4119EC0577004E4F8C /* truetype.c in Sources */,
+				DCBECA3F19EC0561004E4F8C /* autofit.c in Sources */,
+				DCBECA3D19EC054D004E4F8C /* smooth.c in Sources */,
+				DCBECA3B19EC0540004E4F8C /* sfnt.c in Sources */,
+				DCBECA3919EC052F004E4F8C /* raster.c in Sources */,
+				DCBECA2F19EC0517004E4F8C /* ftbase.c in Sources */,
+				DCBECA3019EC0517004E4F8C /* ftbbox.c in Sources */,
+				DCBECA3119EC0517004E4F8C /* ftbitmap.c in Sources */,
+				DCBECA3219EC0517004E4F8C /* ftgasp.c in Sources */,
+				DCBECA3319EC0517004E4F8C /* ftglyph.c in Sources */,
+				DCBECA3419EC0517004E4F8C /* ftinit.c in Sources */,
+				DCBECA3519EC0517004E4F8C /* ftstroke.c in Sources */,
+				DCBECA3619EC0517004E4F8C /* ftsystem.c in Sources */,
+				DCBECA3719EC0517004E4F8C /* ftxf86.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DCBECA1019EC04C5004E4F8C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCBECA1119EC04C5004E4F8C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DCBECA1519EC04C5004E4F8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DCBECA1619EC04C5004E4F8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DCBECA1819EC04C5004E4F8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/freetype.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "freetype/freetype-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.9.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../builds",
+					"$(PROJECT_DIR)/../include",
+				);
+				OTHER_CFLAGS = (
+					"-DDARWIN_NO_CARBON",
+					"-DFT2_BUILD_LIBRARY",
+					"-fPIC",
+					"-DPIC",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../builds/** $(PROJECT_DIR)/../include/**";
+			};
+			name = Debug;
+		};
+		DCBECA1919EC04C5004E4F8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/freetype.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "freetype/freetype-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.9.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../builds",
+					"$(PROJECT_DIR)/../include",
+				);
+				OTHER_CFLAGS = (
+					"-DDARWIN_NO_CARBON",
+					"-DFT2_BUILD_LIBRARY",
+					"-fPIC",
+					"-DPIC",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../builds/** $(PROJECT_DIR)/../include/**";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DCBEC9EF19EC04C4004E4F8C /* Build configuration list for PBXProject "freetype" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCBECA1519EC04C5004E4F8C /* Debug */,
+				DCBECA1619EC04C5004E4F8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCBECA1719EC04C5004E4F8C /* Build configuration list for PBXNativeTarget "freetype" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCBECA1819EC04C5004E4F8C /* Debug */,
+				DCBECA1919EC04C5004E4F8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DCBEC9EC19EC04C4004E4F8C /* Project object */;
+}

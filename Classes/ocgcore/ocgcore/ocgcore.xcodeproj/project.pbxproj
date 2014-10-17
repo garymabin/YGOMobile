@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DCBECB8619EF733F004E4F8C /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEED05E1983B50A00D49E51 /* liblua.a */; };
 		DCEED0C51983B65E00D49E51 /* card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCEED0A31983B62400D49E51 /* card.cpp */; };
 		DCEED0C61983B65E00D49E51 /* duel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCEED0A41983B62400D49E51 /* duel.cpp */; };
 		DCEED0C71983B65E00D49E51 /* effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCEED0A51983B62400D49E51 /* effect.cpp */; };
@@ -86,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCBECB8619EF733F004E4F8C /* liblua.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1493,14 +1493,14 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 		case irr::KEY_KEY_A: {
 			char log_a[512];
 			sprintf(log_a, "receive key a: %d", event.KeyInput.PressedDown);
-			Printer::log(log_a);
+            Printer::log(log_a);
 			mainGame->always_chain = event.KeyInput.PressedDown;
 			break;
 		}
 		case irr::KEY_KEY_S: {
 			char log_a[512];
 			sprintf(log_a, "receive key s: %d", event.KeyInput.PressedDown);
-			Printer::log(log_a);
+            Printer::log(log_a);
 			mainGame->ignore_chain = event.KeyInput.PressedDown;
 			break;
 		}

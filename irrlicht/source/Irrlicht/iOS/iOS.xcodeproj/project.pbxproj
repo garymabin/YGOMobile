@@ -514,6 +514,13 @@
 		5EEAE04D171DF38900C7BC68 /* irrunpack.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EEAE04A171DF38900C7BC68 /* irrunpack.h */; };
 		5EEAE04E171DF38900C7BC68 /* leakHunter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EEAE04B171DF38900C7BC68 /* leakHunter.h */; };
 		5EEAE050171DF3C700C7BC68 /* leakHunter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */; };
+		DCBECB8819EF740B004E4F8C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7CF2E815516CC00014DCBA /* QuartzCore.framework */; };
+		DCBECB8919EF7411004E4F8C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC9F971638D8CF00E65F28 /* CoreMotion.framework */; };
+		DCBECB8A19EF7416004E4F8C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EE3D2BE1552DF7C00D0F9E8 /* GLKit.framework */; };
+		DCBECB8B19EF741C004E4F8C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7CF2EA15516CC00014DCBA /* OpenGLES.framework */; };
+		DCBECB8C19EF7452004E4F8C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7CF2E215516CC00014DCBA /* UIKit.framework */; };
+		DCBECB8D19EF7460004E4F8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7CF2E415516CC00014DCBA /* Foundation.framework */; };
+		DCBECB8E19EF750E004E4F8C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7CF2E615516CC00014DCBA /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1276,6 +1283,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCBECB8E19EF750E004E4F8C /* CoreGraphics.framework in Frameworks */,
+				DCBECB8D19EF7460004E4F8C /* Foundation.framework in Frameworks */,
+				DCBECB8C19EF7452004E4F8C /* UIKit.framework in Frameworks */,
+				DCBECB8B19EF741C004E4F8C /* OpenGLES.framework in Frameworks */,
+				DCBECB8A19EF7416004E4F8C /* GLKit.framework in Frameworks */,
+				DCBECB8919EF7411004E4F8C /* CoreMotion.framework in Frameworks */,
+				DCBECB8819EF740B004E4F8C /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2376,7 +2390,7 @@
 		5E96FAE715515650000A0A05 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = 5E96FAEA15515650000A0A05 /* Build configuration list for PBXProject "iOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2750,7 +2764,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2763,6 +2776,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2772,7 +2786,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;

@@ -14,7 +14,7 @@
 #include <dirent.h>
 #endif
 
-#ifdef _IRR_ANDROID_PLATFORM_
+#if defined(_IRR_ANDROID_PLATFORM_)
 #include <android/CAndroidGUIEditBox.h>
 #include <android/CAndroidGUIComboBox.h>
 #include <android/CAndroidGUIListBox.h>
@@ -22,6 +22,11 @@
 #include <COGLESExtensionHandler.h>
 #include <COGLES2Driver.h>
 #include <COGLESDriver.h>
+#elif defined(_IRR_IPHONE_PLATFORM_)
+#import "AppDelegate.h"
+#import <Foundation/Foundation.h>
+#include "COGLES2Driver.h"
+static bool initialized = false;
 #endif
 
 const unsigned short PRO_VERSION = 0x1330;
@@ -29,7 +34,7 @@ const unsigned short PRO_VERSION = 0x1330;
 namespace ygo {
 
 Game* mainGame;
-#ifdef _IRR_ANDROID_PLATFORM_
+#if defined _IRR_ANDROID_PLATFORM_
 bool Game::Initialize(android_app* app) {
 	this->appMain = app;
 #else
@@ -37,7 +42,7 @@ bool Game::Initialize() {
 #endif
 	srand(time(0));
 	irr::SIrrlichtCreationParameters params = irr::SIrrlichtCreationParameters();
-#ifdef _IRR_ANDROID_PLATFORM_
+#if defined _IRR_ANDROID_PLATFORM_
 	glversion = android::getOpenglVersion(app);
 	if (glversion == 0) {
 		params.DriverType = irr::video::EDT_OGLES1;
@@ -49,7 +54,16 @@ bool Game::Initialize() {
 	params.ZBufferBits = 16;
 	params.AntiAlias  = 0;
 	params.WindowSize = irr::core::dimension2d<u32>(0, 0);
+#elif defined _IRR_IPHONE_PLATFORM_
+    AppDelegate* delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    params.DriverType = irr::video::EDT_OGLES2;
+	params.WindowSize = dimension2d<u32>(0,0);
+	params.WindowId = (__bridge void*)delegate.window;
+	params.Bits = 24;
+    params.ZBufferBits = 16;
+	params.AntiAlias  = 0;
 #else
+    LoadConfig();
 	if(gameConf.use_d3d)
 		params.DriverType = irr::video::EDT_DIRECT3D9;
 	else
@@ -59,12 +73,13 @@ bool Game::Initialize() {
 	device = irr::createDeviceEx(params);
 	if(!device)
 		return false;
+	
 #ifdef _IRR_ANDROID_PLATFORM_
-	if (!android::perfromTrick(app)) {
+    android::initJavaBridge(app, device);
+    app->onInputEvent = android::handleInput;
+    if (!android::perfromTrick(app)) {
 		return false;
 	}
-	android::initJavaBridge(app, device);
-	app->onInputEvent = android::handleInput;
 	ILogger* logger = device->getLogger();
 	IFileSystem * fs = device->getFileSystem();
 	android::SDisplayMetrics metrics;
@@ -95,11 +110,26 @@ bool Game::Initialize() {
 			break;
 		}
 	}
+    LoadConfig();
+#elif defined(_IRR_IPHONE_PLATFORM_)
+    IFileSystem * fs = device->getFileSystem();
+    xScale = 1.0;
+	yScale = 1.0;
+    CFBundleRef mainBundle = CFBundleGetMainBundle();
+    CFURLRef resourcesURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
+    char workingpath[PATH_MAX];
+    if (!CFURLGetFileSystemRepresentation(resourcesURL, TRUE, (UInt8 *)workingpath, PATH_MAX))
+    {
+        // error!
+    }
+    CFRelease(resourcesURL);
+    chdir(workingpath);
+    LoadConfig();
 #else
+	IFileSystem * fs = device->getFileSystem();
 	xScale = 1.0;
 	yScale = 1.0;
 #endif
-	LoadConfig();
 	linePattern = 0x0f0f;
 	waitFrame = 0;
 	signalFrame = 0;
@@ -112,16 +142,20 @@ bool Game::Initialize() {
 	is_building = false;
 	memset(&dInfo, 0, sizeof(DuelInfo));
 	memset(chatTiming, 0, sizeof(chatTiming));
-	deckManager.LoadLFList((cacheDir + path("/core/") + configVersion + path("/config/lflist.conf")).c_str());
-	driver = device->getVideoDriver();
 #ifdef _IRR_ANDROID_PLATFORM_
+	deckManager.LoadLFList((cacheDir + path("/core/") + configVersion + path("/config/lflist.conf")).c_str());
+#else
+    deckManager.LoadLFList("lflist.conf");
+#endif
+	driver = device->getVideoDriver();
+#if defined(_IRR_ANDROID_PLATFORM_)
 	int quality = android::getCardQuality(app);
 	if (driver->getDriverType() == EDT_OGLES2) {
 		isNPOTSupported = ((COGLES2Driver *) driver)->queryOpenGLFeature(COGLES2ExtensionHandler::IRR_OES_texture_npot);
 	} else {
 		isNPOTSupported = ((COGLES1Driver *) driver)->queryOpenGLFeature(COGLES1ExtensionHandler::IRR_OES_texture_npot);
 	}
-	char log_npot[256];
+    char log_npot[256];
 	sprintf(log_npot, "isNPOTSupported = %d", isNPOTSupported);
 	Printer::log(log_npot);
 	if (isNPOTSupported) {
@@ -134,20 +168,35 @@ bool Game::Initialize() {
 		driver->setTextureCreationFlag(irr::video::ETCF_ALLOW_NON_POWER_2, true);
 		driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
 	}
+#elif defined(_IRR_IPHONE_PLATFORM_)
+    isNPOTSupported = ((COGLES2Driver *) driver)->queryOpenGLFeature(COGLES2ExtensionHandler::IRR_OES_texture_npot);
+    driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, true);
 #else
 	driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
 #endif
 	driver->setTextureCreationFlag(irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
 
 	imageManager.SetDevice(device);
+#ifdef _IRR_ANDROID_PLATFORM_
 	if(!imageManager.Initial(cacheDir))
 		return false;
 	if(!dataManager.LoadDB(databaseDir.append("/cards.cdb").c_str()))
 		return false;
 	if(!dataManager.LoadStrings((cacheDir + path("/core/") + configVersion + path("/config/strings.conf")).c_str()))
 		return false;
+#else
+    if(!imageManager.Initial(path("")))
+		return false;
+	if(!dataManager.LoadDB("cards.cdb"))
+		return false;
+	if(!dataManager.LoadStrings("strings.conf"))
+		return false;
+#endif
 	env = device->getGUIEnvironment();
-	bool isAntialias = android::getFontAntiAlias(app);
+    bool isAntialias = true;
+#ifdef _IRR_ANDROID_PLATFORM
+	isAntialias = android::getFontAntiAlias(app);
+#endif
 	numFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)16 * yScale, isAntialias, false);
 	adFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)12 * yScale, isAntialias, false);
 	lpcFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)48 * yScale, isAntialias, true);
@@ -932,10 +981,14 @@ IGUIStaticText *text = env->addStaticText(L"",
 #endif
 	hideChat = false;
 	hideChatTimer = 0;
+    
 	return true;
 }
 void Game::MainLoop() {
 	wchar_t cap[256];
+#if defined _IRR_IPHONE_PLATFORM_
+    if (!initialized) {
+#endif
 	camera = smgr->addCameraSceneNode(0);
 	irr::core::matrix4 mProjection;
 	BuildProjectionMatrix(mProjection, -0.90f, 0.45f, -0.42f, 0.42f, 1.0f, 100.0f);
@@ -944,6 +997,10 @@ void Game::MainLoop() {
 	mProjection.buildCameraLookAtMatrixLH(vector3df(4.2f, 8.0f, 7.8f), vector3df(4.2f, 0, 0), vector3df(0, 0, 1));
 	camera->setViewMatrixAffector(mProjection);
 	smgr->setAmbientLight(SColorf(1.0f, 1.0f, 1.0f));
+#if defined _IRR_IPHONE_PLATFORM_
+        initialized = true;
+    }
+#endif
 	float atkframe = 0.1f;
 	irr::ITimer* timer = device->getTimer();
 	timer->setTime(0);
@@ -1012,7 +1069,12 @@ void Game::MainLoop() {
 	matManager.mOutLine.MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
 	matManager.mTRTexture.MaterialType = (video::E_MATERIAL_TYPE)ogles2TrasparentAlpha;
 	matManager.mATK.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
-	if (!isNPOTSupported) {
+	if (glversion != 0) {
+		matManager.mTRTexture.setFlag(video::EMF_LIGHTING, false);
+	}
+#endif
+#if defined(_IRR_ANDROID_PLATFORM_) || defined(_IRR_IPHONE_PLATFORM_)
+    if (!isNPOTSupported) {
 		matManager.mCard.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
 		matManager.mCard.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 		matManager.mTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
@@ -1028,11 +1090,17 @@ void Game::MainLoop() {
 		matManager.mATK.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
 		matManager.mATK.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	}
-	if (glversion != 0) {
-		matManager.mTRTexture.setFlag(video::EMF_LIGHTING, false);
-	}
 #endif
+#ifdef _IRR_IPHONE_PLATFORM_
+    while (device)
+    {
+        @autoreleasepool {
+        while(CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.002f, TRUE) == kCFRunLoopRunHandledSource);
+        }
+        if(device->run())
+#else
 	while(device->run()) {
+#endif
 #ifdef _IRR_ANDROID_PLATFORM_
 		linePattern = (linePattern + 1) % 30;
 #else
@@ -1044,7 +1112,7 @@ void Game::MainLoop() {
 		atkframe += 0.1f;
 		atkdy = (float)sin(atkframe);
 		driver->beginScene(true, true, SColor(0, 0, 0, 0));
-#ifdef _IRR_ANDROID_PLATFORM_
+#if defined _IRR_ANDROID_PLATFORM_
 		driver->getMaterial2D().MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
 		if (!isNPOTSupported) {
 			driver->getMaterial2D().TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
@@ -1053,6 +1121,11 @@ void Game::MainLoop() {
 		driver->enableMaterial2D(true);
 		driver->getMaterial2D().ZBuffer = ECFN_NEVER;
 		if(imageManager.tBackGround) {
+			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
+		}
+#elif defined _IRR_IPHONE_PLATFORM_
+        driver->enableMaterial2D(true);
+        if(imageManager.tBackGround) {
 			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
 		}
 #else
@@ -1122,6 +1195,10 @@ void Game::MainLoop() {
 		}
 #ifdef _IRR_ANDROID_PLATFORM_
 		device->yield(); // probably nicer to the battery
+#endif
+#ifdef _IRR_ANDROID_PLATFORM_
+        else
+            break;
 #endif
 	}
 	DuelClient::StopClient(true);
@@ -1285,6 +1362,7 @@ void Game::RefreshSingleplay() {
 #endif
 }
 void Game::LoadConfig() {
+#ifdef _IRR_ANDROID_PLATFORM_
 	wchar_t wstr[256];
 	gameConf.antialias = 0;
 	gameConf.serverport = 7911;
@@ -1298,12 +1376,102 @@ void Game::LoadConfig() {
 	gameConf.lastip[0] = 0;
 	gameConf.lastport[0] = 0;
 	gameConf.roompass[0] = 0;
+#else
+    FILE* fp = fopen("system.conf", "r");
+	if(!fp)
+		return;
+	char linebuf[256];
+	char strbuf[32];
+	char valbuf[256];
+	wchar_t wstr[256];
+	gameConf.antialias = 0;
+	gameConf.serverport = 7911;
+	gameConf.textfontsize = 12;
+	gameConf.nickname[0] = 0;
+	gameConf.gamename[0] = 0;
+	gameConf.lastdeck[0] = 0;
+	gameConf.numfont[0] = 0;
+	gameConf.textfont[0] = 0;
+	gameConf.lastip[0] = 0;
+	gameConf.lastport[0] = 0;
+	gameConf.roompass[0] = 0;
+	fseek(fp, 0, SEEK_END);
+	int fsize = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+	while(ftell(fp) < fsize) {
+		fgets(linebuf, 250, fp);
+		sscanf(linebuf, "%s = %s", strbuf, valbuf);
+		if(!strcmp(strbuf, "antialias")) {
+			gameConf.antialias = atoi(valbuf);
+		} else if(!strcmp(strbuf, "use_d3d")) {
+			gameConf.use_d3d = atoi(valbuf) > 0;
+		} else if(!strcmp(strbuf, "errorlog")) {
+			enable_log = atoi(valbuf);
+		} else if(!strcmp(strbuf, "nickname")) {
+			BufferIO::DecodeUTF8(valbuf, wstr);
+			BufferIO::CopyWStr(wstr, gameConf.nickname, 20);
+		} else if(!strcmp(strbuf, "gamename")) {
+			BufferIO::DecodeUTF8(valbuf, wstr);
+			BufferIO::CopyWStr(wstr, gameConf.gamename, 20);
+		} else if(!strcmp(strbuf, "lastdeck")) {
+			BufferIO::DecodeUTF8(valbuf, wstr);
+			BufferIO::CopyWStr(wstr, gameConf.lastdeck, 64);
+		} else if(!strcmp(strbuf, "textfont")) {
+			BufferIO::DecodeUTF8(valbuf, wstr);
+			int textfontsize;
+			sscanf(linebuf, "%s = %s %d", strbuf, valbuf, &textfontsize);
+			gameConf.textfontsize = textfontsize;
+			BufferIO::CopyWStr(wstr, gameConf.textfont, 256);
+		} else if(!strcmp(strbuf, "numfont")) {
+			BufferIO::DecodeUTF8(valbuf, wstr);
+			BufferIO::CopyWStr(wstr, gameConf.numfont, 256);
+		} else if(!strcmp(strbuf, "serverport")) {
+			gameConf.serverport = atoi(valbuf);
+		} else if(!strcmp(strbuf, "lastip")) {
+			BufferIO::DecodeUTF8(valbuf, wstr);
+			BufferIO::CopyWStr(wstr, gameConf.lastip, 20);
+		} else if(!strcmp(strbuf, "lastport")) {
+			BufferIO::DecodeUTF8(valbuf, wstr);
+			BufferIO::CopyWStr(wstr, gameConf.lastport, 20);
+		} else if(!strcmp(strbuf, "roompass")) {
+			BufferIO::DecodeUTF8(valbuf, wstr);
+			BufferIO::CopyWStr(wstr, gameConf.roompass, 20);
+		}
+	}
+	fclose(fp);
+#endif
 }
 
 void Game::SaveConfig() {
+#ifdef _IRR_ANDROID_PLATFORM_
 	char lastdeck[256] = {0};
 	BufferIO::EncodeUTF8(gameConf.lastdeck, lastdeck);
 	android::setLastDeck(appMain, lastdeck);
+#else
+    FILE* fp = fopen("system.conf", "w");
+	fprintf(fp, "#config file\n#nickname & gamename should be less than 20 characters\n");
+	char linebuf[256];
+	fprintf(fp, "use_d3d = %d\n", gameConf.use_d3d ? 1 : 0);
+	fprintf(fp, "antialias = %d\n", gameConf.antialias);
+	fprintf(fp, "errorlog = %d\n", enable_log);
+	BufferIO::CopyWStr(ebNickName->getText(), gameConf.nickname, 20);
+	BufferIO::EncodeUTF8(gameConf.nickname, linebuf);
+	fprintf(fp, "nickname = %s\n", linebuf);
+	BufferIO::EncodeUTF8(gameConf.gamename, linebuf);
+	fprintf(fp, "gamename = %s\n", linebuf);
+	BufferIO::EncodeUTF8(gameConf.lastdeck, linebuf);
+	fprintf(fp, "lastdeck = %s\n", linebuf);
+	BufferIO::EncodeUTF8(gameConf.textfont, linebuf);
+	fprintf(fp, "textfont = %s %d\n", linebuf, gameConf.textfontsize);
+	BufferIO::EncodeUTF8(gameConf.numfont, linebuf);
+	fprintf(fp, "numfont = %s\n", linebuf);
+	fprintf(fp, "serverport = %d\n", gameConf.serverport);
+	BufferIO::EncodeUTF8(gameConf.lastip, linebuf);
+	fprintf(fp, "lastip = %s\n", linebuf);
+	BufferIO::EncodeUTF8(gameConf.lastport, linebuf);
+	fprintf(fp, "lastport = %s\n", linebuf);
+	fclose(fp);
+#endif
 }
 
 void Game::ShowCardInfo(int code) {

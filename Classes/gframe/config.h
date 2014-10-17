@@ -5,7 +5,6 @@
 
 #define _IRR_STATIC_LIB_
 #define _IRR_COMPILE_WITH_DX9_DEV_PACK
-#define _IRR_ANDROID_PLATFORM_
 
 #ifdef _IRR_ANDROID_PLATFORM_
 
@@ -60,10 +59,11 @@ inline int _wtoi(const wchar_t * s) {
 #endif
 
 #include <irrlicht.h>
-#ifdef _IRR_ANDROID_PLATFORM_
+#if defined _IRR_ANDROID_PLATFORM_
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 #include <GLES/glplatform.h>
+#elif defined _IRR_IPHONE_PLATFORM_
 #else
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -86,10 +86,10 @@ inline int _wtoi(const wchar_t * s) {
 #include "../ocgcore/ocgapi.h"
 #include "../ocgcore/card.h"
 
-#ifdef _IRR_ANDROID_PLATFORM_
+#if defined(_IRR_ANDROID_PLATFORM_) || defined(_IRR_IPHONE_PLATFORM_)
 #include "os.h"
 #endif
-
+ 
 #if defined(_IRR_ANDROID_PLATFORM_)
 #include <android/CustomShaderConstantSetCallBack.h>
 #endif

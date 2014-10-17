@@ -12,10 +12,104 @@
 		DC22DAA418FAF17C00E267B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DAA318FAF17C00E267B4 /* UIKit.framework */; };
 		DC22DAA618FAF17C00E267B4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DAA518FAF17C00E267B4 /* CoreData.framework */; };
 		DC22DAAC18FAF17C00E267B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC22DAAA18FAF17C00E267B4 /* InfoPlist.strings */; };
-		DC22DAB218FAF17C00E267B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC22DAB118FAF17C00E267B4 /* AppDelegate.m */; };
 		DC22DAB518FAF17C00E267B4 /* YGOMobile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC22DAB318FAF17C00E267B4 /* YGOMobile.xcdatamodeld */; };
 		DC22DAB718FAF17C00E267B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC22DAB618FAF17C00E267B4 /* Images.xcassets */; };
-		DC86B7FE19834E3000C9010C /* libIrrlicht.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC86B7F919834A7C00C9010C /* libIrrlicht.a */; };
+		DCBECAA619EC0BC0004E4F8C /* CAnimatedMeshHalfLife.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA8A19EC0BC0004E4F8C /* CAnimatedMeshHalfLife.cpp */; };
+		DCBECAA719EC0BC0004E4F8C /* CGUIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA8B19EC0BC0004E4F8C /* CGUIButton.cpp */; };
+		DCBECAA819EC0BC0004E4F8C /* CGUIComboBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA8C19EC0BC0004E4F8C /* CGUIComboBox.cpp */; };
+		DCBECAA919EC0BC0004E4F8C /* CGUIEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA8D19EC0BC0004E4F8C /* CGUIEditBox.cpp */; };
+		DCBECAAA19EC0BC0004E4F8C /* CGUIImageButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA8E19EC0BC0004E4F8C /* CGUIImageButton.cpp */; };
+		DCBECAAB19EC0BC0004E4F8C /* CGUIImageButton.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA8F19EC0BC0004E4F8C /* CGUIImageButton.h */; };
+		DCBECAAC19EC0BC0004E4F8C /* CGUITTFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9019EC0BC0004E4F8C /* CGUITTFont.cpp */; };
+		DCBECAAD19EC0BC0004E4F8C /* client_card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9119EC0BC0004E4F8C /* client_card.cpp */; };
+		DCBECAAE19EC0BC0004E4F8C /* client_field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9219EC0BC0004E4F8C /* client_field.cpp */; };
+		DCBECAAF19EC0BC0004E4F8C /* data_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9319EC0BC0004E4F8C /* data_manager.cpp */; };
+		DCBECAB019EC0BC0004E4F8C /* deck_con.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9419EC0BC0004E4F8C /* deck_con.cpp */; };
+		DCBECAB119EC0BC0004E4F8C /* deck_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9519EC0BC0004E4F8C /* deck_manager.cpp */; };
+		DCBECAB219EC0BC0004E4F8C /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9619EC0BC0004E4F8C /* drawing.cpp */; };
+		DCBECAB319EC0BC0004E4F8C /* duelclient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9719EC0BC0004E4F8C /* duelclient.cpp */; };
+		DCBECAB419EC0BC0004E4F8C /* event_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9819EC0BC0004E4F8C /* event_handler.cpp */; };
+		DCBECAB519EC0BC0004E4F8C /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9919EC0BC0004E4F8C /* game.cpp */; };
+		DCBECAB619EC0BC0004E4F8C /* gframe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9A19EC0BC0004E4F8C /* gframe.cpp */; };
+		DCBECAB719EC0BC0004E4F8C /* image_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9B19EC0BC0004E4F8C /* image_manager.cpp */; };
+		DCBECAB819EC0BC0004E4F8C /* materials.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9C19EC0BC0004E4F8C /* materials.cpp */; };
+		DCBECAB919EC0BC0004E4F8C /* menu_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9D19EC0BC0004E4F8C /* menu_handler.cpp */; };
+		DCBECABA19EC0BC0004E4F8C /* netserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECA9E19EC0BC0004E4F8C /* netserver.cpp */; };
+		DCBECABD19EC0BC0004E4F8C /* replay_mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAA119EC0BC0004E4F8C /* replay_mode.cpp */; };
+		DCBECABE19EC0BC0004E4F8C /* replay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAA219EC0BC0004E4F8C /* replay.cpp */; };
+		DCBECABF19EC0BC0004E4F8C /* single_duel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAA319EC0BC0004E4F8C /* single_duel.cpp */; };
+		DCBECAC019EC0BC0004E4F8C /* single_mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAA419EC0BC0004E4F8C /* single_mode.cpp */; };
+		DCBECAC119EC0BC0004E4F8C /* tag_duel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAA519EC0BC0004E4F8C /* tag_duel.cpp */; };
+		DCBECAFC19EC0E46004E4F8C /* bufferio.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAC219EC0E44004E4F8C /* bufferio.h */; };
+		DCBECAFD19EC0E46004E4F8C /* CGUIButton.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAC519EC0E44004E4F8C /* CGUIButton.h */; };
+		DCBECAFE19EC0E46004E4F8C /* CGUIComboBox.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAC719EC0E44004E4F8C /* CGUIComboBox.h */; };
+		DCBECAFF19EC0E46004E4F8C /* CGUIEditBox.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAC919EC0E45004E4F8C /* CGUIEditBox.h */; };
+		DCBECB0019EC0E46004E4F8C /* CGUIListBox.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECACC19EC0E45004E4F8C /* CGUIListBox.h */; };
+		DCBECB0119EC0E46004E4F8C /* CGUIScrollBar.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECACD19EC0E45004E4F8C /* CGUIScrollBar.h */; };
+		DCBECB0219EC0E46004E4F8C /* CGUITTFont.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECACF19EC0E45004E4F8C /* CGUITTFont.h */; };
+		DCBECB0319EC0E46004E4F8C /* client_card.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAD119EC0E45004E4F8C /* client_card.h */; };
+		DCBECB0419EC0E46004E4F8C /* client_field.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAD319EC0E45004E4F8C /* client_field.h */; };
+		DCBECB0519EC0E46004E4F8C /* config.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAD419EC0E45004E4F8C /* config.h */; };
+		DCBECB0619EC0E46004E4F8C /* data_manager.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAD619EC0E45004E4F8C /* data_manager.h */; };
+		DCBECB0719EC0E46004E4F8C /* deck_con.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAD819EC0E45004E4F8C /* deck_con.h */; };
+		DCBECB0819EC0E46004E4F8C /* deck_manager.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECADA19EC0E45004E4F8C /* deck_manager.h */; };
+		DCBECB0919EC0E46004E4F8C /* duelclient.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECADD19EC0E45004E4F8C /* duelclient.h */; };
+		DCBECB0A19EC0E46004E4F8C /* event_handler.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECADF19EC0E45004E4F8C /* event_handler.h */; };
+		DCBECB0B19EC0E46004E4F8C /* game.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAE119EC0E45004E4F8C /* game.h */; };
+		DCBECB0C19EC0E46004E4F8C /* image_manager.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAE419EC0E45004E4F8C /* image_manager.h */; };
+		DCBECB0E19EC0E46004E4F8C /* materials.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAE719EC0E45004E4F8C /* materials.h */; };
+		DCBECB0F19EC0E46004E4F8C /* menu_handler.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAE919EC0E45004E4F8C /* menu_handler.h */; };
+		DCBECB1019EC0E46004E4F8C /* mymutex.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAEA19EC0E45004E4F8C /* mymutex.h */; };
+		DCBECB1119EC0E46004E4F8C /* mysignal.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAEB19EC0E45004E4F8C /* mysignal.h */; };
+		DCBECB1219EC0E46004E4F8C /* mythread.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAEC19EC0E45004E4F8C /* mythread.h */; };
+		DCBECB1319EC0E46004E4F8C /* netserver.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAEE19EC0E45004E4F8C /* netserver.h */; };
+		DCBECB1419EC0E46004E4F8C /* network.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAEF19EC0E45004E4F8C /* network.h */; };
+		DCBECB1519EC0E46004E4F8C /* os.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAF019EC0E45004E4F8C /* os.h */; };
+		DCBECB1719EC0E46004E4F8C /* replay_mode.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAF319EC0E46004E4F8C /* replay_mode.h */; };
+		DCBECB1819EC0E46004E4F8C /* replay.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAF519EC0E46004E4F8C /* replay.h */; };
+		DCBECB1919EC0E46004E4F8C /* single_duel.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAF719EC0E46004E4F8C /* single_duel.h */; };
+		DCBECB1A19EC0E46004E4F8C /* single_mode.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAF919EC0E46004E4F8C /* single_mode.h */; };
+		DCBECB1B19EC0E46004E4F8C /* tag_duel.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECAFB19EC0E46004E4F8C /* tag_duel.h */; };
+		DCBECB2219EF6E5D004E4F8C /* libsqlite3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBECA8019EC061A004E4F8C /* libsqlite3.a */; };
+		DCBECB2319EF6E65004E4F8C /* libocgcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEED0231983B4B600D49E51 /* libocgcore.a */; };
+		DCBECB2419EF6E6A004E4F8C /* libIrrlicht.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC86B7F919834A7C00C9010C /* libIrrlicht.a */; };
+		DCBECB2519EF6E6F004E4F8C /* liblibevent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEED14A1983C70100D49E51 /* liblibevent.a */; };
+		DCBECB2819EF6E78004E4F8C /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBECA2319EC04C5004E4F8C /* libfreetype.a */; };
+		DCBECB8419EF72D3004E4F8C /* liblzma.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBECB6519EF71BA004E4F8C /* liblzma.a */; };
+		DCBECB9019EF7524004E4F8C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBECB8F19EF7524004E4F8C /* CoreMotion.framework */; };
+		DCBECB9119EF7529004E4F8C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBECB1E19EF66E6004E4F8C /* GLKit.framework */; };
+		DCBECB9219EF752F004E4F8C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBECB1C19EF46F7004E4F8C /* OpenGLES.framework */; };
+		DCBECB9419EF7569004E4F8C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBECB9319EF7569004E4F8C /* QuartzCore.framework */; };
+		DCBECB9919EF81FB004E4F8C /* lflist.conf in Resources */ = {isa = PBXBuildFile; fileRef = DCBECB9519EF81FB004E4F8C /* lflist.conf */; };
+		DCBECB9A19EF81FB004E4F8C /* strings.conf in Resources */ = {isa = PBXBuildFile; fileRef = DCBECB9619EF81FB004E4F8C /* strings.conf */; };
+		DCBECB9B19EF81FB004E4F8C /* system.conf in Resources */ = {isa = PBXBuildFile; fileRef = DCBECB9719EF81FB004E4F8C /* system.conf */; };
+		DCBECB9E19EF8879004E4F8C /* AppDelegate.h in Sources */ = {isa = PBXBuildFile; fileRef = DC22DAB018FAF17C00E267B4 /* AppDelegate.h */; };
+		DCBECBB519EF9305004E4F8C /* COGLES2DetailMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECB9F19EF9304004E4F8C /* COGLES2DetailMap.fsh */; };
+		DCBECBB619EF9305004E4F8C /* COGLES2FixedPipeline.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA019EF9304004E4F8C /* COGLES2FixedPipeline.fsh */; };
+		DCBECBB719EF9305004E4F8C /* COGLES2FixedPipeline.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA119EF9304004E4F8C /* COGLES2FixedPipeline.vsh */; };
+		DCBECBB819EF9305004E4F8C /* COGLES2LightmapAdd.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA219EF9304004E4F8C /* COGLES2LightmapAdd.fsh */; };
+		DCBECBB919EF9305004E4F8C /* COGLES2LightmapModulate.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA319EF9304004E4F8C /* COGLES2LightmapModulate.fsh */; };
+		DCBECBBA19EF9305004E4F8C /* COGLES2NormalMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA419EF9304004E4F8C /* COGLES2NormalMap.fsh */; };
+		DCBECBBB19EF9305004E4F8C /* COGLES2NormalMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA519EF9304004E4F8C /* COGLES2NormalMap.vsh */; };
+		DCBECBBC19EF9305004E4F8C /* COGLES2OneTextureBlend.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA619EF9304004E4F8C /* COGLES2OneTextureBlend.fsh */; };
+		DCBECBBD19EF9305004E4F8C /* COGLES2ParallaxMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA719EF9304004E4F8C /* COGLES2ParallaxMap.fsh */; };
+		DCBECBBE19EF9305004E4F8C /* COGLES2ParallaxMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA819EF9304004E4F8C /* COGLES2ParallaxMap.vsh */; };
+		DCBECBBF19EF9305004E4F8C /* COGLES2Reflection2Layer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBA919EF9304004E4F8C /* COGLES2Reflection2Layer.fsh */; };
+		DCBECBC019EF9305004E4F8C /* COGLES2Reflection2Layer.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBAA19EF9304004E4F8C /* COGLES2Reflection2Layer.vsh */; };
+		DCBECBC119EF9305004E4F8C /* COGLES2Renderer2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBAB19EF9304004E4F8C /* COGLES2Renderer2D.fsh */; };
+		DCBECBC219EF9305004E4F8C /* COGLES2Renderer2D.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBAC19EF9304004E4F8C /* COGLES2Renderer2D.vsh */; };
+		DCBECBC319EF9305004E4F8C /* COGLES2Solid.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBAD19EF9304004E4F8C /* COGLES2Solid.fsh */; };
+		DCBECBC419EF9305004E4F8C /* COGLES2Solid.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBAE19EF9304004E4F8C /* COGLES2Solid.vsh */; };
+		DCBECBC519EF9305004E4F8C /* COGLES2Solid2.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBAF19EF9304004E4F8C /* COGLES2Solid2.vsh */; };
+		DCBECBC619EF9305004E4F8C /* COGLES2Solid2Layer.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBB019EF9305004E4F8C /* COGLES2Solid2Layer.fsh */; };
+		DCBECBC719EF9305004E4F8C /* COGLES2SphereMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBB119EF9305004E4F8C /* COGLES2SphereMap.fsh */; };
+		DCBECBC819EF9305004E4F8C /* COGLES2SphereMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBB219EF9305004E4F8C /* COGLES2SphereMap.vsh */; };
+		DCBECBC919EF9305004E4F8C /* COGLES2TransparentAlphaChannelRef.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBB319EF9305004E4F8C /* COGLES2TransparentAlphaChannelRef.fsh */; };
+		DCBECBCA19EF9305004E4F8C /* COGLES2TransparentVertexAlpha.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBB419EF9305004E4F8C /* COGLES2TransparentVertexAlpha.fsh */; };
+		DCBECBCC19EF9446004E4F8C /* textures in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBCB19EF9446004E4F8C /* textures */; };
+		DCBECBD219EFD7BC004E4F8C /* XInterface_IPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBD119EFD7BC004E4F8C /* XInterface_IPhone.xib */; };
+		DCBECBD619EFF35E004E4F8C /* cards.cdb in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBD519EFF35E004E4F8C /* cards.cdb */; };
+		DCBECBD819EFF486004E4F8C /* fonts.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCBECBD719EFF486004E4F8C /* fonts.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +127,62 @@
 			remoteGlobalIDString = 5E7CF31115516E370014DCBA;
 			remoteInfo = Irrlicht;
 		};
+		DCBEC98C19EC011E004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCEED1441983C70000D49E51 /* libevent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DCEED11A1983C70000D49E51;
+			remoteInfo = libevent;
+		};
+		DCBEC99019EC0123004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DCEECFF31983B4B600D49E51;
+			remoteInfo = ocgcore;
+		};
+		DCBECA2219EC04C5004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBECA1D19EC04C5004E4F8C /* freetype.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCBEC9F419EC04C4004E4F8C;
+			remoteInfo = freetype;
+		};
+		DCBECA7F19EC061A004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBECA7A19EC0619004E4F8C /* sqlite3.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCBECA5119EC0619004E4F8C;
+			remoteInfo = sqlite3;
+		};
+		DCBECA8519EC06BE004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBECA1D19EC04C5004E4F8C /* freetype.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DCBEC9F319EC04C4004E4F8C;
+			remoteInfo = freetype;
+		};
+		DCBECA8719EC06C1004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBECA7A19EC0619004E4F8C /* sqlite3.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DCBECA5019EC0619004E4F8C;
+			remoteInfo = sqlite3;
+		};
+		DCBECB6419EF71BA004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBECB5F19EF71B9004E4F8C /* lzma.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DCBECB3619EF71B9004E4F8C;
+			remoteInfo = lzma;
+		};
+		DCBECB8219EF72CE004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBECB5F19EF71B9004E4F8C /* lzma.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DCBECB3519EF71B9004E4F8C;
+			remoteInfo = lzma;
+		};
 		DCEED0221983B4B600D49E51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */;
@@ -46,13 +196,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = DCEED11B1983C70000D49E51;
 			remoteInfo = libevent;
-		};
-		DCEED14B1983C70100D49E51 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DCEED1441983C70000D49E51 /* libevent.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DCEED12B1983C70000D49E51;
-			remoteInfo = libeventTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -71,6 +214,108 @@
 		DC22DAB618FAF17C00E267B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DC22DABD18FAF17C00E267B4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DC86B7F419834A7C00C9010C /* iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iOS.xcodeproj; path = ../../irrlicht/source/Irrlicht/iOS/iOS.xcodeproj; sourceTree = "<group>"; };
+		DCBECA1D19EC04C5004E4F8C /* freetype.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = freetype.xcodeproj; path = ../../Classes/freetype/freetype/freetype.xcodeproj; sourceTree = "<group>"; };
+		DCBECA7A19EC0619004E4F8C /* sqlite3.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sqlite3.xcodeproj; path = ../../Classes/sqlite3/sqlite3/sqlite3.xcodeproj; sourceTree = "<group>"; };
+		DCBECA8A19EC0BC0004E4F8C /* CAnimatedMeshHalfLife.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CAnimatedMeshHalfLife.cpp; path = ../../Classes/gframe/CAnimatedMeshHalfLife.cpp; sourceTree = "<group>"; };
+		DCBECA8B19EC0BC0004E4F8C /* CGUIButton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CGUIButton.cpp; path = ../../Classes/gframe/CGUIButton.cpp; sourceTree = "<group>"; };
+		DCBECA8C19EC0BC0004E4F8C /* CGUIComboBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CGUIComboBox.cpp; path = ../../Classes/gframe/CGUIComboBox.cpp; sourceTree = "<group>"; };
+		DCBECA8D19EC0BC0004E4F8C /* CGUIEditBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CGUIEditBox.cpp; path = ../../Classes/gframe/CGUIEditBox.cpp; sourceTree = "<group>"; };
+		DCBECA8E19EC0BC0004E4F8C /* CGUIImageButton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CGUIImageButton.cpp; path = ../../Classes/gframe/CGUIImageButton.cpp; sourceTree = "<group>"; };
+		DCBECA8F19EC0BC0004E4F8C /* CGUIImageButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGUIImageButton.h; path = ../../Classes/gframe/CGUIImageButton.h; sourceTree = "<group>"; };
+		DCBECA9019EC0BC0004E4F8C /* CGUITTFont.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CGUITTFont.cpp; path = ../../Classes/gframe/CGUITTFont.cpp; sourceTree = "<group>"; };
+		DCBECA9119EC0BC0004E4F8C /* client_card.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = client_card.cpp; path = ../../Classes/gframe/client_card.cpp; sourceTree = "<group>"; };
+		DCBECA9219EC0BC0004E4F8C /* client_field.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = client_field.cpp; path = ../../Classes/gframe/client_field.cpp; sourceTree = "<group>"; };
+		DCBECA9319EC0BC0004E4F8C /* data_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = data_manager.cpp; path = ../../Classes/gframe/data_manager.cpp; sourceTree = "<group>"; };
+		DCBECA9419EC0BC0004E4F8C /* deck_con.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = deck_con.cpp; path = ../../Classes/gframe/deck_con.cpp; sourceTree = "<group>"; };
+		DCBECA9519EC0BC0004E4F8C /* deck_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = deck_manager.cpp; path = ../../Classes/gframe/deck_manager.cpp; sourceTree = "<group>"; };
+		DCBECA9619EC0BC0004E4F8C /* drawing.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = drawing.cpp; path = ../../Classes/gframe/drawing.cpp; sourceTree = "<group>"; };
+		DCBECA9719EC0BC0004E4F8C /* duelclient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = duelclient.cpp; path = ../../Classes/gframe/duelclient.cpp; sourceTree = "<group>"; };
+		DCBECA9819EC0BC0004E4F8C /* event_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = event_handler.cpp; path = ../../Classes/gframe/event_handler.cpp; sourceTree = "<group>"; };
+		DCBECA9919EC0BC0004E4F8C /* game.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = game.cpp; path = ../../Classes/gframe/game.cpp; sourceTree = "<group>"; };
+		DCBECA9A19EC0BC0004E4F8C /* gframe.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = gframe.cpp; path = ../../Classes/gframe/gframe.cpp; sourceTree = "<group>"; };
+		DCBECA9B19EC0BC0004E4F8C /* image_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = image_manager.cpp; path = ../../Classes/gframe/image_manager.cpp; sourceTree = "<group>"; };
+		DCBECA9C19EC0BC0004E4F8C /* materials.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = materials.cpp; path = ../../Classes/gframe/materials.cpp; sourceTree = "<group>"; };
+		DCBECA9D19EC0BC0004E4F8C /* menu_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = menu_handler.cpp; path = ../../Classes/gframe/menu_handler.cpp; sourceTree = "<group>"; };
+		DCBECA9E19EC0BC0004E4F8C /* netserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = netserver.cpp; path = ../../Classes/gframe/netserver.cpp; sourceTree = "<group>"; };
+		DCBECAA119EC0BC0004E4F8C /* replay_mode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = replay_mode.cpp; path = ../../Classes/gframe/replay_mode.cpp; sourceTree = "<group>"; };
+		DCBECAA219EC0BC0004E4F8C /* replay.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = replay.cpp; path = ../../Classes/gframe/replay.cpp; sourceTree = "<group>"; };
+		DCBECAA319EC0BC0004E4F8C /* single_duel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = single_duel.cpp; path = ../../Classes/gframe/single_duel.cpp; sourceTree = "<group>"; };
+		DCBECAA419EC0BC0004E4F8C /* single_mode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = single_mode.cpp; path = ../../Classes/gframe/single_mode.cpp; sourceTree = "<group>"; };
+		DCBECAA519EC0BC0004E4F8C /* tag_duel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = tag_duel.cpp; path = ../../Classes/gframe/tag_duel.cpp; sourceTree = "<group>"; };
+		DCBECAC219EC0E44004E4F8C /* bufferio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bufferio.h; path = ../../Classes/gframe/bufferio.h; sourceTree = "<group>"; };
+		DCBECAC319EC0E44004E4F8C /* CAnimatedMeshHalfLife.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CAnimatedMeshHalfLife.cpp; path = ../../Classes/gframe/CAnimatedMeshHalfLife.cpp; sourceTree = "<group>"; };
+		DCBECAC519EC0E44004E4F8C /* CGUIButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGUIButton.h; path = ../../Classes/gframe/CGUIButton.h; sourceTree = "<group>"; };
+		DCBECAC719EC0E44004E4F8C /* CGUIComboBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGUIComboBox.h; path = ../../Classes/gframe/CGUIComboBox.h; sourceTree = "<group>"; };
+		DCBECAC919EC0E45004E4F8C /* CGUIEditBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGUIEditBox.h; path = ../../Classes/gframe/CGUIEditBox.h; sourceTree = "<group>"; };
+		DCBECACC19EC0E45004E4F8C /* CGUIListBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGUIListBox.h; path = ../../Classes/gframe/CGUIListBox.h; sourceTree = "<group>"; };
+		DCBECACD19EC0E45004E4F8C /* CGUIScrollBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGUIScrollBar.h; path = ../../Classes/gframe/CGUIScrollBar.h; sourceTree = "<group>"; };
+		DCBECACF19EC0E45004E4F8C /* CGUITTFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGUITTFont.h; path = ../../Classes/gframe/CGUITTFont.h; sourceTree = "<group>"; };
+		DCBECAD119EC0E45004E4F8C /* client_card.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = client_card.h; path = ../../Classes/gframe/client_card.h; sourceTree = "<group>"; };
+		DCBECAD319EC0E45004E4F8C /* client_field.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = client_field.h; path = ../../Classes/gframe/client_field.h; sourceTree = "<group>"; };
+		DCBECAD419EC0E45004E4F8C /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../../Classes/gframe/config.h; sourceTree = "<group>"; };
+		DCBECAD619EC0E45004E4F8C /* data_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = data_manager.h; path = ../../Classes/gframe/data_manager.h; sourceTree = "<group>"; };
+		DCBECAD819EC0E45004E4F8C /* deck_con.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = deck_con.h; path = ../../Classes/gframe/deck_con.h; sourceTree = "<group>"; };
+		DCBECADA19EC0E45004E4F8C /* deck_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = deck_manager.h; path = ../../Classes/gframe/deck_manager.h; sourceTree = "<group>"; };
+		DCBECADD19EC0E45004E4F8C /* duelclient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = duelclient.h; path = ../../Classes/gframe/duelclient.h; sourceTree = "<group>"; };
+		DCBECADF19EC0E45004E4F8C /* event_handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = event_handler.h; path = ../../Classes/gframe/event_handler.h; sourceTree = "<group>"; };
+		DCBECAE119EC0E45004E4F8C /* game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../../Classes/gframe/game.h; sourceTree = "<group>"; };
+		DCBECAE419EC0E45004E4F8C /* image_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = image_manager.h; path = ../../Classes/gframe/image_manager.h; sourceTree = "<group>"; };
+		DCBECAE619EC0E45004E4F8C /* materials.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = materials.cpp; path = ../../Classes/gframe/materials.cpp; sourceTree = "<group>"; };
+		DCBECAE719EC0E45004E4F8C /* materials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = materials.h; path = ../../Classes/gframe/materials.h; sourceTree = "<group>"; };
+		DCBECAE919EC0E45004E4F8C /* menu_handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = menu_handler.h; path = ../../Classes/gframe/menu_handler.h; sourceTree = "<group>"; };
+		DCBECAEA19EC0E45004E4F8C /* mymutex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mymutex.h; path = ../../Classes/gframe/mymutex.h; sourceTree = "<group>"; };
+		DCBECAEB19EC0E45004E4F8C /* mysignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mysignal.h; path = ../../Classes/gframe/mysignal.h; sourceTree = "<group>"; };
+		DCBECAEC19EC0E45004E4F8C /* mythread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mythread.h; path = ../../Classes/gframe/mythread.h; sourceTree = "<group>"; };
+		DCBECAED19EC0E45004E4F8C /* netserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = netserver.cpp; path = ../../Classes/gframe/netserver.cpp; sourceTree = "<group>"; };
+		DCBECAEE19EC0E45004E4F8C /* netserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = netserver.h; path = ../../Classes/gframe/netserver.h; sourceTree = "<group>"; };
+		DCBECAEF19EC0E45004E4F8C /* network.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = network.h; path = ../../Classes/gframe/network.h; sourceTree = "<group>"; };
+		DCBECAF019EC0E45004E4F8C /* os.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = os.h; path = ../../Classes/gframe/os.h; sourceTree = "<group>"; };
+		DCBECAF119EC0E45004E4F8C /* premake4.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = premake4.lua; path = ../../Classes/gframe/premake4.lua; sourceTree = "<group>"; };
+		DCBECAF219EC0E45004E4F8C /* replay_mode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = replay_mode.cpp; path = ../../Classes/gframe/replay_mode.cpp; sourceTree = "<group>"; };
+		DCBECAF319EC0E46004E4F8C /* replay_mode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = replay_mode.h; path = ../../Classes/gframe/replay_mode.h; sourceTree = "<group>"; };
+		DCBECAF519EC0E46004E4F8C /* replay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = replay.h; path = ../../Classes/gframe/replay.h; sourceTree = "<group>"; };
+		DCBECAF719EC0E46004E4F8C /* single_duel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = single_duel.h; path = ../../Classes/gframe/single_duel.h; sourceTree = "<group>"; };
+		DCBECAF819EC0E46004E4F8C /* single_mode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = single_mode.cpp; path = ../../Classes/gframe/single_mode.cpp; sourceTree = "<group>"; };
+		DCBECAF919EC0E46004E4F8C /* single_mode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = single_mode.h; path = ../../Classes/gframe/single_mode.h; sourceTree = "<group>"; };
+		DCBECAFB19EC0E46004E4F8C /* tag_duel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tag_duel.h; path = ../../Classes/gframe/tag_duel.h; sourceTree = "<group>"; };
+		DCBECB1C19EF46F7004E4F8C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		DCBECB1E19EF66E6004E4F8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		DCBECB2619EF6E74004E4F8C /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = "../../Classes/lua/lua/build/Debug-iphoneos/liblua.a"; sourceTree = "<group>"; };
+		DCBECB2919EF6E86004E4F8C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../../Classes/libevent/libevent/openssl/crypto/build/Debug-iphoneos/libcrypto.a"; sourceTree = "<group>"; };
+		DCBECB2B19EF6E8A004E4F8C /* libopenssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenssl.a; path = "../../Classes/libevent/libevent/openssl/build/Debug-iphoneos/libopenssl.a"; sourceTree = "<group>"; };
+		DCBECB5F19EF71B9004E4F8C /* lzma.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = lzma.xcodeproj; path = ../../Classes/gframe/lzma/lzma/lzma.xcodeproj; sourceTree = "<group>"; };
+		DCBECB8F19EF7524004E4F8C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		DCBECB9319EF7569004E4F8C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DCBECB9519EF81FB004E4F8C /* lflist.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lflist.conf; sourceTree = "<group>"; };
+		DCBECB9619EF81FB004E4F8C /* strings.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strings.conf; sourceTree = "<group>"; };
+		DCBECB9719EF81FB004E4F8C /* system.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = system.conf; sourceTree = "<group>"; };
+		DCBECB9819EF81FB004E4F8C /* texture */ = {isa = PBXFileReference; lastKnownFileType = folder; path = texture; sourceTree = "<group>"; };
+		DCBECB9F19EF9304004E4F8C /* COGLES2DetailMap.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2DetailMap.fsh; path = YGOMobile/Shaders/COGLES2DetailMap.fsh; sourceTree = "<group>"; };
+		DCBECBA019EF9304004E4F8C /* COGLES2FixedPipeline.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2FixedPipeline.fsh; path = YGOMobile/Shaders/COGLES2FixedPipeline.fsh; sourceTree = "<group>"; };
+		DCBECBA119EF9304004E4F8C /* COGLES2FixedPipeline.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2FixedPipeline.vsh; path = YGOMobile/Shaders/COGLES2FixedPipeline.vsh; sourceTree = "<group>"; };
+		DCBECBA219EF9304004E4F8C /* COGLES2LightmapAdd.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2LightmapAdd.fsh; path = YGOMobile/Shaders/COGLES2LightmapAdd.fsh; sourceTree = "<group>"; };
+		DCBECBA319EF9304004E4F8C /* COGLES2LightmapModulate.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2LightmapModulate.fsh; path = YGOMobile/Shaders/COGLES2LightmapModulate.fsh; sourceTree = "<group>"; };
+		DCBECBA419EF9304004E4F8C /* COGLES2NormalMap.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2NormalMap.fsh; path = YGOMobile/Shaders/COGLES2NormalMap.fsh; sourceTree = "<group>"; };
+		DCBECBA519EF9304004E4F8C /* COGLES2NormalMap.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2NormalMap.vsh; path = YGOMobile/Shaders/COGLES2NormalMap.vsh; sourceTree = "<group>"; };
+		DCBECBA619EF9304004E4F8C /* COGLES2OneTextureBlend.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2OneTextureBlend.fsh; path = YGOMobile/Shaders/COGLES2OneTextureBlend.fsh; sourceTree = "<group>"; };
+		DCBECBA719EF9304004E4F8C /* COGLES2ParallaxMap.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2ParallaxMap.fsh; path = YGOMobile/Shaders/COGLES2ParallaxMap.fsh; sourceTree = "<group>"; };
+		DCBECBA819EF9304004E4F8C /* COGLES2ParallaxMap.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2ParallaxMap.vsh; path = YGOMobile/Shaders/COGLES2ParallaxMap.vsh; sourceTree = "<group>"; };
+		DCBECBA919EF9304004E4F8C /* COGLES2Reflection2Layer.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2Reflection2Layer.fsh; path = YGOMobile/Shaders/COGLES2Reflection2Layer.fsh; sourceTree = "<group>"; };
+		DCBECBAA19EF9304004E4F8C /* COGLES2Reflection2Layer.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2Reflection2Layer.vsh; path = YGOMobile/Shaders/COGLES2Reflection2Layer.vsh; sourceTree = "<group>"; };
+		DCBECBAB19EF9304004E4F8C /* COGLES2Renderer2D.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2Renderer2D.fsh; path = YGOMobile/Shaders/COGLES2Renderer2D.fsh; sourceTree = "<group>"; };
+		DCBECBAC19EF9304004E4F8C /* COGLES2Renderer2D.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2Renderer2D.vsh; path = YGOMobile/Shaders/COGLES2Renderer2D.vsh; sourceTree = "<group>"; };
+		DCBECBAD19EF9304004E4F8C /* COGLES2Solid.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2Solid.fsh; path = YGOMobile/Shaders/COGLES2Solid.fsh; sourceTree = "<group>"; };
+		DCBECBAE19EF9304004E4F8C /* COGLES2Solid.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2Solid.vsh; path = YGOMobile/Shaders/COGLES2Solid.vsh; sourceTree = "<group>"; };
+		DCBECBAF19EF9304004E4F8C /* COGLES2Solid2.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2Solid2.vsh; path = YGOMobile/Shaders/COGLES2Solid2.vsh; sourceTree = "<group>"; };
+		DCBECBB019EF9305004E4F8C /* COGLES2Solid2Layer.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2Solid2Layer.fsh; path = YGOMobile/Shaders/COGLES2Solid2Layer.fsh; sourceTree = "<group>"; };
+		DCBECBB119EF9305004E4F8C /* COGLES2SphereMap.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2SphereMap.fsh; path = YGOMobile/Shaders/COGLES2SphereMap.fsh; sourceTree = "<group>"; };
+		DCBECBB219EF9305004E4F8C /* COGLES2SphereMap.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2SphereMap.vsh; path = YGOMobile/Shaders/COGLES2SphereMap.vsh; sourceTree = "<group>"; };
+		DCBECBB319EF9305004E4F8C /* COGLES2TransparentAlphaChannelRef.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2TransparentAlphaChannelRef.fsh; path = YGOMobile/Shaders/COGLES2TransparentAlphaChannelRef.fsh; sourceTree = "<group>"; };
+		DCBECBB419EF9305004E4F8C /* COGLES2TransparentVertexAlpha.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = COGLES2TransparentVertexAlpha.fsh; path = YGOMobile/Shaders/COGLES2TransparentVertexAlpha.fsh; sourceTree = "<group>"; };
+		DCBECBCB19EF9446004E4F8C /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = textures; path = YGOMobile/textures; sourceTree = "<group>"; };
+		DCBECBD119EFD7BC004E4F8C /* XInterface_IPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XInterface_IPhone.xib; sourceTree = "<group>"; };
+		DCBECBD519EFF35E004E4F8C /* cards.cdb */ = {isa = PBXFileReference; lastKnownFileType = file; name = cards.cdb; path = YGOMobile/cards.cdb; sourceTree = "<group>"; };
+		DCBECBD719EFF486004E4F8C /* fonts.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = fonts.ttf; path = YGOMobile/fonts.ttf; sourceTree = "<group>"; };
 		DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ocgcore.xcodeproj; path = ../../Classes/ocgcore/ocgcore/ocgcore.xcodeproj; sourceTree = "<group>"; };
 		DCEED1441983C70000D49E51 /* libevent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libevent.xcodeproj; path = ../../Classes/libevent/libevent/libevent.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,7 +325,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC86B7FE19834E3000C9010C /* libIrrlicht.a in Frameworks */,
+				DCBECB8419EF72D3004E4F8C /* liblzma.a in Frameworks */,
+				DCBECB2519EF6E6F004E4F8C /* liblibevent.a in Frameworks */,
+				DCBECB2819EF6E78004E4F8C /* libfreetype.a in Frameworks */,
+				DCBECB2219EF6E5D004E4F8C /* libsqlite3.a in Frameworks */,
+				DCBECB2319EF6E65004E4F8C /* libocgcore.a in Frameworks */,
+				DCBECB2419EF6E6A004E4F8C /* libIrrlicht.a in Frameworks */,
+				DCBECB9419EF7569004E4F8C /* QuartzCore.framework in Frameworks */,
+				DCBECB9219EF752F004E4F8C /* OpenGLES.framework in Frameworks */,
+				DCBECB9019EF7524004E4F8C /* CoreMotion.framework in Frameworks */,
+				DCBECB9119EF7529004E4F8C /* GLKit.framework in Frameworks */,
 				DC22DAA218FAF17C00E267B4 /* CoreGraphics.framework in Frameworks */,
 				DC22DAA618FAF17C00E267B4 /* CoreData.framework in Frameworks */,
 				DC22DAA418FAF17C00E267B4 /* UIKit.framework in Frameworks */,
@@ -94,12 +348,123 @@
 		DC22DA9318FAF17C00E267B4 = {
 			isa = PBXGroup;
 			children = (
-				DCEED1441983C70000D49E51 /* libevent.xcodeproj */,
-				DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */,
+				DCBECBD719EFF486004E4F8C /* fonts.ttf */,
+				DCBECBD519EFF35E004E4F8C /* cards.cdb */,
+				DCBECBCB19EF9446004E4F8C /* textures */,
+				DCBECB9F19EF9304004E4F8C /* COGLES2DetailMap.fsh */,
+				DCBECBA019EF9304004E4F8C /* COGLES2FixedPipeline.fsh */,
+				DCBECBA119EF9304004E4F8C /* COGLES2FixedPipeline.vsh */,
+				DCBECBA219EF9304004E4F8C /* COGLES2LightmapAdd.fsh */,
+				DCBECBA319EF9304004E4F8C /* COGLES2LightmapModulate.fsh */,
+				DCBECBA419EF9304004E4F8C /* COGLES2NormalMap.fsh */,
+				DCBECBA519EF9304004E4F8C /* COGLES2NormalMap.vsh */,
+				DCBECBA619EF9304004E4F8C /* COGLES2OneTextureBlend.fsh */,
+				DCBECBA719EF9304004E4F8C /* COGLES2ParallaxMap.fsh */,
+				DCBECBA819EF9304004E4F8C /* COGLES2ParallaxMap.vsh */,
+				DCBECBA919EF9304004E4F8C /* COGLES2Reflection2Layer.fsh */,
+				DCBECBAA19EF9304004E4F8C /* COGLES2Reflection2Layer.vsh */,
+				DCBECBAB19EF9304004E4F8C /* COGLES2Renderer2D.fsh */,
+				DCBECBAC19EF9304004E4F8C /* COGLES2Renderer2D.vsh */,
+				DCBECBAD19EF9304004E4F8C /* COGLES2Solid.fsh */,
+				DCBECBAE19EF9304004E4F8C /* COGLES2Solid.vsh */,
+				DCBECBAF19EF9304004E4F8C /* COGLES2Solid2.vsh */,
+				DCBECBB019EF9305004E4F8C /* COGLES2Solid2Layer.fsh */,
+				DCBECBB119EF9305004E4F8C /* COGLES2SphereMap.fsh */,
+				DCBECBB219EF9305004E4F8C /* COGLES2SphereMap.vsh */,
+				DCBECBB319EF9305004E4F8C /* COGLES2TransparentAlphaChannelRef.fsh */,
+				DCBECBB419EF9305004E4F8C /* COGLES2TransparentVertexAlpha.fsh */,
+				DCBECAC319EC0E44004E4F8C /* CAnimatedMeshHalfLife.cpp */,
+				DCBECA8B19EC0BC0004E4F8C /* CGUIButton.cpp */,
+				DCBECA8C19EC0BC0004E4F8C /* CGUIComboBox.cpp */,
+				DCBECA8D19EC0BC0004E4F8C /* CGUIEditBox.cpp */,
+				DCBECA8E19EC0BC0004E4F8C /* CGUIImageButton.cpp */,
+				DCBECA9019EC0BC0004E4F8C /* CGUITTFont.cpp */,
+				DCBECA9119EC0BC0004E4F8C /* client_card.cpp */,
+				DCBECA9219EC0BC0004E4F8C /* client_field.cpp */,
+				DCBECA9319EC0BC0004E4F8C /* data_manager.cpp */,
+				DCBECA9419EC0BC0004E4F8C /* deck_con.cpp */,
+				DCBECA9519EC0BC0004E4F8C /* deck_manager.cpp */,
+				DCBECA9619EC0BC0004E4F8C /* drawing.cpp */,
+				DCBECA9719EC0BC0004E4F8C /* duelclient.cpp */,
+				DCBECA9819EC0BC0004E4F8C /* event_handler.cpp */,
+				DCBECA9919EC0BC0004E4F8C /* game.cpp */,
+				DCBECA9A19EC0BC0004E4F8C /* gframe.cpp */,
+				DCBECA9B19EC0BC0004E4F8C /* image_manager.cpp */,
+				DCBECAE619EC0E45004E4F8C /* materials.cpp */,
+				DCBECA9D19EC0BC0004E4F8C /* menu_handler.cpp */,
+				DCBECAED19EC0E45004E4F8C /* netserver.cpp */,
+				DCBECAA219EC0BC0004E4F8C /* replay.cpp */,
+				DCBECAF219EC0E45004E4F8C /* replay_mode.cpp */,
+				DCBECAA319EC0BC0004E4F8C /* single_duel.cpp */,
+				DCBECAF819EC0E46004E4F8C /* single_mode.cpp */,
+				DCBECAA519EC0BC0004E4F8C /* tag_duel.cpp */,
+				DCBECAC219EC0E44004E4F8C /* bufferio.h */,
+				DCBECAC519EC0E44004E4F8C /* CGUIButton.h */,
+				DCBECAC719EC0E44004E4F8C /* CGUIComboBox.h */,
+				DCBECAC919EC0E45004E4F8C /* CGUIEditBox.h */,
+				DCBECA8F19EC0BC0004E4F8C /* CGUIImageButton.h */,
+				DCBECACC19EC0E45004E4F8C /* CGUIListBox.h */,
+				DCBECACD19EC0E45004E4F8C /* CGUIScrollBar.h */,
+				DCBECACF19EC0E45004E4F8C /* CGUITTFont.h */,
+				DCBECAD119EC0E45004E4F8C /* client_card.h */,
+				DCBECAD319EC0E45004E4F8C /* client_field.h */,
+				DCBECAD419EC0E45004E4F8C /* config.h */,
+				DCBECAD619EC0E45004E4F8C /* data_manager.h */,
+				DCBECAD819EC0E45004E4F8C /* deck_con.h */,
+				DCBECADA19EC0E45004E4F8C /* deck_manager.h */,
+				DCBECADD19EC0E45004E4F8C /* duelclient.h */,
+				DCBECADF19EC0E45004E4F8C /* event_handler.h */,
+				DCBECAE119EC0E45004E4F8C /* game.h */,
+				DCBECAE419EC0E45004E4F8C /* image_manager.h */,
+				DCBECAE719EC0E45004E4F8C /* materials.h */,
+				DCBECAE919EC0E45004E4F8C /* menu_handler.h */,
+				DCBECAEA19EC0E45004E4F8C /* mymutex.h */,
+				DCBECAEB19EC0E45004E4F8C /* mysignal.h */,
+				DCBECAEC19EC0E45004E4F8C /* mythread.h */,
+				DCBECAEE19EC0E45004E4F8C /* netserver.h */,
+				DCBECAEF19EC0E45004E4F8C /* network.h */,
+				DCBECAF019EC0E45004E4F8C /* os.h */,
+				DCBECAF519EC0E46004E4F8C /* replay.h */,
+				DCBECAF319EC0E46004E4F8C /* replay_mode.h */,
+				DCBECAF719EC0E46004E4F8C /* single_duel.h */,
+				DCBECAF919EC0E46004E4F8C /* single_mode.h */,
+				DCBECAFB19EC0E46004E4F8C /* tag_duel.h */,
+				DCBECAF119EC0E45004E4F8C /* premake4.lua */,
+				DCBECA1D19EC04C5004E4F8C /* freetype.xcodeproj */,
 				DC86B7F419834A7C00C9010C /* iOS.xcodeproj */,
-				DC22DAA718FAF17C00E267B4 /* YGOMobile */,
+				DCEED1441983C70000D49E51 /* libevent.xcodeproj */,
+				DCBECB5F19EF71B9004E4F8C /* lzma.xcodeproj */,
+				DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */,
+				DCBECA7A19EC0619004E4F8C /* sqlite3.xcodeproj */,
 				DC22DA9E18FAF17C00E267B4 /* Frameworks */,
 				DC22DA9D18FAF17C00E267B4 /* Products */,
+				DC22DAA718FAF17C00E267B4 /* YGOMobile */,
+				DCBECA8A19EC0BC0004E4F8C /* CAnimatedMeshHalfLife.cpp */,
+				DCBECA8B19EC0BC0004E4F8C /* CGUIButton.cpp */,
+				DCBECA8C19EC0BC0004E4F8C /* CGUIComboBox.cpp */,
+				DCBECA8D19EC0BC0004E4F8C /* CGUIEditBox.cpp */,
+				DCBECA8E19EC0BC0004E4F8C /* CGUIImageButton.cpp */,
+				DCBECA8F19EC0BC0004E4F8C /* CGUIImageButton.h */,
+				DCBECA9019EC0BC0004E4F8C /* CGUITTFont.cpp */,
+				DCBECA9119EC0BC0004E4F8C /* client_card.cpp */,
+				DCBECA9219EC0BC0004E4F8C /* client_field.cpp */,
+				DCBECA9319EC0BC0004E4F8C /* data_manager.cpp */,
+				DCBECA9419EC0BC0004E4F8C /* deck_con.cpp */,
+				DCBECA9519EC0BC0004E4F8C /* deck_manager.cpp */,
+				DCBECA9619EC0BC0004E4F8C /* drawing.cpp */,
+				DCBECA9719EC0BC0004E4F8C /* duelclient.cpp */,
+				DCBECA9819EC0BC0004E4F8C /* event_handler.cpp */,
+				DCBECA9919EC0BC0004E4F8C /* game.cpp */,
+				DCBECA9A19EC0BC0004E4F8C /* gframe.cpp */,
+				DCBECA9B19EC0BC0004E4F8C /* image_manager.cpp */,
+				DCBECA9C19EC0BC0004E4F8C /* materials.cpp */,
+				DCBECA9D19EC0BC0004E4F8C /* menu_handler.cpp */,
+				DCBECA9E19EC0BC0004E4F8C /* netserver.cpp */,
+				DCBECAA119EC0BC0004E4F8C /* replay_mode.cpp */,
+				DCBECAA219EC0BC0004E4F8C /* replay.cpp */,
+				DCBECAA319EC0BC0004E4F8C /* single_duel.cpp */,
+				DCBECAA419EC0BC0004E4F8C /* single_mode.cpp */,
+				DCBECAA519EC0BC0004E4F8C /* tag_duel.cpp */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +479,13 @@
 		DC22DA9E18FAF17C00E267B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCBECB9319EF7569004E4F8C /* QuartzCore.framework */,
+				DCBECB8F19EF7524004E4F8C /* CoreMotion.framework */,
+				DCBECB2B19EF6E8A004E4F8C /* libopenssl.a */,
+				DCBECB2919EF6E86004E4F8C /* libcrypto.a */,
+				DCBECB2619EF6E74004E4F8C /* liblua.a */,
+				DCBECB1E19EF66E6004E4F8C /* GLKit.framework */,
+				DCBECB1C19EF46F7004E4F8C /* OpenGLES.framework */,
 				DC22DA9F18FAF17C00E267B4 /* Foundation.framework */,
 				DC22DAA118FAF17C00E267B4 /* CoreGraphics.framework */,
 				DC22DAA318FAF17C00E267B4 /* UIKit.framework */,
@@ -126,11 +498,15 @@
 		DC22DAA718FAF17C00E267B4 /* YGOMobile */ = {
 			isa = PBXGroup;
 			children = (
+				DCBECB9519EF81FB004E4F8C /* lflist.conf */,
+				DCBECB9619EF81FB004E4F8C /* strings.conf */,
+				DCBECB9719EF81FB004E4F8C /* system.conf */,
+				DCBECB9819EF81FB004E4F8C /* texture */,
 				DC22DAB018FAF17C00E267B4 /* AppDelegate.h */,
 				DC22DAB118FAF17C00E267B4 /* AppDelegate.m */,
 				DC22DAB618FAF17C00E267B4 /* Images.xcassets */,
-				DC22DAB318FAF17C00E267B4 /* YGOMobile.xcdatamodeld */,
 				DC22DAA818FAF17C00E267B4 /* Supporting Files */,
+				DC22DAB318FAF17C00E267B4 /* YGOMobile.xcdatamodeld */,
 			);
 			path = YGOMobile;
 			sourceTree = "<group>";
@@ -141,6 +517,7 @@
 				DC22DAA918FAF17C00E267B4 /* YGOMobile-Info.plist */,
 				DC22DAAA18FAF17C00E267B4 /* InfoPlist.strings */,
 				DC22DAAF18FAF17C00E267B4 /* YGOMobile-Prefix.pch */,
+				DCBECBD119EFD7BC004E4F8C /* XInterface_IPhone.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -149,6 +526,30 @@
 			isa = PBXGroup;
 			children = (
 				DC86B7F919834A7C00C9010C /* libIrrlicht.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCBECA1E19EC04C5004E4F8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECA2319EC04C5004E4F8C /* libfreetype.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCBECA7B19EC0619004E4F8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECA8019EC061A004E4F8C /* libsqlite3.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCBECB6019EF71B9004E4F8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECB6519EF71BA004E4F8C /* liblzma.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,7 +566,6 @@
 			isa = PBXGroup;
 			children = (
 				DCEED14A1983C70100D49E51 /* liblibevent.a */,
-				DCEED14C1983C70100D49E51 /* libeventTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,6 +584,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				DCBECB8319EF72CE004E4F8C /* PBXTargetDependency */,
+				DCBECA8819EC06C1004E4F8C /* PBXTargetDependency */,
+				DCBECA8619EC06BE004E4F8C /* PBXTargetDependency */,
+				DCBEC99119EC0123004E4F8C /* PBXTargetDependency */,
+				DCBEC98D19EC011E004E4F8C /* PBXTargetDependency */,
 				DC86B7FB19834A9000C9010C /* PBXTargetDependency */,
 			);
 			name = YGOMobile;
@@ -212,6 +617,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = DCBECA1E19EC04C5004E4F8C /* Products */;
+					ProjectRef = DCBECA1D19EC04C5004E4F8C /* freetype.xcodeproj */;
+				},
+				{
 					ProductGroup = DC86B7F519834A7C00C9010C /* Products */;
 					ProjectRef = DC86B7F419834A7C00C9010C /* iOS.xcodeproj */;
 				},
@@ -220,8 +629,16 @@
 					ProjectRef = DCEED1441983C70000D49E51 /* libevent.xcodeproj */;
 				},
 				{
+					ProductGroup = DCBECB6019EF71B9004E4F8C /* Products */;
+					ProjectRef = DCBECB5F19EF71B9004E4F8C /* lzma.xcodeproj */;
+				},
+				{
 					ProductGroup = DCEED01E1983B4B600D49E51 /* Products */;
 					ProjectRef = DCEED01D1983B4B600D49E51 /* ocgcore.xcodeproj */;
+				},
+				{
+					ProductGroup = DCBECA7B19EC0619004E4F8C /* Products */;
+					ProjectRef = DCBECA7A19EC0619004E4F8C /* sqlite3.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -239,6 +656,27 @@
 			remoteRef = DC86B7F819834A7C00C9010C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		DCBECA2319EC04C5004E4F8C /* libfreetype.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libfreetype.a;
+			remoteRef = DCBECA2219EC04C5004E4F8C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DCBECA8019EC061A004E4F8C /* libsqlite3.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libsqlite3.a;
+			remoteRef = DCBECA7F19EC061A004E4F8C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DCBECB6519EF71BA004E4F8C /* liblzma.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = liblzma.a;
+			remoteRef = DCBECB6419EF71BA004E4F8C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		DCEED0231983B4B600D49E51 /* libocgcore.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -253,13 +691,6 @@
 			remoteRef = DCEED1491983C70100D49E51 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DCEED14C1983C70100D49E51 /* libeventTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = libeventTests.xctest;
-			remoteRef = DCEED14B1983C70100D49E51 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -267,7 +698,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCBECBD819EFF486004E4F8C /* fonts.ttf in Resources */,
+				DCBECBD619EFF35E004E4F8C /* cards.cdb in Resources */,
+				DCBECBCC19EF9446004E4F8C /* textures in Resources */,
+				DCBECBB519EF9305004E4F8C /* COGLES2DetailMap.fsh in Resources */,
+				DCBECBB619EF9305004E4F8C /* COGLES2FixedPipeline.fsh in Resources */,
+				DCBECBB719EF9305004E4F8C /* COGLES2FixedPipeline.vsh in Resources */,
+				DCBECBB819EF9305004E4F8C /* COGLES2LightmapAdd.fsh in Resources */,
+				DCBECBB919EF9305004E4F8C /* COGLES2LightmapModulate.fsh in Resources */,
+				DCBECBBA19EF9305004E4F8C /* COGLES2NormalMap.fsh in Resources */,
+				DCBECBBB19EF9305004E4F8C /* COGLES2NormalMap.vsh in Resources */,
+				DCBECBBC19EF9305004E4F8C /* COGLES2OneTextureBlend.fsh in Resources */,
+				DCBECBBD19EF9305004E4F8C /* COGLES2ParallaxMap.fsh in Resources */,
+				DCBECBBE19EF9305004E4F8C /* COGLES2ParallaxMap.vsh in Resources */,
+				DCBECBBF19EF9305004E4F8C /* COGLES2Reflection2Layer.fsh in Resources */,
+				DCBECBC019EF9305004E4F8C /* COGLES2Reflection2Layer.vsh in Resources */,
+				DCBECBC119EF9305004E4F8C /* COGLES2Renderer2D.fsh in Resources */,
+				DCBECBC219EF9305004E4F8C /* COGLES2Renderer2D.vsh in Resources */,
+				DCBECBC319EF9305004E4F8C /* COGLES2Solid.fsh in Resources */,
+				DCBECBC419EF9305004E4F8C /* COGLES2Solid.vsh in Resources */,
+				DCBECBC519EF9305004E4F8C /* COGLES2Solid2.vsh in Resources */,
+				DCBECBC619EF9305004E4F8C /* COGLES2Solid2Layer.fsh in Resources */,
+				DCBECBC719EF9305004E4F8C /* COGLES2SphereMap.fsh in Resources */,
+				DCBECBC819EF9305004E4F8C /* COGLES2SphereMap.vsh in Resources */,
+				DCBECBC919EF9305004E4F8C /* COGLES2TransparentAlphaChannelRef.fsh in Resources */,
+				DCBECBCA19EF9305004E4F8C /* COGLES2TransparentVertexAlpha.fsh in Resources */,
+				DCBECB9919EF81FB004E4F8C /* lflist.conf in Resources */,
+				DCBECBD219EFD7BC004E4F8C /* XInterface_IPhone.xib in Resources */,
 				DC22DAAC18FAF17C00E267B4 /* InfoPlist.strings in Resources */,
+				DCBECB9A19EF81FB004E4F8C /* strings.conf in Resources */,
+				DCBECB9B19EF81FB004E4F8C /* system.conf in Resources */,
 				DC22DAB718FAF17C00E267B4 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,8 +739,64 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCBECB9E19EF8879004E4F8C /* AppDelegate.h in Sources */,
+				DCBECAFC19EC0E46004E4F8C /* bufferio.h in Sources */,
+				DCBECAA619EC0BC0004E4F8C /* CAnimatedMeshHalfLife.cpp in Sources */,
+				DCBECAA719EC0BC0004E4F8C /* CGUIButton.cpp in Sources */,
+				DCBECAFD19EC0E46004E4F8C /* CGUIButton.h in Sources */,
+				DCBECAA819EC0BC0004E4F8C /* CGUIComboBox.cpp in Sources */,
+				DCBECAFE19EC0E46004E4F8C /* CGUIComboBox.h in Sources */,
+				DCBECAA919EC0BC0004E4F8C /* CGUIEditBox.cpp in Sources */,
+				DCBECAFF19EC0E46004E4F8C /* CGUIEditBox.h in Sources */,
+				DCBECAAA19EC0BC0004E4F8C /* CGUIImageButton.cpp in Sources */,
+				DCBECAAB19EC0BC0004E4F8C /* CGUIImageButton.h in Sources */,
+				DCBECB0019EC0E46004E4F8C /* CGUIListBox.h in Sources */,
+				DCBECB0119EC0E46004E4F8C /* CGUIScrollBar.h in Sources */,
+				DCBECAAC19EC0BC0004E4F8C /* CGUITTFont.cpp in Sources */,
+				DCBECB0219EC0E46004E4F8C /* CGUITTFont.h in Sources */,
+				DCBECAAD19EC0BC0004E4F8C /* client_card.cpp in Sources */,
+				DCBECB0319EC0E46004E4F8C /* client_card.h in Sources */,
+				DCBECAAE19EC0BC0004E4F8C /* client_field.cpp in Sources */,
+				DCBECB0419EC0E46004E4F8C /* client_field.h in Sources */,
+				DCBECB0519EC0E46004E4F8C /* config.h in Sources */,
+				DCBECAAF19EC0BC0004E4F8C /* data_manager.cpp in Sources */,
+				DCBECB0619EC0E46004E4F8C /* data_manager.h in Sources */,
+				DCBECAB019EC0BC0004E4F8C /* deck_con.cpp in Sources */,
+				DCBECB0719EC0E46004E4F8C /* deck_con.h in Sources */,
+				DCBECAB119EC0BC0004E4F8C /* deck_manager.cpp in Sources */,
+				DCBECB0819EC0E46004E4F8C /* deck_manager.h in Sources */,
+				DCBECAB219EC0BC0004E4F8C /* drawing.cpp in Sources */,
+				DCBECAB319EC0BC0004E4F8C /* duelclient.cpp in Sources */,
+				DCBECB0919EC0E46004E4F8C /* duelclient.h in Sources */,
+				DCBECAB419EC0BC0004E4F8C /* event_handler.cpp in Sources */,
+				DCBECB0A19EC0E46004E4F8C /* event_handler.h in Sources */,
+				DCBECAB519EC0BC0004E4F8C /* game.cpp in Sources */,
+				DCBECB0B19EC0E46004E4F8C /* game.h in Sources */,
+				DCBECAB619EC0BC0004E4F8C /* gframe.cpp in Sources */,
+				DCBECAB719EC0BC0004E4F8C /* image_manager.cpp in Sources */,
+				DCBECB0C19EC0E46004E4F8C /* image_manager.h in Sources */,
+				DCBECAB819EC0BC0004E4F8C /* materials.cpp in Sources */,
+				DCBECB0E19EC0E46004E4F8C /* materials.h in Sources */,
+				DCBECAB919EC0BC0004E4F8C /* menu_handler.cpp in Sources */,
+				DCBECB0F19EC0E46004E4F8C /* menu_handler.h in Sources */,
+				DCBECB1019EC0E46004E4F8C /* mymutex.h in Sources */,
+				DCBECB1119EC0E46004E4F8C /* mysignal.h in Sources */,
+				DCBECB1219EC0E46004E4F8C /* mythread.h in Sources */,
+				DCBECABA19EC0BC0004E4F8C /* netserver.cpp in Sources */,
+				DCBECB1319EC0E46004E4F8C /* netserver.h in Sources */,
+				DCBECB1419EC0E46004E4F8C /* network.h in Sources */,
+				DCBECB1519EC0E46004E4F8C /* os.h in Sources */,
+				DCBECABD19EC0BC0004E4F8C /* replay_mode.cpp in Sources */,
+				DCBECB1719EC0E46004E4F8C /* replay_mode.h in Sources */,
+				DCBECABE19EC0BC0004E4F8C /* replay.cpp in Sources */,
+				DCBECB1819EC0E46004E4F8C /* replay.h in Sources */,
+				DCBECABF19EC0BC0004E4F8C /* single_duel.cpp in Sources */,
+				DCBECB1919EC0E46004E4F8C /* single_duel.h in Sources */,
+				DCBECAC019EC0BC0004E4F8C /* single_mode.cpp in Sources */,
+				DCBECB1A19EC0E46004E4F8C /* single_mode.h in Sources */,
+				DCBECAC119EC0BC0004E4F8C /* tag_duel.cpp in Sources */,
+				DCBECB1B19EC0E46004E4F8C /* tag_duel.h in Sources */,
 				DC22DAB518FAF17C00E267B4 /* YGOMobile.xcdatamodeld in Sources */,
-				DC22DAB218FAF17C00E267B4 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +807,31 @@
 			isa = PBXTargetDependency;
 			name = Irrlicht;
 			targetProxy = DC86B7FA19834A9000C9010C /* PBXContainerItemProxy */;
+		};
+		DCBEC98D19EC011E004E4F8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libevent;
+			targetProxy = DCBEC98C19EC011E004E4F8C /* PBXContainerItemProxy */;
+		};
+		DCBEC99119EC0123004E4F8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ocgcore;
+			targetProxy = DCBEC99019EC0123004E4F8C /* PBXContainerItemProxy */;
+		};
+		DCBECA8619EC06BE004E4F8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = freetype;
+			targetProxy = DCBECA8519EC06BE004E4F8C /* PBXContainerItemProxy */;
+		};
+		DCBECA8819EC06C1004E4F8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = sqlite3;
+			targetProxy = DCBECA8719EC06C1004E4F8C /* PBXContainerItemProxy */;
+		};
+		DCBECB8319EF72CE004E4F8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = lzma;
+			targetProxy = DCBECB8219EF72CE004E4F8C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -338,8 +879,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = _IRR_IPHONE_PLATFORM_;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -370,7 +914,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = _IRR_IPHONE_PLATFORM_;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -379,17 +926,40 @@
 		DC22DACF18FAF17C00E267B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_WARN_BOOL_CONVERSION = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YGOMobile/YGOMobile-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.9.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../../irrlicht/include",
+					"$(PROJECT_DIR)/../../Classes/freetype/include",
+					"$(PROJECT_DIR)/../../Classes/libevent/include/**",
+					"$(PROJECT_DIR)/../../Classes/libevent/ios/**",
+				);
 				INFOPLIST_FILE = "YGOMobile/YGOMobile-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/mabin/git/YGOMobile/irrlicht/source/Irrlicht/iOS/build/Debug-iphoneos",
+					"/Users/mabin/git/YGOMobile/Classes/lua/lua/build/Debug-iphoneos",
+					"/Users/mabin/git/YGOMobile/Classes/libevent/libevent/openssl/crypto/build/Debug-iphoneos",
+					"/Users/mabin/git/YGOMobile/Classes/libevent/libevent/openssl/build/Debug-iphoneos",
 				);
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = /Users/mabin/git/YGOMobile/Classes;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../Classes/gframe $(PROJECT_DIR)/../../irrlicht/include $(PROJECT_DIR)/../../irrlicht/source/Irrlicht $(PROJECT_DIR)/../../Classes/freetype/include";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -397,17 +967,40 @@
 		DC22DAD018FAF17C00E267B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_WARN_BOOL_CONVERSION = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YGOMobile/YGOMobile-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.9.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../../irrlicht/include",
+					"$(PROJECT_DIR)/../../Classes/freetype/include",
+					"$(PROJECT_DIR)/../../Classes/libevent/include/**",
+					"$(PROJECT_DIR)/../../Classes/libevent/ios/**",
+				);
 				INFOPLIST_FILE = "YGOMobile/YGOMobile-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/mabin/git/YGOMobile/irrlicht/source/Irrlicht/iOS/build/Debug-iphoneos",
+					"/Users/mabin/git/YGOMobile/Classes/lua/lua/build/Debug-iphoneos",
+					"/Users/mabin/git/YGOMobile/Classes/libevent/libevent/openssl/crypto/build/Debug-iphoneos",
+					"/Users/mabin/git/YGOMobile/Classes/libevent/libevent/openssl/build/Debug-iphoneos",
 				);
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = /Users/mabin/git/YGOMobile/Classes;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../Classes/gframe $(PROJECT_DIR)/../../irrlicht/include $(PROJECT_DIR)/../../irrlicht/source/Irrlicht $(PROJECT_DIR)/../../Classes/freetype/include";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

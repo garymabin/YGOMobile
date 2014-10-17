@@ -6,20 +6,47 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DCBEC97319EC00D8004E4F8C /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC95A19EC00D8004E4F8C /* buffer.c */; };
+		DCBEC97419EC00D8004E4F8C /* bufferevent_filter.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC95B19EC00D8004E4F8C /* bufferevent_filter.c */; };
+		DCBEC97519EC00D8004E4F8C /* bufferevent_openssl.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC95C19EC00D8004E4F8C /* bufferevent_openssl.c */; };
+		DCBEC97619EC00D8004E4F8C /* bufferevent_pair.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC95D19EC00D8004E4F8C /* bufferevent_pair.c */; };
+		DCBEC97719EC00D8004E4F8C /* bufferevent_ratelim.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC95E19EC00D8004E4F8C /* bufferevent_ratelim.c */; };
+		DCBEC97819EC00D8004E4F8C /* bufferevent_sock.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC95F19EC00D8004E4F8C /* bufferevent_sock.c */; };
+		DCBEC97919EC00D8004E4F8C /* bufferevent.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96019EC00D8004E4F8C /* bufferevent.c */; };
+		DCBEC97C19EC00D8004E4F8C /* evdns.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96319EC00D8004E4F8C /* evdns.c */; };
+		DCBEC97D19EC00D8004E4F8C /* event_tagging.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96419EC00D8004E4F8C /* event_tagging.c */; };
+		DCBEC97E19EC00D8004E4F8C /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96519EC00D8004E4F8C /* event.c */; };
+		DCBEC97F19EC00D8004E4F8C /* evmap.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96619EC00D8004E4F8C /* evmap.c */; };
+		DCBEC98019EC00D8004E4F8C /* evrpc.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96719EC00D8004E4F8C /* evrpc.c */; };
+		DCBEC98119EC00D8004E4F8C /* evthread_pthread.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96819EC00D8004E4F8C /* evthread_pthread.c */; };
+		DCBEC98219EC00D8004E4F8C /* evthread.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96919EC00D8004E4F8C /* evthread.c */; };
+		DCBEC98319EC00D8004E4F8C /* evutil_rand.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96A19EC00D8004E4F8C /* evutil_rand.c */; };
+		DCBEC98419EC00D8004E4F8C /* evutil.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96B19EC00D8004E4F8C /* evutil.c */; };
+		DCBEC98519EC00D8004E4F8C /* http.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96C19EC00D8004E4F8C /* http.c */; };
+		DCBEC98619EC00D8004E4F8C /* listener.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96D19EC00D8004E4F8C /* listener.c */; };
+		DCBEC98719EC00D8004E4F8C /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96E19EC00D8004E4F8C /* log.c */; };
+		DCBEC98819EC00D8004E4F8C /* poll.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC96F19EC00D8004E4F8C /* poll.c */; };
+		DCBEC98919EC00D8004E4F8C /* select.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC97019EC00D8004E4F8C /* select.c */; };
+		DCBEC98A19EC00D8004E4F8C /* signal.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC97119EC00D8004E4F8C /* signal.c */; };
+		DCBEC98B19EC00D8004E4F8C /* strlcpy.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBEC97219EC00D8004E4F8C /* strlcpy.c */; };
+		DCBECB8519EF731C004E4F8C /* libopenssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEED1C11983CB0B00D49E51 /* libopenssl.a */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		DCBEC95719EC0023004E4F8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCEED1BB1983CB0B00D49E51 /* openssl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DCEED1911983CB0B00D49E51;
+			remoteInfo = openssl;
+		};
 		DCEED1C01983CB0B00D49E51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DCEED1BB1983CB0B00D49E51 /* openssl.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = DCEED1921983CB0B00D49E51;
 			remoteInfo = openssl;
-		};
-		DCEED1C21983CB0B00D49E51 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DCEED1BB1983CB0B00D49E51 /* openssl.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DCEED1A21983CB0B00D49E51;
-			remoteInfo = opensslTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -36,6 +63,31 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DCBEC95A19EC00D8004E4F8C /* buffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = buffer.c; path = ../buffer.c; sourceTree = "<group>"; };
+		DCBEC95B19EC00D8004E4F8C /* bufferevent_filter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bufferevent_filter.c; path = ../bufferevent_filter.c; sourceTree = "<group>"; };
+		DCBEC95C19EC00D8004E4F8C /* bufferevent_openssl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bufferevent_openssl.c; path = ../bufferevent_openssl.c; sourceTree = "<group>"; };
+		DCBEC95D19EC00D8004E4F8C /* bufferevent_pair.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bufferevent_pair.c; path = ../bufferevent_pair.c; sourceTree = "<group>"; };
+		DCBEC95E19EC00D8004E4F8C /* bufferevent_ratelim.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bufferevent_ratelim.c; path = ../bufferevent_ratelim.c; sourceTree = "<group>"; };
+		DCBEC95F19EC00D8004E4F8C /* bufferevent_sock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bufferevent_sock.c; path = ../bufferevent_sock.c; sourceTree = "<group>"; };
+		DCBEC96019EC00D8004E4F8C /* bufferevent.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bufferevent.c; path = ../bufferevent.c; sourceTree = "<group>"; };
+		DCBEC96119EC00D8004E4F8C /* epoll_sub.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = epoll_sub.c; path = ../epoll_sub.c; sourceTree = "<group>"; };
+		DCBEC96219EC00D8004E4F8C /* epoll.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = epoll.c; path = ../epoll.c; sourceTree = "<group>"; };
+		DCBEC96319EC00D8004E4F8C /* evdns.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = evdns.c; path = ../evdns.c; sourceTree = "<group>"; };
+		DCBEC96419EC00D8004E4F8C /* event_tagging.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = event_tagging.c; path = ../event_tagging.c; sourceTree = "<group>"; };
+		DCBEC96519EC00D8004E4F8C /* event.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = event.c; path = ../event.c; sourceTree = "<group>"; };
+		DCBEC96619EC00D8004E4F8C /* evmap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = evmap.c; path = ../evmap.c; sourceTree = "<group>"; };
+		DCBEC96719EC00D8004E4F8C /* evrpc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = evrpc.c; path = ../evrpc.c; sourceTree = "<group>"; };
+		DCBEC96819EC00D8004E4F8C /* evthread_pthread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = evthread_pthread.c; path = ../evthread_pthread.c; sourceTree = "<group>"; };
+		DCBEC96919EC00D8004E4F8C /* evthread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = evthread.c; path = ../evthread.c; sourceTree = "<group>"; };
+		DCBEC96A19EC00D8004E4F8C /* evutil_rand.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = evutil_rand.c; path = ../evutil_rand.c; sourceTree = "<group>"; };
+		DCBEC96B19EC00D8004E4F8C /* evutil.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = evutil.c; path = ../evutil.c; sourceTree = "<group>"; };
+		DCBEC96C19EC00D8004E4F8C /* http.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = http.c; path = ../http.c; sourceTree = "<group>"; };
+		DCBEC96D19EC00D8004E4F8C /* listener.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = listener.c; path = ../listener.c; sourceTree = "<group>"; };
+		DCBEC96E19EC00D8004E4F8C /* log.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = log.c; path = ../log.c; sourceTree = "<group>"; };
+		DCBEC96F19EC00D8004E4F8C /* poll.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = poll.c; path = ../poll.c; sourceTree = "<group>"; };
+		DCBEC97019EC00D8004E4F8C /* select.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = select.c; path = ../select.c; sourceTree = "<group>"; };
+		DCBEC97119EC00D8004E4F8C /* signal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = signal.c; path = ../signal.c; sourceTree = "<group>"; };
+		DCBEC97219EC00D8004E4F8C /* strlcpy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = strlcpy.c; path = ../strlcpy.c; sourceTree = "<group>"; };
 		DCEED11B1983C70000D49E51 /* liblibevent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibevent.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCEED11E1983C70000D49E51 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCEED1221983C70000D49E51 /* libevent-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libevent-Prefix.pch"; sourceTree = "<group>"; };
@@ -49,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCBECB8519EF731C004E4F8C /* libopenssl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +111,31 @@
 		DCEED1121983C70000D49E51 = {
 			isa = PBXGroup;
 			children = (
+				DCBEC95A19EC00D8004E4F8C /* buffer.c */,
+				DCBEC95B19EC00D8004E4F8C /* bufferevent_filter.c */,
+				DCBEC95C19EC00D8004E4F8C /* bufferevent_openssl.c */,
+				DCBEC95D19EC00D8004E4F8C /* bufferevent_pair.c */,
+				DCBEC95E19EC00D8004E4F8C /* bufferevent_ratelim.c */,
+				DCBEC95F19EC00D8004E4F8C /* bufferevent_sock.c */,
+				DCBEC96019EC00D8004E4F8C /* bufferevent.c */,
+				DCBEC96119EC00D8004E4F8C /* epoll_sub.c */,
+				DCBEC96219EC00D8004E4F8C /* epoll.c */,
+				DCBEC96319EC00D8004E4F8C /* evdns.c */,
+				DCBEC96419EC00D8004E4F8C /* event_tagging.c */,
+				DCBEC96519EC00D8004E4F8C /* event.c */,
+				DCBEC96619EC00D8004E4F8C /* evmap.c */,
+				DCBEC96719EC00D8004E4F8C /* evrpc.c */,
+				DCBEC96819EC00D8004E4F8C /* evthread_pthread.c */,
+				DCBEC96919EC00D8004E4F8C /* evthread.c */,
+				DCBEC96A19EC00D8004E4F8C /* evutil_rand.c */,
+				DCBEC96B19EC00D8004E4F8C /* evutil.c */,
+				DCBEC96C19EC00D8004E4F8C /* http.c */,
+				DCBEC96D19EC00D8004E4F8C /* listener.c */,
+				DCBEC96E19EC00D8004E4F8C /* log.c */,
+				DCBEC96F19EC00D8004E4F8C /* poll.c */,
+				DCBEC97019EC00D8004E4F8C /* select.c */,
+				DCBEC97119EC00D8004E4F8C /* signal.c */,
+				DCBEC97219EC00D8004E4F8C /* strlcpy.c */,
 				DCEED1BB1983CB0B00D49E51 /* openssl.xcodeproj */,
 				DCEED1201983C70000D49E51 /* libevent */,
 				DCEED11D1983C70000D49E51 /* Frameworks */,
@@ -103,7 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				DCEED1C11983CB0B00D49E51 /* libopenssl.a */,
-				DCEED1C31983CB0B00D49E51 /* opensslTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,6 +199,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DCBEC95819EC0023004E4F8C /* PBXTargetDependency */,
 			);
 			name = libevent;
 			productName = libevent;
@@ -168,13 +246,6 @@
 			remoteRef = DCEED1C01983CB0B00D49E51 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DCEED1C31983CB0B00D49E51 /* opensslTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = opensslTests.xctest;
-			remoteRef = DCEED1C21983CB0B00D49E51 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -182,10 +253,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCBEC97319EC00D8004E4F8C /* buffer.c in Sources */,
+				DCBEC97419EC00D8004E4F8C /* bufferevent_filter.c in Sources */,
+				DCBEC97519EC00D8004E4F8C /* bufferevent_openssl.c in Sources */,
+				DCBEC97619EC00D8004E4F8C /* bufferevent_pair.c in Sources */,
+				DCBEC97719EC00D8004E4F8C /* bufferevent_ratelim.c in Sources */,
+				DCBEC97819EC00D8004E4F8C /* bufferevent_sock.c in Sources */,
+				DCBEC97919EC00D8004E4F8C /* bufferevent.c in Sources */,
+				DCBEC97C19EC00D8004E4F8C /* evdns.c in Sources */,
+				DCBEC97D19EC00D8004E4F8C /* event_tagging.c in Sources */,
+				DCBEC97E19EC00D8004E4F8C /* event.c in Sources */,
+				DCBEC97F19EC00D8004E4F8C /* evmap.c in Sources */,
+				DCBEC98019EC00D8004E4F8C /* evrpc.c in Sources */,
+				DCBEC98119EC00D8004E4F8C /* evthread_pthread.c in Sources */,
+				DCBEC98219EC00D8004E4F8C /* evthread.c in Sources */,
+				DCBEC98319EC00D8004E4F8C /* evutil_rand.c in Sources */,
+				DCBEC98419EC00D8004E4F8C /* evutil.c in Sources */,
+				DCBEC98519EC00D8004E4F8C /* http.c in Sources */,
+				DCBEC98619EC00D8004E4F8C /* listener.c in Sources */,
+				DCBEC98719EC00D8004E4F8C /* log.c in Sources */,
+				DCBEC98819EC00D8004E4F8C /* poll.c in Sources */,
+				DCBEC98919EC00D8004E4F8C /* select.c in Sources */,
+				DCBEC98A19EC00D8004E4F8C /* signal.c in Sources */,
+				DCBEC98B19EC00D8004E4F8C /* strlcpy.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCBEC95819EC0023004E4F8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = openssl;
+			targetProxy = DCBEC95719EC0023004E4F8C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DCEED13C1983C70000D49E51 /* Debug */ = {
@@ -262,9 +364,24 @@
 				DSTROOT = /tmp/libevent.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "libevent/libevent-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.9.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../include",
+					"$(PROJECT_DIR)/../ios",
+					"$(PROJECT_DIR)/../../openssl/",
+					"$(PROJECT_DIR)/../../openssl/include",
+				);
+				OTHER_CFLAGS = (
+					"-fvisibility=hidden",
+					"-DHAVE_CONFIG_H",
+					"-DANDROID",
+					"-DUSE_DEBUG",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../include";
 			};
 			name = Debug;
 		};
@@ -274,9 +391,24 @@
 				DSTROOT = /tmp/libevent.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "libevent/libevent-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.9.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../include",
+					"$(PROJECT_DIR)/../ios",
+					"$(PROJECT_DIR)/../../openssl/",
+					"$(PROJECT_DIR)/../../openssl/include",
+				);
+				OTHER_CFLAGS = (
+					"-fvisibility=hidden",
+					"-DHAVE_CONFIG_H",
+					"-DANDROID",
+					"-DUSE_DEBUG",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../include";
 			};
 			name = Release;
 		};
@@ -299,6 +431,7 @@
 				DCEED1401983C70000D49E51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

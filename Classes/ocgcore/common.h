@@ -23,7 +23,15 @@ typedef long long int64;
 typedef int int32;
 typedef short int16;
 typedef char int8;
+#ifdef _IRR_IPHONE_PLATFORM_
+#if !defined(OBJC_HIDE_64) && TARGET_OS_IPHONE && __LP64__
+typedef bool BOOL;
+#else
+typedef signed char BOOL;
+#endif
+#else
 typedef int BOOL;
+#endif
 
 #define MATCH_ALL(x,y) (((x)&(y))==(y))
 #define MATCH_ANY(x,y) ((x)&(y))

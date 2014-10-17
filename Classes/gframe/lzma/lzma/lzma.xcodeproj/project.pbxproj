@@ -1,0 +1,345 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DCBECB7519EF72AC004E4F8C /* Alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB6819EF72AC004E4F8C /* Alloc.c */; };
+		DCBECB7619EF72AC004E4F8C /* Alloc.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB6919EF72AC004E4F8C /* Alloc.h */; };
+		DCBECB7819EF72AC004E4F8C /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB6B19EF72AC004E4F8C /* LzFind.c */; };
+		DCBECB7919EF72AC004E4F8C /* LzFind.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB6C19EF72AC004E4F8C /* LzFind.h */; };
+		DCBECB7A19EF72AC004E4F8C /* LzHash.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB6D19EF72AC004E4F8C /* LzHash.h */; };
+		DCBECB7B19EF72AC004E4F8C /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB6E19EF72AC004E4F8C /* LzmaDec.c */; };
+		DCBECB7C19EF72AC004E4F8C /* LzmaDec.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB6F19EF72AC004E4F8C /* LzmaDec.h */; };
+		DCBECB7D19EF72AC004E4F8C /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB7019EF72AC004E4F8C /* LzmaEnc.c */; };
+		DCBECB7E19EF72AC004E4F8C /* LzmaEnc.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB7119EF72AC004E4F8C /* LzmaEnc.h */; };
+		DCBECB7F19EF72AC004E4F8C /* LzmaLib.c in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB7219EF72AC004E4F8C /* LzmaLib.c */; };
+		DCBECB8019EF72AC004E4F8C /* LzmaLib.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB7319EF72AC004E4F8C /* LzmaLib.h */; };
+		DCBECB8119EF72AC004E4F8C /* Types.h in Sources */ = {isa = PBXBuildFile; fileRef = DCBECB7419EF72AC004E4F8C /* Types.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DCBECB3419EF71B9004E4F8C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DCBECB3619EF71B9004E4F8C /* liblzma.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblzma.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCBECB3919EF71B9004E4F8C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DCBECB3D19EF71B9004E4F8C /* lzma-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lzma-Prefix.pch"; sourceTree = "<group>"; };
+		DCBECB3E19EF71B9004E4F8C /* lzma.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lzma.h; sourceTree = "<group>"; };
+		DCBECB4019EF71B9004E4F8C /* lzma.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lzma.m; sourceTree = "<group>"; };
+		DCBECB4719EF71B9004E4F8C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DCBECB4A19EF71B9004E4F8C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		DCBECB5119EF71B9004E4F8C /* lzmaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "lzmaTests-Info.plist"; sourceTree = "<group>"; };
+		DCBECB5319EF71B9004E4F8C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCBECB5519EF71B9004E4F8C /* lzmaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lzmaTests.m; sourceTree = "<group>"; };
+		DCBECB6819EF72AC004E4F8C /* Alloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = Alloc.c; path = ../Alloc.c; sourceTree = "<group>"; };
+		DCBECB6919EF72AC004E4F8C /* Alloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Alloc.h; path = ../Alloc.h; sourceTree = "<group>"; };
+		DCBECB6A19EF72AC004E4F8C /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; name = Android.mk; path = ../Android.mk; sourceTree = "<group>"; };
+		DCBECB6B19EF72AC004E4F8C /* LzFind.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = LzFind.c; path = ../LzFind.c; sourceTree = "<group>"; };
+		DCBECB6C19EF72AC004E4F8C /* LzFind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzFind.h; path = ../LzFind.h; sourceTree = "<group>"; };
+		DCBECB6D19EF72AC004E4F8C /* LzHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzHash.h; path = ../LzHash.h; sourceTree = "<group>"; };
+		DCBECB6E19EF72AC004E4F8C /* LzmaDec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = LzmaDec.c; path = ../LzmaDec.c; sourceTree = "<group>"; };
+		DCBECB6F19EF72AC004E4F8C /* LzmaDec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzmaDec.h; path = ../LzmaDec.h; sourceTree = "<group>"; };
+		DCBECB7019EF72AC004E4F8C /* LzmaEnc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = LzmaEnc.c; path = ../LzmaEnc.c; sourceTree = "<group>"; };
+		DCBECB7119EF72AC004E4F8C /* LzmaEnc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzmaEnc.h; path = ../LzmaEnc.h; sourceTree = "<group>"; };
+		DCBECB7219EF72AC004E4F8C /* LzmaLib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = LzmaLib.c; path = ../LzmaLib.c; sourceTree = "<group>"; };
+		DCBECB7319EF72AC004E4F8C /* LzmaLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzmaLib.h; path = ../LzmaLib.h; sourceTree = "<group>"; };
+		DCBECB7419EF72AC004E4F8C /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Types.h; path = ../Types.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCBECB3319EF71B9004E4F8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DCBECB2D19EF71B9004E4F8C = {
+			isa = PBXGroup;
+			children = (
+				DCBECB6819EF72AC004E4F8C /* Alloc.c */,
+				DCBECB6919EF72AC004E4F8C /* Alloc.h */,
+				DCBECB6A19EF72AC004E4F8C /* Android.mk */,
+				DCBECB6B19EF72AC004E4F8C /* LzFind.c */,
+				DCBECB6C19EF72AC004E4F8C /* LzFind.h */,
+				DCBECB6D19EF72AC004E4F8C /* LzHash.h */,
+				DCBECB6E19EF72AC004E4F8C /* LzmaDec.c */,
+				DCBECB6F19EF72AC004E4F8C /* LzmaDec.h */,
+				DCBECB7019EF72AC004E4F8C /* LzmaEnc.c */,
+				DCBECB7119EF72AC004E4F8C /* LzmaEnc.h */,
+				DCBECB7219EF72AC004E4F8C /* LzmaLib.c */,
+				DCBECB7319EF72AC004E4F8C /* LzmaLib.h */,
+				DCBECB7419EF72AC004E4F8C /* Types.h */,
+				DCBECB3B19EF71B9004E4F8C /* lzma */,
+				DCBECB4F19EF71B9004E4F8C /* lzmaTests */,
+				DCBECB3819EF71B9004E4F8C /* Frameworks */,
+				DCBECB3719EF71B9004E4F8C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DCBECB3719EF71B9004E4F8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECB3619EF71B9004E4F8C /* liblzma.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DCBECB3819EF71B9004E4F8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECB3919EF71B9004E4F8C /* Foundation.framework */,
+				DCBECB4719EF71B9004E4F8C /* XCTest.framework */,
+				DCBECB4A19EF71B9004E4F8C /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DCBECB3B19EF71B9004E4F8C /* lzma */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECB3E19EF71B9004E4F8C /* lzma.h */,
+				DCBECB4019EF71B9004E4F8C /* lzma.m */,
+				DCBECB3C19EF71B9004E4F8C /* Supporting Files */,
+			);
+			path = lzma;
+			sourceTree = "<group>";
+		};
+		DCBECB3C19EF71B9004E4F8C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECB3D19EF71B9004E4F8C /* lzma-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCBECB4F19EF71B9004E4F8C /* lzmaTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECB5519EF71B9004E4F8C /* lzmaTests.m */,
+				DCBECB5019EF71B9004E4F8C /* Supporting Files */,
+			);
+			path = lzmaTests;
+			sourceTree = "<group>";
+		};
+		DCBECB5019EF71B9004E4F8C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCBECB5119EF71B9004E4F8C /* lzmaTests-Info.plist */,
+				DCBECB5219EF71B9004E4F8C /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DCBECB3519EF71B9004E4F8C /* lzma */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCBECB5919EF71B9004E4F8C /* Build configuration list for PBXNativeTarget "lzma" */;
+			buildPhases = (
+				DCBECB3219EF71B9004E4F8C /* Sources */,
+				DCBECB3319EF71B9004E4F8C /* Frameworks */,
+				DCBECB3419EF71B9004E4F8C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = lzma;
+			productName = lzma;
+			productReference = DCBECB3619EF71B9004E4F8C /* liblzma.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCBECB2E19EF71B9004E4F8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "garymabin@gmail.com";
+			};
+			buildConfigurationList = DCBECB3119EF71B9004E4F8C /* Build configuration list for PBXProject "lzma" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DCBECB2D19EF71B9004E4F8C;
+			productRefGroup = DCBECB3719EF71B9004E4F8C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCBECB3519EF71B9004E4F8C /* lzma */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCBECB3219EF71B9004E4F8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCBECB7519EF72AC004E4F8C /* Alloc.c in Sources */,
+				DCBECB7619EF72AC004E4F8C /* Alloc.h in Sources */,
+				DCBECB7819EF72AC004E4F8C /* LzFind.c in Sources */,
+				DCBECB7919EF72AC004E4F8C /* LzFind.h in Sources */,
+				DCBECB7A19EF72AC004E4F8C /* LzHash.h in Sources */,
+				DCBECB7B19EF72AC004E4F8C /* LzmaDec.c in Sources */,
+				DCBECB7C19EF72AC004E4F8C /* LzmaDec.h in Sources */,
+				DCBECB7D19EF72AC004E4F8C /* LzmaEnc.c in Sources */,
+				DCBECB7E19EF72AC004E4F8C /* LzmaEnc.h in Sources */,
+				DCBECB7F19EF72AC004E4F8C /* LzmaLib.c in Sources */,
+				DCBECB8019EF72AC004E4F8C /* LzmaLib.h in Sources */,
+				DCBECB8119EF72AC004E4F8C /* Types.h in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DCBECB5219EF71B9004E4F8C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCBECB5319EF71B9004E4F8C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DCBECB5719EF71B9004E4F8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DCBECB5819EF71B9004E4F8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DCBECB5A19EF71B9004E4F8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/lzma.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "lzma/lzma-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DCBECB5B19EF71B9004E4F8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/lzma.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "lzma/lzma-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DCBECB3119EF71B9004E4F8C /* Build configuration list for PBXProject "lzma" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCBECB5719EF71B9004E4F8C /* Debug */,
+				DCBECB5819EF71B9004E4F8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCBECB5919EF71B9004E4F8C /* Build configuration list for PBXNativeTarget "lzma" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCBECB5A19EF71B9004E4F8C /* Debug */,
+				DCBECB5B19EF71B9004E4F8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DCBECB2E19EF71B9004E4F8C /* Project object */;
+}
