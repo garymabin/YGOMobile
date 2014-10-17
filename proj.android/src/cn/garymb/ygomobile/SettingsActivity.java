@@ -38,6 +38,7 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -61,7 +62,8 @@ import android.widget.Toast;
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener, OnPreferenceClickListener, OnClickListener,
-		android.view.View.OnClickListener, ImageCopyListener, Callback, CardDBCopyListener, CardDBResetListener {
+		android.view.View.OnClickListener, ImageCopyListener, Callback,
+		CardDBCopyListener, CardDBResetListener {
 
 	public static class EventHandler extends Handler {
 		public EventHandler(Callback back) {
@@ -89,11 +91,11 @@ public class SettingsActivity extends PreferenceActivity implements
 	private Preference mCardBackBiyPreference;
 	private Preference mCardDBDiyPreference;
 	private Preference mAppUpdatePreference;
-	
+
 	private Preference mCardDBResetPrefernece;
 
 	private EventHandler mHandler = new EventHandler(this);
-	
+
 	private Bundle mImageParam;
 
 	@Override
@@ -176,7 +178,7 @@ public class SettingsActivity extends PreferenceActivity implements
 			View view = getLayoutInflater().inflate(
 					R.layout.app_update_content, null);
 			return new AppUpdateDialog(this, this, view, args);
-		} else if (id == DIALOG_ID_CARD_DB_RESET){
+		} else if (id == DIALOG_ID_CARD_DB_RESET) {
 			return new SimpleDialog(this, this, null, args);
 		} else {
 			dlg = super.onCreateDialog(id);
@@ -200,13 +202,13 @@ public class SettingsActivity extends PreferenceActivity implements
 			return true;
 		}
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putBundle("image_param", mImageParam);
 	}
-	
+
 	@Override
 	protected void onRestoreInstanceState(Bundle state) {
 		super.onRestoreInstanceState(state);
@@ -245,8 +247,10 @@ public class SettingsActivity extends PreferenceActivity implements
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_GAME_RESOURCE_PATH)) {
 			Bundle bundle = new Bundle();
-			bundle.putString("root", "/"/*Environment.getExternalStorageDirectory()
-					.getAbsolutePath()*/);
+			bundle.putString("root", "/"/*
+										 * Environment.getExternalStorageDirectory
+										 * () .getAbsolutePath()
+										 */);
 			bundle.putString("current", StaticApplication.peekInstance()
 					.getResourcePath());
 			showDialog(DIALOG_ID_FOLDER_CHOOSE, bundle);
@@ -260,7 +264,8 @@ public class SettingsActivity extends PreferenceActivity implements
 			bundle.putInt("title_res", R.string.settings_game_cover);
 			mImageParam = bundle;
 			showDialog(DIALOG_ID_IMAGE_PREVIEW, bundle);
-		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_DIY_CARD_BACK)) {
+		} else if (preference.getKey().equals(
+				Settings.KEY_PREF_GAME_DIY_CARD_BACK)) {
 			Bundle bundle = new Bundle();
 			bundle.putString("url", StaticApplication.peekInstance()
 					.getCoreSkinPath()
@@ -274,12 +279,14 @@ public class SettingsActivity extends PreferenceActivity implements
 				Settings.KEY_PREF_ABOUT_CHECK_UPDATE)) {
 			Controller.peekInstance().asyncCheckUpdate(
 					Message.obtain(mHandler, MSG_TYPE_CHECK_UPDATE));
-		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
+		} else if (preference.getKey().equals(
+				Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
 			Bundle bundle = new Bundle();
 			bundle.putString("root", "/");
 			bundle.putInt("mode", FileBrowser.BROWSE_MODE_FILES);
 			showDialog(DIALOG_ID_CARD_DB_FILE_CHOOSE, bundle);
-		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_RESET_CARD_DB)) {
+		} else if (preference.getKey().equals(
+				Settings.KEY_PREF_GAME_RESET_CARD_DB)) {
 			Bundle bundle = new Bundle();
 			bundle.putString(
 					"message",
@@ -309,11 +316,12 @@ public class SettingsActivity extends PreferenceActivity implements
 					CardDBCopyTask task = new CardDBCopyTask(this);
 					task.setCardDBCopyListener(this);
 					if (Build.VERSION.SDK_INT >= 11) {
-						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, newUrl);
+						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+								newUrl);
 					} else {
 						task.execute(newUrl);
 					}
-					
+
 				}
 			} else if (dialog instanceof AppUpdateDialog) {
 				String url = ((AppUpdateController) ((AppUpdateDialog) dialog)
@@ -404,7 +412,8 @@ public class SettingsActivity extends PreferenceActivity implements
 		if (type == MSG_TYPE_CHECK_UPDATE) {
 			VersionInfo info = (VersionInfo) msg.obj;
 			if (info != null) {
-				if (info.version <= StaticApplication.peekInstance().getVersionCode()) {
+				if (info.version <= StaticApplication.peekInstance()
+						.getVersionCode()) {
 					SuperToast.create(
 							this,
 							getResources().getString(
@@ -424,21 +433,26 @@ public class SettingsActivity extends PreferenceActivity implements
 	}
 
 	@Override
-	public void onCardDBCopyFinished(Boolean result) {
-		SuperActivityToast.create(this,
-				result ? getResources().getString(R.string.loading_card_success) :
-					getResources().getString(R.string.loading_card_success),
-				SuperToast.Duration.MEDIUM).show();		
+	public void onCardDBCopyFinished(int result) {
+		final Resources res = getResources();
+		String errorMessage;
+		if (result == CardDBCopyTask.COPY_DB_TASK_FAILED) {
+			errorMessage = res.getString(R.string.loading_card_failed);
+		} else if (result == CardDBCopyTask.COPY_DB_TASK_FILE_NOT_EXIST) {
+			errorMessage = res.getString(R.string.loading_card_file_not_found);
+		} else {
+			errorMessage = res.getString(R.string.loading_card_success);
+		}
+		SuperActivityToast.create(this, errorMessage,
+				SuperToast.Duration.MEDIUM).show();
 	}
 
 	@Override
 	public void onCardDBResetFinished(Boolean result) {
 		SuperActivityToast.create(
 				this,
-				result ? getResources()
-						.getString(R.string.reset_card_success)
-						: getResources().getString(
-								R.string.reset_card_failed),
-				SuperToast.Duration.MEDIUM).show();		
+				result ? getResources().getString(R.string.reset_card_success)
+						: getResources().getString(R.string.reset_card_failed),
+				SuperToast.Duration.MEDIUM).show();
 	}
 }

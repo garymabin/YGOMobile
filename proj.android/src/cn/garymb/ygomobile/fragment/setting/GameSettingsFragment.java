@@ -17,7 +17,6 @@ import cn.garymb.ygomobile.common.ImageCopyTask;
 import cn.garymb.ygomobile.common.ImageCopyTask.ImageCopyListener;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.setting.Settings;
-import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 import cn.garymb.ygomobile.widget.BaseDialog;
 import cn.garymb.ygomobile.widget.FileChooseController;
@@ -31,6 +30,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -291,13 +291,17 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 	}
 
 	@Override
-	public void onCardDBCopyFinished(Boolean result) {
-		SuperActivityToast.create(
-				getActivity(),
-				result ? getResources()
-						.getString(R.string.loading_card_success)
-						: getResources()
-								.getString(R.string.loading_card_failed),
+	public void onCardDBCopyFinished(int result) {
+		final Resources res = getResources();
+		String errorMessage;
+		if (result == CardDBCopyTask.COPY_DB_TASK_FAILED) {
+			errorMessage = res.getString(R.string.loading_card_failed);
+		} else if (result == CardDBCopyTask.COPY_DB_TASK_FILE_NOT_EXIST) {
+			errorMessage = res.getString(R.string.loading_card_file_not_found);
+		} else {
+			errorMessage = res.getString(R.string.loading_card_success);
+		}
+		SuperActivityToast.create(getActivity(), errorMessage,
 				SuperToast.Duration.MEDIUM).show();
 		mImageBundle = null;
 	}

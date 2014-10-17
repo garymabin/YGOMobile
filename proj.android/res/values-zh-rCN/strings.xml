@@ -163,6 +163,7 @@
     <string name="resume_card_db">导入卡片数据库失败，正在恢复原始数据库</string>
     <string name="loading_card_success">"导入成功，卡查变更需要完全退出游戏后生效！"</string>
     <string name="loading_card_failed">"导入失败"</string>
+    <string name="loading_card_file_not_found">"导入文件不存在"</string>
     
     <string name="reseting_card_db">正在重置卡片数据库</string>
     

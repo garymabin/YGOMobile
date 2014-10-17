@@ -187,6 +187,9 @@ bool DeckManager::LoadSide(Deck& deck, int* dbuf, int mainc, int sidec) {
 }
 bool DeckManager::LoadDeck(const wchar_t* file) {
 	int sp = 0, ct = 0, mainc = 0, sidec = 0, code;
+	if (file == NULL || file[0] == L'\0') {
+		return false;
+	}
 	wchar_t deck[64];
 	myswprintf(deck, L"./deck/%ls.ydk", file);
 	int cardlist[128];

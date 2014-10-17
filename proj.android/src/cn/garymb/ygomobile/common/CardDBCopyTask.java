@@ -6,11 +6,18 @@ import cn.garymb.ygomobile.utils.DatabaseUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
-public class CardDBCopyTask extends AsyncTask<String, Boolean, Boolean> {
+public class CardDBCopyTask extends AsyncTask<String, Integer, Integer> {
+	
+	public static final int COPY_DB_TASK_SUCCESS = 0;
+	
+	public static final int COPY_DB_TASK_FAILED = -1;
+	
+	public static final int COPY_DB_TASK_FILE_NOT_EXIST = -2;
 
 	public interface CardDBCopyListener {
-		void onCardDBCopyFinished(Boolean result);
+		void onCardDBCopyFinished(int result);
 	}
 
 	private ProgressDialog mWaitDialog;
@@ -35,15 +42,21 @@ public class CardDBCopyTask extends AsyncTask<String, Boolean, Boolean> {
 	}
 
 	@Override
-	protected Boolean doInBackground(String... params) {
+	protected Integer doInBackground(String... params) {
 		String dataBasePath = StaticApplication.peekInstance()
 				.getDataBasePath();
-		Boolean result = DatabaseUtils
-				.checkAndCopyFromExternalDatabase(
-						StaticApplication.peekInstance(), params[0],
-						dataBasePath, true);
-		if (!result) {
-			publishProgress(false);
+		Integer result = COPY_DB_TASK_SUCCESS;
+		if (TextUtils.isEmpty(params[0])) {
+			result = COPY_DB_TASK_FILE_NOT_EXIST;
+		} else {
+			if (!DatabaseUtils.checkAndCopyFromExternalDatabase(
+					StaticApplication.peekInstance(), params[0],
+					dataBasePath, true)) {
+				result = COPY_DB_TASK_FAILED;
+			} 
+		}
+		publishProgress(result);
+		if (result == COPY_DB_TASK_FAILED) {
 			DatabaseUtils.checkAndCopyFromInternalDatabase(
 					StaticApplication.peekInstance(), dataBasePath, true);
 		}
@@ -51,16 +64,16 @@ public class CardDBCopyTask extends AsyncTask<String, Boolean, Boolean> {
 	}
 
 	@Override
-	protected void onProgressUpdate(Boolean... values) {
+	protected void onProgressUpdate(Integer... values) {
 		super.onProgressUpdate(values);
-		if (!values[0]) {
+		if (values[0] == COPY_DB_TASK_FAILED) {
 			mWaitDialog.setMessage(StaticApplication.peekInstance()
 					.getResources().getString(R.string.resume_card_db));
 		}
 	}
 
 	@Override
-	protected void onPostExecute(Boolean result) {
+	protected void onPostExecute(Integer result) {
 		mWaitDialog.dismiss();
 		mWaitDialog = null;
 		if (mListener != null && result != null) {
