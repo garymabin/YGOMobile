@@ -6,7 +6,6 @@
  */
 
 #include "OpenSLSoundTracker.h"
-#include "OSLOgg.h"
 
 namespace ygo {
 
@@ -187,29 +186,6 @@ void OpenSLSoundTracker::playBGM(irr::io::path path, AUDIO_PATH_TYPE type) {
 }
 
 void OpenSLSoundTracker::playSound(irr::io::path path, AUDIO_PATH_TYPE type) {
-	SLresult lRes;
-	SLuint32 lPlayerState;
-	if (mBQPlayerObject == NULL) {
-		createBufferQueuePlayer();
-	}
-	if (type == AP_TYPE_ASSET) {
-		::OSLOgg ogginfo(mAm, path.c_str());
-		(*mBQPlayerObject)->GetState(mBQPlayerObject, &lPlayerState);
-		if (lPlayerState == SL_OBJECT_STATE_REALIZED) {
-			int16_t* lBuffer = (int16_t*) ogginfo.getBuffer();
-			off_t lLength = ogginfo.getSize();
-			// Removes any sound from the queue.
-			lRes = (*mBQPlayerBufferQueue)->Clear(mBQPlayerBufferQueue);
-			if (lRes != SL_RESULT_SUCCESS)
-				return;
-			// Plays the new sound.
-			lRes = (*mBQPlayerBufferQueue)->Enqueue(mBQPlayerBufferQueue,
-					lBuffer, lLength);
-			if (lRes != SL_RESULT_SUCCESS)
-				return;
-		}
-		return;
-	}
 }
 
 } /* namespace ygo */

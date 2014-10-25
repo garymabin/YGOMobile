@@ -81,27 +81,9 @@ public class MainActivity extends ActionBarActivity implements
 						android.R.layout.simple_spinner_dropdown_item,
 						mDuelList), this);
 		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
-//		checkUpdateIfNeeded();
+		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
 	}
-
-//	private void checkUpdateIfNeeded() {
-//		boolean isCheckNeeded = true;
-//		long lasttime = StaticApplication.peekInstance().getLastCheckTime();
-//		long currenttime = 0;
-//		if (lasttime != 0) {
-//			currenttime = System.currentTimeMillis();
-//			if (currenttime - lasttime < Constants.DAILY_MILLSECONDS) {
-//				isCheckNeeded = false;
-//			}
-//		}
-//		if (isCheckNeeded) {
-//			StaticApplication.peekInstance().setLastCheckTime(currenttime);
-//			Controller.peekInstance().asyncCheckUpdate(
-//					Message.obtain(mHandler,
-//							Constants.REQUEST_TYPE_CHECK_UPDATE));
-//		}
-//	}
 
 	@Override
 	protected void onResume() {

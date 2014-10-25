@@ -66,7 +66,6 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 			showDialog(DIALOG_TYPE_VERSION, bundle);
 		} else if (preference.equals(mCheckUpdatePref)) {
 			UmengUpdateAgent.forceUpdate(getActivity());
-//			Controller.peekInstance().asyncCheckUpdate(Message.obtain(mHandler, MSG_TYPE_CHECK_UPDATE));
 		}
 		return false;
 	}
