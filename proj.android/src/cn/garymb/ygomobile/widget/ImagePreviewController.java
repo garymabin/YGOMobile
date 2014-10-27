@@ -26,16 +26,16 @@ public class ImagePreviewController extends BaseDialogConfigController
 
 	private PreviewImageItemController mPreviewImageItemController;
 	private ImageItem mImageItem;
-	
+
 	private ViewGroup mPreviewPanel;
-	
+
 	private OnClickListener mOnClickListener;
 
 	private DialogConfigUIBase mConfigUI;
-	
+
 	private float mMaxImagePreviewHeight;
 	private float mMaxImagePreviewWidth;
-	
+
 	private int mPreviewImageHeight;
 	private int mPreviewImageWidth;
 
@@ -44,25 +44,30 @@ public class ImagePreviewController extends BaseDialogConfigController
 		super(configUI, view);
 		mConfigUI = configUI;
 		final Resources res = configUI.getContext().getResources();
-		mMaxImagePreviewHeight = res.getDimensionPixelSize(R.dimen.image_preview_limit_height);
-		mMaxImagePreviewWidth = res.getDimensionPixelSize(R.dimen.image_preview_limit_width);
+		mMaxImagePreviewHeight = res
+				.getDimensionPixelSize(R.dimen.image_preview_limit_height);
+		mMaxImagePreviewWidth = res
+				.getDimensionPixelSize(R.dimen.image_preview_limit_width);
 		float limitScale = mMaxImagePreviewHeight / mMaxImagePreviewWidth;
 		int[] origSize = param.getIntArray("orig_size");
 		float origScale = origSize[1] / (origSize[0] * 1.0f);
 		if (Float.compare(limitScale, origScale) > 0) {
 			float scale = mMaxImagePreviewWidth / origSize[0];
-			mPreviewImageWidth = (int)mMaxImagePreviewWidth;
-			mPreviewImageHeight = (int)(origSize[1] * scale);
+			mPreviewImageWidth = (int) mMaxImagePreviewWidth;
+			mPreviewImageHeight = (int) (origSize[1] * scale);
 		} else {
 			float scale = mMaxImagePreviewHeight / origSize[1];
-			mPreviewImageWidth = (int)(origSize[0] * scale);
-			mPreviewImageHeight = (int)mMaxImagePreviewHeight;
+			mPreviewImageWidth = (int) (origSize[0] * scale);
+			mPreviewImageHeight = (int) mMaxImagePreviewHeight;
 		}
 		String url = param.getString("url");
-		mPreviewPanel = (ViewGroup) view.findViewById(R.id.preview_image_layout);
+		mPreviewPanel = (ViewGroup) view
+				.findViewById(R.id.preview_image_layout);
 		mPreviewPanel.setOnClickListener(this);
+		mPreviewPanel.setTag(param);
 		mPreviewImageItemController = new PreviewImageItemController(
-				configUI.getContext(), (ImageView) view.findViewById(R.id.image_preview));
+				configUI.getContext(),
+				(ImageView) view.findViewById(R.id.image_preview));
 
 		mImageItem = new ImageItem(url, mPreviewImageHeight, mPreviewImageWidth);
 		Bitmap cardImage = Model.peekInstance().getBitmap(mImageItem,
@@ -73,11 +78,14 @@ public class ImagePreviewController extends BaseDialogConfigController
 			mPreviewImageItemController.setImageItem(mImageItem);
 			requestImage(mImageItem, false);
 		}
-		configUI.setTitle(R.string.settings_game_cover);
+		int titleRes = param.getInt("title_res");
+		if (titleRes != 0) {
+			configUI.setTitle(titleRes);
+		}
 		configUI.setPositiveButton(res.getString(R.string.button_ok));
 	}
-	
-	/* package */ void setOnClickListener(OnClickListener listener) {
+
+	/* package */void setOnClickListener(OnClickListener listener) {
 		mOnClickListener = listener;
 	}
 

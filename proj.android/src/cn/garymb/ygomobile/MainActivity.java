@@ -134,6 +134,7 @@ public class MainActivity extends ActionBarActivity implements
 		initView();
 		mController.asyncUpdateMycardServer(mHandler
 				.obtainMessage(Constants.MSG_ID_UPDATE_SERVER));
+		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
 	}
 
@@ -176,7 +177,6 @@ public class MainActivity extends ActionBarActivity implements
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		selectItem(1);
 	}
-
 	@Override
 	protected void onResume() {
 		mController.registerForActionSettings(mHandler);

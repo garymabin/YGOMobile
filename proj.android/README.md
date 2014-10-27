@@ -1,4 +1,0 @@
-MyCardDroid
-===========
-
-MyCardClient for Android

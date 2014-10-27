@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
@@ -103,6 +104,19 @@ public class Crop {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void start(Context context, Fragment fragment) {
         fragment.startActivityForResult(getIntent(context), REQUEST_CROP);
+    }
+    
+    /**
+     * Send the crop Intent!
+     *
+     * @param context Context
+     * @param fragment Fragment that will receive result
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void start(Context context, Fragment fragment, Bundle param) {
+    	Intent intent = getIntent(context);
+    	intent.putExtras(param);
+        fragment.startActivityForResult(intent, REQUEST_CROP);
     }
 
     @VisibleForTesting

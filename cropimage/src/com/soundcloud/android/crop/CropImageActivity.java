@@ -16,6 +16,11 @@
 
 package com.soundcloud.android.crop;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.CountDownLatch;
+
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,11 +39,6 @@ import android.view.View;
 import android.view.Window;
 
 import com.soundcloud.android.crop.util.Log;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.concurrent.CountDownLatch;
 
 /*
  * Modified from original in AOSP.
@@ -65,7 +65,9 @@ public class CropImageActivity extends MonitoredActivity {
     private RotateBitmap mRotateBitmap;
     private CropImageView mImageView;
     private HighlightView mCrop;
-
+    
+    private Bundle mExtras;
+    
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -108,14 +110,14 @@ public class CropImageActivity extends MonitoredActivity {
 
     private void setupFromIntent() {
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+        mExtras = intent.getExtras();
 
-        if (extras != null) {
-            mAspectX = extras.getInt(Crop.Extra.ASPECT_X);
-            mAspectY = extras.getInt(Crop.Extra.ASPECT_Y);
-            mMaxX = extras.getInt(Crop.Extra.MAX_X);
-            mMaxY = extras.getInt(Crop.Extra.MAX_Y);
-            mSaveUri = extras.getParcelable(MediaStore.EXTRA_OUTPUT);
+        if (mExtras != null) {
+            mAspectX = mExtras.getInt(Crop.Extra.ASPECT_X);
+            mAspectY = mExtras.getInt(Crop.Extra.ASPECT_Y);
+            mMaxX = mExtras.getInt(Crop.Extra.MAX_X);
+            mMaxY = mExtras.getInt(Crop.Extra.MAX_Y);
+            mSaveUri = mExtras.getParcelable(MediaStore.EXTRA_OUTPUT);
         }
 
         mSourceUri = intent.getData();
@@ -413,7 +415,7 @@ public class CropImageActivity extends MonitoredActivity {
     }
 
     private void setResultUri(Uri uri) {
-        setResult(RESULT_OK, new Intent().putExtra(MediaStore.EXTRA_OUTPUT, uri));
+        setResult(RESULT_OK, new Intent().putExtra(MediaStore.EXTRA_OUTPUT, uri).putExtras(mExtras));
     }
 
     private void setResultException(Throwable throwable){

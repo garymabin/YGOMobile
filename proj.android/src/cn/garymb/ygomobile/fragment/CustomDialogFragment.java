@@ -22,7 +22,6 @@ import android.widget.Button;
 import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.YGOMobileActivity;
-import cn.garymb.ygomobile.common.AppUpdateTask;
 import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
@@ -272,10 +271,6 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 				Model.peekInstance().addNewServer(info);
 				((BaseFragment)getTargetFragment()).onEventFromChild(getTargetRequestCode(), FragmentNavigationListener.FRAGMENT_NAVIGATION_DUEL_CREATE_SERVER_EVENT, -1, -1, null);
 			case ResourcesConstants.DIALOG_MODE_DIRECTORY_CHOOSE:
-				break;
-			case ResourcesConstants.DIALOG_MODE_APP_UPDATE:
-				String url = ((AppUpdateController) mController).getDownloadUrl();
-				new AppUpdateTask(getActivity()).execute(url);
 				break;
 			default:
 				break;

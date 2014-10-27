@@ -35,7 +35,6 @@ SoundPoolWrapperTracker::~SoundPoolWrapperTracker() {
 	m_pPlaySignal->Set();
 	pthread_join(m_audioThread, NULL);
 	pthread_mutex_destroy(&m_soundLock);
-	delete m_pPlaySignal;
 }
 
 void* audioPlayThread(void* param) {
@@ -56,6 +55,9 @@ void* audioPlayThread(void* param) {
 			"(Ljava/lang/String;)V");
 	while (!spwt->m_isTerminated) {
 		signal->Wait();
+		if (signal->GetNoWait()) {
+			break;
+		}
 		pthread_mutex_lock(&soundlock);
 		for (auto iter = sounds->begin(); iter != sounds->end(); iter++) {
 			if (*iter != NULL) {
@@ -77,6 +79,7 @@ void* audioPlayThread(void* param) {
 	jni->DeleteLocalRef(classApp);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
+	delete signal;
 	return NULL;
 }
 
