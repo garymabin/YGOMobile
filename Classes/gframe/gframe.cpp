@@ -1,7 +1,12 @@
 #include "config.h"
 #include "game.h"
 #include "data_manager.h"
+#include "image_manager.h"
+#include "deck_manager.h"
 #include <event2/thread.h>
+#include "duelclient.h"
+#include "netserver.h"
+#include "single_mode.h"
 
 #ifdef _IRR_IPHONE_PLATFORM_
 #import "AppDelegate.h"
@@ -12,6 +17,11 @@
 @synthesize window;
 
 static ygo::Game _game;
+static float atkframe = 0.1f;
+static int fps = 0;
+static int cur_time = 0;
+static irr::ITimer* timer;
+static IGUIElement *stat;
 
 - (void)applicationDidFinishLaunching:(UIApplication*)application
 {
@@ -26,13 +36,92 @@ static ygo::Game _game;
 	ygo::mainGame = &_game;
     ygo::mainGame->Initialize();
     device = ygo::mainGame->device;
-    
+    timer = device->getTimer();
+	timer->setTime(0);
+    ygo::mainGame->InitScene();
+    stat = device->getGUIEnvironment()->getRootGUIElement()->getElementFromId (GUI_INFO_FPS);
     [self performSelectorOnMainThread:@selector(applicationUpdate) withObject:nil waitUntilDone:NO];
 }
 
 - (void) applicationUpdate
 {
-	ygo::mainGame->MainLoop();
+    while (device)
+    {
+        @autoreleasepool {
+            while(CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.002f, TRUE) == kCFRunLoopRunHandledSource);
+        }
+        
+        if(device->run())
+        {
+            _game.linePattern = (_game.linePattern + 1) % 30;
+            atkframe += 0.1f;
+            _game.atkdy = (float)sin(atkframe);
+            _game.driver->beginScene(true, true, SColor(0, 0, 0, 0));
+            _game.driver->getMaterial2D().MaterialType = (video::E_MATERIAL_TYPE)_game.ogles2Solid;
+            if (!_game.isNPOTSupported) {
+                _game.driver->getMaterial2D().TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+                _game.driver->getMaterial2D().TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+            }
+            _game.driver->enableMaterial2D(true);
+            _game.driver->getMaterial2D().ZBuffer = ECFN_NEVER;
+            if(ygo::imageManager.tBackGround) {
+                _game.driver->draw2DImage(ygo::imageManager.tBackGround, recti(0 * _game.xScale, 0 * _game.yScale, 1024 * _game.xScale, 640 * _game.yScale), recti(0, 0, ygo::imageManager.tBackGround->getOriginalSize().Width, ygo::imageManager.tBackGround->getOriginalSize().Height));
+            }
+            _game.gMutex.Lock();
+            if(_game.dInfo.isStarted) {
+                _game.DrawBackGround();
+                _game.DrawCards();
+                _game.DrawMisc();
+                _game.smgr->drawAll();
+                _game.driver->setMaterial(irr::video::IdentityMaterial);
+                _game.driver->clearZBuffer();
+            } else if(_game.is_building) {
+                _game.DrawDeckBd();
+            }
+            _game.DrawGUI();
+            _game.DrawSpec();
+            _game.gMutex.Unlock();
+            if(_game.signalFrame > 0) {
+                _game. signalFrame--;
+                if(!_game.signalFrame)
+                    _game.frameSignal.Set();
+            }
+            if(_game.waitFrame >= 0) {
+                _game.waitFrame++;
+                if(_game.waitFrame % 90 == 0) {
+                    _game.stHintMsg->setText(ygo::dataManager.GetSysString(1390));
+                } else if(_game.waitFrame % 90 == 30) {
+                    _game.stHintMsg->setText(ygo::dataManager.GetSysString(1391));
+                } else if(_game.waitFrame % 90 == 60) {
+                    _game.stHintMsg->setText(ygo::dataManager.GetSysString(1392));
+                }
+            }
+            _game.driver->endScene();
+            if(_game.closeSignal.Wait(0))
+                _game.CloseDuelWindow();
+            if(!device->isWindowActive())
+                _game.ignore_chain = false;
+            fps++;
+            cur_time = timer->getTime();
+            if(cur_time < fps * 17 - 20)
+                usleep(20000);
+            if(cur_time >= 1000) {
+                if (stat) {
+                    stringw str = L"FPS: ";
+                    str += (s32)device->getVideoDriver()->getFPS();
+                    stat->setText ( str.c_str() );
+                }
+                fps = 0;
+                cur_time -= 1000;
+                timer->setTime(0);
+                if(_game.dInfo.time_player == 0 || _game.dInfo.time_player == 1)
+                    if(_game.dInfo.time_left[_game.dInfo.time_player])
+                        _game.dInfo.time_left[_game.dInfo.time_player]--;
+            }
+        }
+        else
+            break;
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -61,6 +150,10 @@ static ygo::Game _game;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    ygo::DuelClient::StopClient(true);
+	if(ygo::mainGame->dInfo.isSingleMode)
+        ygo::SingleMode::StopPlay(true);
+    ygo::mainGame->SaveConfig();
     ygo::mainGame->device->drop();
 }
 

@@ -984,11 +984,91 @@ IGUIStaticText *text = env->addStaticText(L"",
     
 	return true;
 }
+
+#if defined (_IRR_IPHONE_PLATFORM_)
+void Game::InitScene() {
+	camera = smgr->addCameraSceneNode(0);
+	irr::core::matrix4 mProjection;
+	BuildProjectionMatrix(mProjection, -0.90f, 0.45f, -0.42f, 0.42f, 1.0f, 100.0f);
+	camera->setProjectionMatrix(mProjection);
+	mProjection.buildCameraLookAtMatrixLH(vector3df(4.2f, 8.0f, 7.8f), vector3df(4.2f, 0, 0), vector3df(0, 0, 1));
+	camera->setViewMatrixAffector(mProjection);
+	smgr->setAmbientLight(SColorf(1.0f, 1.0f, 1.0f));
+    ogles2Solid = 0;
+	ogles2TrasparentAlpha = 0;
+	ogles2BlendTexture = 0;
+
+    io::path solidvsFileName = "media/ogles2customsolid.frag";
+    io::path TACvsFileName = "media/ogles2customTAC.frag";
+    io::path blendvsFileName = "media/ogles2customblend.frag";
+    io::path psFileName = "media/ogles2custom.vert";
+    if (!driver->queryFeature(video::EVDF_PIXEL_SHADER_1_1) &&
+            !driver->queryFeature(video::EVDF_ARB_FRAGMENT_PROGRAM_1))
+    {
+        Printer::log("WARNING: Pixel shaders disabled "
+                         "because of missing driver/hardware support.");
+        psFileName = "";
+    }
+    if (!driver->queryFeature(video::EVDF_VERTEX_SHADER_1_1) &&
+            !driver->queryFeature(video::EVDF_ARB_VERTEX_PROGRAM_1))
+    {
+        Printer::log("WARNING: Vertex shaders disabled "
+                         "because of missing driver/hardware support.");
+        solidvsFileName = "";
+        TACvsFileName = "";
+        blendvsFileName = "";
+    }
+    video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
+    if (gpu) {
+        char log_custom_shader[1024];
+        const video::E_GPU_SHADING_LANGUAGE shadingLanguage = video::EGSL_DEFAULT;
+        ogles2Solid = gpu->addHighLevelShaderMaterialFromFiles(
+                                                                psFileName, "vertexMain", video::EVST_VS_1_1,
+                                                                solidvsFileName, "pixelMain", video::EPST_PS_1_1,
+                                                                &customShadersCallback, video::EMT_SOLID, 0, shadingLanguage);
+        ogles2TrasparentAlpha = gpu->addHighLevelShaderMaterialFromFiles(
+                                                                psFileName, "vertexMain", video::EVST_VS_1_1,
+                                                                             TACvsFileName, "pixelMain", video::EPST_PS_1_1,
+                                                                             &customShadersCallback,video::EMT_TRANSPARENT_ALPHA_CHANNEL, 0 , shadingLanguage);
+        ogles2BlendTexture = gpu->addHighLevelShaderMaterialFromFiles(
+                                                                          psFileName, "vertexMain", video::EVST_VS_1_1,
+                                                                          blendvsFileName, "pixelMain", video::EPST_PS_1_1,
+                                                                          &customShadersCallback, video::EMT_ONETEXTURE_BLEND, 0 , shadingLanguage);
+        sprintf(log_custom_shader, "ogles2Sold = %d", ogles2Solid);
+        Printer::log(log_custom_shader);
+        sprintf(log_custom_shader, "ogles2BlendTexture = %d", ogles2BlendTexture);
+        Printer::log(log_custom_shader);
+        sprintf(log_custom_shader, "ogles2TrasparentAlpha = %d", ogles2TrasparentAlpha);
+        Printer::log(log_custom_shader);
+    }
+    matManager.mCard.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
+	matManager.mTexture.MaterialType = (video::E_MATERIAL_TYPE)ogles2TrasparentAlpha;
+	matManager.mBackLine.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
+	matManager.mSelField.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
+	matManager.mOutLine.MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
+	matManager.mTRTexture.MaterialType = (video::E_MATERIAL_TYPE)ogles2TrasparentAlpha;
+	matManager.mATK.MaterialType = (video::E_MATERIAL_TYPE)ogles2BlendTexture;
+    matManager.mTRTexture.setFlag(video::EMF_LIGHTING, false);
+    if (!isNPOTSupported) {
+		matManager.mCard.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mCard.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mTexture.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mBackLine.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mBackLine.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mSelField.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mSelField.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mOutLine.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mOutLine.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mTRTexture.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mTRTexture.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+		matManager.mATK.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
+		matManager.mATK.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
+	}
+}
+#endif
 void Game::MainLoop() {
 	wchar_t cap[256];
-#if defined _IRR_IPHONE_PLATFORM_
-    if (!initialized) {
-#endif
 	camera = smgr->addCameraSceneNode(0);
 	irr::core::matrix4 mProjection;
 	BuildProjectionMatrix(mProjection, -0.90f, 0.45f, -0.42f, 0.42f, 1.0f, 100.0f);
@@ -997,10 +1077,6 @@ void Game::MainLoop() {
 	mProjection.buildCameraLookAtMatrixLH(vector3df(4.2f, 8.0f, 7.8f), vector3df(4.2f, 0, 0), vector3df(0, 0, 1));
 	camera->setViewMatrixAffector(mProjection);
 	smgr->setAmbientLight(SColorf(1.0f, 1.0f, 1.0f));
-#if defined _IRR_IPHONE_PLATFORM_
-        initialized = true;
-    }
-#endif
 	float atkframe = 0.1f;
 	irr::ITimer* timer = device->getTimer();
 	timer->setTime(0);
@@ -1072,8 +1148,6 @@ void Game::MainLoop() {
 	if (glversion != 0) {
 		matManager.mTRTexture.setFlag(video::EMF_LIGHTING, false);
 	}
-#endif
-#if defined(_IRR_ANDROID_PLATFORM_) || defined(_IRR_IPHONE_PLATFORM_)
     if (!isNPOTSupported) {
 		matManager.mCard.TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
 		matManager.mCard.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
@@ -1091,16 +1165,7 @@ void Game::MainLoop() {
 		matManager.mATK.TextureLayer[0].TextureWrapV = ETC_CLAMP_TO_EDGE;
 	}
 #endif
-#ifdef _IRR_IPHONE_PLATFORM_
-    while (device)
-    {
-        @autoreleasepool {
-        while(CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.002f, TRUE) == kCFRunLoopRunHandledSource);
-        }
-        if(device->run())
-#else
 	while(device->run()) {
-#endif
 #ifdef _IRR_ANDROID_PLATFORM_
 		linePattern = (linePattern + 1) % 30;
 #else
@@ -1112,7 +1177,7 @@ void Game::MainLoop() {
 		atkframe += 0.1f;
 		atkdy = (float)sin(atkframe);
 		driver->beginScene(true, true, SColor(0, 0, 0, 0));
-#if defined _IRR_ANDROID_PLATFORM_
+#if defined (_IRR_ANDROID_PLATFORM_)
 		driver->getMaterial2D().MaterialType = (video::E_MATERIAL_TYPE)ogles2Solid;
 		if (!isNPOTSupported) {
 			driver->getMaterial2D().TextureLayer[0].TextureWrapU = ETC_CLAMP_TO_EDGE;
@@ -1121,11 +1186,6 @@ void Game::MainLoop() {
 		driver->enableMaterial2D(true);
 		driver->getMaterial2D().ZBuffer = ECFN_NEVER;
 		if(imageManager.tBackGround) {
-			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
-		}
-#elif defined _IRR_IPHONE_PLATFORM_
-        driver->enableMaterial2D(true);
-        if(imageManager.tBackGround) {
 			driver->draw2DImage(imageManager.tBackGround, recti(0 * xScale, 0 * yScale, 1024 * xScale, 640 * yScale), recti(0, 0, imageManager.tBackGround->getOriginalSize().Width, imageManager.tBackGround->getOriginalSize().Height));
 		}
 #else

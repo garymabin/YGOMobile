@@ -94,6 +94,10 @@ inline int _wtoi(const wchar_t * s) {
 #include <android/CustomShaderConstantSetCallBack.h>
 #endif
 
+#if defined(_IRR_IPHONE_PLATFORM_)
+#include "CustomShaderConstantSetCallBack.h"
+#endif
+
 using namespace irr;
 using namespace core;
 using namespace scene;

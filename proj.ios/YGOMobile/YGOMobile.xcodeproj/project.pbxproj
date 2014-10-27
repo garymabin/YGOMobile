@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC048E1C1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC048E1A1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.cpp */; };
+		DC048E1D1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.h in Sources */ = {isa = PBXBuildFile; fileRef = DC048E1B1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.h */; };
+		DC048E1F1A0F2BA7008E8E1C /* media in Resources */ = {isa = PBXBuildFile; fileRef = DC048E1E1A0F2BA7008E8E1C /* media */; };
 		DC22DAA018FAF17C00E267B4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DA9F18FAF17C00E267B4 /* Foundation.framework */; };
 		DC22DAA218FAF17C00E267B4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DAA118FAF17C00E267B4 /* CoreGraphics.framework */; };
 		DC22DAA418FAF17C00E267B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC22DAA318FAF17C00E267B4 /* UIKit.framework */; };
@@ -200,6 +203,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC048E1A1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CustomShaderConstantSetCallBack.cpp; sourceTree = "<group>"; };
+		DC048E1B1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomShaderConstantSetCallBack.h; sourceTree = "<group>"; };
+		DC048E1E1A0F2BA7008E8E1C /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; name = media; path = YGOMobile/media; sourceTree = "<group>"; };
 		DC22DA9C18FAF17C00E267B4 /* YGOMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YGOMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC22DA9F18FAF17C00E267B4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DC22DAA118FAF17C00E267B4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -348,6 +354,9 @@
 		DC22DA9318FAF17C00E267B4 = {
 			isa = PBXGroup;
 			children = (
+				DC048E1E1A0F2BA7008E8E1C /* media */,
+				DC048E1A1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.cpp */,
+				DC048E1B1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.h */,
 				DCBECBD719EFF486004E4F8C /* fonts.ttf */,
 				DCBECBD519EFF35E004E4F8C /* cards.cdb */,
 				DCBECBCB19EF9446004E4F8C /* textures */,
@@ -698,6 +707,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC048E1F1A0F2BA7008E8E1C /* media in Resources */,
 				DCBECBD819EFF486004E4F8C /* fonts.ttf in Resources */,
 				DCBECBD619EFF35E004E4F8C /* cards.cdb in Resources */,
 				DCBECBCC19EF9446004E4F8C /* textures in Resources */,
@@ -739,6 +749,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC048E1C1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.cpp in Sources */,
+				DC048E1D1A0F2726008E8E1C /* CustomShaderConstantSetCallBack.h in Sources */,
 				DCBECB9E19EF8879004E4F8C /* AppDelegate.h in Sources */,
 				DCBECAFC19EC0E46004E4F8C /* bufferio.h in Sources */,
 				DCBECAA619EC0BC0004E4F8C /* CAnimatedMeshHalfLife.cpp in Sources */,

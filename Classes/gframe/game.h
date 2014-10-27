@@ -66,8 +66,11 @@ struct FadingUnit {
 class Game {
 
 public:
-#ifdef _IRR_ANDROID_PLATFORM_
+#if defined (_IRR_ANDROID_PLATFORM_)
 	bool Initialize(android_app* app);
+#elif defined (_IRR_IPHONE_PLATFORM_)
+    bool Initialize();
+    void InitScene();
 #else
 	bool Initialize();
 #endif
@@ -366,14 +369,14 @@ public:
 #ifdef _IRR_ANDROID_PLATFORM_
 	android_app* appMain;
 	int glversion;
-	s32 ogles2Solid;
-	s32 ogles2TrasparentAlpha;
-	s32 ogles2BlendTexture;
-	irr::android::CustomShaderConstantSetCallBack customShadersCallback;
 	Signal externalSignal;
 #endif
 #if defined(_IRR_ANDROID_PLATFORM_) || defined(_IRR_IPHONE_PLATFORM_)
     bool isNPOTSupported;
+    s32 ogles2Solid;
+	s32 ogles2TrasparentAlpha;
+	s32 ogles2BlendTexture;
+	irr::android::CustomShaderConstantSetCallBack customShadersCallback;
 #endif
 
 
@@ -486,7 +489,7 @@ extern Game* mainGame;
 #define LISTBOX_SINGLEPLAY_LIST		350
 #define BUTTON_LOAD_SINGLEPLAY		351
 #define BUTTON_CANCEL_SINGLEPLAY	352
-#ifdef _IRR_ANDROID_PLATFORM_
+#if defined (_IRR_ANDROID_PLATFORM_) || defined (_IRR_IPHONE_PLATFORM_)
 #define GUI_INFO_FPS 1000
 #endif
 #endif // GAME_H
