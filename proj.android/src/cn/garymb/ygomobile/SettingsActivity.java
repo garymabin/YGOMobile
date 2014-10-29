@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import com.soundcloud.android.crop.Crop;
+import com.umeng.update.UmengUpdateAgent;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.CardDBCopyTask;
@@ -273,8 +274,7 @@ public class SettingsActivity extends PreferenceActivity implements
 			showDialog(DIALOG_ID_IMAGE_PREVIEW, bundle);
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_ABOUT_CHECK_UPDATE)) {
-			Controller.peekInstance().asyncCheckUpdate(
-					Message.obtain(mHandler, MSG_TYPE_CHECK_UPDATE));
+			UmengUpdateAgent.update(this);
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
 			Bundle bundle = new Bundle();

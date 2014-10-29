@@ -3,10 +3,9 @@ package cn.garymb.ygomobile.core;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 
 
-public abstract class BaseThread extends Thread implements IBaseThread{
+public abstract class BaseThread extends Thread implements IBaseThread {
 	
 	public BaseThread(TaskStatusCallback callback) {
-		// TODO Auto-generated constructor stub
 		mCallback = callback; 
 	}
 	

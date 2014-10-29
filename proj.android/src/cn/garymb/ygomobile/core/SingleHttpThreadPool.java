@@ -14,7 +14,6 @@ public class SingleHttpThreadPool extends BaseThread {
 	protected IBaseConnector mConnector;
 	
 	public SingleHttpThreadPool(BlockingQueue<BaseDataWrapper> queue, TaskStatusCallback callback) {
-		// TODO Auto-generated constructor stub
 		super(callback);
 		mQueue = queue;
 		
@@ -31,7 +30,6 @@ public class SingleHttpThreadPool extends BaseThread {
 					mCallback.onTaskFinish(wrapper);
 				}
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

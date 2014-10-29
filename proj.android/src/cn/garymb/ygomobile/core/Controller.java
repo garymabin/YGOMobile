@@ -20,8 +20,6 @@ public class Controller {
 	
 	private UpdateController mUpdateController;
 	
-	private DownloadHandler mDownloadHandler; 
-	
 	private Model mModel;
 	
 	private Controller(StaticApplication app) {
@@ -29,7 +27,6 @@ public class Controller {
 		mActionBarController = new ActionBarController();
 		mNetworkManager = NetworkStatusManager.peekInstance(app);
 		mUpdateController = new UpdateController(app);
-		mDownloadHandler = new DownloadHandler(app);
 	}
 	
 	public static Controller peekInstance() {
@@ -100,25 +97,6 @@ public class Controller {
 		mActionBarController.unregisterForActionReset(h);
 	}
 	
-	public void asyncCheckUpdate(Message msg) {
-		mUpdateController.asyncCheckUpdate(msg);
-	}
-	
-	public void downloadNewAppVersion(String url) {
-		if (mDownloadHandler.isDownloadsEmpty()) {
-			registerDownloadListener();
-		}
-		mDownloadHandler.enqueueDownload(url);
-	}
-	
-	public void registerDownloadListener() {
-		mDownloadHandler.register();
-	}
-	
-	public void unregisterDownloadListener() {
-		mDownloadHandler.unregister();
-	}
-
 	/**
 	 * 
 	 * @return

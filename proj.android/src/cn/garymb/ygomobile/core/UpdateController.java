@@ -4,7 +4,6 @@ import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.VersionDataWrapper;
 
 import android.os.Message;
 import android.support.v4.util.SparseArrayCompat;
@@ -26,15 +25,8 @@ public class UpdateController implements TaskStatusCallback {
 	@Override
 	public void onTaskFinish(BaseDataWrapper wrapper) {
 		int key = -1;
-		if (wrapper instanceof VersionDataWrapper) {
-			key = UPDATE_TYPE_CHECK_UPDATE;
-		}
 		Message msg = mUpdateMessages.get(key);
 		if (msg != null) {
-			msg.arg2 = wrapper.getResult();
-			if (wrapper instanceof VersionDataWrapper) {
-				msg.obj = ((VersionDataWrapper) wrapper).getVersionInfo();
-			}
 			msg.sendToTarget();
 			mUpdateMessages.remove(key);
 		}
@@ -42,13 +34,6 @@ public class UpdateController implements TaskStatusCallback {
 
 	@Override
 	public void onTaskContinue(BaseDataWrapper wrapper) {
-	}
-
-	public void asyncCheckUpdate(Message msg) {
-		mUpdateMessages.put(UPDATE_TYPE_CHECK_UPDATE, msg);
-		VersionDataWrapper wrapper = new VersionDataWrapper(
-				Constants.REQUEST_TYPE_CHECK_UPDATE);
-		mInstantConnection.addTask(wrapper);
 	}
 
 }

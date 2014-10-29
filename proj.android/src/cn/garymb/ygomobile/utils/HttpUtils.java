@@ -24,6 +24,11 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.squareup.okhttp.ResponseBody;
+
 import cn.garymb.ygomobile.common.Constants;
 
 import android.util.Log;
@@ -60,6 +65,39 @@ public class HttpUtils {
 				} else {
 					in = respStream;
 				}
+			}
+			return in;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static InputStream doOkGet(OkHttpClient client, String uri) {
+		Response resp = null;
+		ResponseBody body = null;
+		InputStream respStream = null;
+
+		try {
+			Request req = new Request.Builder()
+					.url(uri)
+					.addHeader("Accept",
+							"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+					.addHeader("Accept-Encoding", "gzip,deflate,sdch")
+					.addHeader("Accept-Language",
+							"zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4")
+					.addHeader("Content-Type",
+							"application/x-www-form-urlencoded").build();
+			resp = client.newCall(req).execute();
+			int statusCode = resp.code();
+			if (statusCode < 200 || statusCode >= 300) {
+				Log.d("HttpUtils", "status code = " + statusCode);
+				return null;
+			}
+			body = resp.body();
+			InputStream in = null;
+			if (body != null && (respStream = body.byteStream()) != null) {
+				in = respStream;
 			}
 			return in;
 		} catch (Exception e) {
@@ -192,9 +230,11 @@ public class HttpUtils {
 	private static void setHeader(HttpUriRequest request) {
 		if (request == null)
 			return;
-		request.setHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+		request.setHeader("Accept",
+				"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
 		request.setHeader("Accept-Encoding", "gzip,deflate,sdch");
-		request.setHeader("Accept-Language","zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4");
+		request.setHeader("Accept-Language",
+				"zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4");
 		request.setHeader("Content-Type", "application/x-www-form-urlencoded");
 	}
 

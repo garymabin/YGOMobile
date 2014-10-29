@@ -49,12 +49,6 @@ public class YGOCardsProvider extends ContentProvider {
 				mDataBasePath = "/data/data/" + context.getPackageName()
 						+ "/databases/";
 			}
-//			try {
-//				createDataBase();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 		}
 
 		/**

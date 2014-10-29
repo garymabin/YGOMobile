@@ -38,6 +38,7 @@ import cn.garymb.ygomobile.utils.DatabaseUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 
 import com.github.nativehandler.NativeCrashHandler;
+import com.squareup.okhttp.OkHttpClient;
 
 import android.app.Application;
 import android.content.Context;
@@ -302,7 +303,11 @@ public class StaticApplication extends Application {
 	public HttpClient getHttpClient() {
 		return mHttpFactory.getHttpClient();
 	}
-
+	
+	public OkHttpClient getOkHttpClient() {
+		return new OkHttpClient();
+	}
+	
 	public static StaticApplication peekInstance() {
 		return INSTANCE;
 	}

@@ -30,7 +30,6 @@ public class UpdateConnection implements IBaseConnection{
 		try {
 			mTaskQueue.put(wrapper);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
