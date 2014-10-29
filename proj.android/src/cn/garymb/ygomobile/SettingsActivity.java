@@ -27,6 +27,7 @@ import cn.garymb.ygomobile.widget.SimpleDialog;
 import cn.garymb.ygomobile.widget.WebViewDialog;
 import cn.garymb.ygomobile.widget.filebrowser.FileBrowser;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
@@ -151,7 +152,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 	}
 
-	@Override
+	@SuppressLint("InflateParams") @Override
 	@Deprecated
 	protected Dialog onCreateDialog(int id, Bundle args) {
 		Dialog dlg = null;

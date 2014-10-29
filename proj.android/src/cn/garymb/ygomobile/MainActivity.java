@@ -319,20 +319,6 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
-	private void switchState(int position) {
-		FragmentTransaction ft = mFragmentManager.beginTransaction();
-		Fragment fragment;
-		if (position == DUEL_INDEX_CARD_WIKI) {
-			fragment = new CardWikiFragment();
-		} else {
-			fragment = new FreeDuelTabFragment();
-		}
-		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		mFragmentManager.popBackStack();
-		ft.replace(R.id.content_frame, fragment);
-		ft.commitAllowingStateLoss();
-	}
-
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

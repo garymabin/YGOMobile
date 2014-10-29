@@ -25,8 +25,6 @@ public class UpdateController implements TaskStatusCallback {
 	
 	private static final int UPDATE_MAX_TYPE = UPDATE_TYPE_LOGIN + 1;
 	
-	private Context mContext;
-	
 	private Model mModel;
 	
 	private SparseArrayCompat<Message> mUpdateMessages;

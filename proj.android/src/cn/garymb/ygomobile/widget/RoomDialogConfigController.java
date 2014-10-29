@@ -46,6 +46,7 @@ public class RoomDialogConfigController extends BaseDialogConfigController
 
 	private int mMode;
 
+	@SuppressWarnings("unchecked")
 	public RoomDialogConfigController(DialogConfigUIBase parent, View view, Bundle param) {
 		super(parent, view);
 		mOptions = param.getParcelable(ResourcesConstants.GAME_OPTIONS);

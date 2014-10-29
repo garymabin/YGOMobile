@@ -20,7 +20,6 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -88,7 +87,7 @@ public class ServerListFragment extends BaseFragment implements
 		public View getGroupView(int groupPosition, boolean isExpanded,
 				View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = mInflater.inflate(R.layout.server_item, null);
+				convertView = mInflater.inflate(R.layout.server_item, parent, false);
 			}
 			YGOServerInfo info = getGroup(groupPosition);
 			((TextView) convertView.findViewById(R.id.server_user_name))
@@ -155,7 +154,7 @@ public class ServerListFragment extends BaseFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mListView = (ExpandableListView) inflater.inflate(
-				R.layout.common_expanable_list, null);
+				R.layout.common_expanable_list, container, false);
 		mAdapter = new ServerAdapter(inflater, Model.peekInstance()
 				.getServers(), this);
 		mListView.setAdapter(mAdapter);
