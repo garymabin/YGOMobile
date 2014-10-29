@@ -1,7 +1,5 @@
 package cn.garymb.ygomobile.widget;
 
-import com.github.johnpersano.supertoasts.SuperToast;
-
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
@@ -20,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class ImagePreviewController extends BaseDialogConfigController
 		implements IDataObserver, OnClickListener {
@@ -103,8 +102,8 @@ public class ImagePreviewController extends BaseDialogConfigController
 		} else {
 			String msg = mConfigUI.getContext().getResources()
 					.getString(R.string.image_not_load_toast);
-			SuperToast.create(mConfigUI.getContext(), msg,
-					SuperToast.Duration.VERY_SHORT);
+			Toast.makeText(mConfigUI.getContext(), msg,
+					Toast.LENGTH_SHORT);
 			Log.w("wtf", "Why can't we locate a image already exist on disk?");
 		}
 	}

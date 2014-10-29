@@ -3,12 +3,9 @@ package cn.garymb.ygomobile;
 import java.io.File;
 import java.util.List;
 
-import com.github.johnpersano.supertoasts.SuperActivityToast;
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.soundcloud.android.crop.Crop;
 
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.common.AppUpdateTask;
 import cn.garymb.ygomobile.common.CardDBCopyTask;
 import cn.garymb.ygomobile.common.CardDBResetTask;
 import cn.garymb.ygomobile.common.CardDBCopyTask.CardDBCopyListener;
@@ -22,7 +19,6 @@ import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
-import cn.garymb.ygomobile.widget.AppUpdateController;
 import cn.garymb.ygomobile.widget.AppUpdateDialog;
 import cn.garymb.ygomobile.widget.FileChooseController;
 import cn.garymb.ygomobile.widget.FileChooseDialog;
@@ -323,10 +319,6 @@ public class SettingsActivity extends PreferenceActivity implements
 					}
 
 				}
-			} else if (dialog instanceof AppUpdateDialog) {
-				String url = ((AppUpdateController) ((AppUpdateDialog) dialog)
-						.getController()).getDownloadUrl();
-				new AppUpdateTask(this).execute(url);
 			} else if (dialog instanceof SimpleDialog) {
 				CardDBResetTask task = new CardDBResetTask(this);
 				task.setCardDBResetListener(this);
@@ -414,11 +406,11 @@ public class SettingsActivity extends PreferenceActivity implements
 			if (info != null) {
 				if (info.version <= StaticApplication.peekInstance()
 						.getVersionCode()) {
-					SuperToast.create(
+					Toast.makeText(
 							this,
 							getResources().getString(
 									R.string.settings_about_no_update),
-							SuperToast.Duration.VERY_SHORT).show();
+							Toast.LENGTH_SHORT).show();
 				} else {
 					Bundle bundle = new Bundle();
 					bundle.putInt("version", info.version);
@@ -443,16 +435,15 @@ public class SettingsActivity extends PreferenceActivity implements
 		} else {
 			errorMessage = res.getString(R.string.loading_card_success);
 		}
-		SuperActivityToast.create(this, errorMessage,
-				SuperToast.Duration.MEDIUM).show();
+		Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void onCardDBResetFinished(Boolean result) {
-		SuperActivityToast.create(
+		Toast.makeText(
 				this,
 				result ? getResources().getString(R.string.reset_card_success)
 						: getResources().getString(R.string.reset_card_failed),
-				SuperToast.Duration.MEDIUM).show();
+				Toast.LENGTH_SHORT).show();
 	}
 }

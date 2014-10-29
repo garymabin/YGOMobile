@@ -18,7 +18,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.common.AppUpdateTask;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.widget.AppUpdateController;
@@ -241,7 +240,6 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 				break;
 			case ResourcesConstants.DIALOG_MODE_APP_UPDATE:
 				String url = ((AppUpdateController) mController).getDownloadUrl();
-				new AppUpdateTask(getActivity()).execute(url);
 				break;
 			default:
 				break;

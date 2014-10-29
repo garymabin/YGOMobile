@@ -5,8 +5,6 @@ import java.util.Map;
 
 import cn.garymb.ygomobile.utils.DeviceUtils;
 
-import com.github.johnpersano.supertoasts.SuperToast;
-
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,18 +12,20 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DownloadReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "DownloadReceiver";
 
 	private Context mContext;
-	
+
 	private Map<Long, String> mDownloadIDs;
-	
+
 	private DownloadManager mDM;
-	
-	public DownloadReceiver(Context context, DownloadManager dm, Map<Long, String> downloadIDs) {
+
+	public DownloadReceiver(Context context, DownloadManager dm,
+			Map<Long, String> downloadIDs) {
 		mDM = dm;
 		mContext = context;
 		mDownloadIDs = downloadIDs;
@@ -46,12 +46,13 @@ public class DownloadReceiver extends BroadcastReceiver {
 		}
 		int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
 		if (DownloadManager.STATUS_SUCCESSFUL != cursor.getInt(statusIndex)) {
-		    SuperToast.create(mContext, "Download Failed", SuperToast.Duration.VERY_SHORT).show();
-		    mDownloadIDs.remove(id);
+			Toast.makeText(mContext, "Download Failed", Toast.LENGTH_SHORT)
+					.show();
+			mDownloadIDs.remove(id);
 			if (mDownloadIDs.size() == 0) {
 				unregister();
 			}
-		    return;
+			return;
 		}
 
 		int uriIndex = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI);
@@ -62,13 +63,13 @@ public class DownloadReceiver extends BroadcastReceiver {
 			unregister();
 		}
 	}
-	
+
 	public void register() {
 		final IntentFilter filter = new IntentFilter();
 		filter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 		mContext.registerReceiver(this, filter);
 	}
-	
+
 	public void unregister() {
 		mContext.unregisterReceiver(this);
 	}

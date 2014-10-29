@@ -12,8 +12,6 @@ import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 
-import com.github.johnpersano.supertoasts.SuperActivityToast;
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -32,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements
 		OnActionBarChangeCallback, Handler.Callback, Constants,
@@ -122,14 +121,14 @@ public class MainActivity extends ActionBarActivity implements
 		mActionBarCreator.createMenu(menu);
 		return super.onPrepareOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		mMenu = menu;
 		mActionBarCreator.createMenu(menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	public Menu getMenu() {
 		return mMenu;
 	}
@@ -233,9 +232,8 @@ public class MainActivity extends ActionBarActivity implements
 	public void finish() {
 		if (!isExit) {
 			isExit = true;
-			SuperActivityToast.create(this,
-					getResources().getString(R.string.exit_hint),
-					SuperToast.Duration.MEDIUM).show();
+			Toast.makeText(this, getResources().getString(R.string.exit_hint),
+					Toast.LENGTH_SHORT).show();
 			mHandler.sendEmptyMessageDelayed(
 					Constants.MSG_ID_EXIT_CONFIRM_ALARM, 2000);
 		} else {

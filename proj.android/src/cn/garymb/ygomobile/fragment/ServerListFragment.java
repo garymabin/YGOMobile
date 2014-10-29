@@ -1,10 +1,5 @@
 package cn.garymb.ygomobile.fragment;
 
-import com.github.johnpersano.supertoasts.SuperActivityToast;
-import com.github.johnpersano.supertoasts.SuperToast;
-import com.github.johnpersano.supertoasts.SuperToast.OnClickListener;
-import com.github.johnpersano.supertoasts.util.OnClickWrapper;
-
 import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
@@ -25,7 +20,6 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -35,8 +29,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class ServerListFragment extends BaseFragment implements ServerOperationListener, OnGroupExpandListener, OnClickListener {
+public class ServerListFragment extends BaseFragment implements ServerOperationListener, OnGroupExpandListener {
 
 	public static class ServerAdapter extends BaseExpandableListAdapter {
 
@@ -259,12 +254,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			showDialog(bundle, this, REQUEST_CODE_SERVER);
 		} else if (operationId == ServerOperationPanel.SERVER_OPERATION_DELETE) {
 			YGOServerInfo info = mAdapter.getGroup(position);
-			SuperActivityToast superActivityToast = new SuperActivityToast(mActivity, SuperToast.Type.BUTTON);
-			superActivityToast.setDuration(SuperToast.Duration.EXTRA_LONG);
-			superActivityToast.setText(getResources().getString(R.string.toast_delete, info.name));
-			superActivityToast.setButtonIcon(SuperToast.Icon.Dark.UNDO, "UNDO");
-			superActivityToast.setOnClickWrapper(new OnClickWrapper(info.id, this), info);
-			superActivityToast.show();
+			Toast.makeText(mActivity, R.string.toast_delete, Toast.LENGTH_SHORT).show();
 			int index = (int)mAdapter.getGroupId(position);
 			Model.peekInstance().removeServer(index);
 			mAdapter.notifyDataSetChanged();
@@ -280,11 +270,5 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 				mListView.collapseGroup(i);
 			}
 		}
-	}
-
-	@Override
-	public void onClick(View view, Parcelable token) {
-		Model.peekInstance().addNewServer((YGOServerInfo) token);
-		mAdapter.notifyDataSetChanged();
 	}
 }

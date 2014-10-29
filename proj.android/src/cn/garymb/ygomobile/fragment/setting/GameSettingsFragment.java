@@ -2,8 +2,6 @@ package cn.garymb.ygomobile.fragment.setting;
 
 import java.io.File;
 
-import com.github.johnpersano.supertoasts.SuperActivityToast;
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.soundcloud.android.crop.Crop;
 
 import cn.garymb.ygomobile.R;
@@ -301,18 +299,17 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 		} else {
 			errorMessage = res.getString(R.string.loading_card_success);
 		}
-		SuperActivityToast.create(getActivity(), errorMessage,
-				SuperToast.Duration.MEDIUM).show();
+		Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
 		mImageBundle = null;
 	}
 
 	@Override
 	public void onCardDBResetFinished(Boolean result) {
-		SuperActivityToast.create(
+		Toast.makeText(
 				getActivity(),
 				result ? getResources().getString(R.string.reset_card_success)
 						: getResources().getString(R.string.reset_card_failed),
-				SuperToast.Duration.MEDIUM).show();
+				Toast.LENGTH_SHORT).show();
 		mImageBundle = null;
 	}
 }
