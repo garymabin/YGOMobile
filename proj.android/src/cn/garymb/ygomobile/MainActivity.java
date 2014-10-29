@@ -6,6 +6,7 @@ import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.fragment.BaseFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
+import cn.garymb.ygomobile.fragment.CardImageFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
 import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
@@ -44,6 +45,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	private static final int DUEL_INDEX_FREE_MODE = 0;
 	private static final int DUEL_INDEX_CARD_WIKI = 1;
+	private static final int DUEL_INDEX_CARD_IMAGE = 2;
 
 	private static final String TAG = "MainActivity";
 
@@ -252,8 +254,10 @@ public class MainActivity extends ActionBarActivity implements
 		Fragment fragment;
 		if (position == DUEL_INDEX_CARD_WIKI) {
 			fragment = new CardWikiFragment();
-		} else {
+		} else if (position == DUEL_INDEX_FREE_MODE){
 			fragment = new FreeDuelTabFragment();
+		} else {
+			fragment = new CardImageFragment();
 		}
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 		mFragmentManager.popBackStack();

@@ -79,7 +79,7 @@ public class DataHttpConnector extends BaseHttpConnector implements
 				throw new InterruptedException();
 			}
 			Log.d(TAG, out.toString());
-			wrapper.parse(out);
+//			wrapper.parse(out);
 		} catch (IOException e) {
 			e.printStackTrace();
 			status = IBaseWrapper.TASK_STATUS_FAILED;

@@ -7,6 +7,7 @@ import java.util.Set;
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.model.data.DataStore;
 import cn.garymb.ygomobile.model.data.ImageItem;
+import cn.garymb.ygomobile.provider.YGOImagesDataBaseHelper;
 import cn.garymb.ygomobile.ygo.YGOArrayStore;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
@@ -25,6 +26,8 @@ public class Model {
 	
 	private ImageModelHelper mImgModelHelper;
 	
+	private YGOImagesDataBaseHelper mImageDataBaseHelper;
+	
 	private Set<IDataObserver> mObserverList;
 	
 	private Model(StaticApplication app) {
@@ -32,6 +35,7 @@ public class Model {
 		mImgModelHelper = new ImageModelHelper();
 		mYGOArrayStore = new YGOArrayStore(app.getResources());
 		mObserverList = new HashSet<IDataObserver>();
+		mImageDataBaseHelper = new YGOImagesDataBaseHelper(app);
 	}
 
 	public static Model peekInstance() {
@@ -70,6 +74,10 @@ public class Model {
 			mObserverList.remove(o);
 			mImgModelHelper.onDataObserverUnregistered(o);
 		}
+	}
+	
+	public YGOImagesDataBaseHelper getImageDataBaseHelper() {
+		return mImageDataBaseHelper;
 	}
 	
 	public Bitmap getBitmap(ImageItem item, int type) {

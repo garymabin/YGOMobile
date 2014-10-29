@@ -31,7 +31,11 @@ public class OkHttpConector implements IBaseConnector {
 		Log.d(TAG, "start to connect, url = " + wrapper.getUrl(0));
 		InputStream is = HttpUtils.doOkGet(mClient, wrapper.getUrl(0));
 		if (null != is) {
-			handleResponse(is, wrapper);
+			wrapper.parse(is);
+			try {
+				is.close();
+			} catch (IOException e) {
+			}
 		}
 	}
 	
@@ -54,7 +58,7 @@ public class OkHttpConector implements IBaseConnector {
 			if (Thread.currentThread().isInterrupted()) {
 				throw new InterruptedException();
 			}
-			wrapper.parse(out);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			status = IBaseWrapper.TASK_STATUS_FAILED;

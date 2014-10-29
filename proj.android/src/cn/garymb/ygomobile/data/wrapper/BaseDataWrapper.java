@@ -1,5 +1,6 @@
 package cn.garymb.ygomobile.data.wrapper;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -27,7 +28,7 @@ public abstract class BaseDataWrapper implements IBaseWrapper {
 	}
 
 	
-	public abstract void parse(StringBuilder out);
+	public abstract int parse(InputStream in);
 
 	@Override
 	public void recyle() {

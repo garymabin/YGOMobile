@@ -14,7 +14,6 @@ import cn.garymb.ygomobile.common.CardDBResetTask.CardDBResetListener;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.common.ImageCopyTask;
 import cn.garymb.ygomobile.common.ImageCopyTask.ImageCopyListener;
-import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;

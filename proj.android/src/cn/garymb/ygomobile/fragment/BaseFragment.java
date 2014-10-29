@@ -28,7 +28,6 @@ public abstract class BaseFragment extends Fragment implements Handler.Callback,
 		 * 
 		 */
 		public DataHandler(Looper looper, Callback callback) {
-			// TODO Auto-generated constructor stub
 			super(looper, callback);
 		}
 	}

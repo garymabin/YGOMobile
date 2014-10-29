@@ -48,4 +48,10 @@ public class InstantConnection implements IBaseConnection {
 		}
 	}
 
+
+	@Override
+	public int getType() {
+		return CONNECTION_TYPE_INSTANT;
+	}
+
 }

@@ -6,9 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -26,8 +23,6 @@ import android.util.Log;
 public class ImageDownloader {
 
 	private OkHttpClient mClient;
-	private static final String GZIP = "gzip";
-
 	/**
 	 * @param cacheManager
 	 */
@@ -152,13 +147,4 @@ public class ImageDownloader {
 				"zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4");
 		builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
 	}
-
-	private boolean isGZipContent(HttpEntity entity) {
-		if (entity == null)
-			return false;
-
-		Header encoding = entity.getContentEncoding();
-		return encoding != null && GZIP.equalsIgnoreCase(encoding.getValue());
-	}
-
 }

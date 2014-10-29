@@ -97,6 +97,10 @@ public class Controller {
 		mActionBarController.unregisterForActionReset(h);
 	}
 	
+	public IBaseConnection newDownloadConnection(Message msg) {
+		return mUpdateController.newDownloadConnection(msg, Model.peekInstance().getImageDataBaseHelper());
+	}
+	
 	/**
 	 * 
 	 * @return

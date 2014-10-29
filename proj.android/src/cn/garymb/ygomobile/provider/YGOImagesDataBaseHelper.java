@@ -55,7 +55,7 @@ public class YGOImagesDataBaseHelper {
 
 	private static final int DATABASE_VERSION = 2 << 16;
 	
-	private static final String TABLE_IMAGES = "images";
+	public static final String TABLE_IMAGES = "images";
 
 	/**
 	 * 
