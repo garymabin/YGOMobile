@@ -2,10 +2,6 @@ package cn.garymb.ygomobile.fragment;
 
 import java.util.List;
 
-
-import com.github.johnpersano.supertoasts.SuperActivityToast;
-import com.github.johnpersano.supertoasts.SuperToast;
-
 import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.YGOMobileActivity;
@@ -29,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class RoomListFragment extends TabFragment {
 
@@ -80,7 +77,6 @@ public class RoomListFragment extends TabFragment {
 			// TODO Auto-generated method stub
 			return position;
 		}
-
 	}
 
 	private static final String TAG = "DuelFragment";
@@ -292,8 +288,8 @@ public class RoomListFragment extends TabFragment {
 				intent.putExtra(YGOGameOptions.YGO_GAME_OPTIONS_BUNDLE_KEY, options);
 				startActivity(intent);
 			} else {
-				SuperActivityToast.create(mActivity, getResources().getString(R.string.quick_join_error),
-						SuperToast.Duration.VERY_SHORT).show();
+				Toast.makeText(mActivity, getResources().getString(R.string.quick_join_error),
+						Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}

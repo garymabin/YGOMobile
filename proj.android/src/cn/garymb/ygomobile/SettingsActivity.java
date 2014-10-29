@@ -3,8 +3,6 @@ package cn.garymb.ygomobile;
 import java.io.File;
 import java.util.List;
 
-import com.github.johnpersano.supertoasts.SuperActivityToast;
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.soundcloud.android.crop.Crop;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -273,7 +271,8 @@ public class SettingsActivity extends PreferenceActivity implements
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_ABOUT_CHECK_UPDATE)) {
 			UmengUpdateAgent.forceUpdate(this);
-		} else if (preference.getKey().equals(Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
+		} else if (preference.getKey().equals(
+				Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
 			Bundle bundle = new Bundle();
 			bundle.putString("root", "/");
 			bundle.putInt("mode", FileBrowser.BROWSE_MODE_FILES);
@@ -403,11 +402,11 @@ public class SettingsActivity extends PreferenceActivity implements
 			if (info != null) {
 				if (info.version <= StaticApplication.peekInstance()
 						.getVersionCode()) {
-					SuperToast.create(
+					Toast.makeText(
 							this,
 							getResources().getString(
 									R.string.settings_about_no_update),
-							SuperToast.Duration.VERY_SHORT).show();
+							Toast.LENGTH_SHORT).show();
 				} else {
 					Bundle bundle = new Bundle();
 					bundle.putInt("version", info.version);
@@ -432,16 +431,15 @@ public class SettingsActivity extends PreferenceActivity implements
 		} else {
 			errorMessage = res.getString(R.string.loading_card_success);
 		}
-		SuperActivityToast.create(this, errorMessage,
-				SuperToast.Duration.MEDIUM).show();
+		Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void onCardDBResetFinished(Boolean result) {
-		SuperActivityToast.create(
+		Toast.makeText(
 				this,
 				result ? getResources().getString(R.string.reset_card_success)
 						: getResources().getString(R.string.reset_card_failed),
-				SuperToast.Duration.MEDIUM).show();
+				Toast.LENGTH_SHORT).show();
 	}
 }

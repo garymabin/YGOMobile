@@ -30,16 +30,12 @@ public class RoomAdapter extends BaseAdapter {
 
 	private int mFilter;
 
-	public RoomAdapter(List<YGORoomInfo> lists, Context context, int filter) {
-		// TODO Auto-generated constructor stub
-		super();
-		setData(lists);
+	public RoomAdapter(Context context, int filter) {
 		mContext = context;
 		mFilter = filter;
 	}
 
 	public void setData(List<YGORoomInfo> lists) {
-		// TODO Auto-generated method stub
 		mDataList = new LinkedList<YGORoomInfo>();
 		for (YGORoomInfo info : lists) {
 			if (info.mode == mFilter) {
@@ -54,25 +50,21 @@ public class RoomAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return mDataList.size();
+		return mDataList == null ? 0 :mDataList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return mDataList.get(position);
+		return mDataList == null ? null :mDataList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.room_list_item, null);

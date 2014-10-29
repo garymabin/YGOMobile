@@ -5,8 +5,6 @@ import java.util.Map;
 
 import cn.garymb.ygomobile.utils.DeviceUtils;
 
-import com.github.johnpersano.supertoasts.SuperToast;
-
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DownloadReceiver extends BroadcastReceiver {
 
@@ -46,7 +45,7 @@ public class DownloadReceiver extends BroadcastReceiver {
 		}
 		int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
 		if (DownloadManager.STATUS_SUCCESSFUL != cursor.getInt(statusIndex)) {
-		    SuperToast.create(mContext, "Download Failed", SuperToast.Duration.VERY_SHORT).show();
+		    Toast.makeText(mContext, "Download Failed", Toast.LENGTH_SHORT).show();
 		    mDownloadIDs.remove(id);
 			if (mDownloadIDs.size() == 0) {
 				unregister();

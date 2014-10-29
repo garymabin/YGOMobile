@@ -21,14 +21,11 @@ import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
-import com.github.johnpersano.supertoasts.SuperActivityToast;
-import com.github.johnpersano.supertoasts.SuperToast;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.update.UmengUpdateAgent;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,7 +35,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBar.OnNavigationListener;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -53,6 +49,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements
 		OnActionBarChangeCallback, Handler.Callback, Constants {
@@ -108,7 +105,8 @@ public class MainActivity extends ActionBarActivity implements
 	private FragmentManager mFragmentManager;
 
 	private Integer[] mDrawerImageArray = { R.drawable.ic_drawer_duel,
-			R.drawable.ic_drawer_card_wiki, R.drawable.ic_drawer_card_deck, R.drawable.ic_drawer_card_image};
+			R.drawable.ic_drawer_card_wiki, R.drawable.ic_drawer_card_deck,
+			R.drawable.ic_drawer_card_image };
 	private int[] viewTo = { R.id.drawer_item_image, R.id.drawer_item_text };
 	private String[] dataFrom = { IMAGE_TAG, TEXT_TAG };
 
@@ -158,18 +156,19 @@ public class MainActivity extends ActionBarActivity implements
 		mDrawerList.setAdapter(new SimpleAdapter(this, mDrawerListData,
 				R.layout.drawer_list_item, dataFrom, viewTo) {
 			@Override
-			public View getView(int position, View convertView,
-					ViewGroup parent) {
+			public View getView(int position, View convertView, ViewGroup parent) {
 				View v = super.getView(position, convertView, parent);
-				ImageView icon = (ImageView) v.findViewById(R.id.drawer_item_image);
-				TextView text = (TextView) v.findViewById(R.id.drawer_item_text);
+				ImageView icon = (ImageView) v
+						.findViewById(R.id.drawer_item_image);
+				TextView text = (TextView) v
+						.findViewById(R.id.drawer_item_text);
 				if (mDrawerList.isItemChecked(position)) {
-	                icon.setSelected(true);
-	                text.setSelected(true);
-	            } else {
-	                icon.setSelected(false);
-	                text.setSelected(false);
-	            }
+					icon.setSelected(true);
+					text.setSelected(true);
+				} else {
+					icon.setSelected(false);
+					text.setSelected(false);
+				}
 				return v;
 			}
 		});
@@ -177,6 +176,7 @@ public class MainActivity extends ActionBarActivity implements
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		selectItem(1);
 	}
+
 	@Override
 	protected void onResume() {
 		mController.registerForActionSettings(mHandler);
@@ -310,9 +310,8 @@ public class MainActivity extends ActionBarActivity implements
 	public void finish() {
 		if (!isExit) {
 			isExit = true;
-			SuperActivityToast.create(this,
-					getResources().getString(R.string.exit_hint),
-					SuperToast.Duration.MEDIUM).show();
+			Toast.makeText(this, getResources().getString(R.string.exit_hint),
+					Toast.LENGTH_SHORT).show();
 			mHandler.sendEmptyMessageDelayed(
 					Constants.MSG_ID_EXIT_CONFIRM_ALARM, 2000);
 		} else {
