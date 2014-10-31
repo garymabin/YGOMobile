@@ -36,7 +36,9 @@
         <item name="android:button">@drawable/apptheme_btn_radio_holo_light</item>
     </style>
 
-    <style name="ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid"></style>
+    <style name="ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        
+    </style>
 
     <style name="ProgressBarAppTheme" parent="android:Widget.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/apptheme_progress_horizontal_holo_light</item>

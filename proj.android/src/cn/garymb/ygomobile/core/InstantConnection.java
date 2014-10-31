@@ -54,4 +54,15 @@ public class InstantConnection implements IBaseConnection {
 		return CONNECTION_TYPE_INSTANT;
 	}
 
+
+	@Override
+	public void execute() {
+	}
+
+
+	@Override
+	public boolean isRunning() {
+		return false;
+	}
+
 }

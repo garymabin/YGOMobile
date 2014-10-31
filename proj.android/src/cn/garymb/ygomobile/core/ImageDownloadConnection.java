@@ -15,11 +15,14 @@ import cn.garymb.ygomobile.provider.YGOImagesDataBaseHelper;
 public class ImageDownloadConnection implements IBaseConnection {
 
 	private static int NUMBER_OF_CORES = Runtime.getRuntime()
-			.availableProcessors();
+			.availableProcessors() > 4 ? 4 : Runtime.getRuntime()
+					.availableProcessors();
 
 	protected BlockingQueue<BaseDataWrapper> mTaskQueue;
 	
 	private YGOImagesDataBaseHelper mHelper;
+	
+	private volatile boolean isRunning = false;
 
 	protected List<IBaseThread> mUpdateThreads = new ArrayList<>(
 			NUMBER_OF_CORES);
@@ -35,7 +38,6 @@ public class ImageDownloadConnection implements IBaseConnection {
 		for (int i = 0; i < NUMBER_OF_CORES; i++) {
 			IBaseThread thread = new ImageDownloadThread(mTaskQueue, callback,
 					client);
-			thread.start();
 			mUpdateThreads.add(thread);
 		}
 	}
@@ -55,6 +57,7 @@ public class ImageDownloadConnection implements IBaseConnection {
 
 	@Override
 	public void purge() {
+		isRunning = false;
 		for (IBaseThread thread : mUpdateThreads) {
 			thread.terminate();
 		}
@@ -64,6 +67,19 @@ public class ImageDownloadConnection implements IBaseConnection {
 	@Override
 	public int getType() {
 		return CONNECTION_TYPE_IMAGE_DOWNLOAD;
+	}
+
+	@Override
+	public void execute() {
+		for (IBaseThread thread : mUpdateThreads) {
+			thread.start();
+		}
+		isRunning = true;
+	}
+
+	@Override
+	public boolean isRunning() {
+		return isRunning;
 	}
 
 }

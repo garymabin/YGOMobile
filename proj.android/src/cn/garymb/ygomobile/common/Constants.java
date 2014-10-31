@@ -96,6 +96,8 @@ public interface Constants {
 	
 	public static final int REQUEST_TYPE_CLEAR_BITMAP_CACHE = 0x3008;
 	
+	public static final int IMAGE_DL_EVENT_TYPE_DOWNLOAD_COMPLETE = 0x4000;
+	
 	
 	public static final String BUNDLE_KEY_USER_NAME = "bundle.key.user.name";
 	public static final String BUNDLE_KEY_USER_PW = "bundle.key.user.pw";

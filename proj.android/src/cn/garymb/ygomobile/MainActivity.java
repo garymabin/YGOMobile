@@ -6,7 +6,6 @@ import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.fragment.BaseFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
-import cn.garymb.ygomobile.fragment.CardImageFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
 import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
@@ -17,6 +16,9 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.update.UmengUpdateAgent;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -45,7 +47,6 @@ public class MainActivity extends ActionBarActivity implements
 
 	private static final int DUEL_INDEX_FREE_MODE = 0;
 	private static final int DUEL_INDEX_CARD_WIKI = 1;
-	private static final int DUEL_INDEX_CARD_IMAGE = 2;
 
 	private static final String TAG = "MainActivity";
 
@@ -84,7 +85,24 @@ public class MainActivity extends ActionBarActivity implements
 		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
 		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
+//		boolean isFirstRun = checkFirstRun();
 	}
+
+//	private boolean checkFirstRun() {
+//		SharedPreferences prefs = getSharedPreferences(PREF_FILE_COMMON, MODE_PRIVATE);
+//	    PackageInfo pInfo;
+//	    try {
+//	        pInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
+//	        if (prefs.getLong("lastRunVersionCode", 0) < pInfo.versionCode) {
+//	            SharedPreferences.Editor editor = prefs.edit();
+//	            editor.putLong("lastRunVersionCode", pInfo.versionCode);
+//	            editor.commit();
+//	        }
+//	    } catch (PackageManager.NameNotFoundException e) {
+//	        Log.e(TAG, "Error reading versionCode");
+//	        e.printStackTrace();
+//	    }
+//	}
 
 	@Override
 	protected void onResume() {
@@ -254,10 +272,8 @@ public class MainActivity extends ActionBarActivity implements
 		Fragment fragment;
 		if (position == DUEL_INDEX_CARD_WIKI) {
 			fragment = new CardWikiFragment();
-		} else if (position == DUEL_INDEX_FREE_MODE){
-			fragment = new FreeDuelTabFragment();
 		} else {
-			fragment = new CardImageFragment();
+			fragment = new FreeDuelTabFragment();
 		}
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 		mFragmentManager.popBackStack();

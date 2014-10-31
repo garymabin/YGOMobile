@@ -103,7 +103,7 @@
     <string name="settings_about">About</string>
     <string name="donate">Donate</string>
     <string name="settings_about_sub_about">About</string>
-    <string name="support_us_des">YGOMobile is an open source project，we need your support to make it better</string>
+    <string name="support_us_des">YGOMobile is an open source project, we need your support to make it better</string>
     <string name="support_via">You can danate via:</string>
     <string name="support_extra">如果这不是您的常用设备，您也可以用其他手机扫描下面二维码进行捐助；</string>
     <string name="support_method_alipay_wap">通过wap网页进行捐助</string>
@@ -136,6 +136,8 @@
     <string name="settings_game_cover">Background</string>
     
     <string name="copying_image">Copying image...</string>
+    
+    <string name="adding_image_download_task">正在添加卡图下载队列...</string>
     
     <string name="access_denied">Access Denied!</string>
     <string name="choose_folder">Choose a folder:</string>

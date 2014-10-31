@@ -23,6 +23,7 @@ import android.util.Log;
 public class ImageDownloader {
 
 	private OkHttpClient mClient;
+
 	/**
 	 * @param cacheManager
 	 */
@@ -47,16 +48,8 @@ public class ImageDownloader {
 		ImageItem item = holder.getImageItem();
 		String destPath = null;
 		String targetUrl = null;
-		switch (holder.getImageType()) {
-		case Constants.IMAGE_TYPE_THUMNAIL:
-			destPath = ImageItemInfoHelper.getThumnailPath(item);
-			targetUrl = ImageItemInfoHelper.getThumnailUrl(item);
-			break;
-		case Constants.IMAGE_TYPE_ORIGINAL:
-			destPath = ImageItemInfoHelper.getImagePath(item);
-			targetUrl = ImageItemInfoHelper.getImageUrl(item);
-			break;
-		}
+		destPath = ImageItemInfoHelper.getImagePath(item);
+		targetUrl = ImageItemInfoHelper.getImageUrl(item);
 
 		if (TextUtils.isEmpty(destPath) || TextUtils.isEmpty(targetUrl)) {
 			holder.setDownloadResult(ImageFileDownloadTaskHolder.RET_DOWNLOAD_FAILED);

@@ -26,5 +26,8 @@ public interface IBaseConnection {
 	void purge();
 	
 	int getType();
-
+	
+	void execute();
+	
+	boolean isRunning();
 }

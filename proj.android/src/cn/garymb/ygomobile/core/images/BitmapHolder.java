@@ -20,6 +20,7 @@ public class BitmapHolder {
 	private String mId;
 	private ImageItem mImageItem;
 	private Reference<Bitmap> mRef;
+	
 	private int mImageType;
 	
 	public BitmapHolder(ImageItem item, int type) {
@@ -27,7 +28,7 @@ public class BitmapHolder {
 		this.mRef = null;
 		mImageType = type;
 		
-		mId = item.id + "_" + Constants.REQUEST_TYPE_LOAD_BITMAP + "_" + type;
+		mId = item.id + "_" + Constants.REQUEST_TYPE_LOAD_BITMAP;
 	}
 	
 	public String getId() {
@@ -54,9 +55,8 @@ public class BitmapHolder {
 	public ImageItem getImageItem() {
 		return this.mImageItem;
 	}
-
+	
 	public int getImageType() {
 		return mImageType;
 	}
-	
 }
