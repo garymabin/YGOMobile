@@ -77,6 +77,7 @@ public class ImageDLAddTask extends AsyncTask<CursorWindow, Integer, Integer> {
 	protected void onPostExecute(Integer result) {
 		super.onPostExecute(result);
 		mWaitDialog.dismiss();
+		mWaitDialog = null;
 		if (mListener != null) {
 			mListener.onDLAddComplete(null);
 			mListener = null;

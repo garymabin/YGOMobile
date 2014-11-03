@@ -18,6 +18,8 @@ public class DownloadService extends Service {
 
 	public static final String ACTION_STOP_TASK = "action_pause_task";
 	public static final String ACTION_STOP_ALL_TASK = "action_stop_all_task";
+	
+	public static final String BUNDLE_KEY_BATCH_TASK = "dl_task_window";
 
 	private ServiceBinder mBinder;
 
@@ -42,7 +44,7 @@ public class DownloadService extends Service {
 		}
 		if (ACTION_START_BATCH_TASK.equals(action)) {
 			initDownloadConnection();
-			CursorWindow window = intent.getParcelableExtra("dl_task_window");
+			CursorWindow window = intent.getParcelableExtra(BUNDLE_KEY_BATCH_TASK);
 			ImageDLAddTask task = new ImageDLAddTask(mDownloadConnection);
 			task.setImageDLAddListener(new ImageDLAddListener() {
 				@Override

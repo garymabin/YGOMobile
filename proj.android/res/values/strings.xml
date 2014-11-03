@@ -137,6 +137,7 @@
     
     <string name="copying_image">Copying image...</string>
     
+    <string name="searching_image_directory">正在扫描卡图目录...</string>
     <string name="adding_image_download_task">正在添加卡图下载队列...</string>
     
     <string name="access_denied">Access Denied!</string>

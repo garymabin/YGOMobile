@@ -33,6 +33,7 @@
         <activity
             android:name="cn.garymb.ygomobile.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" >
             <intent-filter>
@@ -104,6 +105,7 @@
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
+        <service android:name=".core.DownloadService"></service>
     </application>
 
 </manifest>

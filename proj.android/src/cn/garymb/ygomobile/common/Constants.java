@@ -67,6 +67,8 @@ public interface Constants {
 	public static final String PREF_KEY_SERVER_PORT = "pref_server_port_";
 	public static final String PREF_KEY_SERVER_INFO = "pref_server_info_";
 	
+	public static final String PREF_KEY_VERSION_CHECK = "pref_version_check";
+	
 	public static final long DAILY_MILLSECONDS = 24 * 3600 * 1000;
 	
 	

@@ -3,7 +3,10 @@ package cn.garymb.ygomobile;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.actionbar.ActionBarCreator;
 import cn.garymb.ygomobile.common.Constants;
+import cn.garymb.ygomobile.common.ImageDLCheckTask;
+import cn.garymb.ygomobile.common.ImageDLCheckTask.ImageDLCheckListener;
 import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.core.DownloadService;
 import cn.garymb.ygomobile.fragment.BaseFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
@@ -15,10 +18,16 @@ import cn.garymb.ygomobile.model.data.VersionInfo;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.update.UmengUpdateAgent;
 
+import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
+import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.CursorWindow;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,7 +46,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements
 		OnActionBarChangeCallback, Handler.Callback, Constants,
-		OnNavigationListener {
+		OnNavigationListener, ISimpleDialogListener, ImageDLCheckListener {
 
 	public static class EventHandler extends Handler {
 		public EventHandler(Callback back) {
@@ -85,24 +94,36 @@ public class MainActivity extends ActionBarActivity implements
 		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
 		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
-//		boolean isFirstRun = checkFirstRun();
+		boolean isFirstRun = checkFirstRunAfterInstall();
+		if (/*isFirstRun*/ true) {
+			SimpleDialogFragment.createBuilder(this, mFragmentManager)
+					.setMessage(R.string.card_img_check_hint)
+					.setTitle(R.string.card_img_update_title)
+					.setPositiveButtonText(R.string.button_update)
+					.setNegativeButtonText(R.string.button_cancel).setRequestCode(0).show();
+		}
 	}
 
-//	private boolean checkFirstRun() {
-//		SharedPreferences prefs = getSharedPreferences(PREF_FILE_COMMON, MODE_PRIVATE);
-//	    PackageInfo pInfo;
-//	    try {
-//	        pInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
-//	        if (prefs.getLong("lastRunVersionCode", 0) < pInfo.versionCode) {
-//	            SharedPreferences.Editor editor = prefs.edit();
-//	            editor.putLong("lastRunVersionCode", pInfo.versionCode);
-//	            editor.commit();
-//	        }
-//	    } catch (PackageManager.NameNotFoundException e) {
-//	        Log.e(TAG, "Error reading versionCode");
-//	        e.printStackTrace();
-//	    }
-//	}
+	private boolean checkFirstRunAfterInstall() {
+		boolean isFirstRun = false;
+		SharedPreferences prefs = getSharedPreferences(PREF_FILE_COMMON,
+				MODE_PRIVATE);
+		PackageInfo pInfo;
+		try {
+			pInfo = getPackageManager().getPackageInfo(getPackageName(),
+					PackageManager.GET_META_DATA);
+			if (prefs.getLong(PREF_KEY_VERSION_CHECK, 0) < pInfo.versionCode) {
+				isFirstRun = true;
+				SharedPreferences.Editor editor = prefs.edit();
+				editor.putLong(PREF_KEY_VERSION_CHECK, pInfo.versionCode);
+				editor.commit();
+			}
+		} catch (PackageManager.NameNotFoundException e) {
+			Log.e(TAG, "Error reading versionCode");
+			e.printStackTrace();
+		}
+		return isFirstRun;
+	}
 
 	@Override
 	protected void onResume() {
@@ -279,5 +300,33 @@ public class MainActivity extends ActionBarActivity implements
 		mFragmentManager.popBackStack();
 		ft.replace(R.id.content_frame, fragment);
 		ft.commitAllowingStateLoss();
+	}
+
+	@Override
+	public void onPositiveButtonClicked(int requestCode) {
+		ImageDLCheckTask task = new ImageDLCheckTask();
+		if (Build.VERSION.SDK_INT >= 11) {
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			task.execute();
+		}
+	}
+
+	@Override
+	public void onNegativeButtonClicked(int requestCode) {
+	}
+
+	@Override
+	public void onDLCheckComplete(CursorWindow result) {
+		if (result != null && result.getNumRows() != 0) {
+			Intent intent = new Intent();
+			intent.setClass(this, DownloadService.class);
+			intent.setAction(DownloadService.ACTION_START_BATCH_TASK);
+			intent.putExtra(
+					DownloadService.BUNDLE_KEY_BATCH_TASK, result);
+			startService(intent);
+		} else {
+		}
+		
 	}
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
+    <!-- 杂项 -->
     <string name="app_name">YGOMobile</string>
     <string name="crash_title">应用程序崩溃</string>
     <string name="crashed">w(ﾟДﾟ)w.. YGOMobile崩溃啦！</string>
@@ -28,6 +29,9 @@
     
     <string name="toast_delete">已删除 %1$s</string>
     <string name="exit_hint">"再按一次退出YGOMobile喵！"</string>
+    
+    <string name="card_img_update_title">卡图更新</string>
+    <string name="card_img_check_hint">是否立即更新卡图？</string>
     
     
     <!-- 按钮 -->
@@ -198,6 +202,6 @@
     
     <string name="reseting_card_db">正在重置卡片数据库</string>
     
-     <string name="reset_card_success">"重置成功，卡查变更需要完全退出游戏后生效！"</string>
+    <string name="reset_card_success">"重置成功，卡查变更需要完全退出游戏后生效！"</string>
     <string name="reset_card_failed">"重置失败"</string>
 </resources>
