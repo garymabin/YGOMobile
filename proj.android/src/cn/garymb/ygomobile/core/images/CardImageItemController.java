@@ -1,7 +1,5 @@
 package cn.garymb.ygomobile.core.images;
 
-
-
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.utils.BitmapUtils;
 
@@ -12,7 +10,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 
 public class CardImageItemController extends AbstractImageItemController {
 	private static final int FADE_IN_TIME = 400;
@@ -30,7 +27,6 @@ public class CardImageItemController extends AbstractImageItemController {
 			//设置默认的占位图
 			Bitmap defaultBitmap = BitmapUtils.createNewBitmapWithResource
 					(mContext.getResources(), R.drawable.unknown, new int[]{width, height}, false);
-			mImageView.setScaleType(ScaleType.CENTER_CROP);
 			mImageView.setImageBitmap(defaultBitmap);
 		}
 	}
@@ -39,7 +35,6 @@ public class CardImageItemController extends AbstractImageItemController {
 	public void setBitmap(Bitmap bmp, boolean isAnimationNeeded) {
 		if (mImageView != null) {
 			if (bmp != null) {
-				mImageView.setScaleType(ScaleType.CENTER_CROP);
 				if (isAnimationNeeded) {
 					showTransitionDrawable(mImageView, bmp);
 				} else {

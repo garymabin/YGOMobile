@@ -109,7 +109,7 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 		thumbnailImageHeightInPixel = context.getResources()
 				.getDimensionPixelSize(R.dimen.card_thumbnail_height);
 		thumbnailImageWidthInPixel = context.getResources()
-				.getDimensionPixelSize(R.dimen.card_image_width);
+				.getDimensionPixelSize(R.dimen.card_thumbnail_width);
 		mAttachedListView = new WeakReference<ListView>(attachTarget);
 	}
 

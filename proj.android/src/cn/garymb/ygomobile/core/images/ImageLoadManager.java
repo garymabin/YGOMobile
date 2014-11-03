@@ -45,7 +45,7 @@ public class ImageLoadManager implements Callback {
 					int[] resolution = new int[] { item.width, item.height };
 
 					Bitmap bmp = BitmapUtils.createNewBitmapAndCompressByFile(
-							path, resolution, false);
+							path, resolution, true);
 
 					if (bmp != null) {
 						holder.setBitmap(bmp);
