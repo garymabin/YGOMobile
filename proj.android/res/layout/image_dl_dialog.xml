@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="0/6183"
+        android:text="0/0"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dip"
-        android:text="90%"
+        android:text="0%"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="16sp" />

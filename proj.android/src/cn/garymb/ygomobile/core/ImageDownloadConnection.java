@@ -10,7 +10,6 @@ import com.squareup.okhttp.OkHttpClient;
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
 import cn.garymb.ygomobile.data.wrapper.ImageDownloadWrapper;
-import cn.garymb.ygomobile.provider.YGOImagesDataBaseHelper;
 
 public class ImageDownloadConnection implements IBaseConnection {
 
@@ -20,15 +19,13 @@ public class ImageDownloadConnection implements IBaseConnection {
 
 	protected BlockingQueue<BaseDataWrapper> mTaskQueue;
 	
-	private YGOImagesDataBaseHelper mHelper;
-	
 	private volatile boolean isRunning = false;
-
+	
 	protected List<IBaseThread> mUpdateThreads = new ArrayList<>(
 			NUMBER_OF_CORES);
 
 	public ImageDownloadConnection(StaticApplication app,
-			TaskStatusCallback callback, YGOImagesDataBaseHelper helper) {
+			TaskStatusCallback callback) {
 		mTaskQueue = new LinkedBlockingQueue<BaseDataWrapper>();
 		initThread(app, callback);
 	}
@@ -45,7 +42,6 @@ public class ImageDownloadConnection implements IBaseConnection {
 	@Override
 	public void addTask(BaseDataWrapper wrapper) {
 		if (wrapper instanceof ImageDownloadWrapper) {
-			((ImageDownloadWrapper) wrapper).setDataBaseHelper(mHelper);
 			try {
 				mTaskQueue.put(wrapper);
 			} catch (InterruptedException e) {
@@ -60,6 +56,7 @@ public class ImageDownloadConnection implements IBaseConnection {
 		isRunning = false;
 		for (IBaseThread thread : mUpdateThreads) {
 			thread.terminate();
+			thread = null;
 		}
 		mTaskQueue.clear();
 	}
@@ -80,6 +77,11 @@ public class ImageDownloadConnection implements IBaseConnection {
 	@Override
 	public boolean isRunning() {
 		return isRunning;
+	}
+
+	@Override
+	public int getTaskCount() {
+		return mTaskQueue.size();
 	}
 
 }

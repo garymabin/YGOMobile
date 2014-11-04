@@ -84,6 +84,7 @@ public interface Constants {
 	public static final int ACTION_BAR_EVENT_TYPE_DONATE = 0x2005;
 	public static final int ACTION_BAR_EVENT_TYPE_PERSONAL_CENTER = 0x2006;
 	public static final int ACTION_BAR_EVENT_TYPE_RESET = 0x2006;
+	public static final int ACTION_BAR_EVENT_TYPE_CARD_IAMGE_DL = 0x2007;
 	
 	public static final int REQUEST_TYPE_CHECK_UPDATE = 0x3000;
 	

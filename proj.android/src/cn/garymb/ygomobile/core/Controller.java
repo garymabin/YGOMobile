@@ -31,7 +31,7 @@ public class Controller {
 		mActionBarController = new ActionBarController();
 		mNetworkManager = NetworkStatusManager.peekInstance(app);
 		mUpdateController = new UpdateController(app);
-		mImageDLObservable = new ImageDownloadObservable();
+		mImageDLObservable = new ImageDownloadObservable(app);
 	}
 
 	public static Controller peekInstance() {
@@ -85,6 +85,14 @@ public class Controller {
 	public void unregisterForActionSettings(Handler h) {
 		mActionBarController.unregisterForActionSettings(h);
 	}
+	
+	public void registerForActionCardImageDL(Handler h) {
+		mActionBarController.registerForActionCardImageDL(h);
+	}
+
+	public void unregisterForActionCardImageDL(Handler h) {
+		mActionBarController.unregisterForActionCardImageDL(h);
+	}
 
 	public void registerForActionSupport(Handler h) {
 		mActionBarController.registerForActionSupport(h);
@@ -102,10 +110,21 @@ public class Controller {
 		mActionBarController.unregisterForActionReset(h);
 	}
 
-	public IBaseConnection newDownloadConnection() {
-		return mUpdateController.newDownloadConnection(mImageDLObservable
-				.obtainOserverMesssage(), Model.peekInstance()
-				.getImageDataBaseHelper());
+	public IBaseConnection createOrGetDownloadConnection() {
+		IBaseConnection connection = mUpdateController.getConnection(IBaseConnection.CONNECTION_TYPE_IMAGE_DOWNLOAD);
+		if (connection == null) {
+			connection = mUpdateController.newDownloadConnection(mImageDLObservable
+					.getMessageHandler());
+		}
+		return connection;
+	}
+	
+	public void cleanupDownloadConnection() {
+		mUpdateController.cleanupConnection(IBaseConnection.CONNECTION_TYPE_IMAGE_DOWNLOAD);
+	}
+	
+	public void setTotalDownloadCount(int count) {
+		mImageDLObservable.setTotalCount(count);
 	}
 	
 	public void registerForImageDownload(Observer o) {

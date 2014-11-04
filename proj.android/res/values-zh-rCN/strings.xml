@@ -47,6 +47,7 @@
     <!-- actionbar与卡片筛选相关 -->
     <string name="action_settings">设置</string>
     <string name="action_support">支持我们</string>
+    <string name="action_dl_card_image">更新卡图</string>
     <string name="action_reset">重置</string>
     <string name="action_play">开始游戏</string>
     <string name="action_search">搜索</string>
@@ -186,10 +187,11 @@
     <string name="copying_image">正在拷贝图片</string>
     <string name="adding_image_download_task">正在添加卡图下载队列...</string>
     <string name="adding_image_download_count_task">正在添加卡图下载队列.(%1$d/%2$d)</string>
-    <string name="image_is_downloading">%1$d张卡图正在下载</string>
+    <string name="image_is_downloading">%1$d张卡图正在下载, 点击以查看进度</string>
     <string name="image_download_label">卡图下载</string>
     <string name="image_count_progress">%1$d/%2$d</string>
     <string name="image_dl_failed">下载失败</string>
+    <string name="card_image_already_downloading_hint">卡图已在更新中!</string>
     
     <string name="images_download_success">下载成功</string>
     <string name="click_to_view">点击查看</string>

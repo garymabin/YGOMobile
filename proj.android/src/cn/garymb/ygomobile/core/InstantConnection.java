@@ -65,4 +65,10 @@ public class InstantConnection implements IBaseConnection {
 		return false;
 	}
 
+
+	@Override
+	public int getTaskCount() {
+		return 1;
+	}
+
 }

@@ -30,4 +30,6 @@ public interface IBaseConnection {
 	void execute();
 	
 	boolean isRunning();
+	
+	int getTaskCount();
 }

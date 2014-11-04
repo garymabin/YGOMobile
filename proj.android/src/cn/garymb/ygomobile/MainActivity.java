@@ -3,15 +3,20 @@ package cn.garymb.ygomobile;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.actionbar.ActionBarCreator;
 import cn.garymb.ygomobile.common.Constants;
+import cn.garymb.ygomobile.common.ImageDLAddTask;
 import cn.garymb.ygomobile.common.ImageDLCheckTask;
+import cn.garymb.ygomobile.common.ImageDLAddTask.ImageDLAddListener;
 import cn.garymb.ygomobile.common.ImageDLCheckTask.ImageDLCheckListener;
+import cn.garymb.ygomobile.common.NotificationMgr;
 import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.core.DownloadService;
+import cn.garymb.ygomobile.core.IBaseConnection;
 import cn.garymb.ygomobile.fragment.BaseFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
 import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
+import cn.garymb.ygomobile.fragment.ImageDLStatusDlgFragment;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 
@@ -21,15 +26,18 @@ import com.umeng.update.UmengUpdateAgent;
 import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
 import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.database.CursorWindow;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -54,6 +62,22 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
+	private ServiceConnection mServiceConn = new ServiceConnection() {
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+		}
+
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			DownloadService.ServiceBinder binder = (DownloadService.ServiceBinder) service;
+			if (binder == null) {
+				finish();
+				return;
+			}
+			mDownloadService = binder.getService();
+		}
+	};
+
 	private static final int DUEL_INDEX_FREE_MODE = 0;
 	private static final int DUEL_INDEX_CARD_WIKI = 1;
 
@@ -75,6 +99,8 @@ public class MainActivity extends ActionBarActivity implements
 
 	private String[] mDuelList;
 
+	private DownloadService mDownloadService;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,12 +121,31 @@ public class MainActivity extends ActionBarActivity implements
 		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
 		boolean isFirstRun = checkFirstRunAfterInstall();
-		if (/*isFirstRun*/ true) {
+		if (isFirstRun) {
 			SimpleDialogFragment.createBuilder(this, mFragmentManager)
 					.setMessage(R.string.card_img_check_hint)
 					.setTitle(R.string.card_img_update_title)
 					.setPositiveButtonText(R.string.button_update)
-					.setNegativeButtonText(R.string.button_cancel).setRequestCode(0).show();
+					.setNegativeButtonText(R.string.button_cancel)
+					.setRequestCode(0).show();
+		}
+		Intent service = new Intent(this, DownloadService.class);
+		bindService(service, mServiceConn, Context.BIND_AUTO_CREATE);
+		showImageDownloadStatus(getIntent());
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		showImageDownloadStatus(intent);
+	}
+
+	private void showImageDownloadStatus(Intent intent) {
+		String action = intent.getAction();
+		if (Constants.ACTION_VIEW_DOWNLOAD_STATUS.equals(action)) {
+			ImageDLStatusDlgFragment newFragment = ImageDLStatusDlgFragment
+					.newInstance(null, 1);
+			newFragment.show(mFragmentManager, "dialog");
 		}
 	}
 
@@ -127,6 +172,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	protected void onResume() {
+		mController.registerForActionCardImageDL(mHandler);
 		mController.registerForActionSettings(mHandler);
 		mController.registerForActionSupport(mHandler);
 		super.onResume();
@@ -134,6 +180,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	protected void onPause() {
+		mController.unregisterForActionCardImageDL(mHandler);
 		mController.unregisterForActionSettings(mHandler);
 		mController.unregisterForActionSupport(mHandler);
 		super.onPause();
@@ -149,6 +196,14 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onStop() {
 		super.onStop();
 		EasyTracker.getInstance(getApplicationContext()).activityStop(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unbindService(mServiceConn);
+		mDownloadService = null;
+		mServiceConn = null;
 	}
 
 	private void initActionBar() {
@@ -232,6 +287,24 @@ public class MainActivity extends ActionBarActivity implements
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
 			break;
+		case Constants.ACTION_BAR_EVENT_TYPE_CARD_IAMGE_DL:
+			Log.d(TAG, "receive card image click action");
+			IBaseConnection connection = Controller.peekInstance()
+					.createOrGetDownloadConnection();
+			if (!connection.isRunning()) {
+				ImageDLCheckTask task = new ImageDLCheckTask(this);
+				task.setImageDLCheckListener(this);
+				if (Build.VERSION.SDK_INT >= 11) {
+					task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+				} else {
+					task.execute();
+				}
+			} else {
+				Toast.makeText(this,
+						R.string.card_image_already_downloading_hint,
+						Toast.LENGTH_SHORT).show();
+			}
+			break;
 		case Constants.ACTION_BAR_EVENT_TYPE_DONATE: {
 			BaseFragment fragment = (BaseFragment) mFragmentManager
 					.findFragmentById(R.id.content_frame);
@@ -297,36 +370,54 @@ public class MainActivity extends ActionBarActivity implements
 			fragment = new FreeDuelTabFragment();
 		}
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		mFragmentManager.popBackStack();
+		mFragmentManager.popBackStackImmediate();
 		ft.replace(R.id.content_frame, fragment);
 		ft.commitAllowingStateLoss();
 	}
 
 	@Override
 	public void onPositiveButtonClicked(int requestCode) {
-		ImageDLCheckTask task = new ImageDLCheckTask();
-		if (Build.VERSION.SDK_INT >= 11) {
-			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-		} else {
-			task.execute();
+		if (requestCode == 0) {
+			ImageDLCheckTask task = new ImageDLCheckTask(this);
+			task.setImageDLCheckListener(this);
+			if (Build.VERSION.SDK_INT >= 11) {
+				task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			} else {
+				task.execute();
+			}
+		} else if (requestCode == 1) {
 		}
 	}
 
 	@Override
 	public void onNegativeButtonClicked(int requestCode) {
+		if (requestCode == 1) {
+			Controller.peekInstance().cleanupDownloadConnection();
+			NotificationMgr.cancelDownloadStatus(this);
+		}
 	}
 
 	@Override
-	public void onDLCheckComplete(CursorWindow result) {
-		if (result != null && result.getNumRows() != 0) {
-			Intent intent = new Intent();
-			intent.setClass(this, DownloadService.class);
-			intent.setAction(DownloadService.ACTION_START_BATCH_TASK);
-			intent.putExtra(
-					DownloadService.BUNDLE_KEY_BATCH_TASK, result);
-			startService(intent);
+	public void onDLCheckComplete(Bundle result) {
+		if (result != null) {
+			ImageDLAddTask task = new ImageDLAddTask(this, Controller
+					.peekInstance().createOrGetDownloadConnection());
+			task.setImageDLAddListener(new ImageDLAddListener() {
+				@Override
+				public void onDLAddComplete(Bundle result) {
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, DownloadService.class);
+					intent.setAction(DownloadService.ACTION_START_BATCH_TASK);
+					startService(intent);
+				}
+			});
+			if (Build.VERSION.SDK_INT >= 11) {
+				task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, result);
+			} else {
+				task.execute(result);
+			}
 		} else {
 		}
-		
+
 	}
 }

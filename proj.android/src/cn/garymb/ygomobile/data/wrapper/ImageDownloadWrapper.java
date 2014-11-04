@@ -4,30 +4,21 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
-
-import android.content.ContentValues;
 
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
-import cn.garymb.ygomobile.provider.YGOImages.Images;
-import cn.garymb.ygomobile.provider.YGOImagesDataBaseHelper;
 
 public class ImageDownloadWrapper extends BaseDataWrapper {
 
-	private WeakReference<YGOImagesDataBaseHelper> mHelperRef;
 	private ImageItem mItem;
 
 	public ImageDownloadWrapper(int requestType, ImageItem item) {
 		super(requestType);
 		mItem = item;
+		mUrls.add(ImageItemInfoHelper.getImageUrl(item));
 	}
 	
-	public void setDataBaseHelper(YGOImagesDataBaseHelper helper) {
-		mHelperRef = new WeakReference<YGOImagesDataBaseHelper>(helper);
-	}
-
 	@Override
 	public int parse(InputStream in) {
 		int result = TASK_STATUS_SUCCESS;
@@ -65,16 +56,6 @@ public class ImageDownloadWrapper extends BaseDataWrapper {
 		if (tmpFile != null) {
 			if (result == TASK_STATUS_SUCCESS) {
 				tmpFile.renameTo(destFile);
-				YGOImagesDataBaseHelper helper = mHelperRef.get();
-				if (helper != null) {
-					synchronized (helper) {
-						ContentValues values = new ContentValues();
-						values.put(Images.STATUS, result);
-						helper.update(YGOImagesDataBaseHelper.TABLE_IMAGES,
-								values, Images._ID + "=?",
-								new String[] { mItem.id });
-					}
-				}
 			} else {
 				tmpFile.delete();
 			}

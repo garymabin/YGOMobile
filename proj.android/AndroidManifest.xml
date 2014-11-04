@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-        android:name="cn.garymb.ygomobile.StaticApplication"
+        android:name=".StaticApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_icon"
         android:label="@string/app_name"
@@ -31,10 +31,10 @@
             android:value="Channel ID" />
 
         <activity
-            android:name="cn.garymb.ygomobile.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,9 +43,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.garymb.ygomobile.SettingsActivity"
+            android:name=".SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:parentActivityName="cn.garymb.ygomobile.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/SettingsTheme" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -54,7 +54,7 @@
                 android:value="cn.garymb.ygomobile.MainActivity" />
         </activity>
         <activity
-            android:name="cn.garymb.ygomobile.YGOMobileActivity"
+            android:name=".YGOMobileActivity"
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
@@ -82,14 +82,14 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <provider
-            android:name="cn.garymb.ygomobile.provider.YGOCardsProvider"
+            android:name=".provider.YGOCardsProvider"
             android:authorities="cn.garymb.ygomobile.provider"
             android:exported="false" >
         </provider>
 
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
-            android:parentActivityName="cn.garymb.ygomobile.CropActivity"
+            android:parentActivityName=".CropActivity"
             android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -105,7 +105,10 @@
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        <service android:name=".core.DownloadService"></service>
+
+        <service android:name=".core.DownloadService" >
+        </service>
+
     </application>
 
 </manifest>

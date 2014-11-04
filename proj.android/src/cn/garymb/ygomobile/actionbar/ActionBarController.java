@@ -15,6 +15,7 @@ public class ActionBarController {
 	private List<WeakReference<Handler>> mActionNewList;
 	private List<WeakReference<Handler>> mActionFilterList;
 	private List<WeakReference<Handler>> mActionSettingsList;
+	private List<WeakReference<Handler>> mActionCardImageDLList;
 	private List<WeakReference<Handler>> mActionPlayList;
 	private List<WeakReference<Handler>> mActionSearchList;
 	private List<WeakReference<Handler>> mActionSupportList;
@@ -23,6 +24,7 @@ public class ActionBarController {
 	public ActionBarController() {
 		mActionNewList = new ArrayList<WeakReference<Handler>>(3);
 		mActionSettingsList = new ArrayList<WeakReference<Handler>>(3);
+		mActionCardImageDLList = new ArrayList<WeakReference<Handler>>(3);
 		mActionPlayList = new ArrayList<WeakReference<Handler>>(3);
 		mActionSearchList = new ArrayList<WeakReference<Handler>>(3);
 		mActionFilterList = new ArrayList<WeakReference<Handler>>(3);
@@ -36,6 +38,9 @@ public class ActionBarController {
 		case R.id.action_settings:
 			notifyTarget(mActionSettingsList,
 					Constants.ACTION_BAR_EVENT_TYPE_SETTINGS);
+			break;
+		case R.id.action_check_dl_image:
+			notifyTarget(mActionCardImageDLList, Constants.ACTION_BAR_EVENT_TYPE_CARD_IAMGE_DL);
 			break;
 		case R.id.action_new:
 			notifyTarget(mActionNewList, Constants.ACTION_BAR_EVENT_TYPE_NEW);
@@ -143,6 +148,21 @@ public class ActionBarController {
 		for (WeakReference<Handler> item : mActionSettingsList) {
 			if (h == item.get()) {
 				mActionSettingsList.remove(item);
+				item = null;
+				break;
+			}
+		}
+	}
+	
+	public void registerForActionCardImageDL(Handler h) {
+		WeakReference<Handler> ref = new WeakReference<Handler>(h);
+		mActionCardImageDLList.add(ref);
+	}
+
+	public void unregisterForActionCardImageDL(Handler h) {
+		for (WeakReference<Handler> item : mActionCardImageDLList) {
+			if (h == item.get()) {
+				mActionCardImageDLList.remove(item);
 				item = null;
 				break;
 			}

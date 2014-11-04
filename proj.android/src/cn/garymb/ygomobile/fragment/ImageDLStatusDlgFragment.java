@@ -4,10 +4,13 @@ import java.util.Observable;
 import java.util.Observer;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,7 +18,6 @@ import android.widget.TextView;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.core.Controller;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
 
 import eu.inmite.android.lib.dialogs.BaseDialogFragment;
 import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
@@ -32,16 +34,33 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 
 	private ProgressBar mProgressBar;
 
+	public static ImageDLStatusDlgFragment newInstance(Bundle bundle,
+			int requestCode) {
+		ImageDLStatusDlgFragment f = new ImageDLStatusDlgFragment();
+		f.setArguments(bundle);
+		f.mRequestCode = requestCode;
+		return f;
+	}
+	
+	
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		Dialog dlg = super.onCreateDialog(savedInstanceState);
+		dlg.setCancelable(false);
+		return dlg;
+	}
+	
+	
 	@Override
 	public void onPause() {
 		super.onPause();
-		Controller.peekInstance().registerForImageDownload(this);
+		Controller.peekInstance().unregisterForImageDownload(this);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		Controller.peekInstance().unregisterForImageDownload(this);
+		Controller.peekInstance().registerForImageDownload(this);
 	}
 
 	@SuppressLint("InflateParams")
@@ -65,7 +84,7 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 					public void onClick(View v) {
 						ISimpleDialogListener listener = getDialogListener();
 						if (listener != null) {
-							listener.onPositiveButtonClicked(0);
+							listener.onPositiveButtonClicked(mRequestCode);
 						}
 						dismiss();
 					}
@@ -76,7 +95,7 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 					public void onClick(View v) {
 						ISimpleDialogListener listener = getDialogListener();
 						if (listener != null) {
-							listener.onNegativeButtonClicked(0);
+							listener.onNegativeButtonClicked(mRequestCode);
 						}
 						dismiss();
 					}
@@ -88,19 +107,13 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 	public void update(Observable observable, Object data) {
 		if (data instanceof Message) {
 			Message msg = (Message) data;
-			int status = msg.arg2;
-			if (status == IBaseWrapper.TASK_STATUS_SUCCESS) {
-				Bundle param = (Bundle) msg.obj;
-				int count = param.getInt("total_count");
-				int current = param.getInt("current_count");
-				float progress = (float) ((current * 100.0f) / (count * 1.0));
-				mProgressBar.setProgress((int) progress);
-				mProgressPercentView.setText(String.format("%2f%", progress));
-				mProgressView.setText(getResources().getString(
-						R.string.image_count_progress, current, count));
-			} else {
-				mProgressPercentView.setText(R.string.image_dl_failed);
-			}
+			int count = msg.arg2;
+			int current = msg.arg1;
+			float progress = (float) ((current * 100.0f) / (count * 1.0));
+			mProgressBar.setProgress((int) progress);
+			mProgressPercentView.setText(String.format("%2.1f%%", progress));
+			mProgressView.setText(getResources().getString(
+					R.string.image_count_progress, current, count));
 		}
 	}
 

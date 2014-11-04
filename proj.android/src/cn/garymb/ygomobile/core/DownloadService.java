@@ -1,14 +1,9 @@
 package cn.garymb.ygomobile.core;
 
-import cn.garymb.ygomobile.common.ImageDLAddTask;
-import cn.garymb.ygomobile.common.ImageDLAddTask.ImageDLAddListener;
+import cn.garymb.ygomobile.common.NotificationMgr;
 import android.app.Service;
 import android.content.Intent;
-import android.database.CursorWindow;
-import android.os.AsyncTask;
 import android.os.Binder;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.IBinder;
 
 public class DownloadService extends Service {
@@ -24,6 +19,8 @@ public class DownloadService extends Service {
 	private ServiceBinder mBinder;
 
 	private IBaseConnection mDownloadConnection;
+	
+	private boolean isDownloading = false;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -43,35 +40,21 @@ public class DownloadService extends Service {
 			action = intent.getAction();
 		}
 		if (ACTION_START_BATCH_TASK.equals(action)) {
-			initDownloadConnection();
-			CursorWindow window = intent.getParcelableExtra(BUNDLE_KEY_BATCH_TASK);
-			ImageDLAddTask task = new ImageDLAddTask(mDownloadConnection);
-			task.setImageDLAddListener(new ImageDLAddListener() {
-				@Override
-				public void onDLAddComplete(Bundle result) {
-					mDownloadConnection.execute();
-				}
-			});
-			if (Build.VERSION.SDK_INT >= 11) {
-				task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, window);
-			} else {
-				task.execute(window);
-			}
-
+			mDownloadConnection = Controller.peekInstance().createOrGetDownloadConnection();
+			Controller.peekInstance().setTotalDownloadCount(mDownloadConnection.getTaskCount());
+			NotificationMgr.showDownloadStatus(this, mDownloadConnection.getTaskCount());
+			mDownloadConnection.execute();
+			isDownloading = true;
 		} else if (ACTION_STOP_ALL_TASK.equals(action)) {
 			mDownloadConnection.purge();
 			mDownloadConnection = null;
+			isDownloading = false;
 		} else if (ACTION_START_TASK.equals(action)) {
 		} else if (ACTION_STOP_TASK.equals(action)) {
 		}
-		return super.onStartCommand(intent, flags, startId);
-	}
-
-	private void initDownloadConnection() {
-		if (mDownloadConnection == null || !mDownloadConnection.isRunning()) {
-			mDownloadConnection = Controller.peekInstance()
-					.newDownloadConnection();
+		if (mDownloadConnection == null) {
 		}
+		return super.onStartCommand(intent, flags, startId);
 	}
 
 	public class ServiceBinder extends Binder {
@@ -79,5 +62,8 @@ public class DownloadService extends Service {
 			return DownloadService.this;
 		}
 	}
-
+	
+	public boolean isDownloading() {
+		return isDownloading;
+	}
 }

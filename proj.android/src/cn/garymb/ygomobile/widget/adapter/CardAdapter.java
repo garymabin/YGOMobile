@@ -208,13 +208,14 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 					Constants.REQUEST_TYPE_LOAD_BITMAP,
 					Constants.IMAGE_TYPE_THUMNAIL, type, item);
 			Controller.peekInstance().requestDataOperation(this, msg);
-		} else {
-			// 未下载则进行请求下载
-			Message msg = Controller.buildMessage(
-					Constants.REQUEST_TYPE_DOWNLOAD_IMAGE,
-					Constants.IMAGE_TYPE_THUMNAIL, type, item);
-			Controller.peekInstance().requestDataOperation(this, msg);
 		}
+//		} else {
+//			// 未下载则进行请求下载
+//			Message msg = Controller.buildMessage(
+//					Constants.REQUEST_TYPE_DOWNLOAD_IMAGE,
+//					Constants.IMAGE_TYPE_THUMNAIL, type, item);
+//			Controller.peekInstance().requestDataOperation(this, msg);
+//		}
 	}
 
 	@Override

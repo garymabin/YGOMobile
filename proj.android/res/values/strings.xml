@@ -121,25 +121,20 @@
     <string name="settings_about_check_update">Check updates</string>
     <string name="settings_about_no_update">Latest version already!</string>
     <string name="settings_about_new_version">New version</string>
-    
     <string name="settings_game_card_quality">Card image quality</string>
     <string name="settings_game_card_path">Card image save path</string>
     <string name="settings_game_opengl">OpenGL</string>
     <string name="settings_game_font_name">Font list</string>
     <string name="settings_game_res_path">Resource path</string>
-    
     <string name="settings_category_diy">DIY</string>
     <string name="settings_game_diy_cover">Game background</string>
     <string name="image_not_load_toast">Can not load certain image</string>
     <string name="settings_game_diy_des">Current image：</string>
     <string name="settings_game_diy_history_des">History images：</string>
     <string name="settings_game_cover">Background</string>
-    
     <string name="copying_image">Copying image...</string>
-    
     <string name="searching_image_directory">正在扫描卡图目录...</string>
     <string name="adding_image_download_task">正在添加卡图下载队列...</string>
-    
     <string name="access_denied">Access Denied!</string>
     <string name="choose_folder">Choose a folder:</string>
     <string name="root_dir">Root dir</string>
@@ -163,5 +158,7 @@
     <string name="toast_delete">%1$s deleted</string>
     <string name="exit_hint">"Press back again to quit YGOMobile!"</string>
     <string name="title_activity_crop">CropActivity</string>
+    <string name="title_activity_image_dladd">ImageDLAddActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -3,6 +3,7 @@
     <item type="id" name="action_basic_group"/>
     <item type="id" name="action_extra_group"/>
     
+    <item type="id" name="action_check_dl_image"/>
     <item type="id" name="action_new"/>
     <item type="id" name="action_filter"/>
     <item type="id" name="action_settings"/>

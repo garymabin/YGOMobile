@@ -19,6 +19,7 @@ public class ImageDownloadThread extends BaseThread {
 	public ImageDownloadThread(BlockingQueue<BaseDataWrapper> queue, TaskStatusCallback callback, OkHttpClient client) {
 		super(callback);
 		mConnector = new OkHttpConector(client);
+		mQueue = queue;
 	}
 	
 	@Override
