@@ -19,6 +19,7 @@
 #include <android/CAndroidGUIEditBox.h>
 #include <android/CAndroidGUIComboBox.h>
 #include <android/CAndroidGUIListBox.h>
+#include <android/CAndroidGUISkin.h>
 #include <COGLES2ExtensionHandler.h>
 #include <COGLESExtensionHandler.h>
 #include <COGLES2Driver.h>
@@ -150,6 +151,9 @@ bool Game::Initialize() {
 	if(!dataManager.LoadStrings((cacheDir + path("/core/") + configVersion + path("/config/strings.conf")).c_str()))
 		return false;
 	env = device->getGUIEnvironment();
+	gui::IGUISkin* newskin = CAndroidGUISkin::createAndroidSkin(gui::EGST_BURNING_SKIN, driver, env, xScale, yScale);
+	env->setSkin(newskin);
+	newskin->drop();
 	bool isAntialias = android::getFontAntiAlias(app);
 	numFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)16 * yScale, isAntialias, false);
 	adFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)12 * yScale, isAntialias, false);
@@ -1365,7 +1369,7 @@ void Game::ShowCardInfo(int code) {
 	}
 	showingtext = dataManager.GetText(code);
 	const auto& tsize = stText->getRelativePosition();
-	InitStaticText(stText, tsize.getWidth(), tsize.getHeight(), textFont, showingtext);
+	InitStaticText(stText, tsize.getWidth() * xScale, tsize.getHeight() * yScale, textFont, showingtext);
 }
 void Game::AddChatMsg(wchar_t* msg, int player) {
 	for(int i = 7; i > 0; --i) {

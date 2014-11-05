@@ -90,10 +90,15 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 		mFontNamePreference = (ListPreference) findPreference(Settings.KEY_PREF_GAME_FONT_NAME);
 		File fontsPath = new File(StaticApplication.peekInstance()
 				.getResourcePath(), Constants.FONT_DIRECTORY);
-		mFontNamePreference.setEntries(fontsPath.list());
-		mFontNamePreference.setEntryValues(fontsPath.list());
 		if (TextUtils.isEmpty(mFontNamePreference.getValue())) {
 			mFontNamePreference.setValue(Constants.DEFAULT_FONT_NAME);
+		}
+		if (fontsPath.exists()) {
+			mFontNamePreference.setEntries(fontsPath.list());
+			mFontNamePreference.setEntryValues(fontsPath.list());
+		} else {
+			mFontNamePreference.setEntries(new String[]{Constants.DEFAULT_FONT_NAME});
+			mFontNamePreference.setEntryValues(new String[]{Constants.DEFAULT_FONT_NAME});
 		}
 		mFontNamePreference.setSummary(mFontNamePreference.getValue());
 
