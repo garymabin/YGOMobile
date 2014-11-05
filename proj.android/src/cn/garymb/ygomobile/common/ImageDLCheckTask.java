@@ -2,6 +2,7 @@ package cn.garymb.ygomobile.common;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,10 +17,15 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class ImageDLCheckTask extends AsyncTask<Object, Boolean, Bundle> {
 
 	private static final String CARD_IMAGE_SUFFIX = ".jpg";
+	
+	private static final String NO_MEDIA_FILE_SUFFIX = ".nomedia";
+
+	private static final String TAG = "ImageDLCheckTask";
 
 	private FilenameFilter mFilter;
 	
@@ -64,6 +70,16 @@ public class ImageDLCheckTask extends AsyncTask<Object, Boolean, Bundle> {
 		Bundle bundle = null;
 		File imageDir = new File(StaticApplication.peekInstance()
 				.getCardImagePath());
+		//check no media files.
+		File noMediaFile = new File(imageDir, NO_MEDIA_FILE_SUFFIX);
+		if (!noMediaFile.exists()) {
+			try {
+				noMediaFile.createNewFile();
+			} catch (IOException e) {
+				Log.w(TAG, "can not create .nomedia file");
+				e.printStackTrace();
+			}
+		}
 		String[] filenames = imageDir.list();
 		List<Integer> images = null;
         if (filenames != null && filenames != null) {

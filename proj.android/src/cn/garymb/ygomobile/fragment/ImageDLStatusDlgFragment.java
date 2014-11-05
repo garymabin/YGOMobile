@@ -34,7 +34,7 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 	private TextView mProgressView;
 
 	private ProgressBar mProgressBar;
-	
+
 	private int mTotalCount;
 	private int mCurrentCount;
 
@@ -45,16 +45,14 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 		f.mRequestCode = requestCode;
 		return f;
 	}
-	
-	
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		Dialog dlg = super.onCreateDialog(savedInstanceState);
 		dlg.setCancelable(false);
 		return dlg;
 	}
-	
-	
+
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -79,7 +77,6 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 		mProgressView = (TextView) view.findViewById(R.id.dl_progress_text);
 		mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar2);
 		mDLStopButton.setOnClickListener(this);
-		setProgress();
 
 		builder.setTitle(R.string.image_download_label);
 		builder.setView(view);
@@ -111,13 +108,14 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 	@Override
 	public void update(Observable observable, Object data) {
 		if (data instanceof Message) {
-			Message msg = (Message) data;
-			mTotalCount = msg.arg2;
-			mCurrentCount = msg.arg1;
-			setProgress();
+			if (isAdded()) {
+				Message msg = (Message) data;
+				mTotalCount = msg.arg2;
+				mCurrentCount = msg.arg1;
+				setProgress();
+			}
 		}
 	}
-
 
 	private void setProgress() {
 		float progress = (float) ((mCurrentCount * 100.0f) / (mTotalCount * 1.0));
@@ -126,7 +124,7 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 		mProgressView.setText(getResources().getString(
 				R.string.image_count_progress, mCurrentCount, mTotalCount));
 	}
-	
+
 	@Override
 	public void onSaveInstanceState(Bundle arg0) {
 		Log.i(TAG, "onSaveInstanceState");
@@ -134,8 +132,7 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 		arg0.putInt("total_count", mTotalCount);
 		arg0.putInt("current_count", mCurrentCount);
 	}
-	
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -145,7 +142,7 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 			mCurrentCount = savedInstanceState.getInt("current_count", 0);
 		}
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		ISimpleDialogListener listener = getDialogListener();
