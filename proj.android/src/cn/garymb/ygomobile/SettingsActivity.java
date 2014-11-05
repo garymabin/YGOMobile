@@ -27,6 +27,7 @@ import cn.garymb.ygomobile.widget.SimpleDialog;
 import cn.garymb.ygomobile.widget.WebViewDialog;
 import cn.garymb.ygomobile.widget.filebrowser.FileBrowser;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
@@ -90,8 +91,6 @@ public class SettingsActivity extends PreferenceActivity implements
 
 	private Preference mCardDBResetPrefernece;
 
-	private EventHandler mHandler = new EventHandler(this);
-
 	private Bundle mImageParam;
 
 	@Override
@@ -154,6 +153,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	@Deprecated
 	protected Dialog onCreateDialog(int id, Bundle args) {

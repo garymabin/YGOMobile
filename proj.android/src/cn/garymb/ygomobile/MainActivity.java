@@ -73,7 +73,6 @@ public class MainActivity extends ActionBarActivity implements
 				finish();
 				return;
 			}
-			mDownloadService = binder.getService();
 		}
 	};
 
@@ -97,8 +96,6 @@ public class MainActivity extends ActionBarActivity implements
 	private FragmentManager mFragmentManager;
 
 	private String[] mDuelList;
-
-	private DownloadService mDownloadService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -201,7 +198,6 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unbindService(mServiceConn);
-		mDownloadService = null;
 		mServiceConn = null;
 	}
 

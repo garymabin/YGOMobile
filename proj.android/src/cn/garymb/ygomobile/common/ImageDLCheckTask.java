@@ -59,7 +59,6 @@ public class ImageDLCheckTask extends AsyncTask<Object, Boolean, Bundle> {
 		mListener = listener;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected Bundle doInBackground(Object... params) {
 		Bundle bundle = null;

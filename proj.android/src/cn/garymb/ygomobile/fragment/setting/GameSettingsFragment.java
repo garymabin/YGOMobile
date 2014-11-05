@@ -23,6 +23,7 @@ import cn.garymb.ygomobile.widget.ImagePreviewDialog;
 import cn.garymb.ygomobile.widget.SimpleDialog;
 import cn.garymb.ygomobile.widget.filebrowser.FileBrowser;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -266,6 +267,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 		}
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public BaseDialog onCreateDialog(int type, Bundle param) {
 		BaseDialog dlg = null;

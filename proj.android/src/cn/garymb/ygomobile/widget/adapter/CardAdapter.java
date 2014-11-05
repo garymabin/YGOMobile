@@ -166,7 +166,7 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 	@Override
 	public View newView(Context arg0, Cursor arg1, ViewGroup arg2) {
 		View view = LayoutInflater.from(arg0).inflate(R.layout.card_list_item,
-				null);
+				arg2, false);
 		ViewHolder holder = new ViewHolder(view);
 		view.setTag(holder);
 		return view;

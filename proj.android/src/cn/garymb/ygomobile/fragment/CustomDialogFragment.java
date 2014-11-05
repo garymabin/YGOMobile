@@ -2,6 +2,7 @@ package cn.garymb.ygomobile.fragment;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -121,6 +122,7 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 		super.onViewCreated(view, savedInstanceState);
 	}
 	
+	@SuppressLint("InflateParams")
 	@Override
 	protected Builder build(Builder builder) {
 		mSimpleUiWrapper = new SimpleDialogConfigUiBase(builder);
@@ -238,9 +240,6 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 				((BaseFragment)getTargetFragment()).onEventFromChild(getTargetRequestCode(), FragmentNavigationListener.FRAGMENT_NAVIGATION_DUEL_CREATE_SERVER_EVENT, -1, -1, null);
 			case ResourcesConstants.DIALOG_MODE_DIRECTORY_CHOOSE:
 				break;
-			case ResourcesConstants.DIALOG_MODE_APP_UPDATE:
-				String url = ((AppUpdateController) mController).getDownloadUrl();
-				break;
 			default:
 				break;
 			}
@@ -248,7 +247,7 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 		dismiss();
 	}
 
-	@Override
+	@SuppressLint("ClickableViewAccessibility")
 	public boolean onTouch(View v, MotionEvent event) {
 		return true;
 	}

@@ -86,7 +86,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 		public View getGroupView(int groupPosition, boolean isExpanded,
 				View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = mInflater.inflate(R.layout.server_item, null);
+				convertView = mInflater.inflate(R.layout.server_item, parent, false);
 			}
 			YGOServerInfo info = getGroup(groupPosition);
 			((TextView) convertView.findViewById(R.id.server_user_name))
@@ -153,7 +153,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mListView = (ExpandableListView) inflater.inflate(
-				R.layout.common_expanable_list, null);
+				R.layout.common_expanable_list, container, false);
 		mAdapter = new ServerAdapter(inflater, Model.peekInstance()
 				.getServers(), this);
 		mListView.setAdapter(mAdapter);
@@ -253,7 +253,6 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			bundle.putInt("index", index);
 			showDialog(bundle, this, REQUEST_CODE_SERVER);
 		} else if (operationId == ServerOperationPanel.SERVER_OPERATION_DELETE) {
-			YGOServerInfo info = mAdapter.getGroup(position);
 			Toast.makeText(mActivity, R.string.toast_delete, Toast.LENGTH_SHORT).show();
 			int index = (int)mAdapter.getGroupId(position);
 			Model.peekInstance().removeServer(index);

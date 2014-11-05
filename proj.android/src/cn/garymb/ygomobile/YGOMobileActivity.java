@@ -149,6 +149,7 @@ public class YGOMobileActivity extends NativeActivity implements
 						res.getDimensionPixelSize(R.dimen.chain_control_margin)));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub

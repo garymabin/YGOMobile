@@ -10,9 +10,6 @@ import android.support.v4.util.SparseArrayCompat;
 
 public class UpdateController {
 
-	private static final int UPDATE_TYPE_IMAGE_UPDATE = 0x0;
-	private static final int UPDATE_MAX_TYPE = UPDATE_TYPE_IMAGE_UPDATE + 1;
-
 	private SparseArrayCompat<IBaseConnection> mConnections;
 
 	private StaticApplication mApp;
