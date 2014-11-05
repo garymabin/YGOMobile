@@ -69,6 +69,10 @@ public abstract class BaseDataWrapper implements IBaseWrapper {
 		}
 	}
 	
+	public int size() {
+		return mUrls.size();
+	}
+	
 	@Override
 	public int getRequestType() {
 		return mRequestType;
