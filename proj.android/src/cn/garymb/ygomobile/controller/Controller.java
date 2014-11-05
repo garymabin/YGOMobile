@@ -1,9 +1,10 @@
-package cn.garymb.ygomobile.core;
+package cn.garymb.ygomobile.controller;
 
 import java.util.Observer;
 
 import cn.garymb.ygomobile.StaticApplication;
-import cn.garymb.ygomobile.actionbar.ActionBarController;
+import cn.garymb.ygomobile.controller.actionbar.ActionBarController;
+import cn.garymb.ygomobile.core.IBaseConnection;
 import cn.garymb.ygomobile.model.IDataObserver;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.net.NetworkStatusManager;
@@ -22,16 +23,16 @@ public class Controller {
 
 	private UpdateController mUpdateController;
 
-	private ImageDownloadObservable mImageDLObservable;
-
 	private Model mModel;
+	
+	private CardImageDownloadManager mImageManager;
 
 	private Controller(StaticApplication app) {
 		mModel = Model.peekInstance();
 		mActionBarController = new ActionBarController();
 		mNetworkManager = NetworkStatusManager.peekInstance(app);
 		mUpdateController = new UpdateController(app);
-		mImageDLObservable = new ImageDownloadObservable(app);
+		mImageManager = new CardImageDownloadManager(app, mUpdateController);
 	}
 
 	public static Controller peekInstance() {
@@ -111,28 +112,23 @@ public class Controller {
 	}
 
 	public IBaseConnection createOrGetDownloadConnection() {
-		IBaseConnection connection = mUpdateController.getConnection(IBaseConnection.CONNECTION_TYPE_IMAGE_DOWNLOAD);
-		if (connection == null) {
-			connection = mUpdateController.newDownloadConnection(mImageDLObservable
-					.getMessageHandler());
-		}
-		return connection;
+		return mImageManager.createOrGetDownloadConnection();
 	}
 	
 	public void cleanupDownloadConnection() {
-		mUpdateController.cleanupConnection(IBaseConnection.CONNECTION_TYPE_IMAGE_DOWNLOAD);
+		mImageManager.cleanupDownloadConnection();
 	}
 	
 	public void setTotalDownloadCount(int count) {
-		mImageDLObservable.setTotalCount(count);
+		mImageManager.setTotalDownloadCount(count);
 	}
 	
 	public void registerForImageDownload(Observer o) {
-		mImageDLObservable.addObserver(o);
+		mImageManager.registerForImageDownload(o);
 	}
 	
 	public void unregisterForImageDownload(Observer o) {
-		mImageDLObservable.deleteObserver(o);
+		mImageManager.registerForImageDownload(o);
 	}
 
 	/**

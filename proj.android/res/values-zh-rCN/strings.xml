@@ -192,6 +192,7 @@
     <string name="image_count_progress">%1$d/%2$d</string>
     <string name="image_dl_failed">下载失败</string>
     <string name="card_image_already_downloading_hint">卡图已在更新中!</string>
+    <string name="card_image_already_updated">卡图已是最新</string>
     
     <string name="images_download_success">下载成功</string>
     <string name="click_to_view">点击查看</string>

@@ -12,6 +12,8 @@ import android.os.Bundle;
  */
 public abstract class BaseDataWrapper implements IBaseWrapper {
 	
+	public static final int MAX_RETRY_COUNT = 3;
+	
 	protected ArrayList<String> mUrls;
 	protected int mResult;
 	
@@ -19,12 +21,15 @@ public abstract class BaseDataWrapper implements IBaseWrapper {
 	
 	protected Bundle mParam;
 	
+	protected int mRetryCount = 0;
+	
 	/**
 	 * 
 	 */
 	public BaseDataWrapper(int requestType) {
 		mUrls = new ArrayList<String>();
 		mRequestType = requestType;
+		mRetryCount = 0;
 	}
 
 	
@@ -67,5 +72,13 @@ public abstract class BaseDataWrapper implements IBaseWrapper {
 	@Override
 	public int getRequestType() {
 		return mRequestType;
+	}
+	
+	public int getRetryCount() {
+		return mRetryCount;
+	}
+	
+	public int increaseRetryCount() {
+		return ++mRetryCount;
 	}
 }

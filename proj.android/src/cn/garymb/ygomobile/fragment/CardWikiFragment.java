@@ -6,7 +6,7 @@ import java.util.List;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.ComplexCursorLoader;
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.provider.YGOCards;
 import cn.garymb.ygomobile.utils.ResourceUtils;

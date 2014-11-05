@@ -1,14 +1,13 @@
 package cn.garymb.ygomobile;
 
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.actionbar.ActionBarCreator;
+import cn.garymb.ygomobile.controller.actionbar.ActionBarCreator;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.common.ImageDLAddTask;
 import cn.garymb.ygomobile.common.ImageDLCheckTask;
 import cn.garymb.ygomobile.common.ImageDLAddTask.ImageDLAddListener;
 import cn.garymb.ygomobile.common.ImageDLCheckTask.ImageDLCheckListener;
-import cn.garymb.ygomobile.common.NotificationMgr;
-import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.DownloadService;
 import cn.garymb.ygomobile.core.IBaseConnection;
 import cn.garymb.ygomobile.fragment.BaseFragment;
@@ -393,7 +392,10 @@ public class MainActivity extends ActionBarActivity implements
 	public void onNegativeButtonClicked(int requestCode) {
 		if (requestCode == 1) {
 			Controller.peekInstance().cleanupDownloadConnection();
-			NotificationMgr.cancelDownloadStatus(this);
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, DownloadService.class);
+			intent.setAction(DownloadService.ACTION_STOP_TASK);
+			startService(intent);
 		}
 	}
 
@@ -417,6 +419,7 @@ public class MainActivity extends ActionBarActivity implements
 				task.execute(result);
 			}
 		} else {
+			Toast.makeText(this, R.string.card_image_already_updated, Toast.LENGTH_SHORT).show();
 		}
 
 	}

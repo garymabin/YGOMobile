@@ -3,7 +3,6 @@ package cn.garymb.ygomobile.model.data;
 import java.io.File;
 
 import cn.garymb.ygomobile.StaticApplication;
-import cn.garymb.ygomobile.common.Constants;
 
 import android.content.ContentResolver;
 import android.database.Cursor;

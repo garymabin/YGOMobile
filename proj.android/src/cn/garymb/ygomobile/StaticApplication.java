@@ -30,7 +30,7 @@ import org.apache.http.client.HttpClient;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.CrashSender;
 import cn.garymb.ygomobile.net.http.ThreadSafeHttpClientFactory;
 import cn.garymb.ygomobile.setting.Settings;

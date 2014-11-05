@@ -1,6 +1,7 @@
 package cn.garymb.ygomobile.core;
 
 import cn.garymb.ygomobile.common.NotificationMgr;
+import cn.garymb.ygomobile.controller.Controller;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -53,6 +54,7 @@ public class DownloadService extends Service {
 		} else if (ACTION_STOP_TASK.equals(action)) {
 		}
 		if (mDownloadConnection == null) {
+			stopSelf();
 		}
 		return super.onStartCommand(intent, flags, startId);
 	}

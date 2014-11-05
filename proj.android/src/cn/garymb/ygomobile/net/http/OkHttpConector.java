@@ -16,29 +16,35 @@ import cn.garymb.ygomobile.net.IBaseConnector;
 import cn.garymb.ygomobile.utils.HttpUtils;
 
 public class OkHttpConector implements IBaseConnector {
-	
+
 	private static final String TAG = "OkHttpConector";
 	private OkHttpClient mClient;
-	
-	
+
 	public OkHttpConector(OkHttpClient client) {
 		mClient = client;
 	}
 
-
 	@Override
 	public void get(BaseDataWrapper wrapper) throws InterruptedException {
-		Log.d(TAG, "start to connect, url = " + wrapper.getUrl(0));
-		InputStream is = HttpUtils.doOkGet(mClient, wrapper.getUrl(0));
-		if (null != is) {
-			wrapper.parse(is);
-			try {
-				is.close();
-			} catch (IOException e) {
+		do {
+			Log.d(TAG, "start to connect, url = " + wrapper.getUrl(0) + " retryCount = " + wrapper.getRetryCount());
+			InputStream is = HttpUtils.doOkGet(mClient, wrapper.getUrl(0));
+			if (null != is) {
+				int result = wrapper.parse(is);
+				try {
+					is.close();
+				} catch (IOException e) {
+				}
+				if (result == IBaseWrapper.TASK_STATUS_CANCELED || 
+						result == IBaseWrapper.TASK_STATUS_SUCCESS) {
+					break;
+				} else {
+					continue;
+				}
 			}
-		}
+		} while (wrapper.increaseRetryCount() <= BaseDataWrapper.MAX_RETRY_COUNT);
 	}
-	
+
 	/**
 	 * 
 	 * @author: mabin
@@ -58,7 +64,7 @@ public class OkHttpConector implements IBaseConnector {
 			if (Thread.currentThread().isInterrupted()) {
 				throw new InterruptedException();
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			status = IBaseWrapper.TASK_STATUS_FAILED;
@@ -73,7 +79,7 @@ public class OkHttpConector implements IBaseConnector {
 				try {
 					data.close();
 				} catch (IOException e) {
-					//just in case
+					// just in case
 				}
 			}
 			out.delete(0, out.length());

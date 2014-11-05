@@ -32,8 +32,8 @@ public class NotificationMgr {
 				Context.NOTIFICATION_SERVICE);
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 		builder.setContentIntent(pendingIntent);
-		builder.setContentTitle(title);
-		builder.setContentText(spilit);
+		builder.setContentTitle(spilit);
+		builder.setContentText(title);
 		builder.setTicker(title);
 		builder.setAutoCancel(false);
 		builder.setOngoing(true);
@@ -41,17 +41,15 @@ public class NotificationMgr {
 		nm.notify(ID_DOWNLOAD_STATUS, builder.build());
 	}
 	
-	public static void showDownloadSuccess(Context context, String label) {
+	public static void showDownloadSuccess(Context context) {
 		String title = String.format(Locale.getDefault(),
-				context.getString(R.string.images_download_success), label);
-		String text = context.getString(R.string.click_to_view);
+				context.getString(R.string.images_download_success));
 		
 		NotificationManager nm = (NotificationManager) context.getSystemService(
 				Context.NOTIFICATION_SERVICE);
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
 		builder.setContentTitle(title);
-		builder.setContentText(text);
 		builder.setTicker(title);
 		builder.setSmallIcon(R.drawable.ic_download_statusbar);
 		nm.notify(ID_DOWNLOAD_STATUS, builder.build());

@@ -32,8 +32,8 @@ public class ImageDownloadWrapper extends BaseDataWrapper {
 			while (!Thread.currentThread().isInterrupted()
 					&& (readCount = in.read(buffer)) != -1) {
 				fos.write(buffer, 0, readCount);
-			}
 			fos.flush();
+			}
 			if (Thread.currentThread().isInterrupted()) {
 				if (tmpFile != null) {
 					tmpFile.delete();
@@ -52,11 +52,10 @@ public class ImageDownloadWrapper extends BaseDataWrapper {
 					// just ignore
 				}
 			}
-		}
-		if (tmpFile != null) {
-			if (result == TASK_STATUS_SUCCESS) {
-				tmpFile.renameTo(destFile);
-			} else {
+			if (tmpFile != null) {
+				if (result == TASK_STATUS_SUCCESS) {
+					tmpFile.renameTo(destFile);
+				}
 				tmpFile.delete();
 			}
 		}

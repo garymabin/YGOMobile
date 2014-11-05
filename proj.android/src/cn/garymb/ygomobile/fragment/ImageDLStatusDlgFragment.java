@@ -5,19 +5,18 @@ import java.util.Observer;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import cn.garymb.ygomobile.R;
-import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.controller.Controller;
 
 import eu.inmite.android.lib.dialogs.BaseDialogFragment;
 import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
@@ -26,6 +25,8 @@ import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 		Observer, OnClickListener {
 
+	private static final String TAG = "ImageDLStatusDlgFragment";
+
 	private ImageView mDLStopButton;
 
 	private TextView mProgressPercentView;
@@ -33,6 +34,9 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 	private TextView mProgressView;
 
 	private ProgressBar mProgressBar;
+	
+	private int mTotalCount;
+	private int mCurrentCount;
 
 	public static ImageDLStatusDlgFragment newInstance(Bundle bundle,
 			int requestCode) {
@@ -75,6 +79,7 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 		mProgressView = (TextView) view.findViewById(R.id.dl_progress_text);
 		mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar2);
 		mDLStopButton.setOnClickListener(this);
+		setProgress();
 
 		builder.setTitle(R.string.image_download_label);
 		builder.setView(view);
@@ -107,16 +112,40 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 	public void update(Observable observable, Object data) {
 		if (data instanceof Message) {
 			Message msg = (Message) data;
-			int count = msg.arg2;
-			int current = msg.arg1;
-			float progress = (float) ((current * 100.0f) / (count * 1.0));
-			mProgressBar.setProgress((int) progress);
-			mProgressPercentView.setText(String.format("%2.1f%%", progress));
-			mProgressView.setText(getResources().getString(
-					R.string.image_count_progress, current, count));
+			mTotalCount = msg.arg2;
+			mCurrentCount = msg.arg1;
+			setProgress();
 		}
 	}
 
+
+	private void setProgress() {
+		float progress = (float) ((mCurrentCount * 100.0f) / (mTotalCount * 1.0));
+		mProgressBar.setProgress((int) progress);
+		mProgressPercentView.setText(String.format("%2.1f%%", progress));
+		mProgressView.setText(getResources().getString(
+				R.string.image_count_progress, mCurrentCount, mTotalCount));
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle arg0) {
+		Log.i(TAG, "onSaveInstanceState");
+		super.onSaveInstanceState(arg0);
+		arg0.putInt("total_count", mTotalCount);
+		arg0.putInt("current_count", mCurrentCount);
+	}
+	
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		if (savedInstanceState != null) {
+			Log.i(TAG, "load from saved instance");
+			mTotalCount = savedInstanceState.getInt("total_count", 0);
+			mCurrentCount = savedInstanceState.getInt("current_count", 0);
+		}
+	}
+	
 	@Override
 	public void onClick(View v) {
 		ISimpleDialogListener listener = getDialogListener();
@@ -125,5 +154,4 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 		}
 		dismiss();
 	}
-
 }

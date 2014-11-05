@@ -4,7 +4,7 @@
  *  Created on: 2014年3月28日
  * 		Author: mabin
  */
-package cn.garymb.ygomobile.core;
+package cn.garymb.ygomobile.controller;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

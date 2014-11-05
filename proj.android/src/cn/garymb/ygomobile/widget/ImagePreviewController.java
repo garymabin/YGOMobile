@@ -2,7 +2,7 @@ package cn.garymb.ygomobile.widget;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.images.BitmapHolder;
 import cn.garymb.ygomobile.core.images.PreviewImageItemController;
 import cn.garymb.ygomobile.model.IDataObserver;

@@ -1,6 +1,6 @@
 package cn.garymb.ygomobile.widget;
 
-import cn.garymb.ygomobile.core.Controller;
+import cn.garymb.ygomobile.controller.Controller;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;

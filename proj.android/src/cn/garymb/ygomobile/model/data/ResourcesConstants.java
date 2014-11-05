@@ -8,9 +8,9 @@ public interface ResourcesConstants {
 	
 	public static final String FORUM_URL = "https://forum.my-card.in/";
 	
-	public static final String IMAGE_URL = "https://raw.githubusercontent.com/garymabin/YGOMobile-images/master/";
+	public static final String IMAGE_URL = "https://raw.githubusercontent.com/garymabin/YGOMobile-images/master/lq/";
 	
-	public static final String THUMBNAIL_URL = "https://raw.githubusercontent.com/garymabin/YGOMobile-images/master/";
+	public static final String THUMBNAIL_URL = "https://raw.githubusercontent.com/garymabin/YGOMobile-images/master/lq/";
 	
 	public static final String WIKI_SEARCH_URL = "http://www.ourocg.cn/S.aspx?key=";
 	

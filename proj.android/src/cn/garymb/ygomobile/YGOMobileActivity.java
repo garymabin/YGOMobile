@@ -10,8 +10,8 @@ import java.nio.ByteBuffer;
 
 import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
+import cn.garymb.ygomobile.controller.NetworkController;
 import cn.garymb.ygomobile.core.IrrlichtBridge;
-import cn.garymb.ygomobile.core.NetworkController;
 import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.widget.ComboBoxCompat;
 import cn.garymb.ygomobile.widget.EditWindowCompat;
