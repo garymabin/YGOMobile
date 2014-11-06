@@ -387,12 +387,12 @@ void Game::DrawMisc() {
 			adFont->draw(L"/", recti((m - 4) * mainGame->xScale, 416 * mainGame->yScale, (m + 4) * mainGame->xScale, 436 * mainGame->yScale), 0xff000000, true, false, 0);
 			adFont->draw(L"/", recti((m - 3) * mainGame->xScale, 417 * mainGame->yScale, (m + 5) * mainGame->xScale, 437 * mainGame->yScale), 0xffffffff, true, false, 0);
 			int w = adFont->getDimension(pcard->atkstring).Width;
-			adFont->draw(pcard->atkstring, recti((m - 5 - w) * mainGame->xScale, 416 * mainGame->yScale, (m - 5) * mainGame->xScale, 436 * mainGame->yScale), 0xff000000, false, false, 0);
-			adFont->draw(pcard->atkstring, recti((m - 4 - w) * mainGame->xScale, 417 * mainGame->yScale, (m - 4) * mainGame->xScale, 437 * mainGame->yScale),
+			adFont->draw(pcard->atkstring, recti((m - 5) * mainGame->xScale - w, 416 * mainGame->yScale, (m - 5) * mainGame->xScale, 436 * mainGame->yScale), 0xff000000, false, false, 0);
+			adFont->draw(pcard->atkstring, recti((m - 4) * mainGame->xScale - w, 417 * mainGame->yScale, (m - 4) * mainGame->xScale, 437 * mainGame->yScale),
 			             pcard->attack > pcard->base_attack ? 0xffffff00 : pcard->attack < pcard->base_attack ? 0xffff2090 : 0xffffffff , false, false, 0);
 			w = adFont->getDimension(pcard->defstring).Width;
-			adFont->draw(pcard->defstring, recti((m + 4) * mainGame->xScale, 416 * mainGame->yScale, (m + 4 + w) * mainGame->xScale, 436 * mainGame->yScale), 0xff000000, false, false, 0);
-			adFont->draw(pcard->defstring, recti((m + 5) * mainGame->xScale, 417 * mainGame->yScale, (m + 5 + w) * mainGame->xScale, 437 * mainGame->yScale),
+			adFont->draw(pcard->defstring, recti((m + 4) * mainGame->xScale, 416 * mainGame->yScale, (m + 4) * mainGame->xScale + w, 436 * mainGame->yScale), 0xff000000, false, false, 0);
+			adFont->draw(pcard->defstring, recti((m + 5) * mainGame->xScale, 417 * mainGame->yScale, (m + 5) * mainGame->xScale + w, 437 * mainGame->yScale),
 			             pcard->defence > pcard->base_defence ? 0xffffff00 : pcard->defence < pcard->base_defence ? 0xffff2090 : 0xffffffff , false, false, 0);
 			adFont->draw(pcard->lvstring, recti((473 + i * 80) * mainGame->xScale, 356 * mainGame->yScale, (475 + i * 80) * mainGame->xScale, 366 * mainGame->yScale), 0xff000000, false, false, 0);
 			adFont->draw(pcard->lvstring, recti((474 + i * 80) * mainGame->xScale, 357 * mainGame->yScale, (476 + i * 80) * mainGame->xScale, 367 * mainGame->yScale),
@@ -406,8 +406,8 @@ void Game::DrawMisc() {
 			adFont->draw(L"/", recti((m - 4) * mainGame->xScale, 235 * mainGame->yScale, (m + 4) * mainGame->xScale, 255 * mainGame->yScale), 0xff000000, true, false, 0);
 			adFont->draw(L"/", recti((m - 3) * mainGame->xScale, 236 * mainGame->yScale, (m + 5) * mainGame->xScale, 256 * mainGame->yScale), 0xffffffff, true, false, 0);
 			int w = adFont->getDimension(pcard->atkstring).Width;
-			adFont->draw(pcard->atkstring, recti((m - 5 - w) * mainGame->xScale, 235 * mainGame->yScale, (m - 5) * mainGame->xScale, 255 * mainGame->yScale), 0xff000000, false, false, 0);
-			adFont->draw(pcard->atkstring, recti((m - 4 - w) * mainGame->xScale, 236 * mainGame->yScale, (m - 4) * mainGame->xScale, 256 * mainGame->yScale),
+			adFont->draw(pcard->atkstring, recti((m - 5) * mainGame->xScale - w, 235 * mainGame->yScale, (m - 5) * mainGame->xScale, 255 * mainGame->yScale), 0xff000000, false, false, 0);
+			adFont->draw(pcard->atkstring, recti((m - 4) * mainGame->xScale - w, 236 * mainGame->yScale, (m - 4) * mainGame->xScale, 256 * mainGame->yScale),
 			             pcard->attack > pcard->base_attack ? 0xffffff00 : pcard->attack < pcard->base_attack ? 0xffff2090 : 0xffffffff , false, false, 0);
 			w = adFont->getDimension(pcard->defstring).Width;
 			adFont->draw(pcard->defstring, recti((m + 4) * mainGame->xScale, 235 * mainGame->yScale, (m + 4 + w) * mainGame->xScale, 255 * mainGame->yScale), 0xff000000, false, false, 0);
@@ -823,7 +823,7 @@ void Game::DrawThumb(code_pointer cp, position2di pos, std::unordered_map<int, i
 	int lcode = cp->second.alias;
 	if(lcode == 0)
 		lcode = code;
-	irr::video::ITexture* img = imageManager.GetTextureThumb(code);
+	irr::video::ITexture* img = imageManager.GetTexture(code);
 	if(img == NULL)
 		return; //NULL->getSize() will cause a crash
 	dimension2d<u32> size = img->getOriginalSize();

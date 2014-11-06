@@ -71,6 +71,7 @@ public class ImageDLCheckTask extends AsyncTask<Object, Boolean, Bundle> {
 		File imageDir = new File(StaticApplication.peekInstance()
 				.getCardImagePath());
 		//check no media files.
+		imageDir.mkdirs();
 		File noMediaFile = new File(imageDir, NO_MEDIA_FILE_SUFFIX);
 		if (!noMediaFile.exists()) {
 			try {
