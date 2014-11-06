@@ -562,9 +562,7 @@ core::rect<s32> CAndroidGUISkin::draw3DWindowBackground(IGUIElement* element,
 	rect.UpperLeftCorner.Y += 2;
 	rect.LowerRightCorner.X -= 2;
 	rect.LowerRightCorner.Y = rect.UpperLeftCorner.Y
-			+ getSize(EGDS_WINDOW_BUTTON_WIDTH) + 2;
-
-	rect.UpperLeftCorner.Y *= ((YScale - 1)/2 + 1);
+			+ getSize(EGDS_WINDOW_BUTTON_WIDTH) + 2 + 20 * (YScale - 1);
 
 	if (drawTitleBar) {
 		if (checkClientArea) {

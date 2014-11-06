@@ -151,9 +151,6 @@ bool Game::Initialize() {
 	if(!dataManager.LoadStrings((cacheDir + path("/core/") + configVersion + path("/config/strings.conf")).c_str()))
 		return false;
 	env = device->getGUIEnvironment();
-	gui::IGUISkin* newskin = CAndroidGUISkin::createAndroidSkin(gui::EGST_BURNING_SKIN, driver, env, xScale, yScale);
-	env->setSkin(newskin);
-	newskin->drop();
 	bool isAntialias = android::getFontAntiAlias(app);
 	numFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)16 * yScale, isAntialias, false);
 	adFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)12 * yScale, isAntialias, false);
@@ -163,6 +160,10 @@ bool Game::Initialize() {
 	smgr = device->getSceneManager();
 	device->setWindowCaption(L"[---]");
 	device->setResizable(false);
+	gui::IGUISkin* newskin = CAndroidGUISkin::createAndroidSkin(gui::EGST_BURNING_SKIN, driver, env, xScale, yScale);
+	newskin->setFont(textFont);
+	env->setSkin(newskin);
+	newskin->drop();
 	//main menu
 	wchar_t strbuf[256];
 	myswprintf(strbuf, L"YGOPro Version:%X.0%X.%X", PRO_VERSION >> 12, (PRO_VERSION >> 4) & 0xff, PRO_VERSION & 0xf);
@@ -183,7 +184,7 @@ bool Game::Initialize() {
 	ebNickName = CAndroidGUIEditBox::addAndroidEditBox(gameConf.nickname, true, env, rect<s32>(110 * xScale, 25 * yScale, 450 * xScale, 65 * yScale), wLanWindow);
 	ebNickName->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
 	lstHostList = CAndroidGUIListBox::addAndroidGUIListBox(env, rect<s32>(20 * xScale, 75 * yScale, 600 * xScale, 320 * yScale), wLanWindow, LISTBOX_LAN_HOST, true, 40 * xScale);
-	lstHostList->setItemHeight(18);
+	lstHostList->setItemHeight(18 * yScale);
 	btnLanRefresh = env->addButton(rect<s32>(250 * xScale, 330 * yScale, 350 * xScale, 370 * yScale), wLanWindow, BUTTON_LAN_REFRESH, dataManager.GetSysString(1217));
 	env->addStaticText(dataManager.GetSysString(1221), rect<s32>(35 * xScale, 390 * yScale, 220 * xScale, 410 * yScale), false, false, wLanWindow);
 	ebJoinIP = CAndroidGUIEditBox::addAndroidEditBox(gameConf.lastip, true, env, rect<s32>(110 * xScale, 380 * yScale, 270 * xScale, 420 * yScale), wLanWindow);
@@ -213,7 +214,7 @@ bool Game::Initialize() {
 	ebNickName = env->addEditBox(gameConf.nickname, rect<s32>(110 * xScale, 25 * yScale, 450 * xScale, 50 * yScale), true, wLanWindow);
 	lstHostList = env->addListBox(rect<s32>(10 * xScale, 60 * yScale, 570 * xScale, 320 * yScale), wLanWindow, LISTBOX_LAN_HOST, true);
 	ebNickName->setTextAlignment(irr::gui::EGUIA_UPPERLEFT, irr::gui::EGUIA_CENTER);
-	lstHostList->setItemHeight(18);
+	lstHostList->setItemHeight(18 * yScale);
 	btnLanRefresh = env->addButton(rect<s32>(240 * xScale, 325 * yScale, 340 * xScale, 350 * yScale), wLanWindow, BUTTON_LAN_REFRESH, dataManager.GetSysString(1217));
 	env->addStaticText(dataManager.GetSysString(1221), rect<s32>(10 * xScale, 360 * yScale, 220 * xScale, 380 * yScale), false, false, wLanWindow);
 	ebJoinIP = env->addEditBox(gameConf.lastip, rect<s32>(110 * xScale, 355 * yScale, 250 * xScale, 380 * yScale), true, wLanWindow);
@@ -479,7 +480,7 @@ bool Game::Initialize() {
 #else
 	lstLog = env->addListBox(rect<s32>(10 * xScale, 10 * yScale, 290 * xScale, 290 * yScale), tabLog, LISTBOX_LOG, false);
 #endif
-	lstLog->setItemHeight(18);
+	lstLog->setItemHeight(18 * yScale);
 	btnClearLog = env->addButton(rect<s32>(160 * xScale, 300 * yScale, 260 * xScale, 325 * yScale), tabLog, BUTTON_CLEAR_LOG, dataManager.GetSysString(1272));
 	//system
 	irr::gui::IGUITab* tabSystem = wInfos->addTab(dataManager.GetSysString(1273));
@@ -825,7 +826,7 @@ bool Game::Initialize() {
 	wReplay->getCloseButton()->setVisible(false);
 	wReplay->setVisible(false);
 	lstReplayList = CAndroidGUIListBox::addAndroidGUIListBox(env, rect<s32>(10 * xScale, 30 * yScale, 350 * xScale, 400 * yScale), wReplay, LISTBOX_REPLAY_LIST, true, 40 * xScale);
-	lstReplayList->setItemHeight(18);
+	lstReplayList->setItemHeight(18 * yScale);
 	btnLoadReplay = env->addButton(rect<s32>(460 * xScale, 320 * yScale, 570 * xScale, 360 * yScale), wReplay, BUTTON_LOAD_REPLAY, dataManager.GetSysString(1348));
 	btnReplayCancel = env->addButton(rect<s32>(460 * xScale, 370 * yScale, 570 * xScale, 410 * yScale), wReplay, BUTTON_CANCEL_REPLAY, dataManager.GetSysString(1347));
 	env->addStaticText(dataManager.GetSysString(1349), rect<s32>(360 * xScale, 30 * yScale, 570 * xScale, 50 * yScale), false, true, wReplay);
@@ -839,7 +840,7 @@ bool Game::Initialize() {
 	wSinglePlay->getCloseButton()->setVisible(false);
 	wSinglePlay->setVisible(false);
 	lstSinglePlayList = CAndroidGUIListBox::addAndroidGUIListBox(env, rect<s32>(10 * xScale, 30 * yScale, 350 * xScale, 400 * yScale), wSinglePlay, LISTBOX_SINGLEPLAY_LIST, true, 40 * xScale);
-	lstSinglePlayList->setItemHeight(18);
+	lstSinglePlayList->setItemHeight(18 * yScale);
 	btnLoadSinglePlay = env->addButton(rect<s32>(460 * xScale, 320 * yScale, 570 * xScale, 360 * yScale), wSinglePlay, BUTTON_LOAD_SINGLEPLAY, dataManager.GetSysString(1211));
 	btnSinglePlayCancel = env->addButton(rect<s32>(460 * xScale, 370 * yScale, 570 * xScale, 410 * yScale), wSinglePlay, BUTTON_CANCEL_SINGLEPLAY, dataManager.GetSysString(1210));
 	env->addStaticText(dataManager.GetSysString(1352), rect<s32>(360 * xScale, 30 * yScale, 570 * xScale, 50 * yScale), false, true, wSinglePlay);
@@ -873,7 +874,7 @@ bool Game::Initialize() {
 	wReplay->getCloseButton()->setVisible(false);
 	wReplay->setVisible(false);
 	lstReplayList = env->addListBox(rect<s32>(10, 30, 350, 400), wReplay, LISTBOX_REPLAY_LIST, true);
-	lstReplayList->setItemHeight(18);
+	lstReplayList->setItemHeight(18 * yScale);
 	btnLoadReplay = env->addButton(rect<s32>(460, 355, 570, 380), wReplay, BUTTON_LOAD_REPLAY, dataManager.GetSysString(1348));
 	btnReplayCancel = env->addButton(rect<s32>(460, 385, 570, 410), wReplay, BUTTON_CANCEL_REPLAY, dataManager.GetSysString(1347));
 	env->addStaticText(dataManager.GetSysString(1349), rect<s32>(360, 30, 570, 50), false, true, wReplay);
@@ -887,7 +888,7 @@ bool Game::Initialize() {
 	wSinglePlay->getCloseButton()->setVisible(false);
 	wSinglePlay->setVisible(false);
 	lstSinglePlayList = env->addListBox(rect<s32>(10, 30, 350, 400), wSinglePlay, LISTBOX_SINGLEPLAY_LIST, true);
-	lstSinglePlayList->setItemHeight(18);
+	lstSinglePlayList->setItemHeight(18 * yScale);
 	btnLoadSinglePlay = env->addButton(rect<s32>(460, 355, 570, 380), wSinglePlay, BUTTON_LOAD_SINGLEPLAY, dataManager.GetSysString(1211));
 	btnSinglePlayCancel = env->addButton(rect<s32>(460, 385, 570, 410), wSinglePlay, BUTTON_CANCEL_SINGLEPLAY, dataManager.GetSysString(1210));
 	env->addStaticText(dataManager.GetSysString(1352), rect<s32>(360, 30, 570, 50), false, true, wSinglePlay);
@@ -1170,7 +1171,7 @@ void Game::InitStaticText(irr::gui::IGUIStaticText* pControl, u32 cWidth, u32 cH
 		scrCardText->setVisible(false);
 		return;
 	}
-	SetStaticText(pControl, cWidth-25, font, text);
+	SetStaticText(pControl, cWidth - 40 * xScale, font, text);
 	u32 fontheight = font->getDimension(L"A").Height + font->getKerningHeight();
 	u32 step = (font->getDimension(dataManager.strBuffer).Height - cHeight) / fontheight + 1;
 	scrCardText->setVisible(true);
@@ -1369,7 +1370,7 @@ void Game::ShowCardInfo(int code) {
 	}
 	showingtext = dataManager.GetText(code);
 	const auto& tsize = stText->getRelativePosition();
-	InitStaticText(stText, tsize.getWidth() * xScale, tsize.getHeight() * yScale, textFont, showingtext);
+	InitStaticText(stText, tsize.getWidth(), tsize.getHeight(), textFont, showingtext);
 }
 void Game::AddChatMsg(wchar_t* msg, int player) {
 	for(int i = 7; i > 0; --i) {
