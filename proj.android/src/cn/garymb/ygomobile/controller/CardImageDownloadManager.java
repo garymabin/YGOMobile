@@ -40,7 +40,7 @@ public final class CardImageDownloadManager implements IDownloadEventCallback {
 	}
 	
 	/*package*/ void setTotalDownloadCount(int count) {
-		mImageDLObservable.setTotalCount(count);
+		mImageDLObservable.initWithTotalCount(count);
 	}
 	
 	/*package*/ void registerForImageDownload(Observer o) {
@@ -50,7 +50,7 @@ public final class CardImageDownloadManager implements IDownloadEventCallback {
 	/*package*/ void unregisterForImageDownload(Observer o) {
 		mImageDLObservable.deleteObserver(o);
 	}
-
+	
 	@Override
 	public void onDownloadEvent(int event) {
 		switch (event) {

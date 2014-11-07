@@ -5,7 +5,7 @@ import org.apache.http.client.HttpClient;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
 import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
-import cn.garymb.ygomobile.net.http.BaseHttpConnector;
+import cn.garymb.ygomobile.net.defaulthttp.BaseHttpConnector;
 
 public abstract class InstantThread extends BaseThread {
 

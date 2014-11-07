@@ -1,9 +1,12 @@
 package cn.garymb.ygomobile.core;
 
 
+import java.util.Observer;
+
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.utils.FastObservable;
 
@@ -14,6 +17,8 @@ public class ImageDownloadObservable extends FastObservable implements Handler.C
 	}	
 	
 	public static final int DOWNLOAD_EVENT_FINISHED = 0;
+
+	private static final String TAG = "ImageDownloadObservable";
 
 	private Handler mHandler;
 	
@@ -36,6 +41,12 @@ public class ImageDownloadObservable extends FastObservable implements Handler.C
 		mCount = 0;
 		mTotalCount = 0;
 	}
+	
+	@Override
+	public void addObserver(Observer observer) {
+		super.addObserver(observer);
+		fireFastNotify(Message.obtain(null, Constants.IMAGE_DL_EVENT_TYPE_DOWNLOAD_COMPLETE, mCount, mTotalCount));
+	}
 
 
 	@Override
@@ -43,6 +54,7 @@ public class ImageDownloadObservable extends FastObservable implements Handler.C
 		if (msg.what == Constants.IMAGE_DL_EVENT_TYPE_DOWNLOAD_COMPLETE) {
 			msg.arg1 = ++mCount;
 			msg.arg2 = mTotalCount;
+			Log.i(TAG, "receive download complete event count = " + mCount + " total = " + mTotalCount);
 			if (mCount == mTotalCount) {
 				if (mCallback != null) {
 					mCallback.onDownloadEvent(DOWNLOAD_EVENT_FINISHED);
@@ -59,8 +71,9 @@ public class ImageDownloadObservable extends FastObservable implements Handler.C
 		return mHandler;
 	}
 	
-	public void setTotalCount(int count) {
+	public void initWithTotalCount(int count) {
 		mTotalCount = count;
+		mCount = 0;
 	}
 
 }

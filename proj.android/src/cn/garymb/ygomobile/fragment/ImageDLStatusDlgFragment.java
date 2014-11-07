@@ -45,7 +45,7 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 		f.mRequestCode = requestCode;
 		return f;
 	}
-
+	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		Dialog dlg = super.onCreateDialog(savedInstanceState);
@@ -112,6 +112,10 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 				Message msg = (Message) data;
 				mTotalCount = msg.arg2;
 				mCurrentCount = msg.arg1;
+				if (mTotalCount == mCurrentCount) {
+					dismissAllowingStateLoss();
+					return;
+				}
 				setProgress();
 			}
 		}

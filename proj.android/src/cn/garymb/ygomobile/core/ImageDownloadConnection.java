@@ -1,10 +1,13 @@
 package cn.garymb.ygomobile.core;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import org.apache.http.HC4.impl.nio.client.CloseableHttpPipeliningClient;
 
 import android.os.Handler;
 import android.os.Message;
@@ -15,35 +18,51 @@ import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
 import cn.garymb.ygomobile.data.wrapper.ImageDownloadWrapper;
 
-public class ImageDownloadConnection implements IBaseConnection, TaskStatusCallback{
+public class ImageDownloadConnection implements IBaseConnection,
+		TaskStatusCallback {
 
-	private static int NUMBER_OF_CORES = Runtime.getRuntime()
+	private static int MAX_NUMBER_OF_THREADS = Runtime.getRuntime()
 			.availableProcessors() > 4 ? 4 : Runtime.getRuntime()
-					.availableProcessors();
+			.availableProcessors();
 
 	protected BlockingQueue<BaseDataWrapper> mTaskQueue;
-	
-	private volatile boolean isRunning = false;
-	
-	private WeakReference<Handler> mHandlerRef;
-	
-	protected List<IBaseThread> mUpdateThreads = new ArrayList<>(
-			NUMBER_OF_CORES);
 
-	public ImageDownloadConnection(StaticApplication app,
-			Handler handler) {
+	private volatile boolean isRunning = false;
+
+	private WeakReference<Handler> mHandlerRef;
+
+	protected List<IBaseThread> mUpdateThreads = new ArrayList<>(
+			MAX_NUMBER_OF_THREADS);
+
+	private Object mClient;
+
+	public ImageDownloadConnection(StaticApplication app, Handler handler,
+			boolean isAsync) {
 		mTaskQueue = new LinkedBlockingQueue<BaseDataWrapper>();
 		mHandlerRef = new WeakReference<Handler>(handler);
-		initThread(app, this);
+		initThread(app, this, isAsync);
 	}
 
-	protected void initThread(StaticApplication app, TaskStatusCallback callback) {
-		OkHttpClient client = app.getOkHttpClient();
-		for (int i = 0; i < NUMBER_OF_CORES; i++) {
-			IBaseThread thread = new ImageDownloadThread(mTaskQueue, callback,
-					client);
+	protected void initThread(StaticApplication app,
+			TaskStatusCallback callback, boolean isAsync) {
+		if (isAsync) {
+			mClient = app.getPipelinlingHttpClient();
+		} else {
+			mClient = app.getOkHttpClient();
+		}
+
+		for (int i = 0; i < MAX_NUMBER_OF_THREADS; i++) {
+			IBaseThread thread = null;
+			if (isAsync) {
+				thread = new PipeliningImageDownloadThread(mTaskQueue,
+						callback, (CloseableHttpPipeliningClient) mClient);
+			} else {
+				thread = new ImageDownloadThread(mTaskQueue, callback,
+						(OkHttpClient) mClient);
+			}
 			mUpdateThreads.add(thread);
 		}
 	}
@@ -56,7 +75,7 @@ public class ImageDownloadConnection implements IBaseConnection, TaskStatusCallb
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 
@@ -68,6 +87,15 @@ public class ImageDownloadConnection implements IBaseConnection, TaskStatusCallb
 			thread = null;
 		}
 		mTaskQueue.clear();
+		mTaskQueue = null;
+		if (mClient instanceof CloseableHttpPipeliningClient) {
+			try {
+				((CloseableHttpPipeliningClient) mClient).close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		mClient = null;
 	}
 
 	@Override
@@ -93,14 +121,20 @@ public class ImageDownloadConnection implements IBaseConnection, TaskStatusCallb
 		return mTaskQueue.size();
 	}
 
-
 	@Override
 	public void onTaskFinish(BaseDataWrapper wrapper) {
-		Handler handler = mHandlerRef.get();
-		synchronized (handler) {
-			if (handler != null) {
-				handler.sendMessage(Message.obtain(null,
-						Constants.IMAGE_DL_EVENT_TYPE_DOWNLOAD_COMPLETE));
+		if (wrapper.getResult() == IBaseWrapper.TASK_STATUS_SUCCESS
+				|| wrapper.isFailed()) {
+			Handler handler = mHandlerRef.get();
+			synchronized (handler) {
+				if (handler != null) {
+					handler.sendMessage(Message.obtain(null,
+							Constants.IMAGE_DL_EVENT_TYPE_DOWNLOAD_COMPLETE));
+				}
+			}
+		} else {
+			if (wrapper.getRetryCount() <= BaseDataWrapper.MAX_RETRY_COUNT) {
+				addTask(wrapper);
 			}
 		}
 	}

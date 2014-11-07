@@ -1,6 +1,5 @@
 package cn.garymb.ygomobile.data.wrapper;
 
-import java.io.InputStream;
 import java.util.List;
 
 public class PipeliningImageWrapper extends BaseDataWrapper {
@@ -16,8 +15,17 @@ public class PipeliningImageWrapper extends BaseDataWrapper {
 	}
 
 	@Override
-	public int parse(InputStream in) {
-		return 0;
+	public int parse(Object in) {
+		return TASK_STATUS_FAILED;
+	}
+	
+	public BaseDataWrapper getInnerWrapper(int index) {
+		return mWrappers.get(index);
+	}
+	
+	public void clear() {
+		mWrappers.clear();
+		mWrappers = null;
 	}
 
 }

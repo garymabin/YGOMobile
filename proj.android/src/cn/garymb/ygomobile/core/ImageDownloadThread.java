@@ -8,7 +8,7 @@ import com.squareup.okhttp.OkHttpClient;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
 import cn.garymb.ygomobile.net.IBaseConnector;
-import cn.garymb.ygomobile.net.http.OkHttpConector;
+import cn.garymb.ygomobile.net.defaulthttp.OkHttpConector;
 
 public class ImageDownloadThread extends BaseThread {
 	
@@ -42,6 +42,7 @@ public class ImageDownloadThread extends BaseThread {
 		if (isRunning) {
 			interrupt();
 			isRunning = false;
+			mQueue = null;
 		}
 	}
 	

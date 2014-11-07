@@ -23,6 +23,8 @@ public final class ImageItemInfoHelper {
 	public static final String PNG_IMAGE_SUFFIX = ".png";
 
 	private static final String JPG_IMAGE_SUFFIX = ".jpg";
+	
+	private static final String TMP_SUFFIX = ".tmp";
 
 	public static boolean isImageExist(ImageItem item) {
 		final String path = getImagePath(item);
@@ -67,6 +69,10 @@ public final class ImageItemInfoHelper {
 			sb.append(item.id).append(JPG_IMAGE_SUFFIX);
 			return sb.toString();
 		}
+	}
+	
+	public static String getImageTempPath(ImageItem item) {
+		return getImagePath(item) + TMP_SUFFIX;
 	}
 
 	public static String getImageUrl(ImageItem item) {

@@ -1,6 +1,5 @@
 package cn.garymb.ygomobile.data.wrapper;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -33,7 +32,7 @@ public abstract class BaseDataWrapper implements IBaseWrapper {
 	}
 
 	
-	public abstract int parse(InputStream in);
+	public abstract int parse(Object in);
 
 	@Override
 	public void recyle() {
@@ -76,6 +75,10 @@ public abstract class BaseDataWrapper implements IBaseWrapper {
 	@Override
 	public int getRequestType() {
 		return mRequestType;
+	}
+	
+	public boolean isFailed() {
+		return mResult == TASK_STATUS_FAILED && mRetryCount > MAX_RETRY_COUNT;
 	}
 	
 	public int getRetryCount() {

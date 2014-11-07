@@ -27,12 +27,14 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.apache.http.client.HttpClient;
+import org.apache.http.HC4.impl.nio.client.CloseableHttpPipeliningClient;
+import org.apache.http.HC4.impl.nio.client.HttpAsyncClients;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.CrashSender;
-import cn.garymb.ygomobile.net.http.ThreadSafeHttpClientFactory;
+import cn.garymb.ygomobile.net.defaulthttp.ThreadSafeHttpClientFactory;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DatabaseUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
@@ -306,6 +308,10 @@ public class StaticApplication extends Application {
 	
 	public OkHttpClient getOkHttpClient() {
 		return new OkHttpClient();
+	}
+	
+	public CloseableHttpPipeliningClient getPipelinlingHttpClient() {
+		return HttpAsyncClients.createPipelining();
 	}
 	
 	public static StaticApplication peekInstance() {

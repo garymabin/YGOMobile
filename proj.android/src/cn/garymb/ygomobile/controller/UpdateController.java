@@ -20,7 +20,7 @@ public class UpdateController {
 	}
 
 	public IBaseConnection newDownloadConnection(Handler target) {
-		IBaseConnection connection = new ImageDownloadConnection(mApp, target);
+		IBaseConnection connection = new ImageDownloadConnection(mApp, target, true);
 		mConnections.put(connection.getType(), connection);
 		return connection;
 	}
