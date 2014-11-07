@@ -8,8 +8,9 @@ public interface Constants {
 	
 	public static final String WORKING_DIRECTORY = "/ygocore/";
 	
+	public static final String SYSTEM_FONT_DIR = "/system/fonts/";
 	public static final String FONT_DIRECTORY = "/fonts/";
-	public static final String DEFAULT_FONT_NAME = "WQYMicroHei.ttf";
+	public static final String DEFAULT_FONT_NAME = "DroidSansFallback.ttf";
 	public static final String CARD_IMAGE_DIRECTORY = "/pics/";
 	public static final String THUMBNAIL_IMAGE_DIRECTORY = "/thumbnail/";
 	

@@ -1,6 +1,7 @@
 package cn.garymb.ygomobile.fragment.setting;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import com.soundcloud.android.crop.Crop;
 
@@ -40,7 +41,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -88,18 +88,19 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 		mCardQualityPreference.setOnPreferenceChangeListener(this);
 
 		mFontNamePreference = (ListPreference) findPreference(Settings.KEY_PREF_GAME_FONT_NAME);
-		File fontsPath = new File(StaticApplication.peekInstance()
-				.getResourcePath(), Constants.FONT_DIRECTORY);
-		if (TextUtils.isEmpty(mFontNamePreference.getValue())) {
-			mFontNamePreference.setValue(Constants.DEFAULT_FONT_NAME);
-		}
-		if (fontsPath.exists()) {
-			mFontNamePreference.setEntries(fontsPath.list());
-			mFontNamePreference.setEntryValues(fontsPath.list());
-		} else {
-			mFontNamePreference.setEntries(new String[]{Constants.DEFAULT_FONT_NAME});
-			mFontNamePreference.setEntryValues(new String[]{Constants.DEFAULT_FONT_NAME});
-		}
+
+		ArrayList<String> fontlist = StaticApplication.peekInstance()
+				.getFontList();
+		String[] entryList = new String[fontlist.size()];
+		int i = 0;
+		for(String path : fontlist) {
+			entryList[i++] = path.substring(path.lastIndexOf(File.separator) + 1, path.length());
+		} 
+		mFontNamePreference.setEntries(entryList);
+		mFontNamePreference.setEntryValues(fontlist.toArray(new String[fontlist.size()]));
+		
+		String currentPath = StaticApplication.peekInstance().getFontPath();
+		mFontNamePreference.setValue(currentPath.substring(currentPath.lastIndexOf(File.separator) + 1, currentPath.length()));
 		mFontNamePreference.setSummary(mFontNamePreference.getValue());
 
 		mCoverDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_COVER);

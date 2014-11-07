@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.apache.http.client.HttpClient;
+import org.apache.http.HC4.impl.ConnSupport;
 import org.apache.http.HC4.impl.nio.client.CloseableHttpPipeliningClient;
 import org.apache.http.HC4.impl.nio.client.HttpAsyncClients;
 
@@ -110,6 +112,8 @@ public class StaticApplication extends Application {
 
 	private SoundPool mSoundEffectPool;
 
+	private ArrayList<String> mFontsPath = new ArrayList<String>();
+
 	private Map<String, Integer> mSoundIdMap;
 
 	static {
@@ -156,13 +160,51 @@ public class StaticApplication extends Application {
 		saveCoreConfigVersion();
 		checkAndCopyCoreConfig(needsUpdate);
 		checkAndCopyGameSkin();
+		initFontList();
 		DatabaseUtils.checkAndCopyFromInternalDatabase(this, mDataBasePath,
 				needsUpdate);
-		checkAndCopyFonts();
+//		checkAndCopyFonts();
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		mScreenWidth = metrics.widthPixels;
 		mScreenHeight = metrics.heightPixels;
 		initSoundEffectPool();
+	}
+
+	private void initFontList() {
+		File systemFontDir = new File(Constants.SYSTEM_FONT_DIR);
+		String[] fonts = systemFontDir.list();
+		for (String name : fonts) {
+			Log.i(TAG, "load system font : " + name);
+			mFontsPath.add(new File(systemFontDir, name).toString());
+		}
+		// load extra font
+		File extraDir = new File(getDefaultResPath() + Constants.FONT_DIRECTORY);
+		if (extraDir.exists() && extraDir.exists()) {
+			fonts = extraDir.list();
+			boolean isFontHit = false;
+			String currentFont = mSettingsPref.getString(
+					Settings.KEY_PREF_GAME_FONT_NAME, getDefaultFontName());
+			for (String name : fonts) {
+				Log.i(TAG, "load user define font : " + name);
+				mFontsPath.add(new File(systemFontDir, name).toString());
+				if (currentFont.equals(name)) {
+					isFontHit = true;
+				}
+			}
+			// for update compatability.
+			if (isFontHit) {
+				mSettingsPref
+						.edit()
+						.putString(Settings.KEY_PREF_GAME_FONT_NAME,
+								new File(systemFontDir, currentFont).toString())
+						.commit();
+			}
+		} else {
+			mSettingsPref
+					.edit()
+					.putString(Settings.KEY_PREF_GAME_FONT_NAME,
+							Constants.DEFAULT_FONT_NAME).commit();
+		}
 	}
 
 	@Override
@@ -180,21 +222,21 @@ public class StaticApplication extends Application {
 			sounds = am.list("sound");
 			for (String sound : sounds) {
 				String path = "sound" + File.separator + sound;
-				mSoundIdMap.put(path, mSoundEffectPool.load(
-						am.openFd(path), 1));
+				mSoundIdMap
+						.put(path, mSoundEffectPool.load(am.openFd(path), 1));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void playSoundEffect(String path) {
 		Integer id = mSoundIdMap.get(path);
 		if (id != null) {
 			mSoundEffectPool.play(id, 0.5f, 0.5f, 2, 0, 1.0f);
 		}
 	}
-	
+
 	private void checkAndCopyFonts() {
 		File file = new File(getFontPath());
 		if (!file.exists()) {
@@ -305,15 +347,15 @@ public class StaticApplication extends Application {
 	public HttpClient getHttpClient() {
 		return mHttpFactory.getHttpClient();
 	}
-	
+
 	public OkHttpClient getOkHttpClient() {
 		return new OkHttpClient();
 	}
-	
+
 	public CloseableHttpPipeliningClient getPipelinlingHttpClient() {
 		return HttpAsyncClients.createPipelining();
 	}
-	
+
 	public static StaticApplication peekInstance() {
 		return INSTANCE;
 	}
@@ -340,6 +382,10 @@ public class StaticApplication extends Application {
 		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE,
 				Context.MODE_PRIVATE);
 		return sp.getString(Constants.RESOURCE_PATH, getDefaultResPath());
+	}
+
+	public ArrayList<String> getFontList() {
+		return mFontsPath;
 	}
 
 	public void setResourcePath(String path) {
@@ -404,10 +450,7 @@ public class StaticApplication extends Application {
 	}
 
 	public String getFontPath() {
-		return getDefaultResPath()
-				+ Constants.FONT_DIRECTORY
-				+ mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME,
-						getDefaultFontName());
+		return mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME);
 	}
 
 	public boolean getFontAntialias() {
