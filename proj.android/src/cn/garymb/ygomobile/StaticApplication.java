@@ -28,7 +28,6 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.apache.http.client.HttpClient;
-import org.apache.http.HC4.impl.ConnSupport;
 import org.apache.http.HC4.impl.nio.client.CloseableHttpPipeliningClient;
 import org.apache.http.HC4.impl.nio.client.HttpAsyncClients;
 
@@ -163,7 +162,6 @@ public class StaticApplication extends Application {
 		initFontList();
 		DatabaseUtils.checkAndCopyFromInternalDatabase(this, mDataBasePath,
 				needsUpdate);
-//		checkAndCopyFonts();
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		mScreenWidth = metrics.widthPixels;
 		mScreenHeight = metrics.heightPixels;
@@ -183,10 +181,10 @@ public class StaticApplication extends Application {
 			fonts = extraDir.list();
 			boolean isFontHit = false;
 			String currentFont = mSettingsPref.getString(
-					Settings.KEY_PREF_GAME_FONT_NAME, getDefaultFontName());
+					Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME);
 			for (String name : fonts) {
 				Log.i(TAG, "load user define font : " + name);
-				mFontsPath.add(new File(systemFontDir, name).toString());
+				mFontsPath.add(new File(extraDir, name).toString());
 				if (currentFont.equals(name)) {
 					isFontHit = true;
 				}
@@ -196,7 +194,7 @@ public class StaticApplication extends Application {
 				mSettingsPref
 						.edit()
 						.putString(Settings.KEY_PREF_GAME_FONT_NAME,
-								new File(systemFontDir, currentFont).toString())
+								new File(extraDir, currentFont).toString())
 						.commit();
 			}
 		} else {
@@ -234,19 +232,6 @@ public class StaticApplication extends Application {
 		Integer id = mSoundIdMap.get(path);
 		if (id != null) {
 			mSoundEffectPool.play(id, 0.5f, 0.5f, 2, 0, 1.0f);
-		}
-	}
-
-	private void checkAndCopyFonts() {
-		File file = new File(getFontPath());
-		if (!file.exists()) {
-			try {
-				new File(getDefaultResPath() + Constants.FONT_DIRECTORY)
-						.mkdirs();
-				FileOpsUtils.copyRawData(getFontPath(), R.raw.fonts);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -398,6 +383,10 @@ public class StaticApplication extends Application {
 
 	public String getCardImagePath() {
 		return getResourcePath() + Constants.CARD_IMAGE_DIRECTORY;
+	}
+	
+	public SharedPreferences getApplicationSettings() {
+		return mSettingsPref;
 	}
 
 	public boolean getMobileNetworkPref() {

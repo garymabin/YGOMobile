@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 environment/project/com.android.toolchain.gcc.1440829213/NDK_ROOT/delimiter=\:
-environment/project/com.android.toolchain.gcc.1440829213/NDK_ROOT/operation=append
-environment/project/com.android.toolchain.gcc.1440829213/NDK_ROOT/value=/Users/mabin/Downloads/eclipse/android-ndk-r9d
+environment/project/com.android.toolchain.gcc.1440829213/NDK_ROOT/operation=replace
+environment/project/com.android.toolchain.gcc.1440829213/NDK_ROOT/value=/Users/mabin/Documents/android-ndk-r10c
 environment/project/com.android.toolchain.gcc.1440829213/append=true
 environment/project/com.android.toolchain.gcc.1440829213/appendContributed=true

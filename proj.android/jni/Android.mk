@@ -22,6 +22,10 @@ ifeq ($(TARGET_ARCH_ABI),x86)
 LOCAL_CFLAGS += -fno-stack-protector
 endif
 
+ifeq ($(TARGET_ARCH_ABI), armeabi-v7a)
+LOCAL_CFLAGS += -mno-unaligned-access
+endif
+
 LOCAL_C_INCLUDES += $(LOCAL_PATH)
 LOCAL_C_INCLUDES := ../irrlicht/include
 LOCAL_C_INCLUDES += ../irrlicht/source/Irrlicht

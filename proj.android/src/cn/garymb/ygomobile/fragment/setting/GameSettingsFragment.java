@@ -23,6 +23,7 @@ import cn.garymb.ygomobile.widget.FileChooseDialog;
 import cn.garymb.ygomobile.widget.ImagePreviewDialog;
 import cn.garymb.ygomobile.widget.SimpleDialog;
 import cn.garymb.ygomobile.widget.filebrowser.FileBrowser;
+import cn.garymb.ygomobile.widget.preference.MyBooleanValuePreference;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -64,7 +65,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 
 	private Preference mCoverDiyPreference;
 
-	private Preference mCardDBDiyPreference;
+	private MyBooleanValuePreference mCardDBDiyPreference;
 
 	private Preference mCardBackDiyPreference;
 
@@ -93,15 +94,18 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 				.getFontList();
 		String[] entryList = new String[fontlist.size()];
 		int i = 0;
-		for(String path : fontlist) {
-			entryList[i++] = path.substring(path.lastIndexOf(File.separator) + 1, path.length());
-		} 
+		for (String path : fontlist) {
+			entryList[i++] = path.substring(
+					path.lastIndexOf(File.separator) + 1, path.length());
+		}
 		mFontNamePreference.setEntries(entryList);
-		mFontNamePreference.setEntryValues(fontlist.toArray(new String[fontlist.size()]));
-		
+		mFontNamePreference.setEntryValues(fontlist.toArray(new String[fontlist
+				.size()]));
+		mFontNamePreference.setOnPreferenceChangeListener(this);
+
 		String currentPath = StaticApplication.peekInstance().getFontPath();
-		mFontNamePreference.setValue(currentPath.substring(currentPath.lastIndexOf(File.separator) + 1, currentPath.length()));
-		mFontNamePreference.setSummary(mFontNamePreference.getValue());
+		mFontNamePreference.setValue(currentPath);
+		mFontNamePreference.setSummary(mFontNamePreference.getEntry());
 
 		mCoverDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_COVER);
 		mCoverDiyPreference.setOnPreferenceClickListener(this);
@@ -109,7 +113,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 		mCardBackDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_CARD_BACK);
 		mCardBackDiyPreference.setOnPreferenceClickListener(this);
 
-		mCardDBDiyPreference = findPreference(Settings.KEY_PREF_GAME_DIY_CARD_DB);
+		mCardDBDiyPreference = (MyBooleanValuePreference) findPreference(Settings.KEY_PREF_GAME_DIY_CARD_DB);
 		mCardDBDiyPreference.setOnPreferenceClickListener(this);
 
 		mCardDBResetPreference = findPreference(Settings.KEY_PREF_GAME_RESET_CARD_DB);
@@ -302,10 +306,13 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 		String errorMessage;
 		if (result == CardDBCopyTask.COPY_DB_TASK_FAILED) {
 			errorMessage = res.getString(R.string.loading_card_failed);
+			mCardDBDiyPreference.setChecked(false);
 		} else if (result == CardDBCopyTask.COPY_DB_TASK_FILE_NOT_EXIST) {
 			errorMessage = res.getString(R.string.loading_card_file_not_found);
+			mCardDBDiyPreference.setChecked(false);
 		} else {
 			errorMessage = res.getString(R.string.loading_card_success);
+			mCardDBDiyPreference.setChecked(true);
 		}
 		Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
 		mImageBundle = null;
@@ -318,6 +325,9 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 				result ? getResources().getString(R.string.reset_card_success)
 						: getResources().getString(R.string.reset_card_failed),
 				Toast.LENGTH_SHORT).show();
+		if (result) {
+			mCardDBDiyPreference.setChecked(false);
+		}
 		mImageBundle = null;
 	}
 }

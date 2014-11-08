@@ -1310,6 +1310,7 @@ void Game::LoadConfig() {
 	gameConf.gamename[0] = 0;
 	BufferIO::DecodeUTF8(android::getLastDeck(appMain).c_str(), wstr);
 	BufferIO::CopyWStr(wstr, gameConf.lastdeck, 64);
+	irr:os::Printer::log(android::getFontPath(appMain).c_str());
 	BufferIO::DecodeUTF8(android::getFontPath(appMain).c_str(), wstr);
 	BufferIO::CopyWStr(wstr, gameConf.numfont, 256);
 	BufferIO::CopyWStr(wstr, gameConf.textfont, 256);

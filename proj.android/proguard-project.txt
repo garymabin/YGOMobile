@@ -96,3 +96,5 @@ public static final int *;
 
 -dontwarn java.nio.file.*
 -dontwarn okio.**
+
+-keep class org.apache.commons.logging.** { *; }

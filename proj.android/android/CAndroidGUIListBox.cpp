@@ -401,6 +401,7 @@ bool CAndroidGUIListBox::OnEvent(const SEvent& event)
 				{
 					if (event.GUIEvent.Caller == this)
 						Selecting = false;
+					break;
 				}
 			default:
 			break;

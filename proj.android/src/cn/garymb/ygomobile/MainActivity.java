@@ -18,6 +18,7 @@ import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
 import cn.garymb.ygomobile.fragment.ImageDLStatusDlgFragment;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.model.data.VersionInfo;
+import cn.garymb.ygomobile.setting.Settings;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.update.UmengUpdateAgent;
@@ -117,7 +118,7 @@ public class MainActivity extends ActionBarActivity implements
 		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
 		boolean isFirstRun = checkFirstRunAfterInstall();
-		if (isFirstRun) {
+		if (isFirstRun && !checkDiyCardDataBase()) {
 			SimpleDialogFragment.createBuilder(this, mFragmentManager)
 					.setMessage(R.string.card_img_check_hint)
 					.setTitle(R.string.card_img_update_title)
@@ -284,19 +285,25 @@ public class MainActivity extends ActionBarActivity implements
 			break;
 		case Constants.ACTION_BAR_EVENT_TYPE_CARD_IAMGE_DL:
 			Log.d(TAG, "receive card image click action");
-			IBaseConnection connection = Controller.peekInstance()
-					.createOrGetDownloadConnection();
-			if (!connection.isRunning()) {
-				ImageDLCheckTask task = new ImageDLCheckTask(this);
-				task.setImageDLCheckListener(this);
-				if (Build.VERSION.SDK_INT >= 11) {
-					task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			if (!checkDiyCardDataBase()) {
+				IBaseConnection connection = Controller.peekInstance()
+						.createOrGetDownloadConnection();
+				if (!connection.isRunning()) {
+					ImageDLCheckTask task = new ImageDLCheckTask(this);
+					task.setImageDLCheckListener(this);
+					if (Build.VERSION.SDK_INT >= 11) {
+						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+					} else {
+						task.execute();
+					}
 				} else {
-					task.execute();
+					Toast.makeText(this,
+							R.string.card_image_already_downloading_hint,
+							Toast.LENGTH_SHORT).show();
 				}
 			} else {
 				Toast.makeText(this,
-						R.string.card_image_already_downloading_hint,
+						R.string.card_image_dl_not_avail,
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
@@ -335,6 +342,11 @@ public class MainActivity extends ActionBarActivity implements
 			break;
 		}
 		return true;
+	}
+
+	private boolean checkDiyCardDataBase() {
+		SharedPreferences sp = StaticApplication.peekInstance().getApplicationSettings();
+		return sp.getBoolean(Settings.KEY_PREF_GAME_DIY_CARD_DB, false);
 	}
 
 	@Override

@@ -48,9 +48,10 @@
             android:key="settings_game_diy_card_back"
             android:persistent="true"
             android:title="@string/settings_game_diy_card_back" />
-        <Preference
+        <cn.garymb.ygomobile.widget.preference.MyBooleanValuePreference
             android:key="settings_game_diy_card_db"
             android:persistent="true"
+            android:defaultValue="false"
             android:summary="@string/settings_game_diy_card_db_des"
             android:title="@string/settings_game_diy_card_db" />
         <Preference
