@@ -58,12 +58,14 @@
     <string name="action_filter_string_property">属性</string>
     <string name="action_filter_string_more">更多</string>
     <string name="action_filter_type_spell">魔法</string>
+    <string name="action_filter_type_spell_normal">通常</string>
     <string name="action_filter_type_spell_quick_play">速攻</string>
     <string name="action_filter_type_spell_ritual">仪式</string>
     <string name="action_filter_type_spell_equip">装备</string>
     <string name="action_filter_type_spell_field">场地</string>
     <string name="action_filter_type_spell_continuous">永续</string>
     <string name="action_filter_type_trap">陷阱</string>
+    <string name="action_filter_type_trap_normal">通常</string>
     <string name="action_filter_type_trap_continuous">永续</string>
     <string name="action_filter_type_trap_counter">反击</string>
     <string name="action_filter_type_monster">怪物</string>

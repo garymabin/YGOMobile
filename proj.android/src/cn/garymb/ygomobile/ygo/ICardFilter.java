@@ -35,11 +35,12 @@ public interface ICardFilter {
 	
 	
 	public static final int CARD_FILTER_TYPE_SPELL_ALL = 0x0;
-	public static final int CARD_FILTER_TYPE_SPELL_QUICK = 0x1;
-	public static final int CARD_FILTER_TYPE_SPELL_CONTINUOUS = 0x2;
-	public static final int CARD_FILTER_TYPE_SPELL_EQUIP = 0x3;
-	public static final int CARD_FILTER_TYPE_SPELL_FIELD = 0x4;
-	public static final int CARD_FILTER_TYPE_SPELL_RITUAL = 0x5;
+	public static final int CARD_FILTER_TYPE_SPELL_NORMAL = 0x1;
+	public static final int CARD_FILTER_TYPE_SPELL_QUICK = 0x2;
+	public static final int CARD_FILTER_TYPE_SPELL_CONTINUOUS = 0x3;
+	public static final int CARD_FILTER_TYPE_SPELL_EQUIP = 0x4;
+	public static final int CARD_FILTER_TYPE_SPELL_FIELD = 0x5;
+	public static final int CARD_FILTER_TYPE_SPELL_RITUAL = 0x6;
 	
 	public static final int CARD_FILTER_TYPE_TRAP_ALL = 0x0;
 	public static final int CARD_FILTER_TYPE_TRAP_NOARMAL = 0x1;

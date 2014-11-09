@@ -67,6 +67,7 @@ public class YGOCardFilter implements ICardFilter {
 		case CARD_FILTER_ATTR:
 			mAttrIndex = type;
 			mAttr = arg1;
+			break;
 		case CARD_FILTER_OT:
 			mOT = arg1;
 			break;
@@ -98,10 +99,23 @@ public class YGOCardFilter implements ICardFilter {
 	public String buildSelection() {
 		StringBuilder sb = new StringBuilder();
 		if (mDetailType != CARD_FILTER_TYPE_ALL) {
-			sb.append("(").append(YGOCards.Datas.TYPE).append("&")
-			.append(YGOArrayStore.sTypeMaps.get(mTypeIndex).get(mDetailType)).append(" > 0) AND ")
-			.append("(").append(YGOCards.Datas.TYPE).append("&")
-			.append(YGOArrayStore.sTypeMaps.get(mTypeIndex).get(0)).append(" > 0) AND ");
+			if ((mTypeIndex == CARD_FILTER_TRAP_TYPE && mDetailType == CARD_FILTER_TYPE_TRAP_NOARMAL) ||
+					(mTypeIndex == CARD_FILTER_SPELL_TYPE && mDetailType == CARD_FILTER_TYPE_SPELL_NORMAL)) {
+				sb.append("(")
+				.append(YGOCards.Datas.TYPE)
+				.append("=")
+				.append(YGOArrayStore.sTypeMaps.get(mTypeIndex).get(
+						0)).append(") AND ");
+			} else {
+				sb.append("(")
+						.append(YGOCards.Datas.TYPE)
+						.append("&")
+						.append(YGOArrayStore.sTypeMaps.get(mTypeIndex).get(
+								mDetailType)).append(" > 0) AND ").append("(")
+						.append(YGOCards.Datas.TYPE).append("&")
+						.append(YGOArrayStore.sTypeMaps.get(mTypeIndex).get(0))
+						.append(" > 0) AND ");
+			}
 		}
 		if (mRace != CARD_FILTER_TYPE_ALL) {
 			sb.append("(").append(YGOCards.Datas.RACE).append("&")

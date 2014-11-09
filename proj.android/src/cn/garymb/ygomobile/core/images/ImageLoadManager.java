@@ -14,7 +14,6 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
-import android.util.Log;
 
 public class ImageLoadManager implements Callback {
 
@@ -52,7 +51,6 @@ public class ImageLoadManager implements Callback {
 						if (holder.getImageType() == Constants.IMAGE_TYPE_ORIGINAL) {
 							mOriginalCache.put(item.id, bmp);
 						} else {
-							Log.w("test", "item id = " + item.id);
 							mThumnailCache.put(item.id, bmp);
 						}
 					}

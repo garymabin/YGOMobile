@@ -84,6 +84,7 @@
     </string-array>
     <string-array name="card_spell_type">
         <item>魔法</item>
+        <item>魔法｜通常</item>
         <item>魔法｜速攻</item>
         <item>魔法｜永续</item>
         <item>魔法｜装备</item>
@@ -92,6 +93,7 @@
     </string-array>
     <string-array name="card_trap_type">
         <item>陷阱</item>
+        <item>陷阱｜通常</item>
         <item>陷阱｜永续</item>
         <item>陷阱｜反击</item>
     </string-array>

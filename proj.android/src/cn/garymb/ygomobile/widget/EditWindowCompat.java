@@ -65,7 +65,6 @@ public class EditWindowCompat extends PopupWindow {
 	@Override
 	public void dismiss() {
 		// TODO Auto-generated method stub
-		Log.d("test", "dismiss");
 		mEditText.clearFocus();
 		mIM.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
 		super.dismiss();

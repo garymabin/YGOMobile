@@ -95,6 +95,7 @@ public class YGOArrayStore {
 		//spell card
 		SparseIntArray spellArray = new SparseIntArray();
 		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_ALL, TYPE_SPELL);
+		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_NORMAL, TYPE_NORMAL);
 		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_QUICK, TYPE_QUICKPLAY);
 		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_CONTINUOUS, TYPE_CONTINUOUS);
 		spellArray.append(ICardFilter.CARD_FILTER_TYPE_SPELL_EQUIP, TYPE_EQUIP);

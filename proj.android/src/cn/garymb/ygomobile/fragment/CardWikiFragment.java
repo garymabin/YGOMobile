@@ -280,9 +280,6 @@ public class CardWikiFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor arg1) {
-		if (arg1 != null) {
-			Log.d(TAG, "--->load finished");
-		}
 		mAdapter.swapCursor(arg1);
 		mCursorWindow = mCursorLoader.getCursorWindow();
 	}
