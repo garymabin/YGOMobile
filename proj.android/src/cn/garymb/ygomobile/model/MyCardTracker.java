@@ -1,7 +1,5 @@
 package cn.garymb.ygomobile.model;
 
-import org.apache.http.HC4.impl.nio.client.CloseableHttpPipeliningClient;
-
 import com.squareup.okhttp.OkHttpClient;
 
 import cn.garymb.ygomobile.StaticApplication;
@@ -17,6 +15,7 @@ import cn.garymb.ygomobile.data.wrapper.IBaseJob;
 import cn.garymb.ygomobile.model.data.CardImageUrlInfo;
 import cn.garymb.ygomobile.model.data.DataStore;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.SparseArrayCompat;
@@ -28,22 +27,21 @@ public class MyCardTracker extends Handler implements TaskStatusCallback {
 	public static final int STATE_PREPARED = 2;
 	public static final int STATE_FAILED = 3;
 
+	private static final int INTERNAL_MESSAGE_TYPE_TASK_FINISH = 0x10;
+	private static final int INTERNAL_MESSAGE_TYPE_CARD_IMAGE_URL = 0x11;
+	
+	
 	private SparseArrayCompat<BaseTask> mTasks;
 	private StaticApplication mApp;
 
 	private int mState;
 	private DataStore mStore;
 	private OkHttpClient mOkHttpClient;
-	private CloseableHttpPipeliningClient mPipeHttpClient;
 
-	private static final int INTERNAL_MESSAGE_TYPE_TASK_FINISH = 0x10;
-
-	private static final int INTERNAL_MESSAGE_TYPE_CARD_IMAGE_URL = 0x11;
 
 	public MyCardTracker(StaticApplication app, DataStore store) {
 		mApp = app;
 		mOkHttpClient = mApp.getOkHttpClient();
-		mPipeHttpClient = mApp.getPipelinlingHttpClient();
 		mTasks = new SparseArrayCompat<BaseTask>();
 		mStore = store;
 		setState(STATE_INITIAL);
@@ -62,7 +60,7 @@ public class MyCardTracker extends Handler implements TaskStatusCallback {
 			task = new MyCardAPITask(mOkHttpClient);
 			break;
 		case IBaseTask.TASK_TYPE_IMAGE_DOWNLOAD:
-			task = new ImageDownloadTask(mApp, target, mPipeHttpClient);
+			task = new ImageDownloadTask(mApp, target);
 			break;
 		default:
 			break;
@@ -93,8 +91,10 @@ public class MyCardTracker extends Handler implements TaskStatusCallback {
 		if (mState == STATE_INITIAL || mState == STATE_FAILED) {
 			BaseTask task = newTask(IBaseTask.TASK_TYPE_MYCARD_API, this);
 			BaseRequestJob job = new CardImageUrlWrapper(0);
-			job.setParam(Message.obtain(this,
-					INTERNAL_MESSAGE_TYPE_CARD_IMAGE_URL));
+			Message msg =Message.obtain(this,
+					INTERNAL_MESSAGE_TYPE_CARD_IMAGE_URL);
+			msg.setData(new Bundle());
+			job.setParam(msg);
 			task.addJob(job);
 			task.setNextTask(type);
 			task.setTaskStatusCallback(this);

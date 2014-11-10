@@ -36,11 +36,10 @@ public class ImageDownloadTask extends BaseTask {
 
 	private CloseableHttpPipeliningClient mClient;
 
-	public ImageDownloadTask(StaticApplication app, Handler handler,
-			CloseableHttpPipeliningClient client) {
+	public ImageDownloadTask(StaticApplication app, Handler handler) {
 		mTaskQueue = new LinkedBlockingQueue<BaseRequestJob>();
 		mHandlerRef = new WeakReference<Handler>(handler);
-		mClient = client;
+		mClient = app.getPipelinlingHttpClient();
 		initThread(app, this);
 	}
 
@@ -73,12 +72,10 @@ public class ImageDownloadTask extends BaseTask {
 		}
 		mTaskQueue.clear();
 		mTaskQueue = null;
-		if (mClient instanceof CloseableHttpPipeliningClient) {
-			try {
-				((CloseableHttpPipeliningClient) mClient).close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+        try {
+			mClient.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		mClient = null;
 	}

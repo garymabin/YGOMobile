@@ -23,7 +23,6 @@ public class CardImageUrlInfo extends BaseInfo {
 	
 	@Override
 	public void fromJSONData(JSONObject data) throws JSONException {
-		super.fromJSONData(data);
 		if (data.has(JSON_KEY_ZH_IMAGE_URL)) {
 			mZhImgUrl = data.getString(JSON_KEY_ZH_IMAGE_URL);
 		}

@@ -18,7 +18,7 @@ public class CardImageUrlWrapper extends MyCardJSONRequestWrapper {
 	protected void handleJSONResult(JSONObject object) throws JSONException {
 		CardImageUrlInfo info = new CardImageUrlInfo();
 		info.fromJSONData(object);
-		getParam().peekData().putParcelable(Constants.REQUEST_RESULT_KEY_CARDIMAGE_URL, info);
+		getParam().getData().putParcelable(Constants.REQUEST_RESULT_KEY_CARDIMAGE_URL, info);
 	}
 
 }

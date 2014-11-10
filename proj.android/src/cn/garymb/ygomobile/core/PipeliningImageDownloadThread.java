@@ -139,10 +139,10 @@ public class PipeliningImageDownloadThread extends BaseThread {
 
 	public void terminate() {
 		if (isRunning) {
-			interrupt();
-			isRunning = false;
 			((PipeliningHttpConnector) mConnector).cancel();
 			((PipeliningHttpConnector) mConnector).setJobStatusCallback(null);
+			isRunning = false;
+			interrupt();
 		}
 	}
 

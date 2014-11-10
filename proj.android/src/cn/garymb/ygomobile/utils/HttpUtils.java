@@ -77,6 +77,7 @@ public class HttpUtils {
 		Response resp = null;
 		ResponseBody body = null;
 		InputStream respStream = null;
+		GZIPInputStream gzipRespStream = null;
 
 		try {
 			Request req = new Request.Builder()
@@ -97,7 +98,12 @@ public class HttpUtils {
 			body = resp.body();
 			InputStream in = null;
 			if (body != null && (respStream = body.byteStream()) != null) {
-				in = respStream;
+				if (isGZipContent(resp)) {
+					gzipRespStream = new GZIPInputStream(respStream);
+					in = gzipRespStream;
+				} else {
+					in = respStream;
+				}
 			}
 			return in;
 		} catch (Exception e) {
@@ -225,6 +231,14 @@ public class HttpUtils {
 
 		Header encoding = entity.getContentEncoding();
 		return encoding != null && GZIP.equalsIgnoreCase(encoding.getValue());
+	}
+	
+	private static boolean isGZipContent(Response resp) {
+		String headerValue = resp.header("content-encoding");
+		if (headerValue != null && headerValue.toLowerCase().equals(GZIP)) {
+			return true;
+        }
+		return false;
 	}
 
 	private static void setHeader(HttpUriRequest request) {
