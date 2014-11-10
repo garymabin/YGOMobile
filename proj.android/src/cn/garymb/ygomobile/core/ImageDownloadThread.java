@@ -5,8 +5,8 @@ import java.util.concurrent.BlockingQueue;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
 import cn.garymb.ygomobile.net.IBaseConnector;
 import cn.garymb.ygomobile.net.defaulthttp.OkHttpConector;
 
@@ -14,9 +14,9 @@ public class ImageDownloadThread extends BaseThread {
 	
 	protected volatile boolean isRunning = true;
 	private IBaseConnector mConnector;
-	private BlockingQueue<BaseRequestWrapper> mQueue;
+	private BlockingQueue<BaseRequestJob> mQueue;
 
-	public ImageDownloadThread(BlockingQueue<BaseRequestWrapper> queue, TaskStatusCallback callback, OkHttpClient client) {
+	public ImageDownloadThread(BlockingQueue<BaseRequestJob> queue, JobStatusCallback callback, OkHttpClient client) {
 		super(callback);
 		mConnector = new OkHttpConector(client);
 		mQueue = queue;
@@ -24,13 +24,13 @@ public class ImageDownloadThread extends BaseThread {
 	
 	@Override
 	public void run() {
-		BaseRequestWrapper wrapper = null;
+		BaseRequestJob wrapper = null;
 		while (isRunning && !isInterrupted()) {
 			try {
 				wrapper = mQueue.take();
 				if (wrapper != null) {
 					mConnector.get(wrapper);
-					mCallback.onTaskFinish(wrapper);
+					mCallback.onJobFinish(wrapper);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

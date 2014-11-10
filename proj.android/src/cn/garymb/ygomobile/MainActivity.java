@@ -9,7 +9,7 @@ import cn.garymb.ygomobile.common.ImageDLAddTask.ImageDLAddListener;
 import cn.garymb.ygomobile.common.ImageDLCheckTask.ImageDLCheckListener;
 import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.DownloadService;
-import cn.garymb.ygomobile.core.IBaseConnection;
+import cn.garymb.ygomobile.core.IBaseTask;
 import cn.garymb.ygomobile.fragment.BaseFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
@@ -286,7 +286,7 @@ public class MainActivity extends ActionBarActivity implements
 		case Constants.ACTION_BAR_EVENT_TYPE_CARD_IAMGE_DL:
 			Log.d(TAG, "receive card image click action");
 			if (!checkDiyCardDataBase()) {
-				IBaseConnection connection = Controller.peekInstance()
+				IBaseTask connection = Controller.peekInstance()
 						.createOrGetDownloadConnection();
 				if (!connection.isRunning()) {
 					ImageDLCheckTask task = new ImageDLCheckTask(this);

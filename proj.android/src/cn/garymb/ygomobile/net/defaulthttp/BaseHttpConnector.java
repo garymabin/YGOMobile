@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 import org.apache.http.client.HttpClient;
 
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
 import cn.garymb.ygomobile.net.IBaseConnector;
 import cn.garymb.ygomobile.utils.HttpUtils;
 
@@ -27,7 +27,7 @@ public abstract class BaseHttpConnector implements IBaseConnector{
 		mClient = client;
 	}
 
-	public void get(BaseRequestWrapper wrapper) throws InterruptedException {
+	public void get(BaseRequestJob wrapper) throws InterruptedException {
 		Log.d(TAG, "start to connect, url = " + wrapper.getUrl(0));
 		InputStream is = HttpUtils.doGet(mClient, wrapper.getUrl(0));
 		if (null != is) {
@@ -41,7 +41,7 @@ public abstract class BaseHttpConnector implements IBaseConnector{
 	 * @throws InterruptedException 
 	 **/
 	protected abstract void handleResponse(InputStream data,
-			BaseRequestWrapper wrapper) throws InterruptedException;
+			BaseRequestJob wrapper) throws InterruptedException;
 
 	public synchronized void post(String url) {
 

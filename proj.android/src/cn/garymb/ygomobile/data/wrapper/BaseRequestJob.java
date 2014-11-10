@@ -9,14 +9,12 @@ import android.os.Message;
  * @author mabin
  * 
  */
-public abstract class BaseRequestWrapper implements IBaseWrapper {
+public abstract class BaseRequestJob implements IBaseJob {
 	
 	public static final int MAX_RETRY_COUNT = 3;
 	
 	protected ArrayList<String> mUrls;
 	protected int mResult;
-	
-	protected int mRequestType;
 	
 	protected Message mParam;
 	
@@ -25,9 +23,8 @@ public abstract class BaseRequestWrapper implements IBaseWrapper {
 	/**
 	 * 
 	 */
-	public BaseRequestWrapper(int requestType) {
+	public BaseRequestJob() {
 		mUrls = new ArrayList<String>();
-		mRequestType = requestType;
 		mRetryCount = 0;
 	}
 
@@ -72,13 +69,8 @@ public abstract class BaseRequestWrapper implements IBaseWrapper {
 		return mUrls.size();
 	}
 	
-	@Override
-	public int getRequestType() {
-		return mRequestType;
-	}
-	
 	public boolean isFailed() {
-		return mResult == TASK_STATUS_FAILED && mRetryCount > MAX_RETRY_COUNT;
+		return mResult == STATUS_FAILED && mRetryCount > MAX_RETRY_COUNT;
 	}
 	
 	public int getRetryCount() {

@@ -23,7 +23,7 @@ public class DataStore {
 
 	private SparseArray<YGOServerInfo> mServers;
 	
-	private String mCardImageDLUrl;
+	private CardImageUrlInfo mCardImageUrlInfo;
 	
 	private Context mContext;
 
@@ -107,6 +107,11 @@ public class DataStore {
 		if (mServers.get(0) == null) {
 		}
 		return mServers;
+	}
+
+	public void updateCardImageURL(CardImageUrlInfo info) {
+		mCardImageUrlInfo = info;
+		ImageItemInfoHelper.init(info.mEnImgLQUrl);
 	}
 
 }

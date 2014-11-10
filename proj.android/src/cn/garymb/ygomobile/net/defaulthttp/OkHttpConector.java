@@ -7,8 +7,8 @@ import android.util.Log;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
 import cn.garymb.ygomobile.net.IBaseConnector;
 import cn.garymb.ygomobile.utils.HttpUtils;
 
@@ -22,7 +22,7 @@ public class OkHttpConector implements IBaseConnector {
 	}
 
 	@Override
-	public void get(BaseRequestWrapper wrapper) throws InterruptedException {
+	public void get(BaseRequestJob wrapper) throws InterruptedException {
 		do {
 			Log.d(TAG, "start to connect, url = " + wrapper.getUrl(0) + " retryCount = " + wrapper.getRetryCount());
 			InputStream is = HttpUtils.doOkGet(mClient, wrapper.getUrl(0));
@@ -32,13 +32,13 @@ public class OkHttpConector implements IBaseConnector {
 					is.close();
 				} catch (IOException e) {
 				}
-				if (result == IBaseWrapper.TASK_STATUS_CANCELED || 
-						result == IBaseWrapper.TASK_STATUS_SUCCESS) {
+				if (result == IBaseJob.STATUS_CANCELED || 
+						result == IBaseJob.STATUS_SUCCESS) {
 					break;
 				} else {
 					continue;
 				}
 			}
-		} while (wrapper.increaseRetryCount() <= BaseRequestWrapper.MAX_RETRY_COUNT);
+		} while (wrapper.increaseRetryCount() <= BaseRequestJob.MAX_RETRY_COUNT);
 	}
 }

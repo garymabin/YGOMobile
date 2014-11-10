@@ -17,10 +17,10 @@ import org.apache.http.HC4.nio.protocol.BasicAsyncRequestProducer;
 
 import android.util.Log;
 
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
-import cn.garymb.ygomobile.data.wrapper.ImageDownloadWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
+import cn.garymb.ygomobile.data.wrapper.ImageDownloadJob;
 import cn.garymb.ygomobile.data.wrapper.PipeliningImageWrapper;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.net.IBaseConnector;
@@ -30,30 +30,30 @@ public class PipeliningImageDownloadThread extends BaseThread {
 
 	public static final String TAG = "PipeliningImageDownloadThread";
 
-	public static class ImageDownloadConsumer extends ZeroCopyConsumer<BaseRequestWrapper> {
+	public static class ImageDownloadConsumer extends ZeroCopyConsumer<BaseRequestJob> {
 
-		private BaseRequestWrapper mWrapper;
-		private TaskStatusCallback mCallback;
+		private BaseRequestJob mWrapper;
+		private JobStatusCallback mCallback;
 		
-		public ImageDownloadConsumer(File file, BaseRequestWrapper wrapper)
+		public ImageDownloadConsumer(File file, BaseRequestJob wrapper)
 				throws FileNotFoundException {
 			super(file);
 			mWrapper = wrapper;
 		}
 		
-		public void setTaskstatusCallback(TaskStatusCallback callback) {
+		public void setJobstatusCallback(JobStatusCallback callback) {
 			mCallback = callback;
 		}
 
 		@Override
-		protected BaseRequestWrapper process(HttpResponse arg0, File arg1, ContentType arg2)
+		protected BaseRequestJob process(HttpResponse arg0, File arg1, ContentType arg2)
 				throws Exception {
 			File targetFile = null;
-			mWrapper.setResult(IBaseWrapper.TASK_STATUS_FAILED);
-			if (mWrapper instanceof ImageDownloadWrapper) {
+			mWrapper.setResult(IBaseJob.STATUS_FAILED);
+			if (mWrapper instanceof ImageDownloadJob) {
 				targetFile = new File(
 						ImageItemInfoHelper
-								.getImagePath(((ImageDownloadWrapper) mWrapper)
+								.getImagePath(((ImageDownloadJob) mWrapper)
 										.getImageItem()));
 				if (arg1 != null) {
 					arg1.renameTo(targetFile);
@@ -61,13 +61,13 @@ public class PipeliningImageDownloadThread extends BaseThread {
 				}
 				Exception e = getException();
 				if (e == null) {
-					mWrapper.setResult(IBaseWrapper.TASK_STATUS_SUCCESS);
+					mWrapper.setResult(IBaseJob.STATUS_SUCCESS);
 				} else {
 					mWrapper.increaseRetryCount();
 				}
 			}
 			if (mCallback != null) {
-				mCallback.onTaskFinish(mWrapper);
+				mCallback.onJobFinish(mWrapper);
 			}
 			mCallback = null;
 			return mWrapper;
@@ -85,31 +85,31 @@ public class PipeliningImageDownloadThread extends BaseThread {
 
 	protected volatile boolean isRunning = true;
 	private IBaseConnector mConnector;
-	private BlockingQueue<BaseRequestWrapper> mQueue;
+	private BlockingQueue<BaseRequestJob> mQueue;
 
 	private List<BasicAsyncRequestProducer> mProducer;
 
-	private List<AbstractAsyncResponseConsumer<BaseRequestWrapper>> mConsumer;
+	private List<AbstractAsyncResponseConsumer<BaseRequestJob>> mConsumer;
 
 	private static final int MAX_PIPELINE_COUNT = 100;
 	
-	public PipeliningImageDownloadThread(BlockingQueue<BaseRequestWrapper> queue,
-			TaskStatusCallback callback, CloseableHttpPipeliningClient client) {
+	public PipeliningImageDownloadThread(BlockingQueue<BaseRequestJob> queue,
+			JobStatusCallback callback, CloseableHttpPipeliningClient client) {
 		super(callback);
 		mProducer = new ArrayList<BasicAsyncRequestProducer>(MAX_PIPELINE_COUNT);
-		mConsumer = new ArrayList<AbstractAsyncResponseConsumer<BaseRequestWrapper>>(
+		mConsumer = new ArrayList<AbstractAsyncResponseConsumer<BaseRequestJob>>(
 				MAX_PIPELINE_COUNT);
 		mConnector = new PipeliningHttpConnector(client, mProducer, mConsumer);
 		mQueue = queue;
-		((PipeliningHttpConnector) mConnector).setTaskStatusCallback(callback);
+		((PipeliningHttpConnector) mConnector).setJobStatusCallback(callback);
 	}
 
 	@Override
 	public void run() {
-		BaseRequestWrapper wrapper = null;
+		BaseRequestJob wrapper = null;
 		while (isRunning && !isInterrupted()) {
 			try {
-				List<BaseRequestWrapper> wrappers = new ArrayList<BaseRequestWrapper>(
+				List<BaseRequestJob> wrappers = new ArrayList<BaseRequestJob>(
 						MAX_PIPELINE_COUNT);
 				wrapper = mQueue.take();
 				if (wrapper != null) {
@@ -128,7 +128,7 @@ public class PipeliningImageDownloadThread extends BaseThread {
 					throw new InterruptedException();
 				}
 				PipeliningImageWrapper pipeWrapper = new PipeliningImageWrapper(
-						IBaseConnection.CONNECTION_TYPE_IMAGE_DOWNLOAD,
+						IBaseTask.TASK_TYPE_IMAGE_DOWNLOAD,
 						wrappers);
 				mConnector.get(pipeWrapper);
 			} catch (Exception e) {
@@ -142,7 +142,7 @@ public class PipeliningImageDownloadThread extends BaseThread {
 			interrupt();
 			isRunning = false;
 			((PipeliningHttpConnector) mConnector).cancel();
-			((PipeliningHttpConnector) mConnector).setTaskStatusCallback(null);
+			((PipeliningHttpConnector) mConnector).setJobStatusCallback(null);
 		}
 	}
 

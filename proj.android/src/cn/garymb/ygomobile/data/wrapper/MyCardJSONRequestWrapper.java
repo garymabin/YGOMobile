@@ -11,20 +11,20 @@ import org.json.JSONObject;
 import android.util.Log;
 import cn.garymb.ygomobile.common.Constants;
 
-public abstract class MyCardJSONRequestWrapper extends BaseRequestWrapper {
+public abstract class MyCardJSONRequestWrapper extends BaseRequestJob {
 
 	private static final String TAG = "CardImageRequestWrapper";
 
 	public MyCardJSONRequestWrapper(int requestType) {
-		super(requestType);
+		super();
 	}
 
 	@Override
 	public int parse(Object in) {
-		int result = TASK_STATUS_FAILED;
+		int result = STATUS_FAILED;
 		if (in instanceof InputStream) {
 			InputStream data = (InputStream) in;
-			result = TASK_STATUS_SUCCESS;
+			result = STATUS_SUCCESS;
 			StringBuilder out = new StringBuilder();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(data));
 			int len = -1;
@@ -40,13 +40,13 @@ public abstract class MyCardJSONRequestWrapper extends BaseRequestWrapper {
 				handleJSONResult(new JSONObject(out.toString()));
 			} catch (IOException e) {
 				e.printStackTrace();
-				result = TASK_STATUS_FAILED;
+				result = STATUS_FAILED;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				result = TASK_STATUS_CANCELED;
+				result = STATUS_CANCELED;
 			} catch (JSONException e) {
 				e.printStackTrace();
-				result = TASK_STATUS_FAILED;
+				result = STATUS_FAILED;
 			} finally {
 				buffer = null;
 				if (data != null) {
@@ -60,6 +60,7 @@ public abstract class MyCardJSONRequestWrapper extends BaseRequestWrapper {
 				System.gc();
 			}
 		}
+		setResult(result);
 		return result;
 	}
 	

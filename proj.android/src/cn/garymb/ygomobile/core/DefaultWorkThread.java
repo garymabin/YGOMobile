@@ -1,24 +1,24 @@
 package cn.garymb.ygomobile.core;
 
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
 import cn.garymb.ygomobile.net.IBaseConnector;
 
 public abstract class DefaultWorkThread<T> extends BaseThread {
 
 	private IBaseConnector mConnector;
 
-	protected BaseRequestWrapper mWrapper;
+	protected BaseRequestJob mWrapper;
 
-	public DefaultWorkThread(TaskStatusCallback callback, T client) {
+	public DefaultWorkThread(JobStatusCallback callback, T client) {
 		super(callback);
 		mConnector = initConnector(client);
 	}
 	
 	protected abstract IBaseConnector initConnector(T client);
 
-	/* package */ void setWrapper(BaseRequestWrapper wrapper) {
+	/* package */ void setWrapper(BaseRequestJob wrapper) {
 		mWrapper = wrapper;
 	}
 
@@ -29,12 +29,12 @@ public abstract class DefaultWorkThread<T> extends BaseThread {
 			try {
 				if (mWrapper != null) {
 					mConnector.get(mWrapper);
-					mCallback.onTaskFinish(mWrapper);
+					mCallback.onJobFinish(mWrapper);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				mWrapper.setResult(IBaseWrapper.TASK_STATUS_CANCELED);
-				mCallback.onTaskFinish(mWrapper);
+				mWrapper.setResult(IBaseJob.STATUS_CANCELED);
+				mCallback.onJobFinish(mWrapper);
 			}
 		}
 		isRunning = false;

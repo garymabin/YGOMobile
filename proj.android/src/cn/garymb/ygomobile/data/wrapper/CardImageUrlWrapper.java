@@ -5,11 +5,13 @@ import org.json.JSONObject;
 
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.model.data.CardImageUrlInfo;
+import cn.garymb.ygomobile.model.data.ResourcesConstants;
 
 public class CardImageUrlWrapper extends MyCardJSONRequestWrapper {
 
 	public CardImageUrlWrapper(int requestType) {
 		super(requestType);
+		mUrls.add(ResourcesConstants.CARDIMAGE_URL);
 	}
 
 	@Override

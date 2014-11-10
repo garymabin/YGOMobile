@@ -1,17 +1,20 @@
 package cn.garymb.ygomobile.model;
 
 import java.util.HashSet;
+import java.util.Observer;
 import java.util.Set;
 
 
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.Constants;
+import cn.garymb.ygomobile.core.IBaseTask;
 import cn.garymb.ygomobile.model.data.DataStore;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.provider.YGOImagesDataBaseHelper;
 import cn.garymb.ygomobile.ygo.YGOArrayStore;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.util.SparseArray;
@@ -30,6 +33,10 @@ public class Model {
 	private YGOImagesDataBaseHelper mImageDataBaseHelper;
 	
 	private Set<IDataObserver> mObserverList;
+
+	private MyCardTracker mUpdateController;
+
+	private CardImageDownloadManager mImageManager;
 	
 	private Model(StaticApplication app) {
 		mDataStore = new DataStore(app);
@@ -37,6 +44,8 @@ public class Model {
 		mYGOArrayStore = new YGOArrayStore(app.getResources());
 		mObserverList = new HashSet<IDataObserver>();
 		mImageDataBaseHelper = new YGOImagesDataBaseHelper(app);
+		mUpdateController = new MyCardTracker(app, mDataStore);
+		mImageManager = new CardImageDownloadManager(app, mUpdateController);
 	}
 
 	public static Model peekInstance() {
@@ -53,6 +62,10 @@ public class Model {
 	
 	public void addNewServer(YGOServerInfo info) {
 		mDataStore.addNewServer(info);
+	}
+	
+	public DataStore getDataStore() {
+		return mDataStore;
 	}
 
 	/*package*/ boolean hasDataObserver(IDataObserver ob) {
@@ -114,5 +127,31 @@ public class Model {
 
 	public void removeServer(int groupId) {
 		mDataStore.removeServer(groupId);
+	}
+
+	public IBaseTask createOrGetDownloadConnection() {
+		return mImageManager.createOrGetDownloadConnection();
+	}
+
+	public void cleanupDownloadConnection() {
+		mImageManager.cleanupDownloadConnection();
+	}
+
+	public void setTotalDownloadCount(int count) {
+		mImageManager.setTotalDownloadCount(count);
+		
+	}
+
+	public void exeuteDownload(Context context) {
+		mImageManager.exeuteDownload(context);
+	}
+
+	public void registerForImageDownload(Observer o) {
+		mImageManager.registerForImageDownload(o);
+		
+	}
+
+	public void unregisterForImageDownload(Observer o) {
+		mImageManager.unregisterForImageDownload(o);
 	}
 }

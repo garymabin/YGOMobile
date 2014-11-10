@@ -5,8 +5,8 @@ import java.util.List;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
-import cn.garymb.ygomobile.core.IBaseConnection;
-import cn.garymb.ygomobile.data.wrapper.ImageDownloadWrapper;
+import cn.garymb.ygomobile.core.IBaseTask;
+import cn.garymb.ygomobile.data.wrapper.ImageDownloadJob;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,18 +21,18 @@ public class ImageDLAddTask extends AsyncTask<Bundle, Integer, Integer> {
 
 	private ProgressDialog mWaitDialog;
 
-	private WeakReference<IBaseConnection> mConnectionRef;
+	private WeakReference<IBaseTask> mConnectionRef;
 
 	private int mTotalCount = 0;
 	
 	private ImageDLAddListener mListener;
 
-	public ImageDLAddTask(Context context, IBaseConnection connection) {
+	public ImageDLAddTask(Context context, IBaseTask connection) {
 		mWaitDialog = new ProgressDialog(context);
 		mWaitDialog.setMessage(context.getResources()
 				.getString(R.string.adding_image_download_task));
 		mWaitDialog.setCancelable(false);
-		mConnectionRef = new WeakReference<IBaseConnection>(connection);
+		mConnectionRef = new WeakReference<IBaseTask>(connection);
 	}
 	
 	public void setImageDLAddListener(ImageDLAddListener listener) {
@@ -47,7 +47,7 @@ public class ImageDLAddTask extends AsyncTask<Bundle, Integer, Integer> {
 
 	@Override
 	protected Integer doInBackground(Bundle... params) {
-		IBaseConnection connection = mConnectionRef.get();
+		IBaseTask connection = mConnectionRef.get();
 		Bundle tasks = params[0];
 		List<Integer> ids = tasks.getIntegerArrayList("ids");
 		if (connection != null && ids != null) {
@@ -58,9 +58,9 @@ public class ImageDLAddTask extends AsyncTask<Bundle, Integer, Integer> {
 			int i = 0;
 			for (int id : ids) {
 				ImageItem item = new ImageItem(String.valueOf(id), 0, 0);
-				ImageDownloadWrapper wrapper = new ImageDownloadWrapper(
-						IBaseConnection.CONNECTION_TYPE_IMAGE_DOWNLOAD, item);
-				connection.addTask(wrapper);
+				ImageDownloadJob wrapper = new ImageDownloadJob(
+						IBaseTask.TASK_TYPE_IMAGE_DOWNLOAD, item);
+				connection.addJob(wrapper);
 				updateTime = System.currentTimeMillis();
 				if (updateTime - currentTime > 500) {
 					publishProgress(++i);

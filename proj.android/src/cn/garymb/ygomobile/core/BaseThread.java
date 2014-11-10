@@ -1,18 +1,18 @@
 package cn.garymb.ygomobile.core;
 
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
 import android.os.Process;
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 
 
 public abstract class BaseThread extends Thread implements IBaseThread {
 	
-	public BaseThread(TaskStatusCallback callback) {
+	public BaseThread(JobStatusCallback callback) {
 		mCallback = callback; 
 	}
 	
 	protected volatile boolean isRunning = true;
 	
-	protected TaskStatusCallback mCallback;
+	protected JobStatusCallback mCallback;
 	
 	@Override
 	public void run() {

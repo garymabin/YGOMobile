@@ -3,17 +3,17 @@ package cn.garymb.ygomobile.core;
 import java.util.concurrent.BlockingQueue;
 
 
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
 import cn.garymb.ygomobile.net.IBaseConnector;
 
 public class SingleHttpThreadPool extends BaseThread {
 
-	private BlockingQueue<BaseRequestWrapper> mQueue;
+	private BlockingQueue<BaseRequestJob> mQueue;
 
 	protected IBaseConnector mConnector;
 	
-	public SingleHttpThreadPool(BlockingQueue<BaseRequestWrapper> queue, TaskStatusCallback callback) {
+	public SingleHttpThreadPool(BlockingQueue<BaseRequestJob> queue, JobStatusCallback callback) {
 		super(callback);
 		mQueue = queue;
 		
@@ -21,13 +21,13 @@ public class SingleHttpThreadPool extends BaseThread {
 
 	@Override
 	public void run() {
-		BaseRequestWrapper wrapper = null;
+		BaseRequestJob wrapper = null;
 		while (isRunning && !isInterrupted()) {
 			try {
 				wrapper = mQueue.take();
 				if (wrapper != null) {
 					mConnector.get(wrapper);
-					mCallback.onTaskFinish(wrapper);
+					mCallback.onJobFinish(wrapper);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

@@ -9,21 +9,21 @@ import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 
-public class ImageDownloadWrapper extends BaseRequestWrapper {
+public class ImageDownloadJob extends BaseRequestJob {
 
 	private ImageItem mItem;
 
-	public ImageDownloadWrapper(int requestType, ImageItem item) {
-		super(requestType);
+	public ImageDownloadJob(int requestType, ImageItem item) {
+		super();
 		mItem = item;
 		mUrls.add(ImageItemInfoHelper.getImageUrl(item));
 	}
 
 	@Override
 	public int parse(Object in) {
-		int result = TASK_STATUS_FAILED;
+		int result = STATUS_FAILED;
 		if (in instanceof InputStream) {
-			result = TASK_STATUS_SUCCESS;
+			result = STATUS_SUCCESS;
 			FileOutputStream fos = null;
 			File destFile = new File(ImageItemInfoHelper.getImagePath(mItem));
 			File tmpFile = new File(destFile + "tmp");
@@ -44,9 +44,9 @@ public class ImageDownloadWrapper extends BaseRequestWrapper {
 					throw new InterruptedException();
 				}
 			} catch (IOException e) {
-				result = TASK_STATUS_FAILED;
+				result = STATUS_FAILED;
 			} catch (InterruptedException e1) {
-				result = TASK_STATUS_CANCELED;
+				result = STATUS_CANCELED;
 			} finally {
 				if (fos != null) {
 					try {
@@ -56,7 +56,7 @@ public class ImageDownloadWrapper extends BaseRequestWrapper {
 					}
 				}
 				if (tmpFile != null) {
-					if (result == TASK_STATUS_SUCCESS) {
+					if (result == STATUS_SUCCESS) {
 						tmpFile.renameTo(destFile);
 					}
 					tmpFile.delete();

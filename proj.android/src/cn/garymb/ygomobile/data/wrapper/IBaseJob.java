@@ -7,11 +7,16 @@ import cn.garymb.ygomobile.model.data.ResourcesConstants;
  * @author mabin
  * 
  */
-public interface IBaseWrapper extends ResourcesConstants {
+public interface IBaseJob extends ResourcesConstants {
+	
+	public interface JobStatusCallback {
+		void onJobFinish(BaseRequestJob wrapper);
+		void onJobContinue(BaseRequestJob wrapper);
+	}
 
-	public static final int TASK_STATUS_SUCCESS = 0;
-	public static final int TASK_STATUS_FAILED = 1;
-	public static final int TASK_STATUS_CANCELED = 2;
+	public static final int STATUS_SUCCESS = 0;
+	public static final int STATUS_FAILED = 1;
+	public static final int STATUS_CANCELED = 2;
 
 	/**
 	 * 
@@ -28,10 +33,4 @@ public interface IBaseWrapper extends ResourcesConstants {
 	 * 
 	 */
 	String getUrl(int index);
-	
-	/**
-	 * @brief return requestType
-	 * @return
-	 */
-	int getRequestType();
 }

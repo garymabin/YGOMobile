@@ -8,8 +8,8 @@ import java.io.InputStreamReader;
 import org.apache.http.client.HttpClient;
 
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.utils.HttpUtils;
 
@@ -39,7 +39,7 @@ public class DataHttpConnector extends BaseHttpConnector implements
 	 * addon.indoorsmanwelfare.model.data.wrapper.BaseDataWrapper)
 	 */
 	@Override
-	public void get(BaseRequestWrapper wrapper) {
+	public void get(BaseRequestJob wrapper) {
 		// TODO Auto-generated method stub
 		int i = 0;
 		String url = wrapper.getUrl(0);
@@ -64,9 +64,9 @@ public class DataHttpConnector extends BaseHttpConnector implements
 	 * @return
 	 **/
 	@Override
-	protected void handleResponse(InputStream data, BaseRequestWrapper wrapper)
+	protected void handleResponse(InputStream data, BaseRequestJob wrapper)
 			throws InterruptedException {
-		int status = IBaseWrapper.TASK_STATUS_SUCCESS;
+		int status = IBaseJob.STATUS_SUCCESS;
 		StringBuilder out = new StringBuilder();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(data));
 		int len = -1;
@@ -82,11 +82,11 @@ public class DataHttpConnector extends BaseHttpConnector implements
 //			wrapper.parse(out);
 		} catch (IOException e) {
 			e.printStackTrace();
-			status = IBaseWrapper.TASK_STATUS_FAILED;
+			status = IBaseJob.STATUS_FAILED;
 			wrapper.setResult(status);
 		} catch (OutOfMemoryError e) {
 			e.printStackTrace();
-			status = IBaseWrapper.TASK_STATUS_FAILED;
+			status = IBaseJob.STATUS_FAILED;
 			wrapper.setResult(status);
 		} finally {
 			buffer = null;

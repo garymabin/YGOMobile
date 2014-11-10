@@ -4,11 +4,12 @@ import java.util.Observer;
 
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.controller.actionbar.ActionBarController;
-import cn.garymb.ygomobile.core.IBaseConnection;
+import cn.garymb.ygomobile.core.IBaseTask;
 import cn.garymb.ygomobile.model.IDataObserver;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.net.NetworkStatusManager;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
@@ -21,18 +22,12 @@ public class Controller {
 
 	private NetworkStatusManager mNetworkManager;
 
-	private UpdateController mUpdateController;
-
 	private Model mModel;
 	
-	private CardImageDownloadManager mImageManager;
-
 	private Controller(StaticApplication app) {
 		mModel = Model.peekInstance();
 		mActionBarController = new ActionBarController();
 		mNetworkManager = NetworkStatusManager.peekInstance(app);
-		mUpdateController = new UpdateController(app);
-		mImageManager = new CardImageDownloadManager(app, mUpdateController);
 	}
 
 	public static Controller peekInstance() {
@@ -111,24 +106,28 @@ public class Controller {
 		mActionBarController.unregisterForActionReset(h);
 	}
 
-	public IBaseConnection createOrGetDownloadConnection() {
-		return mImageManager.createOrGetDownloadConnection();
+	public IBaseTask createOrGetDownloadConnection() {
+		return mModel.createOrGetDownloadConnection();
 	}
 	
 	public void cleanupDownloadConnection() {
-		mImageManager.cleanupDownloadConnection();
+		mModel.cleanupDownloadConnection();
 	}
 	
 	public void setTotalDownloadCount(int count) {
-		mImageManager.setTotalDownloadCount(count);
+		mModel.setTotalDownloadCount(count);
+	}
+	
+	public void executeDownload(Context context) {
+		mModel.exeuteDownload(context);
 	}
 	
 	public void registerForImageDownload(Observer o) {
-		mImageManager.registerForImageDownload(o);
+		mModel.registerForImageDownload(o);
 	}
 	
 	public void unregisterForImageDownload(Observer o) {
-		mImageManager.registerForImageDownload(o);
+		mModel.registerForImageDownload(o);
 	}
 
 	/**

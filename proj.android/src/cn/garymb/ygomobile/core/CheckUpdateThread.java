@@ -2,13 +2,13 @@ package cn.garymb.ygomobile.core;
 
 import org.apache.http.client.HttpClient;
 
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
 import cn.garymb.ygomobile.net.IBaseConnector;
 import cn.garymb.ygomobile.net.defaulthttp.DataHttpConnector;
 
 public class CheckUpdateThread extends DefaultWorkThread<HttpClient> {
 
-	public CheckUpdateThread(TaskStatusCallback callback, HttpClient client) {
+	public CheckUpdateThread(JobStatusCallback callback, HttpClient client) {
 		super(callback, client);
 	}
 

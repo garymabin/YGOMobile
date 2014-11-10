@@ -12,23 +12,20 @@ import org.apache.http.HC4.impl.nio.client.CloseableHttpPipeliningClient;
 import android.os.Handler;
 import android.os.Message;
 
-import com.squareup.okhttp.OkHttpClient;
-
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
-import cn.garymb.ygomobile.data.wrapper.ImageDownloadWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
+import cn.garymb.ygomobile.data.wrapper.ImageDownloadJob;
 
-public class ImageDownloadConnection implements IBaseConnection,
-		TaskStatusCallback {
+public class ImageDownloadTask extends BaseTask {
 
 	private static int MAX_NUMBER_OF_THREADS = Runtime.getRuntime()
 			.availableProcessors() > 4 ? 4 : Runtime.getRuntime()
 			.availableProcessors();
 
-	protected BlockingQueue<BaseRequestWrapper> mTaskQueue;
+	protected BlockingQueue<BaseRequestJob> mTaskQueue;
 
 	private volatile boolean isRunning = false;
 
@@ -37,39 +34,27 @@ public class ImageDownloadConnection implements IBaseConnection,
 	protected List<IBaseThread> mUpdateThreads = new ArrayList<>(
 			MAX_NUMBER_OF_THREADS);
 
-	private Object mClient;
+	private CloseableHttpPipeliningClient mClient;
 
-	public ImageDownloadConnection(StaticApplication app, Handler handler,
-			boolean isAsync) {
-		mTaskQueue = new LinkedBlockingQueue<BaseRequestWrapper>();
+	public ImageDownloadTask(StaticApplication app, Handler handler,
+			CloseableHttpPipeliningClient client) {
+		mTaskQueue = new LinkedBlockingQueue<BaseRequestJob>();
 		mHandlerRef = new WeakReference<Handler>(handler);
-		initThread(app, this, isAsync);
+		mClient = client;
+		initThread(app, this);
 	}
 
-	protected void initThread(StaticApplication app,
-			TaskStatusCallback callback, boolean isAsync) {
-		if (isAsync) {
-			mClient = app.getPipelinlingHttpClient();
-		} else {
-			mClient = app.getOkHttpClient();
-		}
-
+	protected void initThread(StaticApplication app, JobStatusCallback callback) {
 		for (int i = 0; i < MAX_NUMBER_OF_THREADS; i++) {
 			IBaseThread thread = null;
-			if (isAsync) {
-				thread = new PipeliningImageDownloadThread(mTaskQueue,
-						callback, (CloseableHttpPipeliningClient) mClient);
-			} else {
-				thread = new ImageDownloadThread(mTaskQueue, callback,
-						(OkHttpClient) mClient);
-			}
+			thread = new PipeliningImageDownloadThread(mTaskQueue, callback, mClient);
 			mUpdateThreads.add(thread);
 		}
 	}
 
 	@Override
-	public void addTask(BaseRequestWrapper wrapper) {
-		if (wrapper instanceof ImageDownloadWrapper) {
+	public void addJob(BaseRequestJob wrapper) {
+		if (wrapper instanceof ImageDownloadJob) {
 			try {
 				mTaskQueue.put(wrapper);
 			} catch (InterruptedException e) {
@@ -100,7 +85,7 @@ public class ImageDownloadConnection implements IBaseConnection,
 
 	@Override
 	public int getType() {
-		return CONNECTION_TYPE_IMAGE_DOWNLOAD;
+		return TASK_TYPE_IMAGE_DOWNLOAD;
 	}
 
 	@Override
@@ -117,13 +102,13 @@ public class ImageDownloadConnection implements IBaseConnection,
 	}
 
 	@Override
-	public int getTaskCount() {
+	public int getJobCount() {
 		return mTaskQueue.size();
 	}
 
 	@Override
-	public void onTaskFinish(BaseRequestWrapper wrapper) {
-		if (wrapper.getResult() == IBaseWrapper.TASK_STATUS_SUCCESS
+	public void onJobFinish(BaseRequestJob wrapper) {
+		if (wrapper.getResult() == IBaseJob.STATUS_SUCCESS
 				|| wrapper.isFailed()) {
 			Handler handler = mHandlerRef.get();
 			synchronized (handler) {
@@ -133,14 +118,14 @@ public class ImageDownloadConnection implements IBaseConnection,
 				}
 			}
 		} else {
-			if (wrapper.getRetryCount() <= BaseRequestWrapper.MAX_RETRY_COUNT) {
-				addTask(wrapper);
+			if (wrapper.getRetryCount() <= BaseRequestJob.MAX_RETRY_COUNT) {
+				addJob(wrapper);
 			}
 		}
 	}
 
 	@Override
-	public void onTaskContinue(BaseRequestWrapper wrapper) {
+	public void onJobContinue(BaseRequestJob wrapper) {
 	}
 
 }

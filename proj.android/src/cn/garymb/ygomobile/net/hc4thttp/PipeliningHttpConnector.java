@@ -16,11 +16,11 @@ import org.apache.http.HC4.client.methods.HttpGet;
 
 import android.util.Log;
 
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.core.PipeliningImageDownloadThread.CustomAsyncRequestProducer;
 import cn.garymb.ygomobile.core.PipeliningImageDownloadThread.ImageDownloadConsumer;
-import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
-import cn.garymb.ygomobile.data.wrapper.ImageDownloadWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
+import cn.garymb.ygomobile.data.wrapper.ImageDownloadJob;
 import cn.garymb.ygomobile.data.wrapper.PipeliningImageWrapper;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.net.IBaseConnector;
@@ -33,30 +33,30 @@ public class PipeliningHttpConnector implements IBaseConnector {
 
 	private WeakReference<List<BasicAsyncRequestProducer>> mProducerRef;
 
-	private WeakReference<List<AbstractAsyncResponseConsumer<BaseRequestWrapper>>> mConsumerRef;
+	private WeakReference<List<AbstractAsyncResponseConsumer<BaseRequestJob>>> mConsumerRef;
 
-	private TaskStatusCallback mCallback;
+	private JobStatusCallback mCallback;
 	
-	private Future<List<BaseRequestWrapper>> mFuture = null;
+	private Future<List<BaseRequestJob>> mFuture = null;
 	
 	private volatile boolean isCanceled = false;
 
 	public PipeliningHttpConnector(CloseableHttpPipeliningClient client, List<BasicAsyncRequestProducer> producer,
-			List<AbstractAsyncResponseConsumer<BaseRequestWrapper>> consumer) {
+			List<AbstractAsyncResponseConsumer<BaseRequestJob>> consumer) {
 		mProducerRef = new WeakReference<List<BasicAsyncRequestProducer>>(
 				producer);
-		mConsumerRef = new WeakReference<List<AbstractAsyncResponseConsumer<BaseRequestWrapper>>>(
+		mConsumerRef = new WeakReference<List<AbstractAsyncResponseConsumer<BaseRequestJob>>>(
 				consumer);
 		mClient = client;
 		mClient.start();
 	}
 
-	public void setTaskStatusCallback(TaskStatusCallback callback) {
+	public void setJobStatusCallback(JobStatusCallback callback) {
 		mCallback = callback;
 	}
 
 	@Override
-	public void get(BaseRequestWrapper wrapper) throws InterruptedException {
+	public void get(BaseRequestJob wrapper) throws InterruptedException {
 		if (!isCanceled && wrapper instanceof PipeliningImageWrapper) {
 			Log.w(TAG, "beging pipelining tid: " + Thread.currentThread().getId());
 			int size = wrapper.size();
@@ -80,15 +80,15 @@ public class PipeliningHttpConnector implements IBaseConnector {
 				try {
 					mProducerRef.get().add(
 							new CustomAsyncRequestProducer(host, request));
-					BaseRequestWrapper imageWrapper = ((PipeliningImageWrapper) wrapper)
+					BaseRequestJob imageWrapper = ((PipeliningImageWrapper) wrapper)
 							.getInnerWrapper(i);
 					File targetFile = new File(
 							ImageItemInfoHelper
-									.getImageTempPath(((ImageDownloadWrapper) imageWrapper)
+									.getImageTempPath(((ImageDownloadJob) imageWrapper)
 											.getImageItem()));
 					ImageDownloadConsumer consumer = new ImageDownloadConsumer(
 							targetFile, imageWrapper);
-					consumer.setTaskstatusCallback(mCallback);
+					consumer.setJobstatusCallback(mCallback);
 					mConsumerRef.get().add(consumer);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();

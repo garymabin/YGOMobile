@@ -1,6 +1,5 @@
 package cn.garymb.ygomobile.core;
 
-import cn.garymb.ygomobile.common.NotificationMgr;
 import cn.garymb.ygomobile.controller.Controller;
 import android.app.Service;
 import android.content.Intent;
@@ -19,7 +18,7 @@ public class DownloadService extends Service {
 
 	private ServiceBinder mBinder;
 
-	private IBaseConnection mDownloadConnection;
+	private IBaseTask mDownloadConnection;
 	
 	private boolean isDownloading = false;
 
@@ -42,9 +41,8 @@ public class DownloadService extends Service {
 		}
 		if (ACTION_START_BATCH_TASK.equals(action)) {
 			mDownloadConnection = Controller.peekInstance().createOrGetDownloadConnection();
-			Controller.peekInstance().setTotalDownloadCount(mDownloadConnection.getTaskCount());
-			NotificationMgr.showDownloadStatus(this, mDownloadConnection.getTaskCount());
-			mDownloadConnection.execute();
+			Controller.peekInstance().setTotalDownloadCount(mDownloadConnection.getJobCount());
+			Controller.peekInstance().executeDownload(this);
 			isDownloading = true;
 		} else if (ACTION_STOP_ALL_TASK.equals(action)) {
 			mDownloadConnection.purge();

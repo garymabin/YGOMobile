@@ -129,7 +129,6 @@ public class StaticApplication extends Application {
 		CrashSender sender = new CrashSender(this);
 		ACRA.getErrorReporter().setReportSender(sender);
 		Controller.peekInstance();
-		Model.peekInstance();
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
 		sRootPair = Pair
 				.create(getResources().getString(R.string.root_dir), "/"/* "Environment.getExternalStorageDirectory().getPath()" */);
