@@ -25,6 +25,12 @@ public final class ImageItemInfoHelper {
 	private static final String JPG_IMAGE_SUFFIX = ".jpg";
 	
 	private static final String TMP_SUFFIX = ".tmp";
+	
+	private static String BASE_URL = ResourcesConstants.IMAGE_URL;
+	
+	public static void init(String url) {
+		BASE_URL = url;
+	}
 
 	public static boolean isImageExist(ImageItem item) {
 		final String path = getImagePath(item);
@@ -82,8 +88,7 @@ public final class ImageItemInfoHelper {
 				&& (url.startsWith(HTTP_PREFIX) || url.startsWith(HTTPS_PREFIX)))
 			return url;
 
-		final String baseUrl = ResourcesConstants.IMAGE_URL;
-		url = TextUtils.isEmpty(baseUrl) ? null : baseUrl + item.id
+		url = TextUtils.isEmpty(BASE_URL) ? null : BASE_URL + item.id
 				+ JPG_IMAGE_SUFFIX;
 		return url;
 	}

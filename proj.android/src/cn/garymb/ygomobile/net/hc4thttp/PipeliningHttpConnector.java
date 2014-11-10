@@ -19,7 +19,7 @@ import android.util.Log;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
 import cn.garymb.ygomobile.core.PipeliningImageDownloadThread.CustomAsyncRequestProducer;
 import cn.garymb.ygomobile.core.PipeliningImageDownloadThread.ImageDownloadConsumer;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
 import cn.garymb.ygomobile.data.wrapper.ImageDownloadWrapper;
 import cn.garymb.ygomobile.data.wrapper.PipeliningImageWrapper;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
@@ -33,19 +33,19 @@ public class PipeliningHttpConnector implements IBaseConnector {
 
 	private WeakReference<List<BasicAsyncRequestProducer>> mProducerRef;
 
-	private WeakReference<List<AbstractAsyncResponseConsumer<BaseDataWrapper>>> mConsumerRef;
+	private WeakReference<List<AbstractAsyncResponseConsumer<BaseRequestWrapper>>> mConsumerRef;
 
 	private TaskStatusCallback mCallback;
 	
-	private Future<List<BaseDataWrapper>> mFuture = null;
+	private Future<List<BaseRequestWrapper>> mFuture = null;
 	
 	private volatile boolean isCanceled = false;
 
 	public PipeliningHttpConnector(CloseableHttpPipeliningClient client, List<BasicAsyncRequestProducer> producer,
-			List<AbstractAsyncResponseConsumer<BaseDataWrapper>> consumer) {
+			List<AbstractAsyncResponseConsumer<BaseRequestWrapper>> consumer) {
 		mProducerRef = new WeakReference<List<BasicAsyncRequestProducer>>(
 				producer);
-		mConsumerRef = new WeakReference<List<AbstractAsyncResponseConsumer<BaseDataWrapper>>>(
+		mConsumerRef = new WeakReference<List<AbstractAsyncResponseConsumer<BaseRequestWrapper>>>(
 				consumer);
 		mClient = client;
 		mClient.start();
@@ -56,7 +56,7 @@ public class PipeliningHttpConnector implements IBaseConnector {
 	}
 
 	@Override
-	public void get(BaseDataWrapper wrapper) throws InterruptedException {
+	public void get(BaseRequestWrapper wrapper) throws InterruptedException {
 		if (!isCanceled && wrapper instanceof PipeliningImageWrapper) {
 			Log.w(TAG, "beging pipelining tid: " + Thread.currentThread().getId());
 			int size = wrapper.size();
@@ -80,7 +80,7 @@ public class PipeliningHttpConnector implements IBaseConnector {
 				try {
 					mProducerRef.get().add(
 							new CustomAsyncRequestProducer(host, request));
-					BaseDataWrapper imageWrapper = ((PipeliningImageWrapper) wrapper)
+					BaseRequestWrapper imageWrapper = ((PipeliningImageWrapper) wrapper)
 							.getInnerWrapper(i);
 					File targetFile = new File(
 							ImageItemInfoHelper

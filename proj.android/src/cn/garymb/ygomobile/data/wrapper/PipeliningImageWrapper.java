@@ -2,13 +2,13 @@ package cn.garymb.ygomobile.data.wrapper;
 
 import java.util.List;
 
-public class PipeliningImageWrapper extends BaseDataWrapper {
+public class PipeliningImageWrapper extends BaseRequestWrapper {
 	
-	private List<BaseDataWrapper> mWrappers;
+	private List<BaseRequestWrapper> mWrappers;
 
-	public PipeliningImageWrapper(int requestType, List<BaseDataWrapper> wrappers) {
+	public PipeliningImageWrapper(int requestType, List<BaseRequestWrapper> wrappers) {
 		super(requestType);
-		for (BaseDataWrapper wrapper : wrappers) {
+		for (BaseRequestWrapper wrapper : wrappers) {
 			mUrls.add(wrapper.getUrl(0));
 		}
 		mWrappers = wrappers;
@@ -19,7 +19,7 @@ public class PipeliningImageWrapper extends BaseDataWrapper {
 		return TASK_STATUS_FAILED;
 	}
 	
-	public BaseDataWrapper getInnerWrapper(int index) {
+	public BaseRequestWrapper getInnerWrapper(int index) {
 		return mWrappers.get(index);
 	}
 	

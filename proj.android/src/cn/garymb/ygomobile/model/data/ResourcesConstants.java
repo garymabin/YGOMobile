@@ -24,6 +24,12 @@ public interface ResourcesConstants {
 	
 	public static final String DONATE_URL_MOBILE = "https://qr.alipay.com/apjod7orwpzd7jy734";
 	
+	public static final String MYCARD_API_BASE = "http://my-card.in";
+	
+	public static final String SERVER_URL = MYCARD_API_BASE + "/servers.json";
+	
+	public static final String CARDIMAGE_URL = MYCARD_API_BASE + "/cards/image.json";
+	
 	public static final String DEFAULT_MC_SERVER_NAME = "MyCard";
 	
 	public static final String DEFAULT_MC_SERVER_ADDR = "182.254.142.247";
@@ -73,6 +79,14 @@ public interface ResourcesConstants {
 	 */
 	public static final String JSON_KEY_USER_CERTIFIED = "certified";
 	public static final String JSON_KEY_USER_PLAYER_ID = "player";
+	
+	/**
+	 * For card image
+	 */
+	public static final String JSON_KEY_ZH_IMAGE_URL = "url";
+	public static final String JSON_KEY_ZH_THUMBNAIL_URL = "thumbnail_url";
+	public static final String JSON_KEY_EN_IMAGE_URL = "en";
+	public static final String JSON_KEY_EN_LQ_IMAGE_URL = "en-lq";
 	
 	
 	public static final int GAME_MODE_SINGLE = 0;

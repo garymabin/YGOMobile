@@ -1,5 +1,7 @@
 package cn.garymb.ygomobile.ygo;
 
+import java.nio.ByteBuffer;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,8 +36,8 @@ public class YGOServerInfo extends BaseInfo {
 	}
 	
 	@Override
-	public void initFromJsonData(JSONObject data) throws JSONException {
-		super.initFromJsonData(data);
+	public void fromJSONData(JSONObject data) throws JSONException {
+		super.fromJSONData(data);
 		name = data.getString(JSON_KEY_NAME);
 		ipAddrString = data.getString(JSON_KEY_SERVER_IP_ADDR);
 		port = data.getInt(JSON_KEY_SERVER_PORT);
@@ -44,6 +46,27 @@ public class YGOServerInfo extends BaseInfo {
 		//TODO:
 		userName = "player";
 		serverInfoString = "";
+	}
+	
+	@Override
+	protected void readFromParcel(Parcel source) {
+		this.id = source.readString();
+		this.name = source.readString();
+		this.ipAddrString = source.readString();
+		this.userName = source.readString();
+		this.serverInfoString = source.readString();
+		this.port = source.readInt();
+		this.auth = source.readInt() > 0 ? true : false;
+		this.maxRooms = source.readInt();		
+	}
+
+	@Override
+	public ByteBuffer toByteBuffer(ByteBuffer buffer) {
+		return buffer;
+	}
+
+	@Override
+	public void fromByteBuffer(ByteBuffer buffer) {
 	}
 	
 	@Override
@@ -68,14 +91,7 @@ public class YGOServerInfo extends BaseInfo {
 		@Override
 		public YGOServerInfo createFromParcel(Parcel source) {
 			YGOServerInfo info = new YGOServerInfo();
-			info.id = source.readString();
-			info.name = source.readString();
-			info.ipAddrString = source.readString();
-			info.userName = source.readString();
-			info.serverInfoString = source.readString();
-			info.port = source.readInt();
-			info.auth = source.readInt() > 0 ? true : false;
-			info.maxRooms = source.readInt();
+			info.readFromParcel(source);
 			return info;
 		}
 
@@ -101,5 +117,4 @@ public class YGOServerInfo extends BaseInfo {
 		dest.writeInt(auth ? 1 : 0);
 		dest.writeInt(maxRooms);
 	}
-
 }

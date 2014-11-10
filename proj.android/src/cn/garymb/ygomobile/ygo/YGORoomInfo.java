@@ -1,5 +1,6 @@
 package cn.garymb.ygomobile.ygo;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +33,16 @@ public class YGORoomInfo extends BaseInfo {
 	
 	private boolean isCompleteInfo;
 	
-	
 	@Override
-	public void initFromJsonData(JSONObject data) throws JSONException {
-		super.initFromJsonData(data);
+	public void fromJSONData(JSONObject data) throws JSONException {
+		super.fromJSONData(data);
 		name = data.getString(JSON_KEY_NAME);
 		status = GAME_STATUS_START.equals(data.getString(JSON_KEY_ROOM_STATUS));
 		serverId = data.getInt(JSON_KEY_ROOM_SERVER_ID);
 		JSONArray usersArray = data.getJSONArray(JSON_KEY_ROOM_USERS);
 		for (int i = 0; i < usersArray.length(); i ++) {
 			YGOUserInfo info = new YGOUserInfo();
-			info.initFromJsonData(usersArray.getJSONObject(i));
+			info.fromJSONData(usersArray.getJSONObject(i));
 			mUsers.add(info);
 		}
 		if (data.has(JSON_KEY_ROOM_MODE)) {
@@ -84,6 +84,34 @@ public class YGORoomInfo extends BaseInfo {
 		}
 	}
 	
+	@Override
+	protected void readFromParcel(Parcel source) {
+		this.id = source.readString();
+		this.name = source.readString();
+		this.serverId = source.readInt();
+		this.mUsers = source.createTypedArrayList(YGOUserInfo.CREATOR);
+		this.mode = source.readInt();
+		this.rule = source.readInt();
+		this.privacy = source.readInt() > 0;
+		this.startLp = source.readInt();
+		this.startHand = source.readInt();
+		this.drawCount = source.readInt();
+		this.enablePriority = source.readInt() > 0;
+		this.noDeckCheck = source.readInt() > 0;
+		this.noDeckShuffle = source.readInt() > 0;
+		this.deleted = source.readInt() > 0;
+		this.isCompleteInfo = source.readInt() > 0;
+	}
+
+	@Override
+	public ByteBuffer toByteBuffer(ByteBuffer buffer) {
+		return buffer;
+	}
+
+	@Override
+	public void fromByteBuffer(ByteBuffer buffer) {
+	}
+	
 	public boolean isCompleteInfo() {
 		return isCompleteInfo;
 	}
@@ -103,21 +131,7 @@ public class YGORoomInfo extends BaseInfo {
 		@Override
 		public YGORoomInfo createFromParcel(Parcel source) {
 			YGORoomInfo info = new YGORoomInfo();
-			info.id = source.readString();
-			info.name = source.readString();
-			info.serverId = source.readInt();
-			info.mUsers = source.createTypedArrayList(YGOUserInfo.CREATOR);
-			info.mode = source.readInt();
-			info.rule = source.readInt();
-			info.privacy = source.readInt() > 0;
-			info.startLp = source.readInt();
-			info.startHand = source.readInt();
-			info.drawCount = source.readInt();
-			info.enablePriority = source.readInt() > 0;
-			info.noDeckCheck = source.readInt() > 0;
-			info.noDeckShuffle = source.readInt() > 0;
-			info.deleted = source.readInt() > 0;
-			info.isCompleteInfo = source.readInt() > 0;
+			info.readFromParcel(source);
 			return info;
 		}
 
@@ -130,7 +144,6 @@ public class YGORoomInfo extends BaseInfo {
 
 	@Override
 	public int describeContents() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -152,5 +165,4 @@ public class YGORoomInfo extends BaseInfo {
 		dest.writeInt(deleted ? 1 : 0);
 		dest.writeInt(isCompleteInfo ? 1 : 0);
 	}
-
 }

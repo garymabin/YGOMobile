@@ -179,11 +179,11 @@ public class Controller {
 		mModel.requestDataOperation(observer, msg);
 	}
 
-	public void registerDataObserver(IDataObserver observer) {
-		mModel.registerDataObserver(observer);
+	public void registerImageObserver(IDataObserver observer) {
+		mModel.registerImageObserver(observer);
 	}
 
-	public void unregisterDataObserver(IDataObserver observer) {
-		mModel.unregisterDataObserver(observer);
+	public void unregisterImageObserver(IDataObserver observer) {
+		mModel.unregisterImageObserver(observer);
 	}
 }

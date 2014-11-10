@@ -1,5 +1,7 @@
 package cn.garymb.ygomobile.model.data;
 
+import java.nio.ByteBuffer;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,10 +13,30 @@ public class VersionInfo extends BaseInfo {
 	public String url;
 	
 	@Override
-	public void initFromJsonData(JSONObject data) throws JSONException {
+	public void fromJSONData(JSONObject data) throws JSONException {
 		version = data.getInt(ResourcesConstants.JSON_KEY_VERSION);
 		url = data.getString(ResourcesConstants.JSON_KEY_VERSION_URL);
 	}
+	
+
+	@Override
+	protected void readFromParcel(Parcel source) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ByteBuffer toByteBuffer(ByteBuffer buffer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void fromByteBuffer(ByteBuffer buffer) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	@Override
 	public int describeContents() {
@@ -42,5 +64,4 @@ public class VersionInfo extends BaseInfo {
 			return info;
 		}
 	};
-
 }

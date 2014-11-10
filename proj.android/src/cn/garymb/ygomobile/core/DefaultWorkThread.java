@@ -1,31 +1,30 @@
 package cn.garymb.ygomobile.core;
 
-import org.apache.http.client.HttpClient;
-
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
 import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
-import cn.garymb.ygomobile.net.defaulthttp.BaseHttpConnector;
+import cn.garymb.ygomobile.net.IBaseConnector;
 
-public abstract class InstantThread extends BaseThread {
+public abstract class DefaultWorkThread<T> extends BaseThread {
 
-	private BaseHttpConnector mConnector;
+	private IBaseConnector mConnector;
 
-	protected BaseDataWrapper mWrapper;
+	protected BaseRequestWrapper mWrapper;
 
-	public InstantThread(TaskStatusCallback callback, HttpClient client) {
+	public DefaultWorkThread(TaskStatusCallback callback, T client) {
 		super(callback);
 		mConnector = initConnector(client);
 	}
 	
-	protected abstract BaseHttpConnector initConnector(HttpClient client);
+	protected abstract IBaseConnector initConnector(T client);
 
-	/* package */ void setWrapper(BaseDataWrapper wrapper) {
+	/* package */ void setWrapper(BaseRequestWrapper wrapper) {
 		mWrapper = wrapper;
 	}
 
 	@Override
 	public void run() {
+		super.run();
 		if (isRunning) {
 			try {
 				if (mWrapper != null) {

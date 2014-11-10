@@ -20,7 +20,7 @@ public class ImagePreviewDialog extends BaseDialog {
 	@Override
 	public void show() {
 		super.show();
-		Controller.peekInstance().registerDataObserver(
+		Controller.peekInstance().registerImageObserver(
 				(ImagePreviewController) mController);
 		((ImagePreviewController) mController)
 				.setOnClickListener(mNewImageClickListener);
@@ -29,7 +29,7 @@ public class ImagePreviewDialog extends BaseDialog {
 	@Override
 	public void dismiss() {
 		super.dismiss();
-		Controller.peekInstance().unregisterDataObserver(
+		Controller.peekInstance().unregisterImageObserver(
 				(ImagePreviewController) mController);
 		((ImagePreviewController) mController).setOnClickListener(null);
 		mNewImageClickListener = null;

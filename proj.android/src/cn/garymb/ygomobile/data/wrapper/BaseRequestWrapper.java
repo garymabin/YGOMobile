@@ -2,14 +2,14 @@ package cn.garymb.ygomobile.data.wrapper;
 
 import java.util.ArrayList;
 
-import android.os.Bundle;
+import android.os.Message;
 
 
 /**
  * @author mabin
  * 
  */
-public abstract class BaseDataWrapper implements IBaseWrapper {
+public abstract class BaseRequestWrapper implements IBaseWrapper {
 	
 	public static final int MAX_RETRY_COUNT = 3;
 	
@@ -18,14 +18,14 @@ public abstract class BaseDataWrapper implements IBaseWrapper {
 	
 	protected int mRequestType;
 	
-	protected Bundle mParam;
+	protected Message mParam;
 	
 	protected int mRetryCount = 0;
 	
 	/**
 	 * 
 	 */
-	public BaseDataWrapper(int requestType) {
+	public BaseRequestWrapper(int requestType) {
 		mUrls = new ArrayList<String>();
 		mRequestType = requestType;
 		mRetryCount = 0;
@@ -47,11 +47,11 @@ public abstract class BaseDataWrapper implements IBaseWrapper {
 		mResult = result;
 	}
 	
-	public Bundle getParam() {
+	public Message getParam() {
 		return mParam;
 	}
 	
-	public void setParam(Bundle param) {
+	public void setParam(Message param) {
 		mParam = param;
 	}
 	

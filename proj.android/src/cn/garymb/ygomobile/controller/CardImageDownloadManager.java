@@ -28,7 +28,7 @@ public final class CardImageDownloadManager implements IDownloadEventCallback {
 	/*package*/ IBaseConnection createOrGetDownloadConnection() {
 		IBaseConnection connection = mController.getConnection(IBaseConnection.CONNECTION_TYPE_IMAGE_DOWNLOAD);
 		if (connection == null) {
-			connection = mController.newDownloadConnection(mImageDLObservable
+			connection = mController.newConnection(IBaseConnection.CONNECTION_TYPE_IMAGE_DOWNLOAD, mImageDLObservable
 					.getMessageHandler());
 		}
 		return connection;

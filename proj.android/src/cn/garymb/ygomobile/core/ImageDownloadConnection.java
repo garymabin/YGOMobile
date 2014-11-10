@@ -17,7 +17,7 @@ import com.squareup.okhttp.OkHttpClient;
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
 import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
 import cn.garymb.ygomobile.data.wrapper.ImageDownloadWrapper;
 
@@ -28,7 +28,7 @@ public class ImageDownloadConnection implements IBaseConnection,
 			.availableProcessors() > 4 ? 4 : Runtime.getRuntime()
 			.availableProcessors();
 
-	protected BlockingQueue<BaseDataWrapper> mTaskQueue;
+	protected BlockingQueue<BaseRequestWrapper> mTaskQueue;
 
 	private volatile boolean isRunning = false;
 
@@ -41,7 +41,7 @@ public class ImageDownloadConnection implements IBaseConnection,
 
 	public ImageDownloadConnection(StaticApplication app, Handler handler,
 			boolean isAsync) {
-		mTaskQueue = new LinkedBlockingQueue<BaseDataWrapper>();
+		mTaskQueue = new LinkedBlockingQueue<BaseRequestWrapper>();
 		mHandlerRef = new WeakReference<Handler>(handler);
 		initThread(app, this, isAsync);
 	}
@@ -68,7 +68,7 @@ public class ImageDownloadConnection implements IBaseConnection,
 	}
 
 	@Override
-	public void addTask(BaseDataWrapper wrapper) {
+	public void addTask(BaseRequestWrapper wrapper) {
 		if (wrapper instanceof ImageDownloadWrapper) {
 			try {
 				mTaskQueue.put(wrapper);
@@ -122,7 +122,7 @@ public class ImageDownloadConnection implements IBaseConnection,
 	}
 
 	@Override
-	public void onTaskFinish(BaseDataWrapper wrapper) {
+	public void onTaskFinish(BaseRequestWrapper wrapper) {
 		if (wrapper.getResult() == IBaseWrapper.TASK_STATUS_SUCCESS
 				|| wrapper.isFailed()) {
 			Handler handler = mHandlerRef.get();
@@ -133,14 +133,14 @@ public class ImageDownloadConnection implements IBaseConnection,
 				}
 			}
 		} else {
-			if (wrapper.getRetryCount() <= BaseDataWrapper.MAX_RETRY_COUNT) {
+			if (wrapper.getRetryCount() <= BaseRequestWrapper.MAX_RETRY_COUNT) {
 				addTask(wrapper);
 			}
 		}
 	}
 
 	@Override
-	public void onTaskContinue(BaseDataWrapper wrapper) {
+	public void onTaskContinue(BaseRequestWrapper wrapper) {
 	}
 
 }

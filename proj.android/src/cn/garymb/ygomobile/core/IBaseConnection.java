@@ -1,6 +1,6 @@
 package cn.garymb.ygomobile.core;
 
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
 
 
 public interface IBaseConnection {
@@ -9,8 +9,8 @@ public interface IBaseConnection {
 	static final int CONNECTION_TYPE_IMAGE_DOWNLOAD = 1;
 	
 	public interface TaskStatusCallback {
-		void onTaskFinish(BaseDataWrapper wrapper);
-		void onTaskContinue(BaseDataWrapper wrapper);
+		void onTaskFinish(BaseRequestWrapper wrapper);
+		void onTaskContinue(BaseRequestWrapper wrapper);
 	}
 	
 	
@@ -18,7 +18,7 @@ public interface IBaseConnection {
 	 * Add a new task
 	 * @param wrapper
 	 */
-	void addTask(BaseDataWrapper wrapper);
+	void addTask(BaseRequestWrapper wrapper);
 	
 	/**
 	 * Clean up the connection

@@ -90,6 +90,7 @@ public interface Constants {
 	public static final int REQUEST_TYPE_CHECK_UPDATE = 0x3000;
 	
 	public static final int REQUEST_TYPE_DOWNLOAD_IMAGE = 0x3003;
+
 	public static final int REQUEST_TYPE_LOAD_BITMAP = 0x3004;
 	
 	public static final int REQUEST_TYPE_CHANGE_IMAGE_LOAD_PRIORITY = 0x3005;
@@ -99,6 +100,11 @@ public interface Constants {
 	public static final int REQUEST_TYPE_RESET_DOWNLOAD_QUEUE = 0x3007;
 	
 	public static final int REQUEST_TYPE_CLEAR_BITMAP_CACHE = 0x3008;
+	
+	public static final int REQUEST_TYPE_MYCARD_API_GET_CARDIMAGE_URL = 0x3009;
+	public static final String REQUEST_RESULT_KEY_CARDIMAGE_URL = "request.result.cardimage.url";
+	
+	
 	
 	public static final int IMAGE_DL_EVENT_TYPE_DOWNLOAD_COMPLETE = 0x4000;
 	
@@ -128,5 +134,7 @@ public interface Constants {
 	public static final String ACTION_VIEW_UPDATE = "action_view_update";
 
 	public static final String ACTION_NEW_CLIENT_VERSION = "action_new_client_version";
+
+	public static final String DEFAULT_ENCODING = "utf-8";
 
 }

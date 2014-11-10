@@ -9,7 +9,7 @@ import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 
-public class ImageDownloadWrapper extends BaseDataWrapper {
+public class ImageDownloadWrapper extends BaseRequestWrapper {
 
 	private ImageItem mItem;
 

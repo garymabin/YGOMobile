@@ -1,10 +1,10 @@
 package cn.garymb.ygomobile.net;
 
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
 
 
 public interface IBaseConnector {
 	
-	void get(BaseDataWrapper wrapper) throws InterruptedException;
+	void get(BaseRequestWrapper wrapper) throws InterruptedException;
 	
 }

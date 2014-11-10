@@ -68,13 +68,13 @@ public class CardDetailPagerFragment extends BaseFragment implements
 				R.dimen.card_image_height);
 		mImageWidthInPixel = activity.getResources().getDimensionPixelSize(
 				R.dimen.card_image_width);
-		Controller.peekInstance().registerDataObserver(this);
+		Controller.peekInstance().registerImageObserver(this);
 	}
 
 	@Override
 	public void onDetach() {
 		super.onDetach();
-		Controller.peekInstance().unregisterDataObserver(this);
+		Controller.peekInstance().unregisterImageObserver(this);
 	}
 
 	@Override

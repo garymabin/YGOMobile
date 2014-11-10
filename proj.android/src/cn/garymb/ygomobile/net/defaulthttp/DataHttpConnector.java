@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import org.apache.http.client.HttpClient;
 
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestWrapper;
 import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.utils.HttpUtils;
@@ -39,7 +39,7 @@ public class DataHttpConnector extends BaseHttpConnector implements
 	 * addon.indoorsmanwelfare.model.data.wrapper.BaseDataWrapper)
 	 */
 	@Override
-	public void get(BaseDataWrapper wrapper) {
+	public void get(BaseRequestWrapper wrapper) {
 		// TODO Auto-generated method stub
 		int i = 0;
 		String url = wrapper.getUrl(0);
@@ -64,7 +64,7 @@ public class DataHttpConnector extends BaseHttpConnector implements
 	 * @return
 	 **/
 	@Override
-	protected void handleResponse(InputStream data, BaseDataWrapper wrapper)
+	protected void handleResponse(InputStream data, BaseRequestWrapper wrapper)
 			throws InterruptedException {
 		int status = IBaseWrapper.TASK_STATUS_SUCCESS;
 		StringBuilder out = new StringBuilder();

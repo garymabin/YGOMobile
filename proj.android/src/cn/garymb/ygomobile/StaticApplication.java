@@ -35,6 +35,7 @@ import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.CrashSender;
+import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.net.defaulthttp.ThreadSafeHttpClientFactory;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DatabaseUtils;
@@ -127,6 +128,8 @@ public class StaticApplication extends Application {
 		ACRA.init(this);
 		CrashSender sender = new CrashSender(this);
 		ACRA.getErrorReporter().setReportSender(sender);
+		Controller.peekInstance();
+		Model.peekInstance();
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
 		sRootPair = Pair
 				.create(getResources().getString(R.string.root_dir), "/"/* "Environment.getExternalStorageDirectory().getPath()" */);

@@ -114,11 +114,11 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 	}
 
 	public void onFragmentActive() {
-		Controller.peekInstance().registerDataObserver(this);
+		Controller.peekInstance().registerImageObserver(this);
 	}
 
 	public void onFragmentInactive() {
-		Controller.peekInstance().unregisterDataObserver(this);
+		Controller.peekInstance().unregisterImageObserver(this);
 	}
 
 	@Override

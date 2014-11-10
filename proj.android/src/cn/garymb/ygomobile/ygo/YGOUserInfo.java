@@ -1,5 +1,7 @@
 package cn.garymb.ygomobile.ygo;
 
+import java.nio.ByteBuffer;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,11 +21,28 @@ public class YGOUserInfo extends BaseInfo {
 	}
 	
 	@Override
-	public void initFromJsonData(JSONObject data) throws JSONException {
-		super.initFromJsonData(data);
+	public void fromJSONData(JSONObject data) throws JSONException {
+		super.fromJSONData(data);
 		name = data.getString(JSON_KEY_NAME);
 		playerID = data.getInt(JSON_KEY_USER_PLAYER_ID);
 		certified = data.getBoolean(JSON_KEY_USER_CERTIFIED);
+	}
+	
+	@Override
+	protected void readFromParcel(Parcel source) {
+		this.id = source.readString();
+		this.name = source.readString();
+		this.playerID = source.readInt();
+		this.certified = source.readInt() > 0;
+	}
+
+	@Override
+	public ByteBuffer toByteBuffer(ByteBuffer buffer) {
+		return buffer;
+	}
+
+	@Override
+	public void fromByteBuffer(ByteBuffer buffer) {
 	}
 
 	@Override
@@ -44,10 +63,7 @@ public class YGOUserInfo extends BaseInfo {
 		@Override
 		public YGOUserInfo createFromParcel(Parcel source) {
 			YGOUserInfo info = new YGOUserInfo();
-			info.id = source.readString();
-			info.name = source.readString();
-			info.playerID = source.readInt();
-			info.certified = source.readInt() > 0;
+			info.readFromParcel(source);
 			return null;
 		}
 
@@ -56,5 +72,4 @@ public class YGOUserInfo extends BaseInfo {
 			return new YGOUserInfo[size];
 		}
 	};
-
 }

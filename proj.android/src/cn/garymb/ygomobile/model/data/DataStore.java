@@ -23,6 +23,8 @@ public class DataStore {
 
 	private SparseArray<YGOServerInfo> mServers;
 	
+	private String mCardImageDLUrl;
+	
 	private Context mContext;
 
 	public DataStore(Context context) {

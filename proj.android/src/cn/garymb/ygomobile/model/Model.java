@@ -5,6 +5,7 @@ import java.util.Set;
 
 
 import cn.garymb.ygomobile.StaticApplication;
+import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.model.data.DataStore;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.provider.YGOImagesDataBaseHelper;
@@ -63,13 +64,13 @@ public class Model {
 		}
 	}
 	
-	public void registerDataObserver(IDataObserver o) {
+	public void registerImageObserver(IDataObserver o) {
 		synchronized (mObserverList) {
 			mObserverList.add(o);
 		}
 	}
 
-	public void unregisterDataObserver(IDataObserver o) {
+	public void unregisterImageObserver(IDataObserver o) {
 		synchronized (mObserverList) {
 			mObserverList.remove(o);
 			mImgModelHelper.onDataObserverUnregistered(o);
@@ -105,7 +106,10 @@ public class Model {
 	}
 
 	public void requestDataOperation(IDataObserver observer, Message msg) {
-		mImgModelHelper.requestDataOperation(observer, msg);
+		if (msg.what == Constants.REQUEST_TYPE_DOWNLOAD_IMAGE || msg.what == Constants.REQUEST_TYPE_LOAD_BITMAP) {
+			mImgModelHelper.requestDataOperation(observer, msg);
+		} else {
+		}
 	}
 
 	public void removeServer(int groupId) {
