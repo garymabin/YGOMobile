@@ -277,7 +277,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 		}
 	}
 
-	@SuppressLint("InflateParams")
+	@SuppressLint("InflateParams") 
 	@Override
 	public BaseDialog onCreateDialog(int type, Bundle param) {
 		BaseDialog dlg = null;

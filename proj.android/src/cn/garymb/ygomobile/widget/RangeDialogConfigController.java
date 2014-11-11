@@ -93,15 +93,16 @@ public class RangeDialogConfigController extends BaseDialogConfigController impl
 	}
 
 	@Override
-	public void enableSubmitIfAppropriate() {
+	public int enableSubmitIfAppropriate() {
 		Button positive = mConfigUI.getPosiveButton();
 		if (positive == null)
-			return;
+			return 0;
 		if (TextUtils.isEmpty(mFrom.getText().toString().trim()) && TextUtils.isEmpty(mTo.getText().toString().trim())) {
 			positive.setEnabled(false);
 		} else  {
 			positive.setEnabled(true);
 		}
+		return 0;
 	}
 
 }

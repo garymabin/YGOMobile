@@ -1,5 +1,10 @@
 package cn.garymb.ygomobile;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.controller.actionbar.ActionBarCreator;
 import cn.garymb.ygomobile.common.Constants;
@@ -11,14 +16,23 @@ import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.DownloadService;
 import cn.garymb.ygomobile.core.IBaseTask;
 import cn.garymb.ygomobile.fragment.BaseFragment;
+import cn.garymb.ygomobile.fragment.CardDeckFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
+import cn.garymb.ygomobile.fragment.CardImageFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
+import cn.garymb.ygomobile.fragment.DuelFragment;
 import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
+<<<<<<< HEAD
 import cn.garymb.ygomobile.fragment.ImageDLStatusDlgFragment;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
+=======
+import cn.garymb.ygomobile.model.Model;
+import cn.garymb.ygomobile.model.data.ResourcesConstants;
+import cn.garymb.ygomobile.ygo.YGOServerInfo;
+>>>>>>> develop
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.update.UmengUpdateAgent;
@@ -29,33 +43,54 @@ import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
+=======
+import android.content.res.Configuration;
+>>>>>>> develop
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBar.OnNavigationListener;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+<<<<<<< HEAD
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements
 		OnActionBarChangeCallback, Handler.Callback, Constants,
 		OnNavigationListener, ISimpleDialogListener, ImageDLCheckListener {
+=======
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends ActionBarActivity implements
+		OnActionBarChangeCallback, Handler.Callback, Constants {
+>>>>>>> develop
 
 	public static class EventHandler extends Handler {
 		public EventHandler(Callback back) {
@@ -63,6 +98,7 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
+<<<<<<< HEAD
 	private ServiceConnection mServiceConn = new ServiceConnection() {
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
@@ -79,7 +115,35 @@ public class MainActivity extends ActionBarActivity implements
 	};
 
 	private static final int DUEL_INDEX_FREE_MODE = 0;
+=======
+	/**
+	 * @author mabin
+	 * 
+	 */
+	public class DrawerItemClickListener implements OnItemClickListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * android.widget.AdapterView.OnItemClickListener#onItemClick(android
+		 * .widget.AdapterView, android.view.View, int, long)
+		 */
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			if (position != -1) {
+				selectItem(position + 1);
+			}
+		}
+
+	}
+
+>>>>>>> develop
 	private static final int DUEL_INDEX_CARD_WIKI = 1;
+
+	private static final String IMAGE_TAG = "image";
+	private static final String TEXT_TAG = "text";
 
 	private static final String TAG = "MainActivity";
 
@@ -97,7 +161,19 @@ public class MainActivity extends ActionBarActivity implements
 
 	private FragmentManager mFragmentManager;
 
-	private String[] mDuelList;
+	private Integer[] mDrawerImageArray = { R.drawable.ic_drawer_duel,
+			R.drawable.ic_drawer_card_wiki, R.drawable.ic_drawer_card_deck,
+			R.drawable.ic_drawer_card_image };
+	private int[] viewTo = { R.id.drawer_item_image, R.id.drawer_item_text };
+	private String[] dataFrom = { IMAGE_TAG, TEXT_TAG };
+
+	private List<Map<String, Object>> mDrawerListData = new ArrayList<Map<String, Object>>();
+
+	private String[] mFragmentItems;
+	private LinearLayout mLeftDrawer;
+	private ListView mDrawerList;
+	private DrawerLayout mDrawerLayout;
+	private ActionBarDrawerToggle mDrawerToggle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,17 +184,18 @@ public class MainActivity extends ActionBarActivity implements
 		mController = Controller.peekInstance();
 		mActionBarCreator = new ActionBarCreator(this);
 		mHandler = new EventHandler(this);
+<<<<<<< HEAD
 		mDuelList = getResources().getStringArray(R.array.duel_list);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+=======
+>>>>>>> develop
 		initActionBar();
-		mActionBar
-				.setListNavigationCallbacks(new ArrayAdapter<String>(this,
-						android.R.layout.simple_spinner_dropdown_item,
-						mDuelList), this);
-		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
+		initView();
+		mController.asyncUpdateMycardServer(mHandler
+				.obtainMessage(Constants.MSG_ID_UPDATE_SERVER));
 		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
 		boolean isFirstRun = checkFirstRunAfterInstall();
@@ -171,6 +248,47 @@ public class MainActivity extends ActionBarActivity implements
 		return isFirstRun;
 	}
 
+	private void initView() {
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+				R.drawable.ic_navigation_drawer, R.string.app_name,
+				R.string.app_name);
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+		mFragmentItems = getResources().getStringArray(R.array.fragment_items);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		int size = mDrawerImageArray.length;
+		for (int i = 0; i < size; i++) {
+			Map<String, Object> item = new HashMap<String, Object>();
+			item.put(IMAGE_TAG, mDrawerImageArray[i]);
+			item.put(TEXT_TAG, mFragmentItems[i]);
+			mDrawerListData.add(item);
+		}
+		mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		mDrawerList.setAdapter(new SimpleAdapter(this, mDrawerListData,
+				R.layout.drawer_list_item, dataFrom, viewTo) {
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				View v = super.getView(position, convertView, parent);
+				ImageView icon = (ImageView) v
+						.findViewById(R.id.drawer_item_image);
+				TextView text = (TextView) v
+						.findViewById(R.id.drawer_item_text);
+				if (mDrawerList.isItemChecked(position)) {
+					icon.setSelected(true);
+					text.setSelected(true);
+				} else {
+					icon.setSelected(false);
+					text.setSelected(false);
+				}
+				return v;
+			}
+		});
+		mLeftDrawer = (LinearLayout) findViewById(R.id.left_layout);
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		selectItem(1);
+	}
+
 	@Override
 	protected void onResume() {
 		mController.registerForActionCardImageDL(mHandler);
@@ -208,8 +326,15 @@ public class MainActivity extends ActionBarActivity implements
 
 	private void initActionBar() {
 		mActionBar = getSupportActionBar();
+<<<<<<< HEAD
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		mActionBar.setDisplayHomeAsUpEnabled(true);
+=======
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+		mActionBar.setHomeButtonEnabled(true);
+		mActionBar.setDisplayShowTitleEnabled(true);
+		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+>>>>>>> develop
 	}
 
 	@Override
@@ -231,6 +356,9 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
 		return Controller.peekInstance().handleActionBarEvent(item);
 	}
 
@@ -265,7 +393,6 @@ public class MainActivity extends ActionBarActivity implements
 			if (action == FRAGMENT_ID_DUEL) {
 				mActionBarCreator = new ActionBarCreator(this).setNew(true,
 						arg1).setPlay(true);
-
 			} else if (action == FRAGMENT_ID_CARD_WIKI) {
 				mActionBarCreator = new ActionBarCreator(this).setFilter(true)
 						.setSearch(true, arg1).setReset(true);
@@ -323,25 +450,6 @@ public class MainActivity extends ActionBarActivity implements
 		case Constants.MSG_ID_EXIT_CONFIRM_ALARM:
 			isExit = false;
 			break;
-		case Constants.REQUEST_TYPE_CHECK_UPDATE: {
-			VersionInfo info = (VersionInfo) msg.obj;
-			if (info != null) {
-				if (info.version > StaticApplication.peekInstance()
-						.getVersionCode()) {
-					Bundle bundle = new Bundle();
-					bundle.putInt("version", info.version);
-					bundle.putInt("titleRes",
-							R.string.settings_about_new_version);
-					bundle.putString("url", info.url);
-					bundle.putInt(ResourcesConstants.MODE_OPTIONS,
-							ResourcesConstants.DIALOG_MODE_APP_UPDATE);
-					BaseFragment current = (BaseFragment) mFragmentManager
-							.findFragmentById(R.id.content_frame);
-					current.showDialog(bundle);
-				}
-			}
-			break;
-		}
 		default:
 			break;
 		}
@@ -367,19 +475,37 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public boolean onNavigationItemSelected(int position, long id) {
-		switchState(position);
-		return false;
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
 	}
 
-	private void switchState(int position) {
-		FragmentTransaction ft = mFragmentManager.beginTransaction();
-		Fragment fragment;
-		if (position == DUEL_INDEX_CARD_WIKI) {
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	protected void navigateToFragment(int id) {
+		Fragment fragment = null;
+		switch (id) {
+		case FRAGMENT_ID_DUEL:
+			fragment = new DuelFragment();
+			break;
+		case FRAGMENT_ID_CARD_WIKI:
 			fragment = new CardWikiFragment();
-		} else {
-			fragment = new FreeDuelTabFragment();
+			break;
+		case FRAGMENT_ID_CARD_DECK:
+			fragment = new CardDeckFragment();
+			break;
+		case FRAGMENT_ID_CARD_IMAGE:
+			fragment = new CardImageFragment();
+			break;
+		default:
+			break;
 		}
+<<<<<<< HEAD
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 		mFragmentManager.popBackStackImmediate();
 		ft.replace(R.id.content_frame, fragment);
@@ -435,4 +561,28 @@ public class MainActivity extends ActionBarActivity implements
 		}
 
 	}
+=======
+		Bundle args = new Bundle();
+		args.putString(BaseFragment.ARG_ITEM_TITLE, mFragmentItems[id - 1]);
+		fragment.setArguments(args);
+		// Insert the fragment by replacing any existing fragment
+		FragmentTransaction transaction = mFragmentManager.beginTransaction();
+		mFragmentManager.popBackStack();
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		transaction.replace(R.id.content_frame, fragment).commit();
+	}
+
+	public YGOServerInfo getServer() {
+		return Model.peekInstance().getMyCardServer();
+	}
+
+	/** Swaps fragments in the main content view */
+	private void selectItem(int position) {
+		// Highlight the selected item, update the title, and close the drawer
+		navigateToFragment(position);
+		mDrawerList.setItemChecked(position - 1, true);
+		mDrawerLayout.closeDrawer(mLeftDrawer);
+	}
+
+>>>>>>> develop
 }

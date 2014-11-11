@@ -1,4 +1,7 @@
-// Copyright (C) 2014 Patryk Nadrowski
+// Copyright (C) 2013 Patryk Nadrowski
+// Heavily based on the OpenGL driver implemented by Nikolaus Gebhardt
+// OpenGL ES driver implemented by Christian Stehno and first OpenGL ES 2.0
+// driver implemented by Amundis.
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in Irrlicht.h
 
@@ -105,6 +108,11 @@ namespace video
 				const void* indexList, u32 primitiveCount,
 				E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType);
 
+		void drawVertexPrimitiveList2d3d(const void* vertices, u32 vertexCount,
+				const void* indexList, u32 primitiveCount,
+				E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType,
+				E_INDEX_TYPE iType = EIT_16BIT, bool threed = true);
+
 		//! queries the features of the driver, returns true if feature is available
 		virtual bool queryFeature(E_VIDEO_DRIVER_FEATURE feature) const
 		{
@@ -193,14 +201,14 @@ namespace video
 		virtual core::dimension2du getMaxTextureSize() const;
 
 		//! Draws a shadow volume into the stencil buffer.
-		virtual void drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible=0) _IRR_OVERRIDE_;
+		virtual void drawStencilShadowVolume(const core::vector3df* triangles, s32 count, bool zfail);
 
 		//! Fills the stencil shadow with color.
-		virtual void drawStencilShadow(bool clearStencilBuffer=false,
-			video::SColor leftUpEdge = video::SColor(0,0,0,0),
-			video::SColor rightUpEdge = video::SColor(0,0,0,0),
-			video::SColor leftDownEdge = video::SColor(0,0,0,0),
-			video::SColor rightDownEdge = video::SColor(0,0,0,0)) _IRR_OVERRIDE_;
+		virtual void drawStencilShadow(bool clearStencilBuffer = false,
+				video::SColor leftUpEdge = video::SColor(0, 0, 0, 0),
+				video::SColor rightUpEdge = video::SColor(0, 0, 0, 0),
+				video::SColor leftDownEdge = video::SColor(0, 0, 0, 0),
+				video::SColor rightDownEdge = video::SColor(0, 0, 0, 0));
 
 		//! sets a viewport
 		virtual void setViewPort(const core::rect<s32>& area);
@@ -539,10 +547,6 @@ namespace video
 
 		void setBlend(bool enable);
 
-		// Color Mask.
-
-		void setColorMask(bool red, bool green, bool blue, bool alpha);
-
 		// Cull face calls.
 
 		void setCullFaceFunc(GLenum mode);
@@ -584,8 +588,6 @@ namespace video
 		GLenum BlendSourceAlpha;
 		GLenum BlendDestinationAlpha;
 		bool Blend;
-
-		bool ColorMask[4];
 
 		GLenum CullFaceMode;
 		bool CullFace;

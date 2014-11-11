@@ -88,7 +88,6 @@ public class SettingsActivity extends PreferenceActivity implements
 	private Preference mCardBackBiyPreference;
 	private Preference mCardDBDiyPreference;
 	private Preference mAppUpdatePreference;
-
 	private Preference mCardDBResetPrefernece;
 
 	private Bundle mImageParam;
@@ -153,8 +152,12 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 	}
 
+<<<<<<< HEAD
 	@SuppressLint("InflateParams")
 	@Override
+=======
+	@SuppressLint("InflateParams") @Override
+>>>>>>> develop
 	@Deprecated
 	protected Dialog onCreateDialog(int id, Bundle args) {
 		Dialog dlg = null;
@@ -273,7 +276,11 @@ public class SettingsActivity extends PreferenceActivity implements
 			showDialog(DIALOG_ID_IMAGE_PREVIEW, bundle);
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_ABOUT_CHECK_UPDATE)) {
+<<<<<<< HEAD
 			UmengUpdateAgent.update(this);
+=======
+			UmengUpdateAgent.forceUpdate(this);
+>>>>>>> develop
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
 			Bundle bundle = new Bundle();

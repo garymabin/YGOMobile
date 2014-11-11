@@ -1,6 +1,16 @@
 package cn.garymb.ygomobile.model.data;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import cn.garymb.ygomobile.common.Constants;
+import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.RoomDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.ServerDataWrapper;
+import cn.garymb.ygomobile.ygo.YGORoomInfo;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
 import android.content.Context;
@@ -20,8 +30,9 @@ public class DataStore {
 	private static final int DEFAULT_CHECKMATE_SERVER_PORT = 21001;
 
 	private static final String TAG = "DataStore";
-
+	
 	private SparseArray<YGOServerInfo> mServers;
+	private Map<String, YGORoomInfo> mRooms;
 	
 	private CardImageUrlInfo mCardImageUrlInfo;
 	
@@ -31,6 +42,7 @@ public class DataStore {
 		mContext = context;
 		mServers = new SparseArray<YGOServerInfo>();
 		LoadModifiableServers();
+		mRooms = new HashMap<String, YGORoomInfo>();
 	}
 
 	private void LoadModifiableServers() {
@@ -101,6 +113,43 @@ public class DataStore {
 				port);
 		info.serverInfoString = serverInfo;
 		mServers.put(index, info);
+	}
+	
+	public synchronized List<YGORoomInfo> getRooms() {
+		List<YGORoomInfo> rooms = new ArrayList<YGORoomInfo>();
+		for (YGORoomInfo info : mRooms.values()) {
+			rooms.add(info.clone());
+		}
+		return rooms;
+	}
+
+	public synchronized YGOServerInfo getMyCardServer() {
+		//try to set default server addr
+		if (mServers.get(0) == null) {
+			mServers.put(0, new YGOServerInfo("0", "player",
+					ResourcesConstants.DEFAULT_MC_SERVER_NAME, 
+					ResourcesConstants.DEFAULT_MC_SERVER_ADDR, ResourcesConstants.DEFAULT_MC_SERVER_PORT));
+		}
+		return mServers.get(0);
+	}
+	
+	public synchronized void updateData(BaseDataWrapper wrapper) {
+		if (wrapper instanceof ServerDataWrapper) {
+			int size = ((ServerDataWrapper) wrapper).size();
+			for (int i = 0; i < size; i++) {
+				mServers.put(i, (YGOServerInfo) ((ServerDataWrapper) wrapper).getItem(i));
+			}
+		} else if (wrapper instanceof RoomDataWrapper) {
+			int size = ((RoomDataWrapper) wrapper).size();
+			for (int i = 0; i < size; i++) {
+				YGORoomInfo info = (YGORoomInfo) ((RoomDataWrapper) wrapper).getItem(i);
+				if (info.deleted) {
+					mRooms.remove(info.id);
+				} else {
+					mRooms.put(info.id, info);
+				}
+			}
+		}
 	}
 
 	public synchronized SparseArray<YGOServerInfo> getServers() {

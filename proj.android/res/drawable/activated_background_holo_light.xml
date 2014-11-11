@@ -15,6 +15,8 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@color/trasparent_dark_purple" />
+    <item android:state_pressed="true" android:drawable="@color/less_trasparent_dark_purple" />
+    <item android:state_checked="true" android:drawable="@color/more_dark_trasparent_dark_purple" />
+    <item android:state_activated="true" android:drawable="@color/more_dark_trasparent_dark_purple"/>
     <item android:drawable="@android:color/transparent" />
 </selector>

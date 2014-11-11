@@ -12,7 +12,8 @@ public class BaseDialogConfigController {
 		mView = view;
 	}
 	
-	public void enableSubmitIfAppropriate() {
+	public int enableSubmitIfAppropriate() {
+		return 0;
 	}
 
 }

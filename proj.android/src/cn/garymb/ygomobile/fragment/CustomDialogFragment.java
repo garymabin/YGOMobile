@@ -11,6 +11,8 @@ import android.content.DialogInterface.OnShowListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,7 +20,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
+import cn.garymb.ygomobile.YGOMobileActivity;
+import cn.garymb.ygomobile.core.Controller;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.widget.AppUpdateController;
@@ -27,6 +32,7 @@ import cn.garymb.ygomobile.widget.DialogConfigUIBase;
 import cn.garymb.ygomobile.widget.DonateDialogConfigController;
 import cn.garymb.ygomobile.widget.GridSelectionDialogController;
 import cn.garymb.ygomobile.widget.RangeDialogConfigController;
+import cn.garymb.ygomobile.widget.RoomDialogConfigController;
 import cn.garymb.ygomobile.widget.ServerDialogController;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
@@ -129,6 +135,14 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 		View content = null;
 		LayoutInflater inflater = builder.getLayoutInflater();
 		switch (mDialogMode) {
+		case ResourcesConstants.DIALOG_MODE_CREATE_ROOM:
+		case ResourcesConstants.DIALOG_MODE_QUICK_JOIN:
+		case ResourcesConstants.DIALOG_MODE_JOIN_GAME: {
+			Bundle param = getArguments();
+			content = inflater.inflate(R.layout.room_detail_content, null);
+			mController = new RoomDialogConfigController(mSimpleUiWrapper, content, param);
+			break;
+		}
 		case ResourcesConstants.DIALOG_MODE_DONATE:
 			content = inflater.inflate(R.layout.donate_content, null);
 			mController = new DonateDialogConfigController(mSimpleUiWrapper, content);
@@ -191,6 +205,26 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 	public void onClick(View v) {
 		if (v.getId() == R.id.sdl__positive_button) {
 			switch (mDialogMode) {
+			case ResourcesConstants.DIALOG_MODE_CREATE_ROOM:
+			case ResourcesConstants.DIALOG_MODE_QUICK_JOIN:
+			case ResourcesConstants.DIALOG_MODE_JOIN_GAME: {
+				Intent intent = new Intent(getActivity(), YGOMobileActivity.class);
+				YGOGameOptions options = ((RoomDialogConfigController) mController).getGameOption() ;
+				if (mDialogMode == DIALOG_MODE_CREATE_ROOM) {
+					options.mServerAddr = Model.peekInstance().getMyCardServer().ipAddrString;
+					options.mPort = Model.peekInstance().getMyCardServer().port;
+					options.mName = Controller.peekInstance().getLoginName();
+				} else if (mDialogMode == DIALOG_MODE_JOIN_GAME) {
+				} else if (mDialogMode == DIALOG_MODE_QUICK_JOIN) {
+					Fragment f = getTargetFragment();
+					((RoomListFragment)f).handleMessage(Message.obtain(null, getTargetRequestCode(), 0, 0, options));
+					return;
+				}
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				intent.putExtra(YGOGameOptions.YGO_GAME_OPTIONS_BUNDLE_KEY, options);
+				startActivity(intent);
+				break;
+			}
 			case ResourcesConstants.DIALOG_MODE_DONATE: {
 				Intent intent = new Intent();
 				int method = ((DonateDialogConfigController) mController).getAlipayDonateMethod();

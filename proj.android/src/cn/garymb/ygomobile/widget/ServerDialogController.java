@@ -83,10 +83,10 @@ public class ServerDialogController extends BaseDialogConfigController implement
 	}
 	
 	@Override
-	public void enableSubmitIfAppropriate() {
+	public int enableSubmitIfAppropriate() {
 		Button positive = mConfigUI.getPosiveButton();
 		if (positive == null)
-			return;
+			return 0;
 		String name = mNameEditText.getText().toString().trim();
 		String addr = mIPEditText.getText().toString().trim();
 		String portString = mPortEditText.getText().toString().trim();
@@ -99,6 +99,7 @@ public class ServerDialogController extends BaseDialogConfigController implement
 		} else {
 			positive.setEnabled(true);
 		}
+		return 0;
 	}
 	
 	public YGOServerInfo getServerInfo() {

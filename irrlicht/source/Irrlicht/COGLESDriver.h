@@ -37,7 +37,7 @@ namespace video
 		//! constructor
 		COGLES1Driver(const SIrrlichtCreationParameters& params,
 				io::IFileSystem* io
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
                 , IContextManager* contextManager
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
                 , CIrrDeviceIPhone* device
@@ -174,14 +174,14 @@ namespace video
 		virtual void setAmbientLight(const SColorf& color);
 
 		//! Draws a shadow volume into the stencil buffer.
-		virtual void drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible=0) _IRR_OVERRIDE_;
+		virtual void drawStencilShadowVolume(const core::vector3df* triangles, s32 count, bool zfail);
 
 		//! Fills the stencil shadow with color.
 		virtual void drawStencilShadow(bool clearStencilBuffer=false,
 			video::SColor leftUpEdge = video::SColor(0,0,0,0),
 			video::SColor rightUpEdge = video::SColor(0,0,0,0),
 			video::SColor leftDownEdge = video::SColor(0,0,0,0),
-			video::SColor rightDownEdge = video::SColor(0,0,0,0)) _IRR_OVERRIDE_;
+			video::SColor rightDownEdge = video::SColor(0,0,0,0));
 
 		//! sets a viewport
 		virtual void setViewPort(const core::rect<s32>& area);
@@ -449,7 +449,7 @@ namespace video
 		GLuint ViewFramebuffer;
 		GLuint ViewRenderbuffer;
 		GLuint ViewDepthRenderbuffer;
-#elif defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
+#elif defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
         IContextManager* ContextManager;
 #endif
 	};

@@ -31,7 +31,8 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ServerListFragment extends BaseFragment implements ServerOperationListener, OnGroupExpandListener {
+public class ServerListFragment extends BaseFragment implements
+		ServerOperationListener, OnGroupExpandListener {
 
 	public static class ServerAdapter extends BaseExpandableListAdapter {
 
@@ -90,7 +91,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			}
 			YGOServerInfo info = getGroup(groupPosition);
 			((TextView) convertView.findViewById(R.id.server_user_name))
-			.setText(info.userName);
+					.setText(info.userName);
 			((TextView) convertView.findViewById(R.id.server_name))
 					.setText(info.name);
 			((TextView) convertView.findViewById(R.id.server_addr))
@@ -98,7 +99,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			((TextView) convertView.findViewById(R.id.server_port))
 					.setText(info.port + "");
 			((TextView) convertView.findViewById(R.id.server_info))
-				.setText(info.serverInfoString);
+					.setText(info.serverInfoString);
 			return convertView;
 		}
 
@@ -131,7 +132,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 		}
 
 	}
-	
+
 	private static final int REQUEST_CODE_SERVER = 0;
 
 	private ExpandableListView mListView;
@@ -144,8 +145,8 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		mActivity.onActionBarChange(
-				Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE,
-				FRAGMENT_ID_DUEL, R.string.action_new_server, null);
+				Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE, FRAGMENT_ID_DUEL,
+				R.string.action_new_server, null);
 		mScreenWidth = StaticApplication.peekInstance().getScreenWidth();
 	}
 
@@ -172,7 +173,7 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 					(int) (mScreenWidth - 20));
 		}
 	}
-	
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -253,8 +254,10 @@ public class ServerListFragment extends BaseFragment implements ServerOperationL
 			bundle.putInt("index", index);
 			showDialog(bundle, this, REQUEST_CODE_SERVER);
 		} else if (operationId == ServerOperationPanel.SERVER_OPERATION_DELETE) {
-			Toast.makeText(mActivity, R.string.toast_delete, Toast.LENGTH_SHORT).show();
-			int index = (int)mAdapter.getGroupId(position);
+			Toast.makeText(mActivity,
+					getResources().getString(R.string.toast_delete),
+					Toast.LENGTH_SHORT).show();
+			int index = (int) mAdapter.getGroupId(position);
 			Model.peekInstance().removeServer(index);
 			mAdapter.notifyDataSetChanged();
 		}

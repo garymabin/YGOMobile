@@ -1,4 +1,7 @@
-// Copyright (C) 2014 Patryk Nadrowski
+// Copyright (C) 2013 Patryk Nadrowski
+// Heavily based on the OpenGL driver implemented by Nikolaus Gebhardt
+// OpenGL ES driver implemented by Christian Stehno and first OpenGL ES 2.0
+// driver implemented by Amundis.
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in Irrlicht.h
 

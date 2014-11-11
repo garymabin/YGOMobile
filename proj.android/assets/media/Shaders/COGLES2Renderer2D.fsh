@@ -1,21 +1,23 @@
+// Copyright (C) 2009-2010 Amundis
+// Heavily based on the OpenGL driver implemented by Nikolaus Gebhardt
+// and OpenGL ES driver implemented by Christian Stehno
+// This file is part of the "Irrlicht Engine".
+// For conditions of distribution and use, see copyright notice in Irrlicht.h
+
 precision mediump float;
 
-/* Uniforms */
-
-uniform int uTextureUsage;
+uniform bool uUseTexture;
 uniform sampler2D uTextureUnit;
 
-/* Varyings */
-
-varying vec2 vTextureCoord;
 varying vec4 vVertexColor;
+varying vec2 vTexCoord;
 
-void main()
+void main(void)
 {
 	vec4 Color = vVertexColor;
 
-	if (bool(uTextureUsage))
-		Color *= texture2D(uTextureUnit, vTextureCoord);
-
+	if(uUseTexture)
+		Color *= texture2D(uTextureUnit, vTexCoord);
+	
 	gl_FragColor = Color;
 }

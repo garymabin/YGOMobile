@@ -34,11 +34,11 @@ public interface Constants {
 	
 	public static final int FRAGMENT_ID_DUEL = 1;
 	public static final int FRAGMENT_ID_CARD_WIKI = 2;
-	public static final int FRAGMENT_ID_CARD_DETAIL = 3;
+	public static final int FRAGMENT_ID_CARD_DECK = 3;
+	public static final int FRAGMENT_ID_CARD_IMAGE = 4;
+	public static final int FRAGMENT_ID_CARD_DETAIL = 8;
+	public static final int FRAGMENT_ID_USER_LOGIN = 9;
 	
-	
-	public static final int MSG_ID_LOGIN = 2;
-	public static final int MSG_ID_EXIT_CONFIRM_ALARM = 3;
 	
 	public static final int MSG_DOWN_EVENT_TASK_LIST_CHANGED = 0x1000;
 	public static final int MSG_DOWN_EVENT_STATUS_CHANGED = 0x1001;
@@ -87,7 +87,9 @@ public interface Constants {
 	public static final int ACTION_BAR_EVENT_TYPE_RESET = 0x2006;
 	public static final int ACTION_BAR_EVENT_TYPE_CARD_IAMGE_DL = 0x2007;
 	
-	public static final int REQUEST_TYPE_CHECK_UPDATE = 0x3000;
+	public static final int REQUEST_TYPE_UPDATE_SERVER = 0x3000;
+	public static final int REQUEST_TYPE_UPDATE_ROOM = 0x3001;
+	public static final int REQUEST_TYPE_LOGIN = 0x3002;
 	
 	public static final int REQUEST_TYPE_DOWNLOAD_IMAGE = 0x3003;
 
@@ -119,6 +121,10 @@ public interface Constants {
 	
 	public static final int BITMAP_LOAD_TYPE_PRELOAD = 0;
 	public static final int BITMAP_LOAD_TYPE_LOAD = 1;
+	
+	public static final int MSG_ID_UPDATE_ROOM_LIST = 0;
+	public static final int MSG_ID_UPDATE_SERVER = 1;
+	public static final int MSG_ID_EXIT_CONFIRM_ALARM = 3;
 	
 	
 	public static final String SETTINGS_ACTION_COMMON = "cn.garymb.ygomobile.prefs.PREFS_COMMON";
