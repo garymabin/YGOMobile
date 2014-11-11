@@ -190,7 +190,7 @@ public class MainActivity extends ActionBarActivity implements
 		mActionBar.setHomeButtonEnabled(true);
 		mActionBar.setDisplayShowTitleEnabled(true);
 	}
-
+	
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
@@ -540,5 +540,16 @@ public class MainActivity extends ActionBarActivity implements
 		navigateToFragment(position);
 		mDrawerList.setItemChecked(position - 1, true);
 		mDrawerLayout.closeDrawer(mLeftDrawer);
+	}
+
+	public void setDrawerEnabled(boolean isEnabled) {
+		if (isEnabled) {
+			mDrawerToggle.setDrawerIndicatorEnabled(true);
+			mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+		} else {
+			mDrawerToggle.setDrawerIndicatorEnabled(false);
+			mDrawerLayout.closeDrawers();
+			mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+		}
 	}
 }

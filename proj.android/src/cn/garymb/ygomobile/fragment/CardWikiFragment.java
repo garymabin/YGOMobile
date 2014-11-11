@@ -324,6 +324,7 @@ public class CardWikiFragment extends BaseFragment implements
 		View v = mListView.getChildAt(0);
 		mSavedYPixelFromItemTop = (v == null) ? 0 : v.getTop();
 		mActivity.navigateToChildFragment(bundle, FRAGMENT_ID_CARD_DETAIL, REQUEST_ID_CARD_DETAIL, false);
+		mActivity.setDrawerEnabled(false);
 		if (mActionMode != null) {
 			mActionMode.finish();
 		}
@@ -334,6 +335,7 @@ public class CardWikiFragment extends BaseFragment implements
 	@Override
 	public void onEventFromChild(int requestCode, int eventType, int arg1, int arg2, Object data) {
 		if (REQUEST_ID_CARD_DETAIL == requestCode) {
+			mActivity.setDrawerEnabled(true);
 			if (eventType == FRAGMENT_NAVIGATION_BACK_EVENT) {
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 					mListView.smoothScrollToPositionFromTop(mSavedPosition + arg1, mSavedYPixelFromItemTop);

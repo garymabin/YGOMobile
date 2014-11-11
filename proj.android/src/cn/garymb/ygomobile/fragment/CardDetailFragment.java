@@ -4,7 +4,6 @@ import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.provider.YGOCards;
 import cn.garymb.ygomobile.widget.adapter.CardDetailAdapter;
-
 import android.app.Activity;
 import android.database.CursorWindow;
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 
 public class CardDetailFragment extends BaseFragment implements
 		OnTouchListener, OnPageChangeListener {
-	
+
 	private static final String TAG = "CardDetailFragment";
 
 	private ViewPager mViewPager;
@@ -28,7 +28,7 @@ public class CardDetailFragment extends BaseFragment implements
 
 	private String[] mCommonProjection;
 	private int mInitPos;
-	
+
 	private CursorWindow mWindow;
 
 	public static CardDetailFragment newInstance(Bundle param) {
@@ -44,16 +44,29 @@ public class CardDetailFragment extends BaseFragment implements
 		mCommonProjection = param
 				.getStringArray(CardWikiFragment.BUNDLE_KEY_PROJECTION);
 		mInitPos = param.getInt(CardWikiFragment.BUNDLE_KEY_INIT_POSITON);
-		mWindow = param.getParcelable(CardWikiFragment.BUNDLE_KEY_CURSOR_WINDOW);
-		//FIXME: this may cause some problem.
+		mWindow = param
+				.getParcelable(CardWikiFragment.BUNDLE_KEY_CURSOR_WINDOW);
+		// FIXME: this may cause some problem.
 		param.remove(CardWikiFragment.BUNDLE_KEY_CURSOR_WINDOW);
+		setHasOptionsMenu(true);
 	}
-	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		// Respond to the action bar's Up/Home button
+		case android.R.id.home:
+			getFragmentManager().popBackStack(null, 0);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 	}
-	
+
 	@Override
 	public void onDetach() {
 		Log.d(TAG, "onDetach : E");
@@ -82,12 +95,14 @@ public class CardDetailFragment extends BaseFragment implements
 				FRAGMENT_ID_CARD_DETAIL, 0, null);
 		return view;
 	}
-	
+
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 		int currentSecltion = mViewPager.getCurrentItem();
-		((BaseFragment)getTargetFragment()).onEventFromChild(getTargetRequestCode(), FRAGMENT_NAVIGATION_BACK_EVENT, currentSecltion - mInitPos, -1, null);
+		((BaseFragment) getTargetFragment()).onEventFromChild(
+				getTargetRequestCode(), FRAGMENT_NAVIGATION_BACK_EVENT,
+				currentSecltion - mInitPos, -1, null);
 	}
 
 	public boolean onTouch(View v, MotionEvent event) {
@@ -104,6 +119,7 @@ public class CardDetailFragment extends BaseFragment implements
 
 	@Override
 	public void onPageSelected(int arg0) {
-		mActivity.setTitle(mWindow.getString(arg0, YGOCards.COMMON_DATA_PROJECTION_NAME_INDEX));
+		mActivity.setTitle(mWindow.getString(arg0,
+				YGOCards.COMMON_DATA_PROJECTION_NAME_INDEX));
 	}
 }
