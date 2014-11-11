@@ -3,36 +3,30 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <style name="AppTheme" parent="@style/_AppTheme"/>
-  
-  <style name="SettingsTheme" parent="@android:style/Theme.Light"/>    
+    <style name="AppTheme" parent="@style/_AppTheme" />
 
-  <style name="_AppTheme" parent="Theme.AppCompat.Light">
-      
-    <item name="android:buttonStyle">@style/ButtonAppTheme</item>
+    <style name="SettingsTheme" parent="@style/_AppTheme" />
 
-    <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
- 
-    <item name="android:editTextStyle">@style/EditTextAppTheme</item>
-
-    <item name="android:checkboxStyle">@style/CheckBoxAppTheme</item>
-
-    <item name="android:spinnerDropDownItemStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>
-    
-    <item name="dropDownListViewStyle">@style/DropDownListViewTheme</item>
-    
-    <item name="android:radioButtonStyle">@style/RadioButtonAppTheme</item>
-
-    <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
-    
-    <item name="actionModeBackground">@drawable/ab_dark_purper</item>
-    
-    <item name="actionBarStyle">@style/ActionBarStyle</item>
-    
-    <item name="actionBarItemBackground">@drawable/apptheme_list_selector_holo_light</item>
-    
-    <item name="sdlDialogStyle">@style/CustomDialog</item>
-
-  </style>
+    <style name="_AppTheme" parent="Theme.AppCompat.Light">
+        
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        
+        
+        <item name="android:buttonStyle">@style/ButtonAppTheme</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
+        <item name="android:editTextStyle">@style/EditTextAppTheme</item>
+        <item name="android:checkboxStyle">@style/CheckBoxAppTheme</item>
+        <item name="android:spinnerDropDownItemStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>
+        <item name="dropDownListViewStyle">@style/DropDownListViewTheme</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonAppTheme</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
+        <item name="actionModeBackground">@drawable/ab_dark_purper</item>
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+        <item name="actionBarItemBackground">@drawable/apptheme_list_selector_holo_light</item>
+        <item name="sdlDialogStyle">@style/CustomDialog</item>
+    </style>
 
 </resources>

@@ -45,6 +45,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.OnNavigationListener;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -102,13 +103,16 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mFragmentManager = getSupportFragmentManager();
-		supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		setContentView(R.layout.activity_main);
 		setTitle(R.string.app_name);
 		mController = Controller.peekInstance();
 		mActionBarCreator = new ActionBarCreator(this);
 		mHandler = new EventHandler(this);
 		mDuelList = getResources().getStringArray(R.array.duel_list);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
 		initActionBar();
 		mActionBar
 				.setListNavigationCallbacks(new ArrayAdapter<String>(this,
@@ -205,7 +209,7 @@ public class MainActivity extends ActionBarActivity implements
 	private void initActionBar() {
 		mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		mActionBar.setDisplayShowTitleEnabled(false);
+		mActionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
