@@ -8,8 +8,8 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import cn.garymb.ygomobile.core.WebSocketThread;
 import cn.garymb.ygomobile.core.WebSocketThread.MoeEventHandler;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
 
 import android.os.Message;
 import android.util.Log;
@@ -23,7 +23,7 @@ public class WebSocketConnector {
 
 	private WebSocketClient mClient;
 
-	private BaseDataWrapper mWrapper;
+	private BaseRequestJob mWrapper;
 
 	private StringBuilder mDataCache = new StringBuilder();
 
@@ -34,7 +34,7 @@ public class WebSocketConnector {
 		mHandler = handler;
 	}
 
-	public void connect(BaseDataWrapper wrapper) {
+	public void connect(BaseRequestJob wrapper) {
 		mWrapper = wrapper;
 		mURL = URI.create(wrapper.getUrl(0));
 		mClient = new WebSocketClient(mURL) {
@@ -57,7 +57,7 @@ public class WebSocketConnector {
 				arg0.printStackTrace();
 				mHandler.sendMessage(Message.obtain(null,
 						WebSocketThread.MSG_ID_CONNECTION_CLOSED, 0,
-						IBaseWrapper.TASK_STATUS_FAILED));
+						IBaseJob.STATUS_FAILED));
 			}
 
 			@Override
@@ -67,7 +67,7 @@ public class WebSocketConnector {
 						+ " due to " + arg1);
 				mHandler.sendMessage(Message.obtain(null,
 						WebSocketThread.MSG_ID_CONNECTION_CLOSED, 0,
-						IBaseWrapper.TASK_STATUS_FAILED));
+						IBaseJob.STATUS_FAILED));
 			}
 
 			@Override

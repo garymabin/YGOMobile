@@ -2,18 +2,18 @@ package cn.garymb.ygomobile.core;
 
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
-import cn.garymb.ygomobile.data.wrapper.RoomDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.ServerDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
+import cn.garymb.ygomobile.data.wrapper.RoomRequestJob;
+import cn.garymb.ygomobile.data.wrapper.ServerRequestJob;
 import cn.garymb.ygomobile.model.Model;
 
 import android.content.Context;
 import android.os.Message;
 import android.support.v4.util.SparseArrayCompat;
 
-public class UpdateController implements TaskStatusCallback {
+public class UpdateController implements JobStatusCallback {
 
 	public static boolean isServerUpdated; 
 	
@@ -29,28 +29,27 @@ public class UpdateController implements TaskStatusCallback {
 	
 	private SparseArrayCompat<Message> mUpdateMessages;
 	
-	private IBaseConnection mMoeConnection;
+	private IBaseTask mMoeConnection;
 	
-	private IBaseConnection mInstantConnection;
+	private Context mContext;
 	
 	public UpdateController(StaticApplication app) {
 		mContext = app;
 		mModel = Model.peekInstance();
 		mUpdateMessages = new SparseArrayCompat<Message>(UPDATE_MAX_TYPE);
-		mInstantConnection = new InstantConnection(app, this);
 		mMoeConnection = new WebSocketConnection(this);
 	}
 	
-	/* package */ void asyncUpdateMycardServer(Message msg) {
-		mUpdateMessages.put(UPDATE_TYPE_SERVER_LIST, msg);
-		ServerDataWrapper wrapper = new ServerDataWrapper(Constants.REQUEST_TYPE_UPDATE_SERVER);
-		mInstantConnection.addTask(wrapper);
-	}
+//	/* package */ void asyncUpdateMycardServer(Message msg) {
+//		mUpdateMessages.put(UPDATE_TYPE_SERVER_LIST, msg);
+//		ServerRequestJob wrapper = new ServerRequestJob(Constants.REQUEST_TYPE_UPDATE_SERVER);
+//		mInstantConnection.addTask(wrapper);
+//	}
 	
 	/* package */ void asyncUpdateRoomList(Message msg) {
 		mUpdateMessages.put(UPDATE_TYPE_ROOM_LIST, msg);
-		RoomDataWrapper wrapper = new RoomDataWrapper(Constants.REQUEST_TYPE_UPDATE_ROOM);
-		mMoeConnection.addTask(wrapper);
+		RoomRequestJob wrapper = new RoomRequestJob();
+		mMoeConnection.addJob(wrapper);
 	}
 	
 	/* package */ void stopUpdateRoomList() {
@@ -61,16 +60,16 @@ public class UpdateController implements TaskStatusCallback {
 
 
 	@Override
-	public void onTaskFinish(BaseDataWrapper wrapper) {
+	public void onJobContinue(BaseRequestJob wrapper) {
 		int key = -1;
-		if (wrapper instanceof ServerDataWrapper) {
+		if (wrapper instanceof ServerRequestJob) {
 			key = UPDATE_TYPE_SERVER_LIST;
-		} else if (wrapper instanceof RoomDataWrapper) {
+		} else if (wrapper instanceof RoomRequestJob) {
 			key = UPDATE_TYPE_ROOM_LIST;
 		}
 		Message msg = mUpdateMessages.get(key);
 		if (msg != null) {
-			if (wrapper.getResult() == IBaseWrapper.TASK_STATUS_SUCCESS) {
+			if (wrapper.getResult() == IBaseJob.STATUS_SUCCESS) {
 				mModel.updateData(wrapper);
 			}
 			msg.arg2 = wrapper.getResult();
@@ -81,16 +80,16 @@ public class UpdateController implements TaskStatusCallback {
 	}
 
 	@Override
-	public void onTaskContinue(BaseDataWrapper wrapper) {
+	public void onJobFinish(BaseRequestJob wrapper) {
 		int key = -1;
-		if (wrapper instanceof ServerDataWrapper) {
+		if (wrapper instanceof ServerRequestJob) {
 			key = UPDATE_TYPE_SERVER_LIST;
-		} else if (wrapper instanceof RoomDataWrapper) {
+		} else if (wrapper instanceof RoomRequestJob) {
 			key = UPDATE_TYPE_ROOM_LIST;
 		}
 		Message msg = mUpdateMessages.get(key);
 		if (msg != null) {
-			if (wrapper.getResult() == IBaseWrapper.TASK_STATUS_SUCCESS) {
+			if (wrapper.getResult() == IBaseJob.STATUS_SUCCESS) {
 				mModel.updateData(wrapper);
 			}
 			Message reply = Message.obtain(msg);
@@ -98,4 +97,5 @@ public class UpdateController implements TaskStatusCallback {
 			reply.sendToTarget();
 		}
 	}
+
 }

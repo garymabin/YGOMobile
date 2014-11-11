@@ -9,7 +9,7 @@ import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.YGOMobileActivity;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.Controller;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.ygo.YGORoomInfo;
@@ -21,7 +21,6 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -159,13 +158,13 @@ public class DuelFragment extends BaseFragment {
 				mActivity.navigateToChildFragment(bundle,
 						FRAGMENT_ID_USER_LOGIN, REQUEST_ID_DUEL, true);
 			} else if (eventType == FRAGMENT_NAVIGATION_DUEL_LOGIN_SUCCEED_EVENT) {
-				FragmentManager fm = mActivity.getSupportFragmentManager();
-				fm.popBackStackImmediate();
-				FragmentTransaction ft = getChildFragmentManager()
-						.beginTransaction();
-				Fragment fragment = new RoomListFragment();
-				ft.replace(R.id.duel_panel, fragment);
-				ft.commitAllowingStateLoss();
+//				FragmentManager fm = mActivity.getSupportFragmentManager();
+//				fm.popBackStackImmediate();
+//				FragmentTransaction ft = getChildFragmentManager()
+//						.beginTransaction();
+//				Fragment fragment = new RoomListFragment();
+//				ft.replace(R.id.duel_panel, fragment);
+//				ft.commitAllowingStateLoss();
 			}
 		}
 	}
@@ -177,7 +176,7 @@ public class DuelFragment extends BaseFragment {
 		}
 		switch (msg.what) {
 		case Constants.MSG_ID_UPDATE_ROOM_LIST:
-			if (msg.arg2 == IBaseWrapper.TASK_STATUS_SUCCESS) {
+			if (msg.arg2 == IBaseJob.STATUS_SUCCESS) {
 				List<YGORoomInfo> data = Model.peekInstance().getRooms();
 				int key = mFragments.keyAt(mViewPager.getCurrentItem());
 				if (key != -1) {
@@ -186,7 +185,7 @@ public class DuelFragment extends BaseFragment {
 						f.setData(data);
 					}
 				}
-			} else if (msg.arg2 == IBaseWrapper.TASK_STATUS_FAILED) {
+			} else if (msg.arg2 == IBaseJob.STATUS_FAILED) {
 				Controller.peekInstance().asyncUpdateRoomList(mHandler
 						.obtainMessage(Constants.MSG_ID_UPDATE_ROOM_LIST));
 			}

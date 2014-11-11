@@ -1,7 +1,7 @@
 package cn.garymb.ygomobile.core;
 
 import cn.garymb.ygomobile.StaticApplication;
-import cn.garymb.ygomobile.actionbar.ActionBarController;
+import cn.garymb.ygomobile.controller.actionbar.ActionBarController;
 import cn.garymb.ygomobile.model.IDataObserver;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.net.NetworkStatusManager;
@@ -18,18 +18,12 @@ public class Controller {
 	
 	private NetworkStatusManager mNetworkManager;
 	
-	private UpdateController mUpdateController;
-	
-	private DownloadHandler mDownloadHandler; 
-	
 	private Model mModel;
 	
 	private Controller(StaticApplication app) {
 		mModel = Model.peekInstance();
 		mActionBarController = new ActionBarController();
 		mNetworkManager = NetworkStatusManager.peekInstance(app);
-		mUpdateController = new UpdateController(app);
-		mDownloadHandler = new DownloadHandler(app);
 	}
 	
 	public static Controller peekInstance() {
@@ -41,16 +35,16 @@ public class Controller {
 	}
 	
 	public void asyncUpdateMycardServer(Message msg) {
-		mUpdateController.asyncUpdateMycardServer(msg);
+		mModel.asyncUpdateMycardServer(msg);
 	}
 
 	public void asyncUpdateRoomList(Message msg) {
-		mUpdateController.asyncUpdateRoomList(msg);
+		mModel.asyncUpdateRoomList(msg);
 		
 	}
 
 	public void stopUpdateRoomList() {
-		mUpdateController.stopUpdateRoomList();
+		mModel.stopUpdateRoomList();
 	}
 
 	public boolean handleActionBarEvent(MenuItem item) {
@@ -113,21 +107,6 @@ public class Controller {
 		mActionBarController.unregisterForActionReset(h);
 	}
 	
-	public void downloadNewAppVersion(String url) {
-		if (mDownloadHandler.isDownloadsEmpty()) {
-			registerDownloadListener();
-		}
-		mDownloadHandler.enqueueDownload(url);
-	}
-	
-	public void registerDownloadListener() {
-		mDownloadHandler.register();
-	}
-	
-	public void unregisterDownloadListener() {
-		mDownloadHandler.unregister();
-	}
-
 	/**
 	 * 
 	 * @return
@@ -168,12 +147,12 @@ public class Controller {
 		mModel.requestDataOperation(observer, msg);
 	}
 	
-	public void registerDataObserver(IDataObserver observer) {
-		mModel.registerDataObserver(observer);
+	public void registerImageObserver(IDataObserver observer) {
+		mModel.registerImageObserver(observer);
 	}
 	
-	public void unregisterDataObserver(IDataObserver observer) {
-		mModel.unregisterDataObserver(observer);
+	public void unregisterImageObserver(IDataObserver observer) {
+		mModel.unregisterImageObserver(observer);
 	}
 
 	public String getLoginName() {

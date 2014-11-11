@@ -3,6 +3,10 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="MyListViewStyle" parent="@android:style/Widget.Holo.Light.ListView">
+        <item name="android:listSelector">@drawable/list_selector</item>
+    </style>
+
     <style name="ButtonAppTheme" parent="android:Widget.Button">
         <item name="android:background">@drawable/apptheme_btn_default_holo_light</item>
         <item name="android:minHeight">48dip</item>
@@ -23,7 +27,7 @@
         <item name="android:button">@drawable/apptheme_btn_check_holo_light</item>
     </style>
 
-    <style name="SpinnerAppTheme" parent="Widget.AppCompat.Base.Spinner">
+    <style name="SpinnerAppTheme" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
         <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
         <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_light</item>
     </style>
@@ -36,9 +40,7 @@
         <item name="android:button">@drawable/apptheme_btn_radio_holo_light</item>
     </style>
 
-    <style name="ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid">
-        
-    </style>
+    <style name="ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid"></style>
 
     <style name="ProgressBarAppTheme" parent="android:Widget.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/apptheme_progress_horizontal_holo_light</item>
@@ -121,9 +123,7 @@
 
     <style name="CustomTitlePageIndicator">
         <item name="android:background">#18FF0000</item>
-        <item name="footerColor">#FFAA2222</item>
         <item name="footerLineHeight">1dp</item>
-        <item name="footerIndicatorHeight">3dp</item>
         <item name="footerIndicatorStyle">underline</item>
         <item name="android:textColor">#AA000000</item>
         <item name="selectedColor">#FF000000</item>

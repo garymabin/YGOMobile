@@ -18,21 +18,14 @@ import cn.garymb.ygomobile.core.IBaseTask;
 import cn.garymb.ygomobile.fragment.BaseFragment;
 import cn.garymb.ygomobile.fragment.CardDeckFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
-import cn.garymb.ygomobile.fragment.CardImageFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
-import cn.garymb.ygomobile.fragment.DuelFragment;
-import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
+import cn.garymb.ygomobile.fragment.ServerListFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
-<<<<<<< HEAD
 import cn.garymb.ygomobile.fragment.ImageDLStatusDlgFragment;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
-import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
-=======
 import cn.garymb.ygomobile.model.Model;
-import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
->>>>>>> develop
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.update.UmengUpdateAgent;
@@ -43,42 +36,31 @@ import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
-=======
 import android.content.res.Configuration;
->>>>>>> develop
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-<<<<<<< HEAD
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-public class MainActivity extends ActionBarActivity implements
-		OnActionBarChangeCallback, Handler.Callback, Constants,
-		OnNavigationListener, ISimpleDialogListener, ImageDLCheckListener {
-=======
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -86,11 +68,10 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements
-		OnActionBarChangeCallback, Handler.Callback, Constants {
->>>>>>> develop
+		OnActionBarChangeCallback, Handler.Callback, Constants,
+		ISimpleDialogListener, ImageDLCheckListener {
 
 	public static class EventHandler extends Handler {
 		public EventHandler(Callback back) {
@@ -98,7 +79,6 @@ public class MainActivity extends ActionBarActivity implements
 		}
 	}
 
-<<<<<<< HEAD
 	private ServiceConnection mServiceConn = new ServiceConnection() {
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
@@ -115,7 +95,7 @@ public class MainActivity extends ActionBarActivity implements
 	};
 
 	private static final int DUEL_INDEX_FREE_MODE = 0;
-=======
+
 	/**
 	 * @author mabin
 	 * 
@@ -139,7 +119,6 @@ public class MainActivity extends ActionBarActivity implements
 
 	}
 
->>>>>>> develop
 	private static final int DUEL_INDEX_CARD_WIKI = 1;
 
 	private static final String IMAGE_TAG = "image";
@@ -162,8 +141,7 @@ public class MainActivity extends ActionBarActivity implements
 	private FragmentManager mFragmentManager;
 
 	private Integer[] mDrawerImageArray = { R.drawable.ic_drawer_duel,
-			R.drawable.ic_drawer_card_wiki, R.drawable.ic_drawer_card_deck,
-			R.drawable.ic_drawer_card_image };
+			R.drawable.ic_drawer_card_wiki, R.drawable.ic_drawer_card_deck };
 	private int[] viewTo = { R.id.drawer_item_image, R.id.drawer_item_text };
 	private String[] dataFrom = { IMAGE_TAG, TEXT_TAG };
 
@@ -175,6 +153,8 @@ public class MainActivity extends ActionBarActivity implements
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 
+	private Toolbar mToolBar;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -184,18 +164,10 @@ public class MainActivity extends ActionBarActivity implements
 		mController = Controller.peekInstance();
 		mActionBarCreator = new ActionBarCreator(this);
 		mHandler = new EventHandler(this);
-<<<<<<< HEAD
-		mDuelList = getResources().getStringArray(R.array.duel_list);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
-=======
->>>>>>> develop
-		initActionBar();
 		initView();
-		mController.asyncUpdateMycardServer(mHandler
-				.obtainMessage(Constants.MSG_ID_UPDATE_SERVER));
+		mToolBar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(mToolBar);
+		initActionBar();
 		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
 		boolean isFirstRun = checkFirstRunAfterInstall();
@@ -210,6 +182,13 @@ public class MainActivity extends ActionBarActivity implements
 		Intent service = new Intent(this, DownloadService.class);
 		bindService(service, mServiceConn, Context.BIND_AUTO_CREATE);
 		showImageDownloadStatus(getIntent());
+	}
+	
+	private void initActionBar() {
+		mActionBar = getSupportActionBar();
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+		mActionBar.setHomeButtonEnabled(true);
+		mActionBar.setDisplayShowTitleEnabled(true);
 	}
 
 	@Override
@@ -250,9 +229,8 @@ public class MainActivity extends ActionBarActivity implements
 
 	private void initView() {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_navigation_drawer, R.string.app_name,
-				R.string.app_name);
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name);
+		
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		mFragmentItems = getResources().getStringArray(R.array.fragment_items);
@@ -288,7 +266,13 @@ public class MainActivity extends ActionBarActivity implements
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		selectItem(1);
 	}
-
+	
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+	
 	@Override
 	protected void onResume() {
 		mController.registerForActionCardImageDL(mHandler);
@@ -322,19 +306,6 @@ public class MainActivity extends ActionBarActivity implements
 		super.onDestroy();
 		unbindService(mServiceConn);
 		mServiceConn = null;
-	}
-
-	private void initActionBar() {
-		mActionBar = getSupportActionBar();
-<<<<<<< HEAD
-		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		mActionBar.setDisplayHomeAsUpEnabled(true);
-=======
-		mActionBar.setDisplayHomeAsUpEnabled(true);
-		mActionBar.setHomeButtonEnabled(true);
-		mActionBar.setDisplayShowTitleEnabled(true);
-		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
->>>>>>> develop
 	}
 
 	@Override
@@ -433,8 +404,7 @@ public class MainActivity extends ActionBarActivity implements
 							Toast.LENGTH_SHORT).show();
 				}
 			} else {
-				Toast.makeText(this,
-						R.string.card_image_dl_not_avail,
+				Toast.makeText(this, R.string.card_image_dl_not_avail,
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
@@ -457,7 +427,8 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private boolean checkDiyCardDataBase() {
-		SharedPreferences sp = StaticApplication.peekInstance().getApplicationSettings();
+		SharedPreferences sp = StaticApplication.peekInstance()
+				.getApplicationSettings();
 		return sp.getBoolean(Settings.KEY_PREF_GAME_DIY_CARD_DB, false);
 	}
 
@@ -475,13 +446,6 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		// Sync the toggle state after onRestoreInstanceState has occurred.
-		mDrawerToggle.syncState();
-	}
-
-	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
@@ -491,7 +455,7 @@ public class MainActivity extends ActionBarActivity implements
 		Fragment fragment = null;
 		switch (id) {
 		case FRAGMENT_ID_DUEL:
-			fragment = new DuelFragment();
+			fragment = new ServerListFragment();
 			break;
 		case FRAGMENT_ID_CARD_WIKI:
 			fragment = new CardWikiFragment();
@@ -499,17 +463,17 @@ public class MainActivity extends ActionBarActivity implements
 		case FRAGMENT_ID_CARD_DECK:
 			fragment = new CardDeckFragment();
 			break;
-		case FRAGMENT_ID_CARD_IMAGE:
-			fragment = new CardImageFragment();
-			break;
 		default:
 			break;
 		}
-<<<<<<< HEAD
-		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		mFragmentManager.popBackStackImmediate();
-		ft.replace(R.id.content_frame, fragment);
-		ft.commitAllowingStateLoss();
+		Bundle args = new Bundle();
+		args.putString(BaseFragment.ARG_ITEM_TITLE, mFragmentItems[id - 1]);
+		fragment.setArguments(args);
+		// Insert the fragment by replacing any existing fragment
+		FragmentTransaction transaction = mFragmentManager.beginTransaction();
+		mFragmentManager.popBackStack();
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		transaction.replace(R.id.content_frame, fragment).commit();
 	}
 
 	@Override
@@ -557,23 +521,17 @@ public class MainActivity extends ActionBarActivity implements
 				task.execute(result);
 			}
 		} else {
-			Toast.makeText(this, R.string.card_image_already_updated, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.card_image_already_updated,
+					Toast.LENGTH_SHORT).show();
 		}
-
-	}
-=======
-		Bundle args = new Bundle();
-		args.putString(BaseFragment.ARG_ITEM_TITLE, mFragmentItems[id - 1]);
-		fragment.setArguments(args);
-		// Insert the fragment by replacing any existing fragment
-		FragmentTransaction transaction = mFragmentManager.beginTransaction();
-		mFragmentManager.popBackStack();
-		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		transaction.replace(R.id.content_frame, fragment).commit();
 	}
 
 	public YGOServerInfo getServer() {
 		return Model.peekInstance().getMyCardServer();
+	}
+	
+	public Toolbar getToolbar() {
+		return mToolBar;
 	}
 
 	/** Swaps fragments in the main content view */
@@ -583,6 +541,4 @@ public class MainActivity extends ActionBarActivity implements
 		mDrawerList.setItemChecked(position - 1, true);
 		mDrawerLayout.closeDrawer(mLeftDrawer);
 	}
-
->>>>>>> develop
 }

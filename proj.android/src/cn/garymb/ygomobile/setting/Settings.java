@@ -6,6 +6,10 @@ package cn.garymb.ygomobile.setting;
  */
 public final class Settings {
 	
+	public static final String KEY_PREF_COMMON_SETTINGS = "pref_key_common_settings";
+	public static final String KEY_PREF_GAME_SETTINGS = "pref_key_game_settings";
+	public static final String KEY_PREF_ABOUT_SETTINGS = "pref_key_about_settings";
+	
 	//about config
 	public static final String KEY_PREF_ABOUT_VERSION = "pref_key_about_version";
 	public static final String KEY_PREF_ABOUT_OPENSOURCE = "pref_key_opensource_cert";

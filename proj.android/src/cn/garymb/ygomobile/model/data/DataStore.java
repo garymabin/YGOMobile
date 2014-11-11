@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.RoomDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.ServerDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.RoomRequestJob;
+import cn.garymb.ygomobile.data.wrapper.ServerRequestJob;
 import cn.garymb.ygomobile.ygo.YGORoomInfo;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
@@ -133,16 +133,16 @@ public class DataStore {
 		return mServers.get(0);
 	}
 	
-	public synchronized void updateData(BaseDataWrapper wrapper) {
-		if (wrapper instanceof ServerDataWrapper) {
-			int size = ((ServerDataWrapper) wrapper).size();
+	public synchronized void updateData(BaseRequestJob wrapper) {
+		if (wrapper instanceof ServerRequestJob) {
+			int size = ((ServerRequestJob) wrapper).size();
 			for (int i = 0; i < size; i++) {
-				mServers.put(i, (YGOServerInfo) ((ServerDataWrapper) wrapper).getItem(i));
+				mServers.put(i, (YGOServerInfo) ((ServerRequestJob) wrapper).getItem(i));
 			}
-		} else if (wrapper instanceof RoomDataWrapper) {
-			int size = ((RoomDataWrapper) wrapper).size();
+		} else if (wrapper instanceof RoomRequestJob) {
+			int size = ((RoomRequestJob) wrapper).size();
 			for (int i = 0; i < size; i++) {
-				YGORoomInfo info = (YGORoomInfo) ((RoomDataWrapper) wrapper).getItem(i);
+				YGORoomInfo info = (YGORoomInfo) ((RoomRequestJob) wrapper).getItem(i);
 				if (info.deleted) {
 					mRooms.remove(info.id);
 				} else {

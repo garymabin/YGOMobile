@@ -4,28 +4,22 @@ import com.umeng.update.UmengUpdateAgent;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
-<<<<<<< HEAD
 import cn.garymb.ygomobile.model.data.VersionInfo;
-=======
->>>>>>> develop
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.widget.BaseDialog;
 import cn.garymb.ygomobile.widget.WebViewDialog;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.webkit.WebView;
 import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-<<<<<<< HEAD
 public class AboutSettingsFragment extends EventDialogPreferenceFragment
 		implements OnPreferenceClickListener {
-=======
-public class AboutSettingsFragment extends EventDialogPreferenceFragment implements OnPreferenceClickListener {
->>>>>>> develop
 
 	private Preference mVersionPref;
 	private Preference mOpensourcePref;
@@ -33,14 +27,10 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 
 	private static final int DIALOG_TYPE_VERSION = 0;
 	private static final int DIALOG_TYPE_OPEN_SOURCE = 1;
-<<<<<<< HEAD
 	private static final int DIALOG_TYPE_APP_UPDATE = 2;
 
 	private static final int MSG_TYPE_CHECK_UPDATE = 0;
-
-=======
 	
->>>>>>> develop
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,7 +65,6 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 	}
 
 	@Override
-<<<<<<< HEAD
 	public boolean handleMessage(Message msg) {
 		if (super.handleMessage(msg)) {
 			return true;
@@ -109,11 +98,6 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment impleme
 		if (type == DIALOG_TYPE_OPEN_SOURCE || type == DIALOG_TYPE_VERSION) {
 			return new WebViewDialog(getActivity(), new WebView(getActivity()),
 					null, param);
-=======
-	public BaseDialog onCreateDialog(int type, Bundle param) {
-		if (type == DIALOG_TYPE_OPEN_SOURCE || type == DIALOG_TYPE_VERSION) {
-			return new WebViewDialog(getActivity(), new WebView(getActivity()), null, param);
->>>>>>> develop
 		}
 		return null;
 	}

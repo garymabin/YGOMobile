@@ -9,7 +9,7 @@ import java.util.Set;
 import cn.garymb.ygomobile.StaticApplication;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.core.IBaseTask;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
 import cn.garymb.ygomobile.model.data.DataStore;
 import cn.garymb.ygomobile.model.data.ImageItem;
 import cn.garymb.ygomobile.provider.YGOImagesDataBaseHelper;
@@ -156,8 +156,9 @@ public class Model {
 
 	public void unregisterForImageDownload(Observer o) {
 		mImageManager.unregisterForImageDownload(o);
+	}
 	
-	public void updateData(BaseDataWrapper wrapper) {
+	public void updateData(BaseRequestJob wrapper) {
 		mDataStore.updateData(wrapper);
 	}
 
@@ -167,5 +168,17 @@ public class Model {
 
 	public YGOServerInfo getMyCardServer() {
 		return mDataStore.getMyCardServer();
+	}
+
+	public void asyncUpdateMycardServer(Message msg) {
+	}
+
+	public void asyncUpdateRoomList(Message msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void stopUpdateRoomList() {
+		
 	}
 }

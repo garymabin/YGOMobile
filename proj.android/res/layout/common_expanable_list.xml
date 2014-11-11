@@ -2,6 +2,7 @@
 <ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="4dip"
     android:cacheColorHint="@android:color/transparent"
     android:divider="@android:color/transparent"
     android:listSelector="@drawable/list_selector"

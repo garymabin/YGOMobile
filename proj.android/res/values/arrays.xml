@@ -159,66 +159,17 @@
         <item>怪兽｜摇摆</item>
     </string-array>
     <string-array name="card_spell_type">
-<<<<<<< HEAD
-        <item >魔法</item>
-        <item>魔法｜通常</item>
-=======
         <item>魔法</item>
->>>>>>> develop
+        <item>魔法｜通常</item>
         <item>魔法｜速攻</item>
         <item>魔法｜永续</item>
         <item>魔法｜装备</item>
         <item>魔法｜场地</item>
-<<<<<<< HEAD
         <item>魔法｜仪式</item>
-=======
->>>>>>> develop
     </string-array>
     <string-array name="card_trap_type">
-<<<<<<< HEAD
-        <item >陷阱</item>
-        <item >陷阱｜通常</item>
-        <item >陷阱｜永续</item>
-        <item >陷阱｜反击</item>
-    </string-array>
-    
-     <string-array name="card_mix_type">
-        <item >怪兽</item>
-        <item >魔法</item>
-        <item >陷阱</item>
-        <item >？？？</item>
-        <item >通常</item>
-        <item >效果</item>
-        <item >融合</item>
-        <item >仪式</item>
-        <item >陷阱怪兽</item>
-        <item >灵魂</item>
-        <item >同盟</item>
-        <item >二重</item>
-        <item >调整</item>
-        <item >同调</item>
-        <item >衍生物</item>
-        <item >？？？</item>
-        <item >速攻</item>
-        <item >永续</item>
-        <item >装备</item>
-        <item >场地</item>
-        <item >反击</item>
-        <item >反转</item>
-        <item >卡通</item>
-        <item >超量</item>
-        <item >摇摆</item>
-    </string-array>
-    
-     <string-array name="duel_options">
-        <item >Cancel</item>
-        <item >R</item>
-        <item >S</item>
-        <item >A</item>
-    </string-array>
-</resources>
-=======
         <item>陷阱</item>
+        <item>陷阱｜通常</item>
         <item>陷阱｜永续</item>
         <item>陷阱｜反击</item>
     </string-array>
@@ -257,4 +208,3 @@
     </string-array>
 
 </resources>
->>>>>>> develop

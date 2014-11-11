@@ -297,6 +297,7 @@ public class CardWikiFragment extends BaseFragment implements
 	@Override
 	public boolean onPrepareActionMode(ActionMode paramActionMode,
 			Menu paramMenu) {
+		mActivity.getToolbar().setVisibility(View.INVISIBLE);
 		return false;
 	}
 
@@ -309,6 +310,7 @@ public class CardWikiFragment extends BaseFragment implements
 	@Override
 	public void onDestroyActionMode(ActionMode paramActionMode) {
 		mActionMode = null;
+		mActivity.getToolbar().setVisibility(View.VISIBLE);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceFragment;
 import android.util.Log;
+import android.view.MenuItem;
 
 public abstract class EventDialogPreferenceFragment extends PreferenceFragment
 		implements OnDismissListener, Handler.Callback {
@@ -49,6 +50,18 @@ public abstract class EventDialogPreferenceFragment extends PreferenceFragment
 			mShowsDialog = savedInstanceState.getBoolean(SAVED_SHOWS_DIALOG,
 					false);
 		}
+		setHasOptionsMenu(true);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		 switch (item.getItemId()) {
+	        // Respond to the action bar's Up/Home button
+	        case android.R.id.home:
+	            getFragmentManager().popBackStack(null, 0);
+	            return true;
+	    }
+		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override

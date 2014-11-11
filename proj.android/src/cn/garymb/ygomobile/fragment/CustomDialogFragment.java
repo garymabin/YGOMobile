@@ -217,7 +217,7 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 				} else if (mDialogMode == DIALOG_MODE_JOIN_GAME) {
 				} else if (mDialogMode == DIALOG_MODE_QUICK_JOIN) {
 					Fragment f = getTargetFragment();
-					((RoomListFragment)f).handleMessage(Message.obtain(null, getTargetRequestCode(), 0, 0, options));
+					((DuelFragment)f).handleMessage(Message.obtain(null, getTargetRequestCode(), 0, 0, options));
 					return;
 				}
 				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

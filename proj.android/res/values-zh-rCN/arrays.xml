@@ -5,7 +5,6 @@
         <item>对战</item>
         <item>卡查</item>
         <item>卡组管理</item>
-        <item>卡图管理</item>
     </string-array>
     <string-array name="duel_mode">
         <item>单局模式</item>

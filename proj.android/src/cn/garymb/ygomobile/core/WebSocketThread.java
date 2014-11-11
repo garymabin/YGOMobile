@@ -1,8 +1,8 @@
 package cn.garymb.ygomobile.core;
 
-import cn.garymb.ygomobile.core.IBaseConnection.TaskStatusCallback;
-import cn.garymb.ygomobile.data.wrapper.BaseDataWrapper;
-import cn.garymb.ygomobile.data.wrapper.IBaseWrapper;
+import cn.garymb.ygomobile.data.wrapper.BaseRequestJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob.JobStatusCallback;
 import cn.garymb.ygomobile.net.websocket.WebSocketConnector;
 
 import android.os.Handler;
@@ -25,9 +25,9 @@ public class WebSocketThread extends HandlerThread implements IBaseThread,
 
 	private static final String TAG = "MoeThread";
 
-	private TaskStatusCallback mCallback;
+	private JobStatusCallback mCallback;
 
-	private BaseDataWrapper mWrapper;
+	private BaseRequestJob mWrapper;
 
 	private WebSocketConnector mConnector;
 
@@ -38,7 +38,7 @@ public class WebSocketThread extends HandlerThread implements IBaseThread,
 	private static Object sLooperLock = new Object();
 	private volatile boolean isLooperPrepared = false;
 
-	public WebSocketThread(TaskStatusCallback callback,
+	public WebSocketThread(JobStatusCallback callback,
 			WebSocketConnector connector) {
 		super(TAG);
 		mCallback = callback;
@@ -57,7 +57,7 @@ public class WebSocketThread extends HandlerThread implements IBaseThread,
 
 	}
 
-	public void executeTask(BaseDataWrapper wrapper) {
+	public void executeTask(BaseRequestJob wrapper) {
 		if (!isLooperPrepared) {
 			synchronized (sLooperLock) {
 				try {
@@ -78,12 +78,12 @@ public class WebSocketThread extends HandlerThread implements IBaseThread,
 		switch (msg.what) {
 		case MSG_ID_DATA_UPDATE:
 			mWrapper.setResult(msg.arg2);
-			mCallback.onTaskContinue(mWrapper);
+			mCallback.onJobContinue(mWrapper);
 			break;
 		case MSG_ID_CONNECTION_CLOSED:
-			mWrapper.setResult(isTerminateRequest ? IBaseWrapper.TASK_STATUS_CANCELED
+			mWrapper.setResult(isTerminateRequest ? IBaseJob.STATUS_CANCELED
 					: msg.arg2);
-			mCallback.onTaskFinish(mWrapper);
+			mCallback.onJobFinish(mWrapper);
 		default:
 			break;
 		}

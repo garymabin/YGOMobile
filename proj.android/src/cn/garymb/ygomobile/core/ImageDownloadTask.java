@@ -31,7 +31,7 @@ public class ImageDownloadTask extends BaseTask {
 
 	private WeakReference<Handler> mHandlerRef;
 
-	protected List<IBaseThread> mUpdateThreads = new ArrayList<>(
+	protected List<IBaseThread> mUpdateThreads = new ArrayList<IBaseThread>(
 			MAX_NUMBER_OF_THREADS);
 
 	private CloseableHttpPipeliningClient mClient;

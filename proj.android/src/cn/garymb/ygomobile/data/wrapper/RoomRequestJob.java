@@ -8,27 +8,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.garymb.ygomobile.model.data.BaseInfo;
-import cn.garymb.ygomobile.ygo.YGOServerInfo;
+import cn.garymb.ygomobile.ygo.YGORoomInfo;
 
-public class ServerDataWrapper extends BaseDataWrapper {
+public class RoomRequestJob extends BaseRequestJob {
 
 	private List<JSONObject> mData;
 
-	public ServerDataWrapper(int requestType) {
-		super(requestType);
+	public RoomRequestJob() {
 		mData = new ArrayList<JSONObject>();
-		mUrls.add(SERVER_LIST_URL);
+		mUrls.add(ROOM_LIST_URL);
 	}
 
 	@Override
-	public void parse(StringBuilder out) {
+	public int parse(Object in) {
+		StringBuilder out = (StringBuilder) in;
+		int result = STATUS_SUCCESS;
 		try {
 			JSONArray array = new JSONArray(out.toString());
 			for (int i = 0; i < out.length(); i++) {
 				mData.add(array.getJSONObject(i));
 			}
 		} catch (JSONException e) {
+			result = STATUS_FAILED;
 		}
+		return result;
 	}
 
 	public int size() {
@@ -36,15 +39,13 @@ public class ServerDataWrapper extends BaseDataWrapper {
 	}
 
 	public BaseInfo getItem(int index) {
-		BaseInfo info = new YGOServerInfo();
+		BaseInfo info = new YGORoomInfo();
 		try {
-			info.initFromJsonData(mData.get(index));
+			info.fromJSONData(mData.get(index));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 		return info;
 	}
-
 }

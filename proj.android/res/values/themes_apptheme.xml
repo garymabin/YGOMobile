@@ -5,43 +5,37 @@
 
     <style name="AppTheme" parent="@style/_AppTheme" />
 
-<<<<<<< HEAD
-    <style name="SettingsTheme" parent="@style/_AppTheme" />
+    <style name="SettingsTheme" parent="@style/_AppTheme">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:listViewStyle">@style/MyListViewStyle</item>
+    </style>
 
     <style name="_AppTheme" parent="Theme.AppCompat.Light">
-        
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        
-        
-=======
-    <style name="SettingsTheme" parent="@android:style/Theme.Light" />
-
-    <style name="_AppTheme" parent="Theme.AppCompat.Light">
->>>>>>> develop
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorAccent">@color/less_trasparent_dark_purple</item>
         <item name="android:buttonStyle">@style/ButtonAppTheme</item>
         <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
         <item name="android:editTextStyle">@style/EditTextAppTheme</item>
         <item name="android:checkboxStyle">@style/CheckBoxAppTheme</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/apptheme_btn_check_holo_light</item>
         <item name="android:spinnerDropDownItemStyle">@style/Widget.AppCompat.Light.DropDownItem.Spinner</item>
-        <item name="dropDownListViewStyle">@style/DropDownListViewTheme</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/apptheme_btn_radio_holo_light</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListViewTheme</item>
         <item name="android:radioButtonStyle">@style/RadioButtonAppTheme</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppTheme</item>
+        
+        
         <item name="actionModeBackground">@drawable/ab_dark_purper</item>
         <item name="actionBarStyle">@style/ActionBarStyle</item>
         <item name="actionBarItemBackground">@drawable/apptheme_list_selector_holo_light</item>
         <item name="sdlDialogStyle">@style/CustomDialog</item>
-<<<<<<< HEAD
-    </style>
-
-=======
         <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicator</item>
         <item name="vpiLinePageIndicatorStyle">@style/CustomLinePageIndicator</item>
         <item name="vpiTitlePageIndicatorStyle">@style/CustomTitlePageIndicator</item>
         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
         <item name="vpiUnderlinePageIndicatorStyle">@style/CustomUnderlinePageIndicator</item>
     </style>
->>>>>>> develop
+
 </resources>
