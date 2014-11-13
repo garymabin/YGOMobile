@@ -8,6 +8,7 @@ public final class Settings {
 	
 	//about config
 	public static final String KEY_PREF_ABOUT_VERSION = "pref_key_about_version";
+	public static final String KEY_PREF_ABOUT_PROJ_LOC = "pref_key_about_project";
 	public static final String KEY_PREF_ABOUT_OPENSOURCE = "pref_key_opensource_cert";
 	public static final String KEY_PREF_ABOUT_CHECK_UPDATE = "pref_key_about_check_update";
 	

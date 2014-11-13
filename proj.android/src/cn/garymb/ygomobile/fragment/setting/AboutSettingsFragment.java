@@ -9,6 +9,8 @@ import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.widget.BaseDialog;
 import cn.garymb.ygomobile.widget.WebViewDialog;
 import android.annotation.TargetApi;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -23,6 +25,7 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 
 	private Preference mVersionPref;
 	private Preference mOpensourcePref;
+	private Preference mProjectLocPref;
 	private Preference mCheckUpdatePref;
 
 	private static final int DIALOG_TYPE_VERSION = 0;
@@ -41,6 +44,8 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 		mOpensourcePref.setOnPreferenceClickListener(this);
 		mCheckUpdatePref = findPreference(Settings.KEY_PREF_ABOUT_CHECK_UPDATE);
 		mCheckUpdatePref.setOnPreferenceClickListener(this);
+		mProjectLocPref = findPreference(Settings.KEY_PREF_ABOUT_PROJ_LOC);
+		mProjectLocPref.setOnPreferenceClickListener(this);
 		mVersionPref.setSummary(StaticApplication.peekInstance()
 				.getVersionName());
 	}
@@ -60,6 +65,11 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 			showDialog(DIALOG_TYPE_VERSION, bundle);
 		} else if (preference.equals(mCheckUpdatePref)) {
 			UmengUpdateAgent.forceUpdate(getActivity());
+		} else if (preference.equals(mProjectLocPref)) {
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse((String) preference.getSummary()));
+			startActivity(intent);
 		}
 		return false;
 	}

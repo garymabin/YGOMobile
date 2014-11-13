@@ -161,6 +161,7 @@
     <string name="settings_game_font_antialias">开启字体抗锯齿</string>
     <string name="settings_game_font_antialias_summary">关闭此选项可提高游戏帧数</string>
     <string name="settings_about_author_pref">作者</string>
+    <string name="settings_about_proj_loc">项目地址</string>
     <string name="settings_about_version_pref">版本</string>
     <string name="settings_about_opensource_pref">开源许可</string>
     <string name="settings_about_check_update">检查更新</string>

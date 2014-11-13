@@ -114,6 +114,8 @@
     <string name="settings_common_sub_common">Common</string>
     <string name="settings_common_card_image_network_pref">Do not download card images while on mobile data plan</string>
     <string name="settings_game_screen_orientation">Lock screen in game</string>
+    <string name="settings_about_project_address">https://github.com/garymabin/YGOMobile</string>
+    <string name="settings_about_proj_loc">project url</string>
     <string name="settings_about_author_pref">Author</string>
     <string name="settings_about_version_pref">Version</string>
     <string name="settings_about_opensource_pref">Open source licenses</string>
