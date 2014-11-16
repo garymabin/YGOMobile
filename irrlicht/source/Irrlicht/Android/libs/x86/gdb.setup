@@ -1,0 +1,3 @@
+set solib-search-path ./obj/local/x86
+source /Users/mabin/Documents/android-ndk-r10c/prebuilt/common/gdb/common.setup
+directory /Users/mabin/Documents/android-ndk-r10c/platforms/android-9/arch-x86/usr/include ../../../include /Users/mabin/Documents/android-ndk-r10c/sources/android/native_app_glue /Users/mabin/Documents/android-ndk-r10c/sources/cxx-stl/system/include jni/../..

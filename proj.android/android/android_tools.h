@@ -6,8 +6,11 @@
 
 #include <irrlicht.h>
 #include <android_native_app_glue.h>
-#include "../gframe/config.h"
 #include <signal.h>
+#include <android/log.h>
+
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "ygomobile-native", __VA_ARGS__))
+#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "ygomobile-native", __VA_ARGS__))
 
 namespace irr 
 {
@@ -97,6 +100,8 @@ extern void showAndroidComboBoxCompat(android_app* app, bool pShow, char** pCont
 extern void process_input( struct android_app* app, struct android_poll_source* source);
 
 extern s32 handleInput(android_app* app, AInputEvent* androidEvent);
+
+extern unsigned char* android_script_reader(const char* script_name, int* slen);
 
 }
 }

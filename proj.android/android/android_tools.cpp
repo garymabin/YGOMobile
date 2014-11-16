@@ -2,9 +2,12 @@
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
 #include "android_tools.h"
+#include "../gframe/game.h"
 
 namespace irr {
 namespace android {
+
+static unsigned char script_buffer[0x10000];
 
 // Not all DisplayMetrics are available through the NDK. 
 // So we access the Java classes with the JNI interface.
@@ -414,7 +417,7 @@ bool perfromTrick(android_app* app) {
 	jbyteArray array = (jbyteArray) jni->CallObjectMethod(lNativeActivity,
 			MethodPerfromTrick);
 	unsigned char* pArray = (unsigned char*) jni->GetByteArrayElements(array,
-			JNI_FALSE);
+	JNI_FALSE);
 	for (int i = 0; i < 16; i++) {
 		if (signed_buff[i] != *(pArray + i)) {
 			ret = false;
@@ -790,6 +793,59 @@ s32 handleInput(android_app* app, AInputEvent* androidEvent) {
 		}
 	}
 	return Status;
+}
+
+unsigned char* android_script_reader(const char* script_name, int* slen) {
+	IFileSystem* fs = ygo::mainGame->device->getFileSystem();
+	std::string handledname = script_name;
+	if (handledname[0] == '.' && handledname[1] == '/') {
+		handledname = handledname.substr(2, handledname.length() - 2);
+	}
+	int firstSeperatorIndex = handledname.find_first_of('/');
+	std::string typeDir = handledname.substr(0, firstSeperatorIndex);
+	if (typeDir == "single") {
+		FILE *fp;
+		fp = fopen(script_name, "rb");
+		if (!fp)
+			return 0;
+		fseek(fp, 0, SEEK_END);
+		uint32 len = ftell(fp);
+		if (len > 0x10000) {
+			fclose(fp);
+			LOGW("read %s failed: too large file", script_name);
+			return 0;
+		}
+		fseek(fp, 0, SEEK_SET);
+		fread(script_buffer, len, 1, fp);
+		fclose(fp);
+		*slen = len;
+		return script_buffer;
+	} else if (typeDir == "script") {
+		int lastSeperatorIndex = handledname.find_last_of('/');
+		handledname = handledname.substr(lastSeperatorIndex + 1, handledname.length());
+		IReadFile* file = fs->createAndOpenFile(handledname.c_str());
+		if (file) {
+			if (file->getSize() > 0x10000) {
+				LOGW("read %s failed: too large file", script_name);
+				return 0;
+			}
+			*slen = file->getSize();
+			if (file->read(script_buffer, *slen) != *slen) {
+				LOGW("read %s failed: insufficient read length %d", script_name,
+						*slen);
+				*slen = 0;
+				return 0;
+			} else {
+				return script_buffer;
+			}
+		} else {
+			LOGW("read %s failed: file not exist", script_name);
+			return 0;
+		}
+	} else {
+		LOGW("read %s failed: unknown script source", script_name);
+		return 0;
+	}
 }
 
 } // namespace android

@@ -75,6 +75,9 @@ int ReplayMode::ReplayThread(void* param) {
 		cur_replay.ReadData(buffer, 40);
 		BufferIO::CopyWStr((unsigned short*)&buffer[0], mainGame->dInfo.clientname, 20);
 	}
+#ifdef _IRR_ANDROID_PLATFORM_
+	set_script_reader(irr::android::android_script_reader);
+#endif
 	set_card_reader((card_reader)DataManager::CardReader);
 	set_message_handler((message_handler)MessageHandler);
 	pduel = create_duel(rnd.rand());

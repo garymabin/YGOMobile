@@ -83,6 +83,10 @@ bool Game::Initialize() {
 	io::path configVersion = irr::android::getCoreConfigVersion(appMain);
 	io::path workingDir = irr::android::getResourcePath(appMain);
 	fs->changeWorkingDirectoryTo(workingDir);
+	io::path mainScriptPath = workingDir + "script/script.zip";
+	if(fs->addFileArchive(mainScriptPath, false, false, EFAT_ZIP)) {
+		os::Printer::log("add script arrchive");
+	}
 	/* Your media must be somewhere inside the assets folder. The assets folder is the root for the file system.
 	 This example copies the media in the Android.mk makefile. */
 	stringc mediaPath = "media/";
