@@ -839,8 +839,23 @@ unsigned char* android_script_reader(const char* script_name, int* slen) {
 				return script_buffer;
 			}
 		} else {
-			LOGW("read %s failed: file not exist", script_name);
-			return 0;
+			//try to find in directory based script.
+			FILE *fp;
+			fp = fopen(script_name, "rb");
+			if (!fp)
+				return 0;
+			fseek(fp, 0, SEEK_END);
+			uint32 len = ftell(fp);
+			if (len > 0x10000) {
+				fclose(fp);
+				LOGW("read %s failed: too large file", script_name);
+				return 0;
+			}
+			fseek(fp, 0, SEEK_SET);
+			fread(script_buffer, len, 1, fp);
+			fclose(fp);
+			*slen = len;
+			return script_buffer;
 		}
 	} else {
 		LOGW("read %s failed: unknown script source", script_name);
