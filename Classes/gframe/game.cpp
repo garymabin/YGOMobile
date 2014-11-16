@@ -1112,12 +1112,6 @@ void Game::MainLoop() {
 			ignore_chain = false;
 		fps++;
 		cur_time = timer->getTime();
-		if(cur_time < fps * 17 - 20)
-#ifdef _WIN32
-			Sleep(20);
-#else
-			usleep(20000);
-#endif
 		if(cur_time >= 1000) {
 
 #ifdef _IRR_ANDROID_PLATFORM_
@@ -1127,6 +1121,12 @@ void Game::MainLoop() {
 				stat->setText ( str.c_str() );
 			}
 #else
+	       if(cur_time < fps * 17 - 20)
+#ifdef _WIN32
+				Sleep(20);
+#else
+				usleep(20000);
+#endif
 			myswprintf(cap, L"FPS: %d", fps);
 			device->setWindowCaption(cap);
 #endif
