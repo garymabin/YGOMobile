@@ -338,6 +338,10 @@ zlib/compress.c  zlib/deflate.c  zlib/gzlib.c    zlib/gzwrite.c  zlib/inffast.c 
 
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 
+ifeq ($(TARGET_ARCH_ABI), armeabi-v7a)
+LOCAL_CFLAGS += -mno-unaligned-access
+endif
+
 include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,android/native_app_glue)
