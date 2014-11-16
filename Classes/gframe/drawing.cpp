@@ -614,11 +614,11 @@ void Game::DrawSpec() {
 		}
 		case 7: {
 			core::position2d<s32> corner[4];
-			float y = sin(showcarddif * 3.1415926f / 180.0f) * 254;
-			corner[0] = core::position2d<s32>(574 - (254 - y) * 0.3f, 404 - y);
-			corner[1] = core::position2d<s32>(751 + (254 - y) * 0.3f, 404 - y);
-			corner[2] = core::position2d<s32>(574, 404);
-			corner[3] = core::position2d<s32>(751, 404);
+			float y = sin(showcarddif * 3.1415926f / 180.0f) * 254 * mainGame->yScale;
+			corner[0] = core::position2d<s32>(574 * mainGame->xScale - (254 * mainGame->yScale - y) * 0.3f , 404 * mainGame->yScale - y);
+			corner[1] = core::position2d<s32>(751 * mainGame->xScale + (254 * mainGame->yScale - y) * 0.3f , 404 * mainGame->yScale - y);
+			corner[2] = core::position2d<s32>(574 * mainGame->xScale, 404 * mainGame->yScale);
+			corner[3] = core::position2d<s32>(751 * mainGame->xScale, 404 * mainGame->yScale);
 			irr::gui::Draw2DImageQuad(driver, imageManager.GetTexture(showcardcode), rect<s32>(0, 0, 177, 254), corner);
 			showcardp++;
 			showcarddif += 9;
@@ -691,11 +691,11 @@ void Game::DrawSpec() {
 			auto pos = lpcFont->getDimension(lstr);
 			if(showcardp < 10) {
 				int alpha = (showcardp * 25) << 24;
-				lpcFont->draw(lstr, recti((671 - pos.Width / 2 - (9 - showcardp) * 40) * mainGame->xScale, 271 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), alpha);
-				lpcFont->draw(lstr, recti((670 - pos.Width / 2 - (9 - showcardp) * 40) * mainGame->xScale, 270 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), alpha | 0xffffff);
+				lpcFont->draw(lstr, recti(671 * mainGame->xScale - pos.Width / 2 - (9 - showcardp) * 40 * mainGame->xScale, 271 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), alpha);
+				lpcFont->draw(lstr, recti(670 * mainGame->xScale- pos.Width / 2 - (9 - showcardp) * 40 * mainGame->xScale, 270 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), alpha | 0xffffff);
 			} else if(showcardp < showcarddif) {
-				lpcFont->draw(lstr, recti((671 - pos.Width / 2) * mainGame->xScale, 271 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), 0xff000000);
-				lpcFont->draw(lstr, recti((670 - pos.Width / 2) * mainGame->xScale, 270 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), 0xffffffff);
+				lpcFont->draw(lstr, recti(671 * mainGame->xScale - pos.Width / 2, 271 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), 0xff000000);
+				lpcFont->draw(lstr, recti(670 * mainGame->xScale - pos.Width / 2, 270 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), 0xffffffff);
 				if(dInfo.vic_string && (showcardcode == 1 || showcardcode == 2)) {
 					driver->draw2DRectangle(0xa0000000, recti(540 * mainGame->xScale, 320 * mainGame->yScale, 800 * mainGame->xScale, 340 * mainGame->yScale));
 					guiFont->draw(dInfo.vic_string, recti(502 * mainGame->xScale, 321 * mainGame->yScale, 840 * mainGame->xScale, 340 * mainGame->yScale), 0xff000000, true, true);
@@ -703,8 +703,8 @@ void Game::DrawSpec() {
 				}
 			} else if(showcardp < showcarddif + 10) {
 				int alpha = ((showcarddif + 10 - showcardp) * 25) << 24;
-				lpcFont->draw(lstr, recti((671 - pos.Width / 2 + (showcardp - showcarddif) * 40) * mainGame->xScale, 271 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), alpha);
-				lpcFont->draw(lstr, recti((670 - pos.Width / 2 + (showcardp - showcarddif) * 40) * mainGame->xScale, 270 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), alpha | 0xffffff);
+				lpcFont->draw(lstr, recti(671 * mainGame->xScale - pos.Width / 2 + (showcardp - showcarddif) * 40 * mainGame->xScale, 271 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), alpha);
+				lpcFont->draw(lstr, recti(670 * mainGame->xScale - pos.Width / 2 + (showcardp - showcarddif) * 40 * mainGame->xScale, 270 * mainGame->yScale, 970 * mainGame->xScale, 350 * mainGame->yScale), alpha | 0xffffff);
 			}
 			showcardp++;
 			break;

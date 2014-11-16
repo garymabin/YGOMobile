@@ -338,7 +338,7 @@ void ClientField::ClearChainSelect() {
 }
 void ClientField::ShowSelectCard(bool buttonok) {
 	if(selectable_cards.size() <= 5) {
-		int startpos = 30 + 125 * (5 - selectable_cards.size()) / 2;
+		int startpos = (30 + 125 * (5 - selectable_cards.size()) / 2) * mainGame->xScale;
 		for(size_t i = 0; i < selectable_cards.size(); ++i) {
 			if(selectable_cards[i]->code)
 				mainGame->imageLoading.insert(std::make_pair(mainGame->btnCardSelect[i], selectable_cards[i]->code));
