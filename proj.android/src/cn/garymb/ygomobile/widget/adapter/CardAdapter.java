@@ -1,6 +1,5 @@
 package cn.garymb.ygomobile.widget.adapter;
 
-import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,11 +24,13 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CardAdapter extends CursorAdapter implements IDataObserver {
+public class CardAdapter extends CursorAdapter implements IDataObserver, OnScrollListener {
 
 	private final class ViewHolder {
 		ImageView mCardThumbnail;
@@ -98,7 +99,9 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 
 	private int thumbnailImageWidthInPixel;
 
-	private WeakReference<ListView> mAttachedListView;
+	private ListView mListView;
+	
+	private int mScrollState;
 
 	public CardAdapter(Context context, String[] projection, Cursor c,
 			int flags, ListView attachTarget) {
@@ -110,7 +113,8 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 				.getDimensionPixelSize(R.dimen.card_thumbnail_height);
 		thumbnailImageWidthInPixel = context.getResources()
 				.getDimensionPixelSize(R.dimen.card_thumbnail_width);
-		mAttachedListView = new WeakReference<ListView>(attachTarget);
+		mListView = attachTarget;
+		mListView.setOnScrollListener(this);
 	}
 
 	public void onFragmentActive() {
@@ -119,6 +123,7 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 
 	public void onFragmentInactive() {
 		Controller.peekInstance().unregisterImageObserver(this);
+		mListView = null;
 	}
 
 	@Override
@@ -136,8 +141,12 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 			if (thumbnail != null) {
 				holder.mController.setBitmap(thumbnail, false);
 			} else {
-				holder.mController.setImageItem(item);
-				requestImage(item, false);
+				if (mScrollState != SCROLL_STATE_FLING) {
+					holder.mController.setImageItem(item);
+					requestImage(item, false);
+				} else {
+					
+				}
 			}
 			holder.mNameText.setText(cursor.getString(mNameColumnId));
 			if ((cursor.getInt(mTypeColumnId) & YGOArrayStore.TYPE_MONSTER) > 0) {
@@ -254,12 +263,11 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 		if (item == null)
 			return null;
 
-		if (mAttachedListView != null && mAttachedListView.get() != null) {
-			final ListView lv = mAttachedListView.get();
-			final int count = lv.getLastVisiblePosition()
-					- lv.getFirstVisiblePosition() + 1;
+		if (mListView != null) {
+			final int count = mListView.getLastVisiblePosition()
+					- mListView.getFirstVisiblePosition() + 1;
 			for (int i = 0; i < count; i++) {
-				View v = lv.getChildAt(i);
+				View v = mListView.getChildAt(i);
 				if (v == null)
 					continue;
 				Object ob = v.getTag();
@@ -287,5 +295,15 @@ public class CardAdapter extends CursorAdapter implements IDataObserver {
 			return;
 
 		ctlr.setBitmap(holder.getBitmap(), true);
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		mScrollState = scrollState;
+	}
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem,
+			int visibleItemCount, int totalItemCount) {
 	}
 }

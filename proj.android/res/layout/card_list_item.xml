@@ -23,6 +23,7 @@
             android:layout_height="@dimen/card_thumbnail_height"
             android:scaleType="centerInside"
             android:layout_marginRight="6dip"
+            android:src="@drawable/unknown"
             android:contentDescription="@string/app_name" />
 
         <RelativeLayout
