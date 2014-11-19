@@ -502,6 +502,7 @@ bool Game::Initialize() {
 	for(int i = 0; i < 3; ++i) {
 		btnHand[i] = env->addButton(rect<s32>((10 + 105 * i) * xScale, 10 * yScale, (105 + 105 * i)  * xScale, 144 * yScale), wHand, BUTTON_HAND1 + i, L"");
 		btnHand[i]->setImage(imageManager.tHand[i]);
+		btnHand[i]->setScaleImage(true);
 	}
 #ifdef _IRR_ANDROID_PLATFORM_
 	//

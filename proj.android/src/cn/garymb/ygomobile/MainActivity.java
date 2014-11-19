@@ -261,18 +261,24 @@ public class MainActivity extends ActionBarActivity implements
 			if (action == FRAGMENT_ID_DUEL) {
 				mActionBarCreator = new ActionBarCreator(this).setNew(true,
 						arg1).setPlay(true);
-				mActionBar.setDisplayShowTitleEnabled(false);
-				mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+				if (mActionBar != null) {
+					mActionBar.setDisplayShowTitleEnabled(false);
+					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+				}
 
 			} else if (action == FRAGMENT_ID_CARD_WIKI) {
 				mActionBarCreator = new ActionBarCreator(this).setFilter(true)
 						.setSearch(true, arg1).setReset(true);
-				mActionBar.setDisplayShowTitleEnabled(false);
-				mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+				if (mActionBar != null) {
+					mActionBar.setDisplayShowTitleEnabled(false);
+					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+				}
 			} else {
 				mActionBarCreator = new ActionBarCreator(this);
-				mActionBar.setDisplayShowTitleEnabled(true);
-				mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+				if (mActionBar != null) {
+					mActionBar.setDisplayShowTitleEnabled(true);
+					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+				}
 			}
 			break;
 		default:

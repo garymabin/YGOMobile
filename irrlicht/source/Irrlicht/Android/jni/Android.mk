@@ -14,6 +14,10 @@ else
 LOCAL_CFLAGS += -fexpensive-optimizations -O3
 endif
 
+ifeq ($(TARGET_ARCH_ABI), armeabi-v7a)
+LOCAL_CFLAGS += -mno-unaligned-access
+endif
+
 LOCAL_C_INCLUDES := ../../../include
 
 LOCAL_SRC_FILES := \
@@ -337,10 +341,6 @@ zlib/adler32.c   zlib/crc32.c    zlib/gzclose.c  zlib/gzread.c   zlib/infback.c 
 zlib/compress.c  zlib/deflate.c  zlib/gzlib.c    zlib/gzwrite.c  zlib/inffast.c  zlib/inftrees.c  zlib/uncompr.c
 
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
-
-ifeq ($(TARGET_ARCH_ABI), armeabi-v7a)
-LOCAL_CFLAGS += -mno-unaligned-access
-endif
 
 include $(BUILD_STATIC_LIBRARY)
 

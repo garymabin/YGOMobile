@@ -396,7 +396,7 @@ void DuelClient::HandleSTOCPacketLan(char* data, unsigned int len) {
 		mainGame->stHostPrepDuelist[2]->setText(L"");
 		mainGame->stHostPrepDuelist[3]->setText(L"");
 		mainGame->stHostPrepOB->setText(L"");
-		mainGame->SetStaticText(mainGame->stHostPrepRule, 180,
+		mainGame->SetStaticText(mainGame->stHostPrepRule, 180 * mainGame->xScale,
 				mainGame->guiFont, (wchar_t*) str.c_str());
 		mainGame->RefreshDeck(mainGame->cbDeckSelect);
 		mainGame->cbDeckSelect->setEnabled(true);
@@ -495,6 +495,7 @@ void DuelClient::HandleSTOCPacketLan(char* data, unsigned int len) {
 		mainGame->btnEP->setVisible(false);
 		mainGame->wChat->setVisible(true);
 		mainGame->imgCard->setImage(imageManager.tCover);
+		mainGame->imgCard->setScaleImage(true);
 		mainGame->device->setEventReceiver(&mainGame->dField);
 		if (!mainGame->dInfo.isTag) {
 			if (selftype > 1) {
