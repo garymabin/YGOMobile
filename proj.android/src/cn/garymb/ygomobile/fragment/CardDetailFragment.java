@@ -69,17 +69,19 @@ public class CardDetailFragment extends BaseFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.card_detail, null);
+		
 		mViewPager = (ViewPager) view.findViewById(R.id.card_pager);
 		mAdapter = new CardDetailAdapter<CardDetailPagerFragment>(
 				getChildFragmentManager(), CardDetailPagerFragment.class,
 				mCommonProjection, mWindow);
 		mViewPager.setAdapter(mAdapter);
 		mViewPager.setOnPageChangeListener(this);
-		mViewPager.setCurrentItem(mInitPos);
 		view.setOnTouchListener(this);
 		mActivity.onActionBarChange(
 				Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE,
 				FRAGMENT_ID_CARD_DETAIL, 0, null);
+		mViewPager.setCurrentItem(mInitPos);
+		mActivity.setTitle(mWindow.getString(0, YGOCards.COMMON_DATA_PROJECTION_NAME_INDEX));
 		return view;
 	}
 	
