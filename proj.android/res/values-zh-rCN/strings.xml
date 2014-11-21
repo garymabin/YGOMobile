@@ -26,6 +26,7 @@
     <string name="action_delete">删除</string>
     <string name="action_edit">编辑</string>
     <string name="action_connect">连接</string>
+    <string name="action_new_room">新建</string>
     
     <string name="toast_delete">已删除 %1$s</string>
     <string name="exit_hint">"再按一次退出YGOMobile喵！"</string>
@@ -82,7 +83,7 @@
     <string name="action_filter_type_monster_spirit">灵魂</string>
     <string name="action_filter_type_monster_flip">反转</string>
     <string name="action_filter_type_monster_toon">卡通</string>
-    <string name="action_filter_type_monster_pendulum">摇摆</string>
+    <string name="action_filter_type_monster_pendulum">灵摆</string>
     
     <string name="action_filter_property_land">地</string>
     <string name="action_filter_property_water">水</string>
