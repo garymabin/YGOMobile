@@ -14,13 +14,13 @@
     
     
 	<string-array name="duel_list">
-        <item>决斗</item>
-        <item>卡查</item>
+        <item>Duel</item>
+        <item>Cards</item>
     </string-array>
     
 	<string-array name="free_mode">
-        <item>服务器列表</item>
-        <item>局域网</item>
+        <item>Servers</item>
+        <item>Lan</item>
     </string-array>
     
     <string-array name="card_race">
@@ -144,44 +144,44 @@
         
     <string-array name="card_type">
         <item >（无）</item>
-        <item >怪兽</item>
-        <item >魔法</item>
-        <item >陷阱</item>
+        <item >Monster</item>
+        <item >Spell</item>
+        <item >Trap</item>
     </string-array>
     
     <string-array name="card_monster_type">
-        <item >怪兽</item>
-        <item >怪兽｜通常</item>
-        <item >怪兽｜效果</item>
-        <item >怪兽｜同调</item>
-        <item >怪兽｜调整</item>
-        <item >怪兽｜超量</item>
-        <item >怪兽｜融合</item>
-        <item >怪兽｜仪式</item>
-        <item >怪兽｜灵魂</item>
-        <item >怪兽｜反转</item>
-        <item >怪兽｜二重</item>
-        <item >怪兽｜同盟</item>
-        <item >怪兽｜衍生物</item>
-        <item >怪兽｜卡通</item>
-        <item >怪兽｜摇摆</item>
+        <item >Monster</item>
+        <item >Monster｜Normal</item>
+        <item >Monster｜Effect</item>
+        <item >Monster｜Synchro</item>
+        <item >Monster｜Turnner</item>
+        <item >Monster｜XYZ</item>
+        <item >Monster｜Fusion</item>
+        <item >Monster｜Ritual</item>
+        <item >Monster｜Spirit</item>
+        <item >Monster｜Flap</item>
+        <item >Monster｜Gemini</item>
+        <item >Monster｜Union</item>
+        <item >Monster｜Token</item>
+        <item >Monster｜Toon</item>
+        <item >Monster｜Pendulum</item>
     </string-array>
     
     <string-array name="card_spell_type">
-        <item >魔法</item>
-        <item>魔法｜通常</item>
-        <item>魔法｜速攻</item>
-        <item>魔法｜永续</item>
-        <item>魔法｜装备</item>
-        <item>魔法｜场地</item>
-        <item>魔法｜仪式</item>
+        <item >Spell</item>
+        <item>Spell｜Normal</item>
+        <item>Spell｜Quick Play</item>
+        <item>Spell｜Continous</item>
+        <item>Spell｜Equip</item>
+        <item>Spell｜Field</item>
+        <item>Spell｜Ritual</item>
     </string-array>
     
     <string-array name="card_trap_type">
-        <item >陷阱</item>
-        <item >陷阱｜通常</item>
-        <item >陷阱｜永续</item>
-        <item >陷阱｜反击</item>
+        <item >Trap</item>
+        <item >Trap｜Normal</item>
+        <item >Trap｜Continous</item>
+        <item >Trap｜Counter</item>
     </string-array>
     
      <string-array name="card_mix_type">

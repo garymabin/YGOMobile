@@ -80,7 +80,7 @@
         <item>怪兽｜同盟</item>
         <item>怪兽｜衍生物</item>
         <item>怪兽｜卡通</item>
-        <item>怪兽｜摇摆</item>
+        <item>怪兽｜灵摆</item>
     </string-array>
     <string-array name="card_spell_type">
         <item>魔法</item>
