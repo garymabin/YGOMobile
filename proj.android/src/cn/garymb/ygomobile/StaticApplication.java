@@ -225,7 +225,7 @@ public class StaticApplication extends Application {
 			mSettingsPref
 					.edit()
 					.putString(Settings.KEY_PREF_GAME_FONT_NAME,
-							Constants.DEFAULT_FONT_NAME).commit();
+							Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME).commit();
 		}
 	}
 

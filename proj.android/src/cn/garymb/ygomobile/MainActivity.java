@@ -115,7 +115,6 @@ public class MainActivity extends ActionBarActivity implements
 						android.R.layout.simple_spinner_dropdown_item,
 						mDuelList), this);
 		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
-		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
 		boolean isFirstRun = checkFirstRunAfterInstall();
 		if (isFirstRun && !checkDiyCardDataBase()) {
