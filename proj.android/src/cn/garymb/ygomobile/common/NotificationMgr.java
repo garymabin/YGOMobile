@@ -26,6 +26,8 @@ public class NotificationMgr {
 		
 		Intent intent = new Intent(context, MainActivity.class);
 		intent.setAction(Constants.ACTION_VIEW_DOWNLOAD_STATUS);
+		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 		
 		NotificationManager nm = (NotificationManager) context.getSystemService(
