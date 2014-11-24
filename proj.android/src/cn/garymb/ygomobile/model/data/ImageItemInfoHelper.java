@@ -29,7 +29,8 @@ public final class ImageItemInfoHelper {
 	private static String BASE_URL = ResourcesConstants.IMAGE_URL;
 	
 	public static void init(String url) {
-		BASE_URL = url;
+		int index = url.lastIndexOf(':');
+		BASE_URL = url.substring(0, index);
 	}
 
 	public static boolean isImageExist(ImageItem item) {

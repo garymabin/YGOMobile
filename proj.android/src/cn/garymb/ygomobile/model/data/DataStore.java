@@ -22,9 +22,9 @@ public class DataStore {
 	private static final String TAG = "DataStore";
 
 	private SparseArray<YGOServerInfo> mServers;
-	
+
 	private CardImageUrlInfo mCardImageUrlInfo;
-	
+
 	private Context mContext;
 
 	public DataStore(Context context) {
@@ -39,14 +39,15 @@ public class DataStore {
 		// add checkmate server.
 		int size = sp.getInt(Constants.PREF_KEY_USER_DEF_SERVER_SIZE, 0);
 		if (size == 0) {
-			loadNewServer(sp, 0x1000, ResourcesConstants.DEFAULT_MC_SERVER_NAME,
+			loadNewServer(sp, 0x1000,
+					ResourcesConstants.DEFAULT_MC_SERVER_NAME,
 					ResourcesConstants.DEFAULT_MC_SERVER_ADDR,
 					ResourcesConstants.DEFAULT_MC_SERVER_PORT);
 			loadNewServer(sp, MODIFIABLE_SERVER_CHECKMATE_SERVER,
 					DEFAULT_CHECKMATE_SERVER_NAME,
 					DEFAULT_CHECKMATE_SERVER_ADDR,
 					DEFAULT_CHECKMATE_SERVER_PORT);
-			//save default servers
+			// save default servers
 			for (int i = 0; i < mServers.size(); i++) {
 				addNewServer(mServers.get(mServers.keyAt(i)));
 			}
@@ -79,7 +80,8 @@ public class DataStore {
 		editor.putString(Constants.PREF_KEY_SERVER_NAME + info.id, info.name);
 		editor.putString(Constants.PREF_KEY_SERVER_ADDR + info.id,
 				info.ipAddrString);
-		editor.putString(Constants.PREF_KEY_SERVER_INFO + info.id, info.serverInfoString);
+		editor.putString(Constants.PREF_KEY_SERVER_INFO + info.id,
+				info.serverInfoString);
 		editor.putInt(Constants.PREF_KEY_SERVER_PORT + info.id, info.port);
 		editor.commit();
 	}
@@ -95,7 +97,8 @@ public class DataStore {
 				defname);
 		String user = sp.getString(Constants.PREF_KEY_USER_NAME + index,
 				DEFAULT_USER_NAME);
-		String serverInfo = sp.getString(Constants.PREF_KEY_SERVER_INFO + index, "");
+		String serverInfo = sp.getString(
+				Constants.PREF_KEY_SERVER_INFO + index, "");
 		int port = sp.getInt(Constants.PREF_KEY_SERVER_PORT + index, defPort);
 		YGOServerInfo info = new YGOServerInfo(index + "", user, name, server,
 				port);
@@ -110,8 +113,10 @@ public class DataStore {
 	}
 
 	public void updateCardImageURL(CardImageUrlInfo info) {
-		mCardImageUrlInfo = info;
-		ImageItemInfoHelper.init(info.mEnImgLQUrl);
+		if (info != null) {
+			mCardImageUrlInfo = info;
+			ImageItemInfoHelper.init(info.mEnImgLQUrl);
+		}
 	}
 
 }

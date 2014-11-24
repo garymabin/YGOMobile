@@ -850,6 +850,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 					mainGame->ShowCardInfo(mcard->code);
 				} else {
 					mainGame->imgCard->setImage(imageManager.tCover);
+					mainGame->imgCard->setScaleImage(true);
 					mainGame->stName->setText(L"");
 					mainGame->stInfo->setText(L"");
 					mainGame->stDataInfo->setText(L"");
@@ -1478,6 +1479,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 					} else {
 						mainGame->stTip->setVisible(false);
 						mainGame->imgCard->setImage(imageManager.tCover);
+						mainGame->imgCard->setScaleImage(true);
 						mainGame->stName->setText(L"");
 						mainGame->stInfo->setText(L"");
 						mainGame->stDataInfo->setText(L"");

@@ -115,7 +115,6 @@ public class MainActivity extends ActionBarActivity implements
 						android.R.layout.simple_spinner_dropdown_item,
 						mDuelList), this);
 		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
-		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
 		boolean isFirstRun = checkFirstRunAfterInstall();
 		if (isFirstRun && !checkDiyCardDataBase()) {
@@ -261,12 +260,24 @@ public class MainActivity extends ActionBarActivity implements
 			if (action == FRAGMENT_ID_DUEL) {
 				mActionBarCreator = new ActionBarCreator(this).setNew(true,
 						arg1).setPlay(true);
+				if (mActionBar != null) {
+					mActionBar.setDisplayShowTitleEnabled(false);
+					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+				}
 
 			} else if (action == FRAGMENT_ID_CARD_WIKI) {
 				mActionBarCreator = new ActionBarCreator(this).setFilter(true)
 						.setSearch(true, arg1).setReset(true);
+				if (mActionBar != null) {
+					mActionBar.setDisplayShowTitleEnabled(false);
+					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+				}
 			} else {
 				mActionBarCreator = new ActionBarCreator(this);
+				if (mActionBar != null) {
+					mActionBar.setDisplayShowTitleEnabled(true);
+					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+				}
 			}
 			break;
 		default:

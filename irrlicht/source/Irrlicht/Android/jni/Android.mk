@@ -14,6 +14,10 @@ else
 LOCAL_CFLAGS += -fexpensive-optimizations -O3
 endif
 
+ifeq ($(TARGET_ARCH_ABI), armeabi-v7a)
+LOCAL_CFLAGS += -mno-unaligned-access
+endif
+
 LOCAL_C_INCLUDES := ../../../include
 
 LOCAL_SRC_FILES := \

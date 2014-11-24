@@ -157,17 +157,39 @@ public class StaticApplication extends Application {
 			e.printStackTrace();
 		}
 		boolean needsUpdate = !mCoreConfigVersion.equals(newConfigVersion);
+		initFontList();
 		mCoreConfigVersion = newConfigVersion;
 		saveCoreConfigVersion();
+		checkAndCopyNewDeckFiles(needsUpdate);
 		checkAndCopyCoreConfig(needsUpdate);
 		checkAndCopyGameSkin();
-		initFontList();
 		DatabaseUtils.checkAndCopyFromInternalDatabase(this, mDataBasePath,
 				needsUpdate);
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		mScreenWidth = metrics.widthPixels;
 		mScreenHeight = metrics.heightPixels;
 		initSoundEffectPool();
+	}
+
+	private void checkAndCopyNewDeckFiles(boolean isUpdateNeeded) {
+		File deckDir = new File(getResourcePath(), Constants.CORE_DECK_PATH);
+		if (!deckDir.exists()) {
+			deckDir.mkdirs();
+		}
+		if (isUpdateNeeded) {
+			int assetcopycount = 0;
+			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
+				try {
+					FileOpsUtils.assetsCopy(this, Constants.CORE_DECK_PATH,
+							deckDir.toString(), false);
+				} catch (IOException e) {
+					Log.w(TAG, "copy core skin failed, retry count = "
+							+ assetcopycount);
+					continue;
+				}
+			}
+		}
+		
 	}
 
 	private void initFontList() {
@@ -203,7 +225,7 @@ public class StaticApplication extends Application {
 			mSettingsPref
 					.edit()
 					.putString(Settings.KEY_PREF_GAME_FONT_NAME,
-							Constants.DEFAULT_FONT_NAME).commit();
+							Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME).commit();
 		}
 	}
 
