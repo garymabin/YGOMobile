@@ -189,6 +189,7 @@
    
     <string name="image_not_load_toast">无法加载指定图片</string>
     <string name="copying_image">正在拷贝图片</string>
+    <string name="searching_image_directory">正在扫描卡图...</string>
     <string name="adding_image_download_task">正在添加卡图下载队列...</string>
     <string name="adding_image_download_count_task">正在添加卡图下载队列.(%1$d/%2$d)</string>
     <string name="image_is_downloading">%1$d张卡图正在下载, 点击以查看进度</string>
