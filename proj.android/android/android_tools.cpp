@@ -863,5 +863,18 @@ unsigned char* android_script_reader(const char* script_name, int* slen) {
 	}
 }
 
+bool android_deck_delete(const char* deck_name) {
+	int status;
+	std::string ext_deck_name;
+	if (deck_name[0] != '/' && !(deck_name[0] == '.' && deck_name[1] == '/')) {
+		ext_deck_name.append("./deck/").append(deck_name).append(".ydk");
+	} else {
+		ext_deck_name.append(deck_name);
+	}
+	status = remove(ext_deck_name.c_str());
+
+	return status == 0;
+}
+
 } // namespace android
 } // namespace irr

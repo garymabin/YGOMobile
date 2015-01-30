@@ -725,8 +725,10 @@ bool Game::Initialize() {
 	btnClearDeck = env->addButton(rect<s32>(240 * xScale, 95 * yScale, 290 * xScale, 116 * yScale), wDeckEdit, BUTTON_CLEAR_DECK, dataManager.GetSysString(1304));
 	btnSortDeck = env->addButton(rect<s32>(185 * xScale, 95 * yScale, 235 * xScale, 116 * yScale), wDeckEdit, BUTTON_SORT_DECK, dataManager.GetSysString(1305));
 	btnShuffleDeck = env->addButton(rect<s32>(130 * xScale, 95 * yScale, 180 * xScale, 116 * yScale), wDeckEdit, BUTTON_SHUFFLE_DECK, dataManager.GetSysString(1307));
-	btnDBExit = env->addButton(rect<s32>(10 * xScale, 95 * yScale, 90 * xScale, 116 * yScale), wDeckEdit, BUTTON_DBEXIT, dataManager.GetSysString(1306));
+	btnDeleteDeck = env->addButton(rect<s32>(10 * xScale, 95 * yScale, 75 * xScale, 116 * yScale), wDeckEdit, BUTTON_DELETE_DECK, dataManager.GetSysString(1308));
+	btnDBExit = env->addButton(rect<s32>(205 * xScale, 5 * yScale, 295 * xScale, 80 * yScale), 0, BUTTON_DBEXIT, dataManager.GetSysString(1306));
 	btnSideOK = env->addButton(rect<s32>(510 * xScale, 40 * yScale, 820 * xScale, 80 * yScale), 0, BUTTON_SIDE_OK, dataManager.GetSysString(1334));
+	btnDBExit->setVisible(false);
 	btnSideOK->setVisible(false);
 	//filters
 	wFilter = env->addStaticText(L"", rect<s32>(610 * xScale, 8 * yScale, 1020 * xScale, 130 * yScale), true, false, 0, -1, true);

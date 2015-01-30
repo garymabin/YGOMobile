@@ -45,6 +45,31 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				}
 				break;
 			}
+			case BUTTON_DELETE_DECK: {
+				int sel = mainGame->cbDBDecks->getSelected();
+				const wchar_t* wdname = mainGame->cbDBDecks->getItem(sel);
+				char dname[255] = {0};
+				if(sel != -1) {
+					if (sel == mainGame->cbDBDecks->getItemCount() - 1) {
+						--sel;
+					} else {
+						++sel;
+					}
+					if (sel >= 0) {
+						mainGame->cbDBDecks->setSelected(sel);
+						deckManager.LoadDeck(mainGame->cbDBDecks->getItem(sel));
+					}
+					BufferIO::EncodeUTF8(wdname, dname);
+					if (irr::android::android_deck_delete(dname)) {
+						mainGame->stACMessage->setText(dataManager.GetSysString(1336));
+					} else {
+						mainGame->stACMessage->setText(dataManager.GetSysString(1337));
+					}
+					mainGame->PopupElement(mainGame->wACMessage, 20);
+					mainGame->RefreshDeck(mainGame->cbDBDecks);
+				}
+				break;
+			}
 			case BUTTON_SAVE_DECK_AS: {
 				const wchar_t* dname = mainGame->ebDeckname->getText();
 				if(*dname == 0)
@@ -70,6 +95,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 			}
 			case BUTTON_DBEXIT: {
 				mainGame->is_building = false;
+				mainGame->btnDBExit->setVisible(false);
 				mainGame->wDeckEdit->setVisible(false);
 				mainGame->wCategories->setVisible(false);
 				mainGame->wFilter->setVisible(false);

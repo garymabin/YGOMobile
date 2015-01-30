@@ -299,6 +299,7 @@ void DuelClient::HandleSTOCPacketLan(char* data, unsigned int len) {
 		mainGame->is_building = true;
 		mainGame->is_siding = true;
 		mainGame->wPhase->setVisible(false);
+		mainGame->btnDBExit->setVisible(false);
 		mainGame->wDeckEdit->setVisible(false);
 		mainGame->wFilter->setVisible(false);
 		mainGame->btnSideOK->setVisible(true);

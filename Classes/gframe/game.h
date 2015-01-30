@@ -331,6 +331,7 @@ public:
 	irr::gui::IGUIButton* btnDBExit;
 	irr::gui::IGUIButton* btnSideOK;
 	irr::gui::IGUIEditBox* ebDeckname;
+	irr::gui::IGUIButton* btnDeleteDeck;
 	//filter
 	irr::gui::IGUIStaticText* wFilter;
 	irr::gui::IGUIScrollBar* scrFilter;
@@ -488,5 +489,6 @@ extern Game* mainGame;
 #define BUTTON_CANCEL_SINGLEPLAY	352
 #ifdef _IRR_ANDROID_PLATFORM_
 #define GUI_INFO_FPS 1000
+#define BUTTON_DELETE_DECK	1001
 #endif
 #endif // GAME_H

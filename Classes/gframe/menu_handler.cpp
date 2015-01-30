@@ -224,6 +224,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 				mainGame->is_siding = false;
 				mainGame->wInfos->setVisible(true);
 				mainGame->wCardImg->setVisible(true);
+				mainGame->btnDBExit->setVisible(true);
 				mainGame->wDeckEdit->setVisible(true);
 				mainGame->wFilter->setVisible(true);
 				mainGame->btnSideOK->setVisible(false);

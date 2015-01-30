@@ -103,6 +103,8 @@ extern s32 handleInput(android_app* app, AInputEvent* androidEvent);
 
 extern unsigned char* android_script_reader(const char* script_name, int* slen);
 
+extern bool android_deck_delete(const char* deck_name);
+
 }
 }
 
