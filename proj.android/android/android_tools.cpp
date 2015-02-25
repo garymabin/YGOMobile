@@ -153,6 +153,36 @@ irr::io::path getExternalStorageDir(android_app* app) {
 	return ret;
 }
 
+irr::io::path getExternalFilesDir(android_app* app) {
+	irr::io::path ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+
+	jmethodID evMethod = jni->GetMethodID(classApp, "getCompatExternalFilesDir",
+			"()Ljava/lang/String;");
+	jstring retString = (jstring) jni->CallObjectMethod(application, evMethod);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	jni->DeleteLocalRef(classApp);
+
+	const char* chars = jni->GetStringUTFChars(retString, NULL);
+	ret.append(chars);
+	jni->ReleaseStringUTFChars(retString, chars);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
 irr::io::path getDBDir(android_app* app) {
 	irr::io::path ret;
 	if (!app || !app->activity || !app->activity->vm)
@@ -821,10 +851,28 @@ unsigned char* android_script_reader(const char* script_name, int* slen) {
 		*slen = len;
 		return script_buffer;
 	} else if (typeDir == "script") {
-		int lastSeperatorIndex = handledname.find_last_of('/');
-		handledname = handledname.substr(lastSeperatorIndex + 1, handledname.length());
-		IReadFile* file = fs->createAndOpenFile(handledname.c_str());
-		if (file) {
+		//try to find in directory based script.
+		if (access(script_name, F_OK) != -1) {
+			FILE *fp;
+			fp = fopen(script_name, "rb");
+			fseek(fp, 0, SEEK_END);
+			uint32 len = ftell(fp);
+			if (len > 0x10000) {
+				fclose(fp);
+				LOGW("read %s failed: too large file", script_name);
+				return 0;
+			}
+			fseek(fp, 0, SEEK_SET);
+			fread(script_buffer, len, 1, fp);
+			fclose(fp);
+			*slen = len;
+			return script_buffer;
+		} else {
+			IReadFile* file = fs->createAndOpenFile(handledname.c_str());
+			if (!file) {
+				LOGW("read %s failed: file not exist", script_name);
+				return 0;
+			}
 			if (file->getSize() > 0x10000) {
 				LOGW("read %s failed: too large file", script_name);
 				return 0;
@@ -838,24 +886,6 @@ unsigned char* android_script_reader(const char* script_name, int* slen) {
 			} else {
 				return script_buffer;
 			}
-		} else {
-			//try to find in directory based script.
-			FILE *fp;
-			fp = fopen(script_name, "rb");
-			if (!fp)
-				return 0;
-			fseek(fp, 0, SEEK_END);
-			uint32 len = ftell(fp);
-			if (len > 0x10000) {
-				fclose(fp);
-				LOGW("read %s failed: too large file", script_name);
-				return 0;
-			}
-			fseek(fp, 0, SEEK_SET);
-			fread(script_buffer, len, 1, fp);
-			fclose(fp);
-			*slen = len;
-			return script_buffer;
 		}
 	} else {
 		LOGW("read %s failed: unknown script source", script_name);

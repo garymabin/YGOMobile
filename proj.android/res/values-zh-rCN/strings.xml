@@ -203,6 +203,14 @@
     <string name="images_download_success">下载成功</string>
     <string name="click_to_view">点击查看</string>
     
+    <string name="checking_resource">正在检查资源</string>
+    <string name="updating_fonts">正在加载字体列表</string>
+    <string name="updating_decks">正在更新卡组</string>
+    <string name="updating_config">正在检查核心配置文件</string>
+    <string name="updating_skin">正在检查皮肤</string>
+    <string name="updating_scripts">正在检查更新脚本</string>
+    <string name="updating_card_data_base">正在更新卡片数据库</string>
+    
     <string name="loading_card_db">正在导入卡片数据库</string>
     <string name="resume_card_db">导入卡片数据库失败，正在恢复原始数据库</string>
     <string name="loading_card_success">"导入成功，卡查变更需要完全退出游戏后生效！"</string>

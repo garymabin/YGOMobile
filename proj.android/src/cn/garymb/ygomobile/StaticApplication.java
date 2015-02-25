@@ -21,6 +21,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +36,6 @@ import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.CrashSender;
-import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.net.defaulthttp.ThreadSafeHttpClientFactory;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DatabaseUtils;
@@ -82,8 +82,6 @@ resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, // optional. when
 resDialogOkToast = R.string.crash_dialog_ok_toast)
 public class StaticApplication extends Application {
 
-	public static final int CORE_CONFIG_COPY_COUNT = 3;
-
 	private static final String TAG = "StaticApplication";
 
 	public static Pair<String, String> sRootPair;
@@ -94,11 +92,7 @@ public class StaticApplication extends Application {
 
 	private SharedPreferences mSettingsPref;
 
-	private String mCoreConfigVersion;
-
 	private String mDataBasePath;
-
-	private String mCoreSkinPath;
 
 	private float mScreenWidth;
 
@@ -115,6 +109,8 @@ public class StaticApplication extends Application {
 	private ArrayList<String> mFontsPath = new ArrayList<String>();
 
 	private Map<String, Integer> mSoundIdMap;
+	
+	private String mCoreConfigVersion;
 
 	static {
 		System.loadLibrary("YGOMobile");
@@ -132,8 +128,6 @@ public class StaticApplication extends Application {
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
 		sRootPair = Pair
 				.create(getResources().getString(R.string.root_dir), "/"/* "Environment.getExternalStorageDirectory().getPath()" */);
-		mCoreSkinPath = getCacheDir() + File.separator
-				+ Constants.CORE_SKIN_PATH;
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(this);
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
 			mDataBasePath = getApplicationInfo().dataDir + "/databases/";
@@ -149,84 +143,10 @@ public class StaticApplication extends Application {
 			e.printStackTrace();
 		}
 		Controller.peekInstance();
-		loadCoreConfigVersion();
-		String newConfigVersion = null;
-		try {
-			newConfigVersion = getAssets().list(Constants.CORE_CONFIG_PATH)[0];
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		boolean needsUpdate = !mCoreConfigVersion.equals(newConfigVersion);
-		initFontList();
-		mCoreConfigVersion = newConfigVersion;
-		saveCoreConfigVersion();
-		checkAndCopyNewDeckFiles(needsUpdate);
-		checkAndCopyCoreConfig(needsUpdate);
-		checkAndCopyGameSkin();
-		DatabaseUtils.checkAndCopyFromInternalDatabase(this, mDataBasePath,
-				needsUpdate);
+		initSoundEffectPool();
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		mScreenWidth = metrics.widthPixels;
 		mScreenHeight = metrics.heightPixels;
-		initSoundEffectPool();
-	}
-
-	private void checkAndCopyNewDeckFiles(boolean isUpdateNeeded) {
-		File deckDir = new File(getResourcePath(), Constants.CORE_DECK_PATH);
-		if (!deckDir.exists()) {
-			deckDir.mkdirs();
-		}
-		if (isUpdateNeeded) {
-			int assetcopycount = 0;
-			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
-				try {
-					FileOpsUtils.assetsCopy(this, Constants.CORE_DECK_PATH,
-							deckDir.toString(), false);
-				} catch (IOException e) {
-					Log.w(TAG, "copy core skin failed, retry count = "
-							+ assetcopycount);
-					continue;
-				}
-			}
-		}
-		
-	}
-
-	private void initFontList() {
-		File systemFontDir = new File(Constants.SYSTEM_FONT_DIR);
-		String[] fonts = systemFontDir.list();
-		for (String name : fonts) {
-			Log.i(TAG, "load system font : " + name);
-			mFontsPath.add(new File(systemFontDir, name).toString());
-		}
-		// load extra font
-		File extraDir = new File(getDefaultResPath() + Constants.FONT_DIRECTORY);
-		if (extraDir.exists() && extraDir.exists()) {
-			fonts = extraDir.list();
-			boolean isFontHit = false;
-			String currentFont = mSettingsPref.getString(
-					Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME);
-			for (String name : fonts) {
-				Log.i(TAG, "load user define font : " + name);
-				mFontsPath.add(new File(extraDir, name).toString());
-				if (currentFont.equals(name)) {
-					isFontHit = true;
-				}
-			}
-			// for update compatability.
-			if (isFontHit) {
-				mSettingsPref
-						.edit()
-						.putString(Settings.KEY_PREF_GAME_FONT_NAME,
-								new File(extraDir, currentFont).toString())
-						.commit();
-			}
-		} else {
-			mSettingsPref
-					.edit()
-					.putString(Settings.KEY_PREF_GAME_FONT_NAME,
-							Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME).commit();
-		}
 	}
 
 	@Override
@@ -259,74 +179,6 @@ public class StaticApplication extends Application {
 		}
 	}
 
-	private void checkAndCopyGameSkin() {
-		File coreSkinDir = new File(mCoreSkinPath);
-		if (coreSkinDir != null && coreSkinDir.exists()
-				&& coreSkinDir.isDirectory()) {
-			return;
-		}
-		if (coreSkinDir != null && coreSkinDir.exists()
-				&& !coreSkinDir.isDirectory()) {
-			coreSkinDir.delete();
-		}
-		// we need to copy from configs from assets;
-		int assetcopycount = 0;
-		while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
-			try {
-				FileOpsUtils.assetsCopy(this, Constants.CORE_SKIN_PATH,
-						coreSkinDir.getAbsolutePath(), false);
-				break;
-			} catch (IOException e) {
-				Log.w(TAG, "copy core skin failed, retry count = "
-						+ assetcopycount);
-				continue;
-			}
-		}
-	}
-
-	private void checkAndCopyCoreConfig(boolean needsUpdate) {
-		File internalCacheDir = getCacheDir();
-		if (internalCacheDir != null) {
-			File coreConfigDir = new File(internalCacheDir,
-					Constants.CORE_CONFIG_PATH);
-			if (coreConfigDir != null && coreConfigDir.exists()
-					&& coreConfigDir.isDirectory() && !needsUpdate) {
-				return;
-			}
-			if (needsUpdate
-					|| (coreConfigDir != null && coreConfigDir.exists() && !coreConfigDir
-							.isDirectory())) {
-				coreConfigDir.delete();
-			}
-			// we need to copy from configs from assets;
-			int assetcopycount = 0;
-			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
-				try {
-					FileOpsUtils.assetsCopy(this, Constants.CORE_CONFIG_PATH,
-							coreConfigDir.getAbsolutePath(), false);
-					break;
-				} catch (IOException e) {
-					Log.w(TAG, "copy core config failed, retry count = "
-							+ assetcopycount);
-					continue;
-				}
-			}
-		}
-	}
-
-	private void saveCoreConfigVersion() {
-		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE_COMMON,
-				Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sp.edit();
-		editor.putString(Constants.PREF_KEY_DATA_VERSION, mCoreConfigVersion);
-		editor.commit();
-	}
-
-	private void loadCoreConfigVersion() {
-		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE_COMMON,
-				Context.MODE_PRIVATE);
-		mCoreConfigVersion = sp.getString(Constants.PREF_KEY_DATA_VERSION, "");
-	}
 
 	public byte[] getSignInfo() {
 		try {
@@ -375,7 +227,16 @@ public class StaticApplication extends Application {
 	}
 
 	public String getCoreSkinPath() {
-		return mCoreSkinPath;
+		return getCacheDir() + File.separator
+				+ Constants.CORE_SKIN_PATH;
+	}
+	
+	public String getCoreConfigVersion() {
+		return mCoreConfigVersion;
+	}
+	
+	public void setCoreConfigVersion(String ver) {
+		mCoreConfigVersion = ver;
 	}
 
 	public String getDefaultFontName() {
@@ -395,6 +256,10 @@ public class StaticApplication extends Application {
 
 	public ArrayList<String> getFontList() {
 		return mFontsPath;
+	}
+	
+	public void setFontList(Collection<? extends String> list) {
+		mFontsPath.addAll(list);
 	}
 
 	public void setResourcePath(String path) {
@@ -431,9 +296,11 @@ public class StaticApplication extends Application {
 	public String getDataBasePath() {
 		return mDataBasePath;
 	}
-
-	public String getCoreConfigVersion() {
-		return mCoreConfigVersion;
+	
+	public String getCompatExternalFilesDir() {
+		String path = getExternalFilesDir(null).toString();
+		String prefix = Environment.getExternalStorageDirectory().getPath();
+		return path.replace(prefix, "/mnt/sdcard");
 	}
 
 	public int getOpenglVersion() {

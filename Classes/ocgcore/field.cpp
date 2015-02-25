@@ -17,7 +17,7 @@
 
 int32 field::field_used_count[32] = {0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5};
 
-bool chain::chain_operation_sort(chain c1, chain c2) {
+bool chain::chain_operation_sort(const chain& c1, const chain& c2) {
 	return c1.triggering_effect->id < c2.triggering_effect->id;
 }
 bool tevent::operator< (const tevent& v) const {
@@ -25,15 +25,15 @@ bool tevent::operator< (const tevent& v) const {
 }
 field::field(duel* pduel) {
 	this->pduel = pduel;
-	infos.copy_id = 1;
-	infos.turn_player = 0;
-	infos.turn_id = 0;
 	infos.field_id = 1;
+	infos.copy_id = 1;
+	infos.turn_id = 0;
 	infos.card_id = 1;
+	infos.phase = 0;
+	infos.turn_player = 0;
 	for (int i = 0; i < 2; ++i) {
 		cost[i].count = 0;
 		cost[i].amount = 0;
-		cost[i].lpstack[i] = 0;
 		core.hint_timing[i] = 0;
 		player[i].lp = 8000;
 		player[i].start_count = 5;
@@ -594,6 +594,7 @@ void field::swap_deck_and_grave(uint8 playerid) {
 		(*clit)->current.reason_player = core.reason_player;
 		(*clit)->apply_field_effect();
 		(*clit)->enable_field_effect(true);
+		(*clit)->reset(RESET_TOGRAVE, RESET_EVENT);
 	}
 	for(clit = player[playerid].list_main.begin(); clit != player[playerid].list_main.end(); ++clit) {
 		(*clit)->current.location = LOCATION_DECK;
@@ -602,6 +603,7 @@ void field::swap_deck_and_grave(uint8 playerid) {
 		(*clit)->current.reason_player = core.reason_player;
 		(*clit)->apply_field_effect();
 		(*clit)->enable_field_effect(true);
+		(*clit)->reset(RESET_TODECK, RESET_EVENT);
 	}
 	for(clit = ex.begin(); clit != ex.end(); ++clit) {
 		(*clit)->current.location = LOCATION_EXTRA;
@@ -610,6 +612,7 @@ void field::swap_deck_and_grave(uint8 playerid) {
 		(*clit)->current.reason_player = core.reason_player;
 		(*clit)->apply_field_effect();
 		(*clit)->enable_field_effect(true);
+		(*clit)->reset(RESET_TODECK, RESET_EVENT);
 	}
 	player[playerid].list_extra.insert(player[playerid].list_extra.end(), ex.begin(), ex.end());
 	reset_sequence(playerid, LOCATION_GRAVE);

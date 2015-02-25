@@ -5,8 +5,10 @@ import cn.garymb.ygomobile.controller.actionbar.ActionBarCreator;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.common.ImageDLAddTask;
 import cn.garymb.ygomobile.common.ImageDLCheckTask;
+import cn.garymb.ygomobile.common.ResCheckTask;
 import cn.garymb.ygomobile.common.ImageDLAddTask.ImageDLAddListener;
 import cn.garymb.ygomobile.common.ImageDLCheckTask.ImageDLCheckListener;
+import cn.garymb.ygomobile.common.ResCheckTask.ResCheckListener;
 import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.DownloadService;
 import cn.garymb.ygomobile.core.IBaseTask;
@@ -25,7 +27,6 @@ import com.umeng.update.UmengUpdateAgent;
 
 import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
 import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +55,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements
 		OnActionBarChangeCallback, Handler.Callback, Constants,
-		OnNavigationListener, ISimpleDialogListener, ImageDLCheckListener {
+		OnNavigationListener, ISimpleDialogListener, ImageDLCheckListener, ResCheckListener {
 
 	public static class EventHandler extends Handler {
 		public EventHandler(Callback back) {
@@ -116,18 +117,13 @@ public class MainActivity extends ActionBarActivity implements
 						mDuelList), this);
 		mActionBar.setSelectedNavigationItem(DUEL_INDEX_FREE_MODE);
 		UmengUpdateAgent.update(this);
-		boolean isFirstRun = checkFirstRunAfterInstall();
-		if (isFirstRun && !checkDiyCardDataBase()) {
-			SimpleDialogFragment.createBuilder(this, mFragmentManager)
-					.setMessage(R.string.card_img_check_hint)
-					.setTitle(R.string.card_img_update_title)
-					.setPositiveButtonText(R.string.button_update)
-					.setNegativeButtonText(R.string.button_cancel)
-					.setRequestCode(0).show();
+		ResCheckTask task = new ResCheckTask(this);
+		task.setResCheckListener(this);
+		if (Build.VERSION.SDK_INT >= 11) {
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			task.execute();
 		}
-		Intent service = new Intent(this, DownloadService.class);
-		bindService(service, mServiceConn, Context.BIND_AUTO_CREATE);
-		showImageDownloadStatus(getIntent());
 	}
 
 	@Override
@@ -262,7 +258,8 @@ public class MainActivity extends ActionBarActivity implements
 						arg1).setPlay(true);
 				if (mActionBar != null) {
 					mActionBar.setDisplayShowTitleEnabled(false);
-					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+					mActionBar
+							.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 				}
 
 			} else if (action == FRAGMENT_ID_CARD_WIKI) {
@@ -270,13 +267,15 @@ public class MainActivity extends ActionBarActivity implements
 						.setSearch(true, arg1).setReset(true);
 				if (mActionBar != null) {
 					mActionBar.setDisplayShowTitleEnabled(false);
-					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+					mActionBar
+							.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 				}
 			} else {
 				mActionBarCreator = new ActionBarCreator(this);
 				if (mActionBar != null) {
 					mActionBar.setDisplayShowTitleEnabled(true);
-					mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+					mActionBar
+							.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 				}
 			}
 			break;
@@ -313,8 +312,7 @@ public class MainActivity extends ActionBarActivity implements
 							Toast.LENGTH_SHORT).show();
 				}
 			} else {
-				Toast.makeText(this,
-						R.string.card_image_dl_not_avail,
+				Toast.makeText(this, R.string.card_image_dl_not_avail,
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
@@ -356,7 +354,8 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	private boolean checkDiyCardDataBase() {
-		SharedPreferences sp = StaticApplication.peekInstance().getApplicationSettings();
+		SharedPreferences sp = StaticApplication.peekInstance()
+				.getApplicationSettings();
 		return sp.getBoolean(Settings.KEY_PREF_GAME_DIY_CARD_DB, false);
 	}
 
@@ -438,8 +437,25 @@ public class MainActivity extends ActionBarActivity implements
 				task.execute(result);
 			}
 		} else {
-			Toast.makeText(this, R.string.card_image_already_updated, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.card_image_already_updated,
+					Toast.LENGTH_SHORT).show();
 		}
 
+	}
+
+	@Override
+	public void onResCheckFinished(int result) {
+		boolean isFirstRun = checkFirstRunAfterInstall();
+		if (isFirstRun && !checkDiyCardDataBase()) {
+			SimpleDialogFragment.createBuilder(this, mFragmentManager)
+					.setMessage(R.string.card_img_check_hint)
+					.setTitle(R.string.card_img_update_title)
+					.setPositiveButtonText(R.string.button_update)
+					.setNegativeButtonText(R.string.button_cancel)
+					.setRequestCode(0).show();
+		}
+		Intent service = new Intent(this, DownloadService.class);
+		bindService(service, mServiceConn, Context.BIND_AUTO_CREATE);
+		showImageDownloadStatus(getIntent());		
 	}
 }

@@ -64,6 +64,7 @@
 }
 #keep StaticApplication's C++ called method
 -keep class cn.garymb.ygomobile.StaticApplication {
+    public java.lang.String getCompatExternalFilesDir();
     public java.lang.String getCardImagePath();
     public java.lang.String getCoreConfigVersion();
     public java.lang.String getResourcePath();

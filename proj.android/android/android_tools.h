@@ -37,6 +37,9 @@ extern bool getDisplayMetrics(android_app* app, SDisplayMetrics & metrics);
 // Get SDCard path.
 extern irr::io::path getExternalStorageDir(android_app* app);
 
+// Get SDCard path.
+extern irr::io::path getExternalFilesDir(android_app* app);
+
 // Get cache path.
 extern irr::io::path getCacheDir(android_app* app);
 

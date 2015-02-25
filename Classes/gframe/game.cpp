@@ -83,7 +83,7 @@ bool Game::Initialize() {
 	io::path configVersion = irr::android::getCoreConfigVersion(appMain);
 	io::path workingDir = irr::android::getResourcePath(appMain);
 	fs->changeWorkingDirectoryTo(workingDir);
-	io::path mainScriptPath = workingDir + "script/script.zip";
+	io::path mainScriptPath = irr::android::getExternalFilesDir(appMain) + "/scripts/main.zip";
 	if(fs->addFileArchive(mainScriptPath, false, false, EFAT_ZIP)) {
 		os::Printer::log("add script arrchive");
 	}

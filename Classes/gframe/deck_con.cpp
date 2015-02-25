@@ -45,29 +45,42 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				}
 				break;
 			}
-			case BUTTON_DELETE_DECK: {
+			case BUTTON_YES: {
+				mainGame->HideElement(mainGame->wQuery);
 				int sel = mainGame->cbDBDecks->getSelected();
 				const wchar_t* wdname = mainGame->cbDBDecks->getItem(sel);
 				char dname[255] = {0};
+				BufferIO::EncodeUTF8(wdname, dname);
 				if(sel != -1) {
+					mainGame->cbDBDecks->removeItem(sel);
 					if (sel == mainGame->cbDBDecks->getItemCount() - 1) {
 						--sel;
 					} else {
-						++sel;
+						sel = 0;
 					}
 					if (sel >= 0) {
 						mainGame->cbDBDecks->setSelected(sel);
 						deckManager.LoadDeck(mainGame->cbDBDecks->getItem(sel));
 					}
-					BufferIO::EncodeUTF8(wdname, dname);
 					if (irr::android::android_deck_delete(dname)) {
 						mainGame->stACMessage->setText(dataManager.GetSysString(1336));
 					} else {
 						mainGame->stACMessage->setText(dataManager.GetSysString(1337));
 					}
 					mainGame->PopupElement(mainGame->wACMessage, 20);
-					mainGame->RefreshDeck(mainGame->cbDBDecks);
+					mainGame->RefreshDeck(mainGame->cbDeckSelect);
 				}
+				break;
+
+			}
+			case BUTTON_NO: {
+				mainGame->HideElement(mainGame->wQuery);
+				break;
+			}
+			case BUTTON_DELETE_DECK: {
+				mainGame->SetStaticText(mainGame->stQMessage, 331, mainGame->textFont,
+								(wchar_t*) dataManager.GetDesc(1338));
+				mainGame->PopupElement(mainGame->wQuery);
 				break;
 			}
 			case BUTTON_SAVE_DECK_AS: {
@@ -106,6 +119,9 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				mainGame->wACMessage->setVisible(false);
 				imageManager.ClearTexture();
 				mainGame->scrFilter->setVisible(false);
+				if(mainGame->wQuery->isVisible()) {
+					mainGame->HideElement(mainGame->wQuery);
+				}
 				if(mainGame->cbDBDecks->getSelected() != -1) {
 					BufferIO::CopyWStr(mainGame->cbDBDecks->getItem(mainGame->cbDBDecks->getSelected()), mainGame->gameConf.lastdeck, 64);
 				}
