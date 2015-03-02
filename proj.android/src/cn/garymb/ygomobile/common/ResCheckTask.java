@@ -92,9 +92,23 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				needsUpdate);
 		publishProgress(R.string.updating_scripts);
 		checkAndCopyScripts(needsUpdate);
+		publishProgress(R.string.updating_dirs);
+		checkDirs();
 		return 0;
 	}
 	
+	private void checkDirs() {
+		String[] dirs = {"script", "single", "deck", "replay", "fonts"};
+		File dirFile = null;
+		for (String dir : dirs) {
+			dirFile = new File(mApp.getResourcePath(), dir);
+			if (!dirFile.exists()) {
+				dirFile.mkdirs();
+			}
+		}
+		
+	}
+
 	private void checkAndCopyScripts(boolean isUpdateNeeded) {
 		File scriptDir = new File(mApp.getCompatExternalFilesDir(), "/scripts");
 		File scriptFile = new File(scriptDir, "main.zip");
