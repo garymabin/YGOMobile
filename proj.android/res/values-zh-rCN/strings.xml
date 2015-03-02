@@ -209,6 +209,7 @@
     <string name="updating_config">正在检查核心配置文件</string>
     <string name="updating_skin">正在检查皮肤</string>
     <string name="updating_scripts">正在检查更新脚本</string>
+    <string name="updating_dirs">正在检查必要文件夹</string>
     <string name="updating_card_data_base">正在更新卡片数据库</string>
     
     <string name="loading_card_db">正在导入卡片数据库</string>
