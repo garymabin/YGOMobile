@@ -202,6 +202,15 @@
     <string name="images_download_success">Download completed</string>
     <string name="click_to_view">Click to view</string>
     
+    <string name="checking_resource">Checking resuource</string>
+    <string name="updating_fonts">Loading fonts</string>
+    <string name="updating_decks">Updating decks</string>
+    <string name="updating_config">Checking core configuration</string>
+    <string name="updating_skin">Checking skins</string>
+    <string name="updating_scripts">Checking scripts</string>
+    <string name="updating_dirs">Creating directories</string>
+    <string name="updating_card_data_base">Updating card database</string>
+    
     <string name="loading_card_db">Importing custom database</string>
     <string name="resume_card_db">Import failed，now restoring internal card database</string>
     <string name="loading_card_success">"Import success，please restart app！"</string>
