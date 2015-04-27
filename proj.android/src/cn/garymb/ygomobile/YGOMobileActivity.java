@@ -257,7 +257,7 @@ public class YGOMobileActivity extends NativeActivity implements
 		if (options != null) {
 			Log.d(TAG, "receive from mycard:" + options.toString());
 			ByteBuffer buffer = options.toByteBuffer();
-			IrrlichtBridge.joinGame(buffer);
+			IrrlichtBridge.joinGame(buffer, buffer.position());
 		}
 	}
 

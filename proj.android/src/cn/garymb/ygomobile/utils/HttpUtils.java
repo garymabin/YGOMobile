@@ -111,7 +111,7 @@ public class HttpUtils {
 			return null;
 		}
 	}
-
+	
 	public static boolean doGet(HttpClient client, String uri, StringBuilder out) {
 
 		HttpGet request = new HttpGet(uri);
@@ -233,7 +233,7 @@ public class HttpUtils {
 		return encoding != null && GZIP.equalsIgnoreCase(encoding.getValue());
 	}
 	
-	private static boolean isGZipContent(Response resp) {
+	public static boolean isGZipContent(Response resp) {
 		String headerValue = resp.header("content-encoding");
 		if (headerValue != null && headerValue.toLowerCase().equals(GZIP)) {
 			return true;

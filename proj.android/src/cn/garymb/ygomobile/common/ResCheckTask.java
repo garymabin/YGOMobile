@@ -6,19 +6,32 @@ import java.util.ArrayList;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
+import cn.garymb.ygomobile.core.BaseTask.TaskStatusCallback;
+import cn.garymb.ygomobile.core.SimpleDownloadTask;
+import cn.garymb.ygomobile.data.wrapper.IBaseJob;
+import cn.garymb.ygomobile.data.wrapper.SimpleDownloadJob;
+import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DatabaseUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
+import cn.garymb.ygomobile.widget.ProgressUpdateDialog;
+import de.greenrobot.event.EventBus;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	
 	public static final int RES_ERR_NO_FONT_AVAIL = -1;
+	
+	private static final int RES_CHECK_TYPE_MESSAGE_UPDATE = 1;
+	private static final int RES_CHECK_TYPE_PROGRESS_UPDATE = 2;
 	
 	public interface ResCheckListener {
 		void onResCheckFinished(int result);
@@ -29,14 +42,19 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	private static final String TAG = "ResCheckTask";
 	
 	private StaticApplication mApp;
+	private Activity mContext;
 	
 	private SharedPreferences mSettingsPref;
 	
 	private ProgressDialog mWaitDialog;
+	private ProgressUpdateDialog mProgressUpdateDialog;
 	
 	private ResCheckListener mListener;
 	
-	public ResCheckTask(Context context) {
+	private Object mLock = new Object();
+	
+	public ResCheckTask(Activity context) {
+		mContext = context;
 		mApp = StaticApplication.peekInstance();
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(mApp);
 		
@@ -78,21 +96,21 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			e.printStackTrace();
 		}
 		boolean needsUpdate = !currentConfigVersion.equals(newConfigVersion);
-		publishProgress(R.string.updating_fonts);
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_fonts);
 		initFontList();
 		saveCoreConfigVersion(newConfigVersion);
-		publishProgress(R.string.updating_decks);
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_decks);
 		checkAndCopyNewDeckFiles(needsUpdate);
-		publishProgress(R.string.updating_config);
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_config);
 		checkAndCopyCoreConfig(needsUpdate);
-		publishProgress(R.string.updating_skin);
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_skin);
 		checkAndCopyGameSkin();
 		publishProgress(R.string.updating_card_data_base);
 		DatabaseUtils.checkAndCopyFromInternalDatabase(mApp, mApp.getDataBasePath(),
 				needsUpdate);
-		publishProgress(R.string.updating_scripts);
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_scripts);
 		checkAndCopyScripts(needsUpdate);
-		publishProgress(R.string.updating_dirs);
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_dirs);
 		checkDirs();
 		return 0;
 	}
@@ -133,8 +151,27 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	@Override
 	protected void onProgressUpdate(Integer... values) {
 		super.onProgressUpdate(values);
-		mWaitDialog.setMessage(mApp.getResources().getString(
-				values[0]));
+		if (values[0] == RES_CHECK_TYPE_MESSAGE_UPDATE) {
+			mWaitDialog.setMessage(mApp.getResources().getString(
+					values[1]));
+		} else if (values[0] == RES_CHECK_TYPE_PROGRESS_UPDATE){
+			if(values[0] == 0) {
+				mWaitDialog.dismiss();
+				if (mProgressUpdateDialog == null) {
+					View content = mContext.getLayoutInflater().inflate(R.layout.image_dl_dialog, null);
+					mProgressUpdateDialog = new ProgressUpdateDialog(mApp, null, content, null);
+				}
+				if (!mProgressUpdateDialog.isShowing()) {
+					mProgressUpdateDialog.show();
+				}
+			} else {
+				if (mProgressUpdateDialog != null) {
+					mProgressUpdateDialog.dismiss();
+				}
+				mWaitDialog.show();
+			}
+			
+		}
 	}
 	
 	private void checkAndCopyNewDeckFiles(boolean isUpdateNeeded) {
@@ -158,7 +195,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		
 	}
 	
-	private void initFontList() {
+	private boolean initFontList() {
 		File systemFontDir = new File(Constants.SYSTEM_FONT_DIR);
 		ArrayList<String> fontsPath = new ArrayList<String>();
 		String[] fonts = systemFontDir.list();
@@ -189,12 +226,42 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 						.commit();
 			}
 		} else {
-			mSettingsPref
+			File defaultFont = new File(Constants.SYSTEM_FONT_DIR + Constants.DEFAULT_FONT_NAME);
+			if (defaultFont.exists()) {
+				mSettingsPref
 					.edit()
 					.putString(Settings.KEY_PREF_GAME_FONT_NAME,
 							Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME).commit();
+			} else {
+//				File wqyFont = new File(extraDir, "WQYMicroHei.TTF");
+//				SimpleDownloadJob job = new SimpleDownloadJob(ResourcesConstants.FONTS_DOWNLOAD_URL, wqyFont.getAbsolutePath());
+//				SimpleDownloadTask task = new SimpleDownloadTask(StaticApplication.peekInstance().getOkHttpClient());
+//				EventBus.getDefault().register(mProgressUpdateDialog.getController());
+//				task.setTaskStatusCallback(new TaskStatusCallback() {
+//					@Override
+//					public void onTaskFinish(int type, int result) {
+//						if (result == IBaseJob.STATUS_SUCCESS) {
+//							synchronized (mLock) {
+//								mLock.notifyAll();
+//								publishProgress(RES_CHECK_TYPE_PROGRESS_UPDATE, 1);
+//							}
+//						}
+//					}
+//				});
+//				task.addJob(job);
+//				publishProgress(RES_CHECK_TYPE_PROGRESS_UPDATE, 0);
+//				synchronized (mLock) {
+//					try {
+//						mLock.wait();
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//				}
+				publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.no_avail_font_file);
+			}
 		}
 		mApp.setFontList(fontsPath);
+		return true;
 	}
 	
 	private void saveCoreConfigVersion(String version) {

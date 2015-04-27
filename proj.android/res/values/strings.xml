@@ -216,6 +216,7 @@
     <string name="loading_card_success">"Import success，please restart app！"</string>
     <string name="loading_card_failed">"Import failed</string>
     <string name="loading_card_file_not_found">"Import file does not exist"</string>
+    <string name="no_avail_font_file">No available font file！</string>
     
     <string name="reseting_card_db">Restoring card database</string>
     
@@ -226,4 +227,6 @@
     <string name="settings_game_opengl">OpenGL</string>
     <string name="action_filter_string_ot">OCG/TCG</string>
     <string name="action_new_room">New</string>
+    
+    <string name="already_updated">already updated!</string>
 </resources>

@@ -60,8 +60,8 @@ public class CardFilterSearchActionView extends SearchView implements ICardFilte
 						+ " = " + mFilterString + ")" + "OR ( " + YGOCards.Texts.NAME
 						+ " LIKE '%" + mFilterString + "%' ))";
 			} else {
-				return " ( " + YGOCards.Texts.NAME
-						+ " LIKE '%" + mFilterString + "%' )";
+				return "(( " + YGOCards.Texts.NAME
+						+ " LIKE '%" + mFilterString + "%' ) OR ( " + YGOCards.Texts.DESC + " LIKE '%" + mFilterString + "%' ))";
 			}
 		}
 	}

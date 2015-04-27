@@ -12,6 +12,8 @@ using namespace irr;
 using namespace gui;
 
 extern "C" {
+
+static void* s_init_param_buffer = NULL;
 /*
  * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeInsertText
@@ -162,6 +164,8 @@ static void* join_game_thread(void* param) {
 		ygo::mainGame->device->postEventFromUser(event);
 	}
 	exit: ygo::mainGame->gMutex.Unlock();
+
+	free(param);
 	return NULL;
 }
 
@@ -272,14 +276,16 @@ static void* cancel_chain_thread(void* param) {
 /*
  * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeJoinGame
- * Signature: (ILjava/nio/ByteBuffer;)V
+ * Signature: (ILjava/nio/ByteBuffer;I)V
  */JNIEXPORT void JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_nativeJoinGame(
-		JNIEnv* env, jclass clazz, jint handle, jobject buffer) {
+		JNIEnv* env, jclass clazz, jint handle, jobject buffer, jint length) {
 	void* data = env->GetDirectBufferAddress(buffer);
+	s_init_param_buffer = malloc(length);
+	memcpy(s_init_param_buffer, data, length);
 	pthread_t joinGameThread;
 	pthread_attr_t joinGameAttr;
 	pthread_attr_init(&joinGameAttr);
-	pthread_create(&joinGameThread, &joinGameAttr, join_game_thread, data);
+	pthread_create(&joinGameThread, &joinGameAttr, join_game_thread, s_init_param_buffer);
 	pthread_attr_destroy(&joinGameAttr);
 	pthread_detach(joinGameThread);
 }

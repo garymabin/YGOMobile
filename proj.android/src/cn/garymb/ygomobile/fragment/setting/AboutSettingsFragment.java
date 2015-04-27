@@ -1,6 +1,9 @@
 package cn.garymb.ygomobile.fragment.setting;
 
 import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
@@ -64,6 +67,16 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 			bundle.putInt("titleRes", R.string.settings_about_change_log);
 			showDialog(DIALOG_TYPE_VERSION, bundle);
 		} else if (preference.equals(mCheckUpdatePref)) {
+			UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+			    @Override
+			    public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
+			        switch (updateStatus) {
+			        case UpdateStatus.No: // has no update
+			            Toast.makeText(getActivity(), R.string.already_updated, Toast.LENGTH_SHORT).show();
+			            break;
+			        }
+			    }
+			});
 			UmengUpdateAgent.forceUpdate(getActivity());
 		} else if (preference.equals(mProjectLocPref)) {
 			Intent intent = new Intent();

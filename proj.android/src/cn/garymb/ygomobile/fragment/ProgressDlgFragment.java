@@ -22,7 +22,7 @@ import eu.inmite.android.lib.dialogs.BaseDialogFragment;
 import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
 import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
-public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
+public class ProgressDlgFragment extends SimpleDialogFragment implements
 		Observer, OnClickListener {
 
 	private static final String TAG = "ImageDLStatusDlgFragment";
@@ -35,12 +35,12 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 
 	private ProgressBar mProgressBar;
 
-	private int mTotalCount;
-	private int mCurrentCount;
+	private long mTotalCount;
+	private long mCurrentCount;
 
-	public static ImageDLStatusDlgFragment newInstance(Bundle bundle,
+	public static ProgressDlgFragment newInstance(Bundle bundle,
 			int requestCode) {
-		ImageDLStatusDlgFragment f = new ImageDLStatusDlgFragment();
+		ProgressDlgFragment f = new ProgressDlgFragment();
 		f.setArguments(bundle);
 		f.mRequestCode = requestCode;
 		return f;
@@ -133,8 +133,8 @@ public class ImageDLStatusDlgFragment extends SimpleDialogFragment implements
 	public void onSaveInstanceState(Bundle arg0) {
 		Log.i(TAG, "onSaveInstanceState");
 		super.onSaveInstanceState(arg0);
-		arg0.putInt("total_count", mTotalCount);
-		arg0.putInt("current_count", mCurrentCount);
+		arg0.putLong("total_count", mTotalCount);
+		arg0.putLong("current_count", mCurrentCount);
 	}
 
 	@Override

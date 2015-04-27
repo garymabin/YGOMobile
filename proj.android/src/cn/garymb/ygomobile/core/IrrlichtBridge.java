@@ -29,7 +29,7 @@ public final class IrrlichtBridge {
 	
 	private static native void nativeSetComboBoxSelection(int handle, int idx);
 	
-	private static native void nativeJoinGame(int handle, ByteBuffer buffer);
+	private static native void nativeJoinGame(int handle, ByteBuffer buffer, int length);
 	
 	public static void cancelChain() {
 		nativeCancelChain(sNativeHandle);
@@ -59,7 +59,7 @@ public final class IrrlichtBridge {
 		nativeSetCheckBoxesSelection(sNativeHandle, idx);
 	}
 	
-	public static void joinGame(ByteBuffer buffer) {
-		nativeJoinGame(sNativeHandle, buffer);
+	public static void joinGame(ByteBuffer buffer, int length) {
+		nativeJoinGame(sNativeHandle, buffer, length);
 	}
 }

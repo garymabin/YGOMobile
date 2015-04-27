@@ -12,6 +12,8 @@ public interface ResourcesConstants {
 	
 	public static final String WIKI_SEARCH_URL = "http://www.ourocg.cn/S.aspx?key=";
 	
+	public static final String FONTS_DOWNLOAD_URL = "https://github.com/garymabin/YGOMobile-misc/raw/master/WQYMicroHei.TTF";
+	
 	public static final String UPDATE_SERVER_URL = "http://23.252.108.13";
 	
 	public static final String VERSION_UPDATE_URL = "/ygomobile/version.json";

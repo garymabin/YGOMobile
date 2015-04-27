@@ -26,7 +26,7 @@
 #include <COGLESDriver.h>
 #endif
 
-const unsigned short PRO_VERSION = 0x1333;
+const unsigned short PRO_VERSION = 0x1334;
 
 namespace ygo {
 
@@ -434,6 +434,8 @@ bool Game::Initialize() {
 	btnM2->setVisible(false);
 	btnEP = env->addButton(rect<s32>(325 * xScale, 0 * yScale, 375 * xScale, 30 * yScale), wPhase, BUTTON_EP, L"\xff25\xff30");
 	btnEP->setVisible(false);
+	btnShuffle = env->addButton(rect<s32>(0, 0, 50 * xScale, 30 * yScale), wPhase, BUTTON_CMD_SHUFFLE, dataManager.GetSysString(1307));
+	btnShuffle->setVisible(false);
 #else
 	//phase
 	wPhase = env->addStaticText(L"", rect<s32>(475 * xScale, 310 * yScale, 850 * xScale, 330 * yScale));
@@ -456,6 +458,8 @@ bool Game::Initialize() {
 	btnM2->setVisible(false);
 	btnEP = env->addButton(rect<s32>(325 * xScale, 0 * yScale, 375 * xScale, 20 * yScale), wPhase, BUTTON_EP, L"\xff25\xff30");
 	btnEP->setVisible(false);
+	btnShuffle = env->addButton(rect<s32>(0, 0, 50 * xScale, 20 * yScale), wPhase, BUTTON_CMD_SHUFFLE, dataManager.GetSysString(1307));
+    btnShuffle->setVisible(false);
 #endif
 	//tab
 	wInfos = env->addTabControl(rect<s32>(1 * xScale, 275 * yScale, 301 * xScale, 639 * yScale), 0, true);

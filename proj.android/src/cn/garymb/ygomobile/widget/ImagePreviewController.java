@@ -30,8 +30,6 @@ public class ImagePreviewController extends BaseDialogConfigController
 
 	private OnClickListener mOnClickListener;
 
-	private DialogConfigUIBase mConfigUI;
-
 	private float mMaxImagePreviewHeight;
 	private float mMaxImagePreviewWidth;
 
@@ -41,7 +39,6 @@ public class ImagePreviewController extends BaseDialogConfigController
 	public ImagePreviewController(DialogConfigUIBase configUI, View view,
 			Bundle param) {
 		super(configUI, view);
-		mConfigUI = configUI;
 		final Resources res = configUI.getContext().getResources();
 		mMaxImagePreviewHeight = res
 				.getDimensionPixelSize(R.dimen.image_preview_limit_height);

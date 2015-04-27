@@ -114,6 +114,7 @@ struct field_info {
 	uint8 phase;
 	uint8 turn_player;
 	uint8 priorities[2];
+	uint8 shuffle_count;
 };
 struct lpcost {
 	int32 count;
@@ -405,6 +406,7 @@ public:
 	int32 is_chain_negatable(uint8 chaincount, uint8 naga_check = FALSE);
 	int32 is_chain_disablable(uint8 chaincount, uint8 naga_check = FALSE);
 	int32 check_chain_target(uint8 chaincount, card* pcard);
+	int32 is_able_to_enter_bp();
 
 	void add_process(uint16 type, uint16 step, effect* peffect, group* target, ptr arg1, ptr arg2);
 	int32 process();
@@ -418,20 +420,20 @@ public:
 	int32 check_event_c(effect* peffect, uint8 playerid, int32 neglect_con, int32 neglect_cost, int32 copy_info, tevent* pe = 0);
 	int32 check_hint_timing(effect* peffect);
 	int32 process_phase_event(int16 step, int32 phase_event);
-	int32 process_point_event(int16 step, int32 special, int32 skip_new);
-	int32 process_quick_effect(int16 step, int32 special, uint8 priority);
+	int32 process_point_event(int16 step, int32 skip_trigger, int32 skip_freechain, int32 skip_new);
+	int32 process_quick_effect(int16 step, int32 skip_freechain, uint8 priority);
 	int32 process_instant_event();
 	int32 process_single_event();
 	int32 process_idle_command(uint16 step);
 	int32 process_battle_command(uint16 step);
 	int32 process_damage_step(uint16 step);
-	void calculate_battle_damage(effect** pdamchange, card** preason_card, uint8 *battle_destroyed);
+	void calculate_battle_damage(effect** pdamchange, card** preason_card, uint8* battle_destroyed);
 	int32 process_turn(uint16 step, uint8 turn_player);
 
 	int32 add_chain(uint16 step);
 	int32 sort_chain(uint16 step, uint8 tp);
 	int32 solve_continuous(uint16 step, effect* peffect, uint8 triggering_player);
-	int32 solve_chain(uint16 step, uint32 skip_new);
+	int32 solve_chain(uint16 step, uint32 chainend_arg1, uint32 chainend_arg2);
 	int32 break_effect();
 	void adjust_instant();
 	void adjust_all();
@@ -501,7 +503,7 @@ public:
 	int32 select_release_cards(int16 step, uint8 playerid, uint8 check_field, uint8 cancelable, int32 min, int32 max);
 	int32 select_tribute_cards(int16 step, uint8 playerid, uint8 cancelable, int32 min, int32 max);
 	int32 toss_coin(uint16 step, effect* reason_effect, uint8 reason_player, uint8 playerid, uint8 count);
-	int32 toss_dice(uint16 step, effect* reason_effect, uint8 reason_player, uint8 playerid, uint8 count);
+	int32 toss_dice(uint16 step, effect* reason_effect, uint8 reason_player, uint8 playerid, uint8 count1, uint8 count2);
 
 	int32 select_battle_command(uint16 step, uint8 playerid);
 	int32 select_idle_command(uint16 step, uint8 playerid);

@@ -17,7 +17,7 @@ import cn.garymb.ygomobile.fragment.CardDetailFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
 import cn.garymb.ygomobile.fragment.FreeDuelTabFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
-import cn.garymb.ygomobile.fragment.ImageDLStatusDlgFragment;
+import cn.garymb.ygomobile.fragment.ProgressDlgFragment;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
@@ -135,7 +135,7 @@ public class MainActivity extends ActionBarActivity implements
 	private void showImageDownloadStatus(Intent intent) {
 		String action = intent.getAction();
 		if (Constants.ACTION_VIEW_DOWNLOAD_STATUS.equals(action)) {
-			ImageDLStatusDlgFragment newFragment = ImageDLStatusDlgFragment
+			ProgressDlgFragment newFragment = ProgressDlgFragment
 					.newInstance(null, 1);
 			newFragment.show(mFragmentManager, "dialog");
 		}

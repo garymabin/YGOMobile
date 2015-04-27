@@ -256,6 +256,12 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				mainGame->HideElement(mainGame->wANCard, true);
 				break;
 			}
+			case BUTTON_CMD_SHUFFLE: {
+				mainGame->btnShuffle->setVisible(false);
+				DuelClient::SetResponseI(8);
+				DuelClient::SendResponse();
+				break;
+			}
 			case BUTTON_CMD_ACTIVATE: {
 				mainGame->wCmdMenu->setVisible(false);
 				if(!list_command) {
@@ -767,7 +773,9 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				const wchar_t* pname = mainGame->ebANCard->getText();
 				int trycode = BufferIO::GetVal(pname);
 				CardString cstr;
-				if(dataManager.GetString(trycode, &cstr)) {
+				CardData cd;
+				if(dataManager.GetString(trycode, &cstr) && dataManager.GetData(trycode, &cd) 
+					&& !cd.alias && !((cd.type & (TYPE_MONSTER + TYPE_TOKEN)) == (TYPE_MONSTER + TYPE_TOKEN))) {
 					mainGame->lstANCard->clear();
 					ancard.clear();
 					mainGame->lstANCard->addItem(cstr.name);
@@ -781,7 +789,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				for(auto cit = dataManager._strings.begin(); cit != dataManager._strings.end(); ++cit) {
 					if(wcsstr(cit->second.name, pname) != 0) {
 						auto cp = dataManager.GetCodePointer(cit->first);
-						if(!cp->second.alias) {
+						if(!cp->second.alias && !((cp->second.type & (TYPE_MONSTER + TYPE_TOKEN)) == (TYPE_MONSTER + TYPE_TOKEN))) {
 							mainGame->lstANCard->addItem(cit->second.name);
 							ancard.push_back(cit->first);
 						}
@@ -798,7 +806,9 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				const wchar_t* pname = mainGame->ebANCard->getText();
 				int trycode = BufferIO::GetVal(pname);
 				CardString cstr;
-				if(dataManager.GetString(trycode, &cstr)) {
+				CardData cd;
+				if(dataManager.GetString(trycode, &cstr) && dataManager.GetData(trycode, &cd) 
+					&& !cd.alias && !((cd.type & (TYPE_MONSTER + TYPE_TOKEN)) == (TYPE_MONSTER + TYPE_TOKEN))) {
 					mainGame->lstANCard->clear();
 					ancard.clear();
 					mainGame->lstANCard->addItem(cstr.name);
@@ -811,8 +821,11 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				ancard.clear();
 				for(auto cit = dataManager._strings.begin(); cit != dataManager._strings.end(); ++cit) {
 					if(wcsstr(cit->second.name, pname) != 0) {
-						mainGame->lstANCard->addItem(cit->second.name);
-						ancard.push_back(cit->first);
+						auto cp = dataManager.GetCodePointer(cit->first);
+						if(!cp->second.alias && !((cp->second.type & (TYPE_MONSTER + TYPE_TOKEN)) == (TYPE_MONSTER + TYPE_TOKEN))) {
+							mainGame->lstANCard->addItem(cit->second.name);
+							ancard.push_back(cit->first);
+						}
 					}
 				}
 				break;
@@ -1509,16 +1522,10 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 	case irr::EET_KEY_INPUT_EVENT: {
 		switch(event.KeyInput.Key) {
 		case irr::KEY_KEY_A: {
-			char log_a[512];
-			sprintf(log_a, "receive key a: %d", event.KeyInput.PressedDown);
-			Printer::log(log_a);
 			mainGame->always_chain = event.KeyInput.PressedDown;
 			break;
 		}
 		case irr::KEY_KEY_S: {
-			char log_a[512];
-			sprintf(log_a, "receive key s: %d", event.KeyInput.PressedDown);
-			Printer::log(log_a);
 			mainGame->ignore_chain = event.KeyInput.PressedDown;
 			break;
 		}
