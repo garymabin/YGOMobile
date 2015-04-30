@@ -72,7 +72,9 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 			    public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
 			        switch (updateStatus) {
 			        case UpdateStatus.No: // has no update
-			            Toast.makeText(getActivity(), R.string.already_updated, Toast.LENGTH_SHORT).show();
+			        	if (isAdded()) {
+			        		Toast.makeText(getActivity(), R.string.already_updated, Toast.LENGTH_SHORT).show();
+			        	}
 			            break;
 			        }
 			    }
