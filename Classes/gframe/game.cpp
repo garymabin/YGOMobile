@@ -40,7 +40,8 @@ bool Game::Initialize() {
 	srand(time(0));
 	irr::SIrrlichtCreationParameters params = irr::SIrrlichtCreationParameters();
 #ifdef _IRR_ANDROID_PLATFORM_
-	glversion = android::getOpenglVersion(app);
+	android::InitOptions *options = android::getInitOptions(app);
+	glversion = options->getOpenglVersion();
 	if (glversion == 0) {
 		params.DriverType = irr::video::EDT_OGLES1;
 	} else{
@@ -67,23 +68,26 @@ bool Game::Initialize() {
 	}
 	android::initJavaBridge(app, device);
 	soundEffectPlayer = new AndroidSoundEffectPlayer(app);
-	soundEffectPlayer->setSEEnabled(android::isSoundEffectEnabled(app));
+	soundEffectPlayer->setSEEnabled(options->isSoundEffectEnabled());
 	app->onInputEvent = android::handleInput;
 	ILogger* logger = device->getLogger();
+//	logger->setLogLevel(ELL_WARNING);
+	isPSEnabled = options->isPendulumScaleEnabled();
 	IFileSystem * fs = device->getFileSystem();
-	android::SDisplayMetrics metrics;
-	android::getDisplayMetrics(app, metrics);
-	xScale = metrics.widthPixels / 1024.0;
-	yScale = metrics.heightPixels / 640.0;
-	char log_scale[256];
+	xScale = android::getScreenHeight(app) / 1024.0;
+	yScale = android::getScreenWidth(app) / 640.0;
+	char log_scale[256] = {0};
 	sprintf(log_scale, "xScale = %f, yScale = %f", xScale, yScale);
 	Printer::log(log_scale);
-	io::path cacheDir = irr::android::getCacheDir(appMain);
-	io::path databaseDir = irr::android::getDBDir(appMain);
-	io::path configVersion = irr::android::getCoreConfigVersion(appMain);
-	io::path workingDir = irr::android::getResourcePath(appMain);
+	io::path cacheDir = options->getCacheDir();
+	io::path databaseDir = options->getDBDir();
+	io::path configVersion = options->getCoreConfigVerDir();
+	io::path workingDir = options->getResPathDir();
+	char log_working[256] = {0};
+	sprintf(log_working, "workingDir= %s", workingDir.c_str());
+	Printer::log(log_working);
 	fs->changeWorkingDirectoryTo(workingDir);
-	io::path mainScriptPath = irr::android::getExternalFilesDir(appMain) + "/scripts/main.zip";
+	io::path mainScriptPath = options->getExternalPathDir() + "/scripts/main.zip";
 	if(fs->addFileArchive(mainScriptPath, false, false, EFAT_ZIP)) {
 		os::Printer::log("add script arrchive");
 	}
@@ -123,7 +127,7 @@ bool Game::Initialize() {
 	deckManager.LoadLFList((cacheDir + path("/core/") + configVersion + path("/config/lflist.conf")).c_str());
 	driver = device->getVideoDriver();
 #ifdef _IRR_ANDROID_PLATFORM_
-	int quality = android::getCardQuality(app);
+	int quality = options->getCardQualityOp();
 	if (driver->getDriverType() == EDT_OGLES2) {
 		isNPOTSupported = ((COGLES2Driver *) driver)->queryOpenGLFeature(COGLES2ExtensionHandler::IRR_OES_texture_npot);
 	} else {
@@ -155,7 +159,7 @@ bool Game::Initialize() {
 	if(!dataManager.LoadStrings((cacheDir + path("/core/") + configVersion + path("/config/strings.conf")).c_str()))
 		return false;
 	env = device->getGUIEnvironment();
-	bool isAntialias = android::getFontAntiAlias(app);
+	bool isAntialias = options->isFontAntiAliasEnabled();
 	numFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)16 * yScale, isAntialias, false);
 	adFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)12 * yScale, isAntialias, false);
 	lpcFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)48 * yScale, isAntialias, true);
@@ -951,6 +955,7 @@ IGUIStaticText *text = env->addStaticText(L"",
 #endif
 	hideChat = false;
 	hideChatTimer = 0;
+	delete options;
 	return true;
 }
 void Game::MainLoop() {

@@ -81,7 +81,9 @@ public class CardDetailFragment extends BaseFragment implements
 				Constants.ACTION_BAR_CHANGE_TYPE_PAGE_CHANGE,
 				FRAGMENT_ID_CARD_DETAIL, mInitPos, null);
 		mViewPager.setCurrentItem(mInitPos);
-		mActivity.setTitle(mWindow.getString(mInitPos, YGOCards.COMMON_DATA_PROJECTION_NAME_INDEX));
+		if (mWindow != null) {
+			mActivity.setTitle(mWindow.getString(mInitPos, YGOCards.COMMON_DATA_PROJECTION_NAME_INDEX));
+		}
 		return view;
 	}
 	

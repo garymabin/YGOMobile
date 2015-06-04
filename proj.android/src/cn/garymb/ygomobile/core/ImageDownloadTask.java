@@ -88,7 +88,9 @@ public class ImageDownloadTask extends BaseTask {
 	@Override
 	public void execute() {
 		for (IBaseThread thread : mUpdateThreads) {
-			thread.start();
+			if (!thread.isRunning()) {
+				thread.start();
+			}
 		}
 		isRunning = true;
 	}

@@ -130,6 +130,7 @@ public interface Constants {
 	public static final String SETTINGS_FARGMENT_COMMON = "cn.garymb.ygomobile.fragment.setting.CommonSettingsFragment";
 	public static final String SETTINGS_FARGMENT_GAME = "cn.garymb.ygomobile.fragment.setting.GameSettingsFragment";
 	public static final String SETTINGS_FARGMENT_ABOUT = "cn.garymb.ygomobile.fragment.setting.AboutSettingsFragment";
+	public static final String SETTINGS_FARGMENT_GAME_LAB = "cn.garymb.ygomobile.fragment.setting.GameLabSettingsFragment";
 
 	public static final String ACTION_VIEW_DOWNLOAD_STATUS = "action_view_download_status";
 

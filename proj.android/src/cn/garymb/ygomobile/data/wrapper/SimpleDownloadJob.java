@@ -13,7 +13,7 @@ import android.util.Log;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.model.data.DownloadProgressEvent;
 import cn.garymb.ygomobile.utils.HttpUtils;
-import de.greenrobot.event.EventBus;
+//import de.greenrobot.event.EventBus;
 
 public class SimpleDownloadJob extends BaseRequestJob {
 	
@@ -57,7 +57,7 @@ public class SimpleDownloadJob extends BaseRequestJob {
 					downloadSize += readCount;
 					long now = System.currentTimeMillis();
 					if (now - lastReportTime > 1000) {
-						EventBus.getDefault().post(new DownloadProgressEvent(totalSize, downloadSize));
+//						EventBus.getDefault().post(new DownloadProgressEvent(totalSize, downloadSize));
 						lastReportTime = now;
 					}
 				}

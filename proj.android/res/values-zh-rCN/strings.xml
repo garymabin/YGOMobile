@@ -160,6 +160,10 @@
     <string name="settings_game_enable_sound_effect">开启音效</string>
     <string name="settings_game_screen_orientation">游戏中锁定屏幕方向</string>
     <string name="settings_game_font_antialias">开启字体抗锯齿</string>
+    <string name="settings_game_laboratory">实验室</string>
+    <string name="settings_game_laboratory_des">包含新的，尚不稳定的特性</string>
+    <string name="settings_game_lab_pendulum_scale">灵摆刻度</string>
+    <string name="settings_game_lab_pendulum_scale_des">图形化显示灵摆刻度</string>
     <string name="settings_game_font_antialias_summary">关闭此选项可提高游戏帧数</string>
     <string name="settings_about_author_pref">作者</string>
     <string name="settings_about_proj_loc">项目地址</string>

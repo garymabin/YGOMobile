@@ -193,7 +193,9 @@ public class SettingsActivity extends PreferenceActivity implements
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			return Constants.SETTINGS_FARGMENT_ABOUT.equals(fragmentName)
 					|| Constants.SETTINGS_FARGMENT_COMMON.equals(fragmentName)
-					|| Constants.SETTINGS_FARGMENT_GAME.equals(fragmentName);
+					|| Constants.SETTINGS_FARGMENT_GAME.equals(fragmentName)
+					|| Constants.SETTINGS_FARGMENT_GAME_LAB
+							.equals(fragmentName);
 		} else {
 			return true;
 		}

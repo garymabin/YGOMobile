@@ -18,13 +18,20 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/list_selector"
             android:clickable="true"
+            android:orientation="vertical"
             android:paddingLeft="5dip"
             android:paddingRight="5dip" >
+
             <ImageView
                 android:id="@+id/card_image"
                 android:layout_width="@dimen/card_image_width"
                 android:layout_height="@dimen/card_image_height"
                 android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/card_code"
+                style="@style/card_item_content"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
         <LinearLayout

@@ -6,25 +6,19 @@ import java.util.ArrayList;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
-import cn.garymb.ygomobile.core.BaseTask.TaskStatusCallback;
-import cn.garymb.ygomobile.core.SimpleDownloadTask;
-import cn.garymb.ygomobile.data.wrapper.IBaseJob;
-import cn.garymb.ygomobile.data.wrapper.SimpleDownloadJob;
-import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DatabaseUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 import cn.garymb.ygomobile.widget.ProgressUpdateDialog;
-import de.greenrobot.event.EventBus;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	
@@ -75,12 +69,17 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	}
 	
 	@Override
-	protected void onPostExecute(Integer result) {
+	protected void onPostExecute(final Integer result) {
 		super.onPostExecute(result);
 		mWaitDialog.dismiss();
 		if (mListener != null) {
-			mListener.onResCheckFinished(result);
-			mListener = null;
+			new Handler().post(new Runnable() {
+				@Override
+				public void run() {
+					mListener.onResCheckFinished(result);
+					mListener = null;
+				}
+			});
 		}
 	}
 
@@ -104,7 +103,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_config);
 		checkAndCopyCoreConfig(needsUpdate);
 		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_skin);
-		checkAndCopyGameSkin();
+		checkAndCopyGameSkin(mApp.getCoreSkinPath());
 		publishProgress(R.string.updating_card_data_base);
 		DatabaseUtils.checkAndCopyFromInternalDatabase(mApp, mApp.getDataBasePath(),
 				needsUpdate);
@@ -211,7 +210,6 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			String currentFont = mSettingsPref.getString(
 					Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME);
 			for (String name : fonts) {
-				Log.i(TAG, "load user define font : " + name);
 				fontsPath.add(new File(extraDir, name).toString());
 				if (currentFont.equals(name)) {
 					isFontHit = true;
@@ -303,8 +301,8 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		}
 	}
 	
-	private void checkAndCopyGameSkin() {
-		File coreSkinDir = new File(mApp.getCoreSkinPath());
+	private void checkAndCopyGameSkin(String path) {
+		File coreSkinDir = new File(path);
 		if (coreSkinDir != null && coreSkinDir.exists()
 				&& coreSkinDir.isDirectory()) {
 			return;

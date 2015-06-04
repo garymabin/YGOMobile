@@ -4551,7 +4551,11 @@ int32 field::sort_chain(uint16 step, uint8 tp) {
 		return FALSE;
 	}
 	case 1: {
+#ifdef _IRR_ANDROID_PLATFORM_
+		if(returns.bvalue[0] == 0xff)
+#else
 		if(returns.bvalue[0] == -1)
+#endif
 			return TRUE;
 		chain_list::iterator clit;
 		int32 i = 0, count;

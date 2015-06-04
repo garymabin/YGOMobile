@@ -13,6 +13,7 @@ public:
 	S3DVertex vCardBack[4];
 	S3DVertex vSymbol[4];
 	S3DVertex vNegate[4];
+	S3DVertex vPScale[4];
 	S3DVertex vChainNum[4];
 	S3DVertex vActivate[4];
 	S3DVertex vField[4];

@@ -38,8 +38,6 @@ import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.CrashSender;
 import cn.garymb.ygomobile.net.defaulthttp.ThreadSafeHttpClientFactory;
 import cn.garymb.ygomobile.setting.Settings;
-import cn.garymb.ygomobile.utils.DatabaseUtils;
-import cn.garymb.ygomobile.utils.FileOpsUtils;
 
 import com.github.nativehandler.NativeCrashHandler;
 import com.squareup.okhttp.OkHttpClient;
@@ -53,13 +51,14 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
+import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.Pair;
+import android.view.Display;
+import android.view.WindowManager;
 
 @ReportsCrashes(formKey = "", // will not be used
 customReportContent = { APP_VERSION_NAME, ANDROID_VERSION, PHONE_MODEL,
@@ -144,9 +143,11 @@ public class StaticApplication extends Application {
 		}
 		Controller.peekInstance();
 		initSoundEffectPool();
-		DisplayMetrics metrics = getResources().getDisplayMetrics();
-		mScreenWidth = metrics.widthPixels;
-		mScreenHeight = metrics.heightPixels;
+		Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		Point screenResolution = new Point();
+		display.getRealSize(screenResolution);
+		mScreenWidth = screenResolution.x;
+		mScreenHeight = screenResolution.y;
 	}
 
 	@Override
@@ -298,21 +299,13 @@ public class StaticApplication extends Application {
 	}
 	
 	public String getCompatExternalFilesDir() {
-		String path = getExternalFilesDir(null).toString();
-		String prefix = Environment.getExternalStorageDirectory().getPath();
-		return path.replace(prefix, "/mnt/sdcard");
-	}
-
-	public int getOpenglVersion() {
-		return Integer.parseInt(mSettingsPref.getString(
-				Settings.KEY_PREF_GAME_OGLES_CONFIG,
-				Constants.DEFAULT_OGLES_CONFIG));
-	}
-
-	public int getCardQuality() {
-		return Integer.parseInt(mSettingsPref.getString(
-				Settings.KEY_PREF_GAME_IMAGE_QUALITY,
-				Constants.DEFAULT_CARD_QUALITY_CONFIG));
+		File path = getExternalFilesDir(null);
+		if (path != null) {
+			String prefix = Environment.getExternalStorageDirectory().getPath();
+			return path.toString().replace(prefix, "/mnt/sdcard");
+		} else {
+			return "/mnt/sdcard/android/data/cn.garymb.ygomobile/files/";
+		}
 	}
 
 	public void setLastCheckTime(long time) {
@@ -331,11 +324,6 @@ public class StaticApplication extends Application {
 
 	public String getFontPath() {
 		return mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME);
-	}
-
-	public boolean getFontAntialias() {
-		return mSettingsPref.getBoolean(Settings.KEY_PREF_GAME_FONT_ANTIALIAS,
-				true);
 	}
 
 	public String getLastDeck() {
@@ -383,10 +371,5 @@ public class StaticApplication extends Application {
 
 	public String getVersionName() {
 		return mVersionName;
-	}
-
-	public boolean isSoundEffectEnabled() {
-		return mSettingsPref.getBoolean(Settings.KEY_PREF_GAME_SOUND_EFFECT,
-				true);
 	}
 }

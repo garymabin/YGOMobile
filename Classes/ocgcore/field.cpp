@@ -91,6 +91,9 @@ field::field(duel* pduel) {
 	nil_event.reason = 0;
 	nil_event.reason_effect = 0;
 	nil_event.reason_player = PLAYER_NONE;
+#ifdef _IRR_ANDROID_PLATFORM_
+	memset(&returns, 0, sizeof(return_value));
+#endif
 }
 field::~field() {
 

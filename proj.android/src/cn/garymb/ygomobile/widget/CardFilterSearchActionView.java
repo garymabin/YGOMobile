@@ -69,7 +69,7 @@ public class CardFilterSearchActionView extends SearchView implements ICardFilte
 	@Override
 	public boolean onQueryTextChange(String arg0) {
 		if (!mFilterString.equals(arg0)) {
-			mFilterString = arg0;
+			mFilterString = arg0.replace("'", "''").replace("[", "[[]").replace("_", "[_]".replace("%", "[%]"));
 			mListener.onChange(YGOCardSelectionBuilder.SELECTION_SEGMENT_SEARCH, buildSelection());
 		}
 		return true;

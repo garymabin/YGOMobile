@@ -22,11 +22,13 @@ import android.app.NativeActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
@@ -34,6 +36,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -96,7 +100,8 @@ public class YGOMobileActivity extends NativeActivity implements
 				boolean isShow = msg.arg1 == 1;
 				if (isShow) {
 					mOverlayView.showAtScreen(0, 0);
-					mChainOverlayView.showAtScreen(sChainControlXPostion, sChainControlYPostion);
+					mChainOverlayView.showAtScreen(sChainControlXPostion,
+							sChainControlYPostion);
 				} else {
 					mOverlayView.removeFromScreen();
 					mChainOverlayView.removeFromScreen();
@@ -109,9 +114,9 @@ public class YGOMobileActivity extends NativeActivity implements
 		}
 
 	}
-	
+
 	private static final int CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE = 205;
-	
+
 	private static final int CHAIN_CONTROL_PANEL_Y_REVERT_POSITION = 100;
 
 	public static final String TAG = "YGOMobile";
@@ -137,16 +142,21 @@ public class YGOMobileActivity extends NativeActivity implements
 	private OverlayRectView mChainOverlayView;
 	private OverlayOvalView mOverlayView;
 	private NetworkController mNetController;
-	
+
 	private static int sChainControlXPostion;
 	private static int sChainControlYPostion;
-	
+
+	private int currentApiVersion;
+
 	static {
 		final Resources res = StaticApplication.peekInstance().getResources();
-		sChainControlXPostion = (int)(CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE * DeviceUtils.getXScale());
-		sChainControlYPostion = (int)(DeviceUtils.getSmallerSize() - CHAIN_CONTROL_PANEL_Y_REVERT_POSITION * DeviceUtils.getYScale() -
-				(res.getDimensionPixelSize(R.dimen.chain_control_button_height) * 2 + 
-						res.getDimensionPixelSize(R.dimen.chain_control_margin)));
+		sChainControlXPostion = (int) (CHAIN_CONTROL_PANEL_X_POSITION_LEFT_EDGE * DeviceUtils
+				.getXScale());
+		sChainControlYPostion = (int) (DeviceUtils.getSmallerSize()
+				- CHAIN_CONTROL_PANEL_Y_REVERT_POSITION
+				* DeviceUtils.getYScale() - (res
+				.getDimensionPixelSize(R.dimen.chain_control_button_height) * 2 + res
+				.getDimensionPixelSize(R.dimen.chain_control_margin)));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -186,7 +196,8 @@ public class YGOMobileActivity extends NativeActivity implements
 		super.onResume();
 		if (mOverlayShowRequest) {
 			mOverlayView.showAtScreen(0, 0);
-			mChainOverlayView.showAtScreen(sChainControlXPostion, sChainControlYPostion);
+			mChainOverlayView.showAtScreen(sChainControlXPostion,
+					sChainControlYPostion);
 		}
 	}
 
@@ -194,6 +205,15 @@ public class YGOMobileActivity extends NativeActivity implements
 	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
 		if (hasFocus) {
+			if (currentApiVersion >= Build.VERSION_CODES.KITKAT) {
+				getWindow().getDecorView().setSystemUiVisibility(
+						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+								| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+								| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+								| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+								| View.SYSTEM_UI_FLAG_FULLSCREEN
+								| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+			}
 			mContentView.setHapticFeedbackEnabled(true);
 		} else {
 			mContentView.setHapticFeedbackEnabled(false);
@@ -217,6 +237,13 @@ public class YGOMobileActivity extends NativeActivity implements
 	 */
 	public void setNativeHandle(int handle) {
 		IrrlichtBridge.sNativeHandle = handle;
+		return;
+	}
+	
+	public ByteBuffer getNativeInitOptions() {
+		return NativeInitOptions.fromSettingsPref(
+				PreferenceManager.getDefaultSharedPreferences(StaticApplication
+						.peekInstance())).toNativeBuffer();
 	}
 
 	/*
@@ -227,14 +254,43 @@ public class YGOMobileActivity extends NativeActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		currentApiVersion = android.os.Build.VERSION.SDK_INT;
+		final int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+				| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+				| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+				| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+				| View.SYSTEM_UI_FLAG_FULLSCREEN
+				| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+		if (currentApiVersion >= Build.VERSION_CODES.KITKAT) {
+			getWindow().getDecorView().setSystemUiVisibility(flags);
+			final View decorView = getWindow().getDecorView();
+			decorView
+					.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+
+						@Override
+						public void onSystemUiVisibilityChange(int visibility) {
+							if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+								decorView.setSystemUiVisibility(flags);
+							}
+						}
+					});
+		} else {
+			Window window = getWindow();
+			WindowManager.LayoutParams params = window.getAttributes();
+			params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+			window.setAttributes(params);
+		}
+
 		mHandler = new EventHandler();
-		setRequestedOrientation(StaticApplication.peekInstance().getGameScreenOritation());
-		
+		setRequestedOrientation(StaticApplication.peekInstance()
+				.getGameScreenOritation());
+
 		initExtraView();
 		mPM = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mNetController = new NetworkController(getApplicationContext());
 		handleExternalCommand();
-		
+
 	}
 
 	/*
