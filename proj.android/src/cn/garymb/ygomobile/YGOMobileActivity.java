@@ -276,7 +276,6 @@ public class YGOMobileActivity extends NativeActivity implements
 						}
 					});
 		}
-
 		mHandler = new EventHandler();
 		setRequestedOrientation(StaticApplication.peekInstance()
 				.getGameScreenOritation());
