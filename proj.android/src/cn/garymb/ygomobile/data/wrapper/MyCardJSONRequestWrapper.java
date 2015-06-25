@@ -13,7 +13,7 @@ import cn.garymb.ygomobile.common.Constants;
 
 public abstract class MyCardJSONRequestWrapper extends BaseRequestJob {
 
-	private static final String TAG = "CardImageRequestWrapper";
+	private static final String TAG = "MyCardJSONRequestWrapper";
 
 	public MyCardJSONRequestWrapper(int requestType) {
 		super();

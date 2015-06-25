@@ -275,11 +275,6 @@ public class YGOMobileActivity extends NativeActivity implements
 							}
 						}
 					});
-		} else {
-			Window window = getWindow();
-			WindowManager.LayoutParams params = window.getAttributes();
-			params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-			window.setAttributes(params);
 		}
 
 		mHandler = new EventHandler();

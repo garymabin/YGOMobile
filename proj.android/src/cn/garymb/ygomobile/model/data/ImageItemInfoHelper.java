@@ -88,14 +88,27 @@ public final class ImageItemInfoHelper {
 				}
 			}
 			if (sb.toString().endsWith(INVALID_IMAGE_SUFFIX)) {
-				sb.deleteCharAt(sb.length() -1).append(JPG_IMAGE_SUFFIX);
+				sb.deleteCharAt(sb.length() - 1).append(JPG_IMAGE_SUFFIX);
 			}
 			return sb.toString();
 		}
 	}
 
-	public static String getImageTempPath(ImageItem item) {
-		return getImagePath(item) + TMP_SUFFIX;
+	public static String getDownloadImagePath(ImageItem item) {
+		if (item == null)
+			return null;
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(StaticApplication.peekInstance().getCardImagePath());
+		if (!new File(sb.toString()).exists()) {
+			new File(sb.toString()).mkdirs();
+		}
+		sb.append(item.id).append(JPG_IMAGE_SUFFIX);
+		return sb.toString();
+	}
+
+	public static String getImageDownloadTempPath(ImageItem item) {
+		return getDownloadImagePath(item) + TMP_SUFFIX;
 	}
 
 	public static String getImageUrl(ImageItem item) {

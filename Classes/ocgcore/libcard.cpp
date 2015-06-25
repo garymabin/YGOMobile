@@ -448,11 +448,20 @@ int32 scriptlib::card_is_code(lua_State *L) {
 	check_param_count(L, 2);
 	check_param(L, PARAM_TYPE_CARD, 1);
 	card* pcard = *(card**) lua_touserdata(L, 1);
-	uint32 tcode = lua_tointeger(L, 2);
-	if(pcard->get_code() == tcode || pcard->get_another_code() == tcode)
-		lua_pushboolean(L, 1);
-	else
-		lua_pushboolean(L, 0);
+	uint32 code1 = pcard->get_code();
+	uint32 code2 = pcard->get_another_code();
+	uint32 count = lua_gettop(L) - 1;
+	uint32 result = FALSE;
+	for(uint32 i = 0; i < count; ++i) {
+		if(lua_isnil(L, i + 2))
+			continue;
+		uint32 tcode = lua_tointeger(L, i + 2);
+		if(code1 == tcode || (code2 && code2 == tcode)) {
+			result = TRUE;
+			break;
+		}
+	}
+	lua_pushboolean(L, result);
 	return 1;
 }
 int32 scriptlib::card_is_type(lua_State *L) {
@@ -571,10 +580,13 @@ int32 scriptlib::card_get_turn_counter(lua_State *L) {
 int32 scriptlib::card_set_material(lua_State *L) {
 	check_param_count(L, 2);
 	check_param(L, PARAM_TYPE_CARD, 1);
-	check_param(L, PARAM_TYPE_GROUP, 2);
 	card* pcard = *(card**) lua_touserdata(L, 1);
-	group* pgroup = *(group**) lua_touserdata(L, 2);
-	pcard->set_material(&pgroup->container);
+	if(!lua_isnil(L, 2)) {
+		check_param(L, PARAM_TYPE_GROUP, 2);
+		group* pgroup = *(group**) lua_touserdata(L, 2);
+		pcard->set_material(&pgroup->container);
+	} else
+		pcard->set_material(0);
 	return 0;
 }
 int32 scriptlib::card_get_material(lua_State *L) {
@@ -1723,15 +1735,19 @@ int32 scriptlib::card_enable_counter_permit(lua_State *L) {
 	check_param_count(L, 2);
 	card* pcard = *(card**) lua_touserdata(L, 1);
 	int32 countertype = lua_tointeger(L, 2);
+	uint32 prange;
+	if(lua_gettop(L) > 2) 
+		prange = lua_tointeger(L, 3);
+	else if(pcard->data.type & TYPE_MONSTER)
+		prange = LOCATION_MZONE;
+	else
+		prange = LOCATION_SZONE | LOCATION_FZONE;
 	effect* peffect = pcard->pduel->new_effect();
 	peffect->owner = pcard;
 	peffect->type = EFFECT_TYPE_SINGLE;
 	peffect->code = EFFECT_COUNTER_PERMIT | countertype;
 	peffect->flag = EFFECT_FLAG_SINGLE_RANGE;
-	if(pcard->data.type & TYPE_MONSTER)
-		peffect->range = LOCATION_MZONE;
-	else
-		peffect->range = LOCATION_SZONE | LOCATION_FZONE | LOCATION_PZONE;
+	peffect->range = prange;
 	pcard->add_effect(peffect);
 	return 0;
 }

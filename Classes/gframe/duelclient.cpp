@@ -1252,14 +1252,15 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 		int forced = BufferIO::ReadInt8(pbuf);
 		/*int hint0 = */BufferIO::ReadInt32(pbuf);
 		/*int hint1 = */BufferIO::ReadInt32(pbuf);
-		int c, l, s, ss, desc;
+		int code, c, l, s, ss, desc;
 		ClientCard* pcard;
 		bool panelmode = false;
 		mainGame->dField.chain_forced = (forced != 0);
 		mainGame->dField.activatable_cards.clear();
 		mainGame->dField.activatable_descs.clear();
+		mainGame->dField.conti_cards.clear();
 		for (int i = 0; i < count; ++i) {
-			/*code = */BufferIO::ReadInt32(pbuf);
+			code = BufferIO::ReadInt32(pbuf);
 			c = mainGame->LocalPlayer(BufferIO::ReadInt8(pbuf));
 			l = BufferIO::ReadInt8(pbuf);
 			s = BufferIO::ReadInt8(pbuf);
@@ -1268,15 +1269,26 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 			pcard = mainGame->dField.GetCard(c, l, s, ss);
 			mainGame->dField.activatable_cards.push_back(pcard);
 			mainGame->dField.activatable_descs.push_back(desc);
-			pcard->is_selectable = true;
 			pcard->is_selected = false;
-			pcard->cmdFlag |= COMMAND_ACTIVATE;
-			if (l == LOCATION_GRAVE)
-				mainGame->dField.grave_act = true;
-			if (l == LOCATION_REMOVED)
+			if(code >= 1000000000) {
+				pcard->is_conti = true;
+				pcard->chain_code = code % 1000000000;
+				mainGame->dField.conti_cards.push_back(pcard);
 				mainGame->dField.remove_act = true;
-			if (l & 0xc1)
-				panelmode = true;
+			}
+			else {
+				pcard->chain_code = code;
+				pcard->is_selectable = true;
+				pcard->cmdFlag |= COMMAND_ACTIVATE;
+				if(l == LOCATION_GRAVE)
+					mainGame->dField.grave_act = true;
+				if(l == LOCATION_REMOVED)
+					mainGame->dField.remove_act = true;
+				if(l == LOCATION_EXTRA)
+					mainGame->dField.extra_act = true;
+				if(l == LOCATION_OVERLAY)
+					panelmode = true;
+			}
 		}
 		if (!forced
 				&& (mainGame->ignore_chain

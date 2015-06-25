@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.garymb.ygomobile"
-    android:versionCode="211002"
+    android:versionCode="211003"
     android:versionName="2.1.10" >
 
     <uses-sdk

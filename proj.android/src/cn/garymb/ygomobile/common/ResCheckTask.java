@@ -32,6 +32,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	}
 	
 	private static final int CORE_CONFIG_COPY_COUNT = 3;
+	private static final int ASSET_EXTRA_VERSION = 2;
 
 	private static final String TAG = "ResCheckTask";
 	
@@ -86,9 +87,11 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	@Override
 	protected Integer doInBackground(Void... params) {
 		String newConfigVersion = null, currentConfigVersion = null;
+		int oldCurrentVersion;
 		SharedPreferences sp = mApp.getSharedPreferences(Constants.PREF_FILE_COMMON,
 				Context.MODE_PRIVATE);
 		currentConfigVersion = sp.getString(Constants.PREF_KEY_DATA_VERSION, "");
+		oldCurrentVersion = sp.getInt(Constants.PREF_KEY_EXTRA_VERSION, 1);
 		try {
 			newConfigVersion = mApp.getAssets().list(Constants.CORE_CONFIG_PATH)[0];
 		} catch (IOException e) {
@@ -111,9 +114,27 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		checkAndCopyScripts(needsUpdate);
 		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_dirs);
 		checkDirs();
+//		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.checking_extra);
+//		checkAndCopyExtra(mApp.getCoreSkinPath() + "extra", oldCurrentVersion, ASSET_EXTRA_VERSION);
 		return 0;
 	}
 	
+	private void checkAndCopyExtra(String targetPath, int oldversion, int newversion) {
+		if (newversion > oldversion && newversion == 2) {
+			int assetcopycount = 0;
+			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
+				try {
+					FileOpsUtils.assetsCopy(mApp, "extra/ps",
+							targetPath, false);
+				} catch (IOException e) {
+					Log.w(TAG, "copy scripts failed, retry count = "
+							+ assetcopycount);
+					continue;
+				}
+			}
+		}
+	}
+
 	private void checkDirs() {
 		String[] dirs = {"script", "single", "deck", "replay", "fonts"};
 		File dirFile = null;

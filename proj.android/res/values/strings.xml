@@ -213,6 +213,7 @@
     <string name="updating_skin">Checking skins</string>
     <string name="updating_scripts">Checking scripts</string>
     <string name="updating_dirs">Creating directories</string>
+    <string name="checking_extra">Checking extra directories</string>
     <string name="updating_card_data_base">Updating card database</string>
     
     <string name="loading_card_db">Importing custom database</string>

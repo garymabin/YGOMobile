@@ -31,7 +31,7 @@ public class GameLabSettingsFragment extends EventDialogPreferenceFragment imple
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
-		if (preference.getKey() == Settings.KEY_PREF_GAME_LAB_PENDULUM_SCALE) {
+		if (Settings.KEY_PREF_GAME_LAB_PENDULUM_SCALE.equals(preference.getKey())) {
 			if (mPendulumPreference.isChecked()) {
 				if (Build.VERSION.SDK_INT >= 11) {
 					new PendulumScaleCopyTask(getActivity()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "extra/pendulumscale",

@@ -18,6 +18,8 @@ public interface Constants {
 	
 	public static final String CORE_SKIN_PATH = "textures";
 	
+	public static final String CORE_EXTRA_PATH = "extra";
+	
 	public static final String CORE_DECK_PATH = "deck";
 	
 	public static final String CORE_SKIN_COVER = "bg.jpg";
@@ -56,6 +58,7 @@ public interface Constants {
 	
 	public static final String PREF_FILE_COMMON = "pref_common";
 	public static final String PREF_KEY_DATA_VERSION = "pref_data_ver";
+	public static final String PREF_KEY_EXTRA_VERSION = "pref_extra_ver";
 	public static final String PREF_KEY_LAST_DECK = "pref_last_deck";
 	public static final String PREF_KEY_UPDATE_CHECK = "pref_last_update_check";
 	

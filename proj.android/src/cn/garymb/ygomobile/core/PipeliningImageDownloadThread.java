@@ -53,7 +53,7 @@ public class PipeliningImageDownloadThread extends BaseThread {
 			if (mWrapper instanceof ImageDownloadJob) {
 				targetFile = new File(
 						ImageItemInfoHelper
-								.getImagePath(((ImageDownloadJob) mWrapper)
+								.getDownloadImagePath(((ImageDownloadJob) mWrapper)
 										.getImageItem()));
 				if (arg1 != null) {
 					arg1.renameTo(targetFile);
@@ -83,7 +83,7 @@ public class PipeliningImageDownloadThread extends BaseThread {
 
 	}
 
-	protected volatile boolean isRunning = true;
+	protected volatile boolean isRunning = false;
 	private IBaseConnector mConnector;
 	private BlockingQueue<BaseRequestJob> mQueue;
 
@@ -102,6 +102,12 @@ public class PipeliningImageDownloadThread extends BaseThread {
 		mConnector = new PipeliningHttpConnector(client, mProducer, mConsumer);
 		mQueue = queue;
 		((PipeliningHttpConnector) mConnector).setJobStatusCallback(callback);
+	}
+	
+	@Override
+	public synchronized void start() {
+		isRunning = true;
+		super.start();
 	}
 
 	@Override
