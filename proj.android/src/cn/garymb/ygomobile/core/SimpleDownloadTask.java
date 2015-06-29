@@ -56,8 +56,10 @@ public class SimpleDownloadTask extends BaseTask {
 	@Override
 	public void onJobFinish(BaseRequestJob wrapper) {
 		Message msg = wrapper.getParam();
-		msg.arg1 = wrapper.getResult();
-		msg.sendToTarget();
+		if (msg != null) {
+			msg.arg1 = wrapper.getResult();
+			msg.sendToTarget();
+		}
 		mTaskCallback.onTaskFinish(getType(), wrapper.getResult());
 	}
 

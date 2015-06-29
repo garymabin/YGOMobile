@@ -222,6 +222,8 @@
     <string name="loading_card_failed">"Import failed</string>
     <string name="loading_card_file_not_found">"Import file does not exist"</string>
     <string name="no_avail_font_file">No available font file！</string>
+    <string name="font_downloading">Font File Downloading</string>
+    <string name="font_download_failed">Font file download failed!</string>
     
     <string name="reseting_card_db">Restoring card database</string>
     

@@ -9,10 +9,12 @@ import java.util.zip.GZIPInputStream;
 import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
 
+import android.os.Message;
 import android.util.Log;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.model.data.DownloadProgressEvent;
 import cn.garymb.ygomobile.utils.HttpUtils;
+import de.greenrobot.event.EventBus;
 //import de.greenrobot.event.EventBus;
 
 public class SimpleDownloadJob extends BaseRequestJob {
@@ -50,6 +52,7 @@ public class SimpleDownloadJob extends BaseRequestJob {
 				long totalSize = Integer.parseInt(resp.header("Content-Length"));
 				long downloadSize = 0;
 				Log.i(TAG, "totalLength = " + totalSize);
+				EventBus.getDefault().post(new DownloadProgressEvent(totalSize, downloadSize));
 				while (!Thread.currentThread().isInterrupted()
 						&& (readCount = is.read(buffer)) != -1) {
 					fos.write(buffer, 0, readCount);
@@ -57,7 +60,7 @@ public class SimpleDownloadJob extends BaseRequestJob {
 					downloadSize += readCount;
 					long now = System.currentTimeMillis();
 					if (now - lastReportTime > 1000) {
-//						EventBus.getDefault().post(new DownloadProgressEvent(totalSize, downloadSize));
+						EventBus.getDefault().post(new DownloadProgressEvent(totalSize, downloadSize));
 						lastReportTime = now;
 					}
 				}

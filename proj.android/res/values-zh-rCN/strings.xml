@@ -223,6 +223,8 @@
     <string name="loading_card_failed">"导入失败"</string>
     <string name="loading_card_file_not_found">"导入文件不存在"</string>
     <string name="no_avail_font_file">无可用字体文件！</string>
+    <string name="font_downloading">字体下载</string>
+    <string name="font_download_failed">字体文件下载失败</string>
     
     <string name="reseting_card_db">正在重置卡片数据库</string>
     

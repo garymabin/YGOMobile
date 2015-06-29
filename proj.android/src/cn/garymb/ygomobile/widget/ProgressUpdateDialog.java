@@ -9,11 +9,15 @@ public class ProgressUpdateDialog extends BaseDialog {
 	public ProgressUpdateDialog(Context context, OnClickListener listener,
 			View view, Bundle param) {
 		super(context, listener, view, param);
+		createController(view);
 	}
 
 	@Override
 	protected BaseDialogConfigController createController(View view) {
-		return new ProgressUpdateDialogController(this, view);
+		if (mController == null) {
+			mController = new ProgressUpdateDialogController(this, view);
+		}
+		return mController;
 	}
 
 }
