@@ -1,6 +1,7 @@
 package cn.garymb.ygomobile.common;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -236,30 +237,39 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		ArrayList<String> fontsPath = new ArrayList<String>();
 		String[] fonts = systemFontDir.list();
 		for (String name : fonts) {
-			Log.i(TAG, "load system font : " + name);
 			fontsPath.add(new File(systemFontDir, name).toString());
 		}
 		// load extra font
 		File extraDir = new File(mApp.getDefaultResPath()
 				+ Constants.FONT_DIRECTORY);
 		if (extraDir.exists()) {
-			fonts = extraDir.list();
+			fonts = extraDir.list(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String filename) {
+					if (filename.endsWith("ttf") || filename.endsWith(".otf")) {
+						return true;
+					}
+					return false;
+				}
+			});
 			boolean isFontHit = false;
 			String currentFont = mSettingsPref.getString(
 					Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR
 							+ Constants.DEFAULT_FONT_NAME);
 			for (String name : fonts) {
 				fontsPath.add(new File(extraDir, name).toString());
+			}
+			for (String name : fontsPath) {
 				if (currentFont.equals(name)) {
 					isFontHit = true;
+					break;
 				}
 			}
 			// for update compatability.
 			if (isFontHit) {
 				mSettingsPref
 						.edit()
-						.putString(Settings.KEY_PREF_GAME_FONT_NAME,
-								new File(extraDir, currentFont).toString())
+						.putString(Settings.KEY_PREF_GAME_FONT_NAME, currentFont)
 						.commit();
 			} else {
 				requestDownloadExtraFont(extraDir);

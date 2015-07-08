@@ -98,3 +98,8 @@ public static final int *;
 -dontwarn okio.**
 
 -keep class org.apache.commons.logging.** { *; }
+
+-keepclassmembers class ** { public void onEvent*(**); }
+-keepclassmembers class ** { public void onEvent(*); }
+
+
