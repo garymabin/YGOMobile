@@ -12,10 +12,11 @@
     </style>
 
     <style name="_AppTheme" parent="Theme.AppCompat.Light">
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
+        <item name="colorAccent">@color/dark_purple</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="colorAccent">@color/less_trasparent_dark_purple</item>
         <item name="android:buttonStyle">@style/ButtonAppTheme</item>
         <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
         <item name="android:editTextStyle">@style/EditTextAppTheme</item>
@@ -31,7 +32,6 @@
         <item name="actionModeBackground">@drawable/ab_dark_purper</item>
         <item name="actionBarStyle">@style/ActionBarStyle</item>
         <item name="actionBarItemBackground">@drawable/apptheme_list_selector_holo_light</item>
-        <item name="sdlDialogStyle">@style/CustomDialog</item>
         <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicator</item>
         <item name="vpiLinePageIndicatorStyle">@style/CustomLinePageIndicator</item>
         <item name="vpiTitlePageIndicatorStyle">@style/CustomTitlePageIndicator</item>

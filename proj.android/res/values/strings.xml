@@ -267,6 +267,7 @@
     <string name="settings_game_opengl">OpenGL</string>
     <string name="action_filter_string_ot">OCG/TCG</string>
     <string name="action_new_room">New</string>
+    <string name="to_be_finished">"To be finished"</string>
     
     <string name="already_updated">already updated!</string>
 </resources>

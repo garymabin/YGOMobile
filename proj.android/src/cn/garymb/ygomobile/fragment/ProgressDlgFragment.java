@@ -1,7 +1,13 @@
 package cn.garymb.ygomobile.fragment;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
+import com.avast.android.dialogs.core.BaseDialogFragment;
+import com.avast.android.dialogs.fragment.SimpleDialogFragment;
+import com.avast.android.dialogs.iface.INegativeButtonDialogListener;
+import com.avast.android.dialogs.iface.IPositiveButtonDialogListener;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -18,11 +24,8 @@ import android.widget.TextView;
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.controller.Controller;
 
-import eu.inmite.android.lib.dialogs.BaseDialogFragment;
-import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
-import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
-public class ProgressDlgFragment extends SimpleDialogFragment implements
+public class ProgressDlgFragment extends CustomDialogFragment implements
 		Observer, OnClickListener {
 
 	private static final String TAG = "ImageDLStatusDlgFragment";
@@ -84,9 +87,11 @@ public class ProgressDlgFragment extends SimpleDialogFragment implements
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						ISimpleDialogListener listener = getDialogListener();
-						if (listener != null) {
-							listener.onPositiveButtonClicked(mRequestCode);
+						List<IPositiveButtonDialogListener> listeners = getPositiveButtonDialogListeners();
+						if (listeners != null) {
+							for (IPositiveButtonDialogListener listener: listeners) {
+								listener.onPositiveButtonClicked(mRequestCode);
+							}
 						}
 						dismiss();
 					}
@@ -95,9 +100,11 @@ public class ProgressDlgFragment extends SimpleDialogFragment implements
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						ISimpleDialogListener listener = getDialogListener();
-						if (listener != null) {
-							listener.onNegativeButtonClicked(mRequestCode);
+						List<INegativeButtonDialogListener> listeners = getNegativeButtonDialogListeners();
+						if (listeners != null) {
+							for (INegativeButtonDialogListener listener: listeners) {
+								listener.onNegativeButtonClicked(mRequestCode);
+							}
 						}
 						dismiss();
 					}
@@ -149,9 +156,11 @@ public class ProgressDlgFragment extends SimpleDialogFragment implements
 
 	@Override
 	public void onClick(View v) {
-		ISimpleDialogListener listener = getDialogListener();
-		if (listener != null) {
-			listener.onNegativeButtonClicked(0);
+		List<INegativeButtonDialogListener> listeners = getNegativeButtonDialogListeners();
+		if (listeners != null) {
+			for (INegativeButtonDialogListener listener: listeners) {
+				listener.onNegativeButtonClicked(0);
+			}
 		}
 		dismiss();
 	}

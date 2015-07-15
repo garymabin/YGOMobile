@@ -2,6 +2,9 @@ package cn.garymb.ygomobile.fragment;
 
 import java.util.List;
 
+import com.avast.android.dialogs.core.BaseDialogBuilder;
+import com.avast.android.dialogs.fragment.SimpleDialogFragment;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -13,10 +16,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
@@ -35,7 +40,6 @@ import cn.garymb.ygomobile.widget.RangeDialogConfigController;
 import cn.garymb.ygomobile.widget.RoomDialogConfigController;
 import cn.garymb.ygomobile.widget.ServerDialogController;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
-import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
 public class CustomDialogFragment extends SimpleDialogFragment implements OnClickListener, ResourcesConstants, OnTouchListener, OnShowListener {
 	
@@ -68,13 +72,13 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 		}
 
 		@Override
-		public Button getPosiveButton() {
-			return getPositiveButton();
+		public Button getPositiveButton() {
+			return (Button) (mContent != null ? mContent.findViewById(R.id.sdl_button_positive) : null);
 		}
 
 		@Override
 		public Button getCancelButton() {
-			return getNegativeButton();
+			return (Button) (mContent != null ? mContent.findViewById(R.id.sdl_button_negative) : null);
 		}
 
 		@Override
@@ -101,17 +105,36 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 	
 	private SimpleDialogConfigUiBase mSimpleUiWrapper;
 	
-	private int mDialogMode;
+	private int mDialogMode = DIALOG_MODE_SIMPLE;
+	
+	private View mContent;
+	
+    public static SimpleDialogBuilder createBuilder(Context context, FragmentManager fragmentManager) {
+        return new DialogBuilder(context, fragmentManager, CustomDialogFragment.class);
+    }
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mDialogMode = getArguments().getInt(MODE_OPTIONS);
+		mDialogMode = getArguments().getInt(MODE_OPTIONS, DIALOG_MODE_SIMPLE);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		mContent = super.onCreateView(inflater, container, savedInstanceState);
+		return mContent;
 	}
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		Dialog dlg = super.onCreateDialog(savedInstanceState);
+		Bundle args = getArguments();
+		Dialog dlg = new Dialog(getActivity(), R.style.CustomDialog);
+
+        if (args != null) {
+        	dlg.setCanceledOnTouchOutside(
+                    args.getBoolean(BaseDialogBuilder.ARG_CANCELABLE_ON_TOUCH_OUTSIDE));
+        }
+		
 		dlg.setOnShowListener(this);
 		return dlg;
 	}
@@ -135,6 +158,8 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 		View content = null;
 		LayoutInflater inflater = builder.getLayoutInflater();
 		switch (mDialogMode) {
+		case ResourcesConstants.DIALOG_MODE_SIMPLE:
+			return super.build(builder);
 		case ResourcesConstants.DIALOG_MODE_CREATE_ROOM:
 		case ResourcesConstants.DIALOG_MODE_QUICK_JOIN:
 		case ResourcesConstants.DIALOG_MODE_JOIN_GAME: {
@@ -203,7 +228,7 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 	
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.sdl__positive_button) {
+		if (v.getId() == R.id.sdl_button_positive) {
 			switch (mDialogMode) {
 			case ResourcesConstants.DIALOG_MODE_CREATE_ROOM:
 			case ResourcesConstants.DIALOG_MODE_QUICK_JOIN:
@@ -288,7 +313,18 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 
 	@Override
 	public void onShow(DialogInterface dialog) {
-		mController.enableSubmitIfAppropriate();
+		if (mController != null) {
+			mController.enableSubmitIfAppropriate();
+		}
+	}
+	
+	public static class DialogBuilder extends SimpleDialogFragment.SimpleDialogBuilder {
+
+		protected DialogBuilder(Context context, FragmentManager fragmentManager,
+				Class<? extends SimpleDialogFragment> clazz) {
+			super(context, fragmentManager, clazz);
+		}
+		
 	}
 
 }

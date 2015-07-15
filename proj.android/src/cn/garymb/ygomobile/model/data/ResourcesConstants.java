@@ -110,6 +110,7 @@ public interface ResourcesConstants {
 	public static final String GAME_OPTIONS = "game.options";
 	public static final String PRIVATE_OPTIONS = "private.options";
 	
+	public static final int DIALOG_MODE_SIMPLE = -1;
 	public static final int DIALOG_MODE_CREATE_ROOM = 0;
 	public static final int DIALOG_MODE_QUICK_JOIN = 1;
 	public static final int DIALOG_MODE_JOIN_GAME = 2;

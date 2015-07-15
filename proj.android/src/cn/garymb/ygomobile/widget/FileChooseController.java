@@ -48,7 +48,7 @@ public class FileChooseController extends BaseDialogConfigController implements 
 
 	@Override
 	public int enableSubmitIfAppropriate() {
-		Button positive = mConfigUI.getPosiveButton();
+		Button positive = mConfigUI.getPositiveButton();
 		if (positive == null)
 			return 0;
 		if (TextUtils.isEmpty(mUrl)) {

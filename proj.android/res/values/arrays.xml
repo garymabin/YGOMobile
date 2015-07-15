@@ -12,9 +12,9 @@
     </string-array>
     
     <string-array name="fragment_items">
-        <item>对战</item>
-        <item>卡查</item>
-        <item>卡组管理</item>
+        <item>Duel</item>
+        <item>Card Wiki</item>
+        <item>Card Deck</item>
     </string-array>
 
     <integer-array name="duel_mode_type">

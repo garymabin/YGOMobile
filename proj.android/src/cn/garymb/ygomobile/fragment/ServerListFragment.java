@@ -153,14 +153,15 @@ public class ServerListFragment extends BaseFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mListView = (ExpandableListView) inflater.inflate(
+		View v =  inflater.inflate(
 				R.layout.common_expanable_list, container, false);
+		mListView = (ExpandableListView) v.findViewById(R.id.server_list);
 		mAdapter = new ServerAdapter(inflater, Model.peekInstance()
 				.getServers(), this);
 		mListView.setAdapter(mAdapter);
 		setIndicator();
 		mListView.setOnGroupExpandListener(this);
-		return mListView;
+		return v;
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)

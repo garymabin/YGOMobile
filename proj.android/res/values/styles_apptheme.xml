@@ -50,17 +50,13 @@
     </style>
 
     <!-- 对话框样式 -->
-    <style name="CustomDialog" parent="@style/DialogStyleLight">
-        <item name="titleTextColor">@color/apptheme_color</item>
-        <item name="titleSeparatorColor">@color/apptheme_color</item>
-        <item name="buttonBackgroundColorPressed">@color/trasparent_dark_purple</item>
-        <item name="buttonBackgroundColorFocused">@color/trasparent_dark_purple</item>
-        <!-- 背景颜色及透明程度 -->
-        <item name="android:windowBackground">@color/low_translucent_cover</item>
-        <!-- 是否浮现在activity之上 -->
-        <item name="android:windowIsFloating">true</item>
-        <!-- 是否模糊 -->
-        <item name="android:backgroundDimEnabled">false</item>
+    <style name="CustomDialog" parent="@style/SDL.Dialog">
+        <item name="colorAccent">@color/apptheme_color</item>
+        <item name="sdlDividerColor">@null</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="@style/Base.Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/apptheme_color</item>
     </style>
 
     <style name="room_item">

@@ -84,7 +84,7 @@ public class ServerDialogController extends BaseDialogConfigController implement
 	
 	@Override
 	public int enableSubmitIfAppropriate() {
-		Button positive = mConfigUI.getPosiveButton();
+		Button positive = mConfigUI.getPositiveButton();
 		if (positive == null)
 			return 0;
 		String name = mNameEditText.getText().toString().trim();

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.avast.android.dialogs.iface.INegativeButtonDialogListener;
+import com.avast.android.dialogs.iface.IPositiveButtonDialogListener;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -24,6 +26,7 @@ import cn.garymb.ygomobile.fragment.BaseFragment;
 import cn.garymb.ygomobile.fragment.CardDeckFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
+import cn.garymb.ygomobile.fragment.CustomDialogFragment;
 import cn.garymb.ygomobile.fragment.ServerListFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
 import cn.garymb.ygomobile.fragment.ProgressDlgFragment;
@@ -32,8 +35,6 @@ import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
-import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
-import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -72,7 +73,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity  implements
 		OnActionBarChangeCallback, Handler.Callback, Constants,
-		ISimpleDialogListener, ImageDLCheckListener, ResCheckListener {
+		IPositiveButtonDialogListener, INegativeButtonDialogListener, ImageDLCheckListener, ResCheckListener {
 	
 
 	public static class EventHandler extends Handler {
@@ -363,6 +364,8 @@ public class MainActivity extends AppCompatActivity  implements
 			} else if (action == FRAGMENT_ID_CARD_WIKI) {
 				mActionBarCreator = new ActionBarCreator(this).setFilter(true)
 						.setSearch(true, arg1).setReset(true);
+			} else if (action == FRAGMENT_ID_CARD_DETAIL) {
+				mActionBarCreator = new ActionBarCreator(this);
 			}
 			break;
 		default:
@@ -551,7 +554,7 @@ public class MainActivity extends AppCompatActivity  implements
 	public void onResCheckFinished(int result) {
 		boolean isFirstRun = checkFirstRunAfterInstall();
 		if (isFirstRun && !checkDiyCardDataBase()) {
-			SimpleDialogFragment.createBuilder(this, mFragmentManager)
+			CustomDialogFragment.createBuilder(this, mFragmentManager)
 					.setMessage(R.string.card_img_check_hint)
 					.setTitle(R.string.card_img_update_title)
 					.setPositiveButtonText(R.string.button_update)

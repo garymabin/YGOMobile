@@ -1,12 +1,12 @@
 package cn.garymb.ygomobile.widget;
 
 import cn.garymb.ygomobile.R;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +21,8 @@ public abstract class BaseDialog extends AlertDialog implements DialogConfigUIBa
 	protected View mView;
 	
 	private boolean mIsControllerInitialized = false;
-
+	
+	
 	public BaseDialog(Context context,
 			DialogInterface.OnClickListener listener, View view, Bundle param) {
 		super(context);
@@ -73,7 +74,7 @@ public abstract class BaseDialog extends AlertDialog implements DialogConfigUIBa
 	}
 
 	@Override
-	public Button getPosiveButton() {
+	public Button getPositiveButton() {
 		return getButton(BUTTON_POSITIVE);
 	}
 

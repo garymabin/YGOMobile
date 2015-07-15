@@ -203,7 +203,7 @@ public class RoomDialogConfigController extends BaseDialogConfigController
 			public void run() {
 				int limit = enableSubmitIfAppropriate();
 				if (s.length() != 0) {
-					Button positive = mConfigUI.getPosiveButton();
+					Button positive = mConfigUI.getPositiveButton();
 					boolean enabled = positive.isEnabled();
 					if (!enabled) {
 						if (mRoomNameEditText != null
@@ -238,7 +238,7 @@ public class RoomDialogConfigController extends BaseDialogConfigController
 	}
 
 	public int enableSubmitIfAppropriate() {
-		Button positive = mConfigUI.getPosiveButton();
+		Button positive = mConfigUI.getPositiveButton();
 		if (positive == null)
 			return 0;
 		boolean enabled = true;

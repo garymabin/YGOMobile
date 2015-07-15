@@ -12,7 +12,7 @@ public interface DialogConfigUIBase {
 	
 	void setCancelButton(CharSequence text);
 	
-	Button getPosiveButton();
+	Button getPositiveButton();
 	
 	Button getCancelButton();
 	
