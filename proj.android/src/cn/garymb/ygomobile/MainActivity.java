@@ -46,6 +46,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.OnNavigationListener;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +54,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity implements
+public class MainActivity extends AppCompatActivity implements
 		OnActionBarChangeCallback, Handler.Callback, Constants,
 		OnNavigationListener, ISimpleDialogListener, ImageDLCheckListener, ResCheckListener {
 

@@ -10,6 +10,7 @@ import java.nio.ByteBuffer;
 
 import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
+import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.controller.NetworkController;
 import cn.garymb.ygomobile.core.IrrlichtBridge;
 import cn.garymb.ygomobile.utils.DeviceUtils;
@@ -36,8 +37,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;

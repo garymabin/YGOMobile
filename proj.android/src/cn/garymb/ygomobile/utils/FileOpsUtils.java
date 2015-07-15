@@ -17,9 +17,8 @@ import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import cn.garymb.ygomobile.Constants;
 import cn.garymb.ygomobile.StaticApplication;
-
+import cn.garymb.ygomobile.common.Constants;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;

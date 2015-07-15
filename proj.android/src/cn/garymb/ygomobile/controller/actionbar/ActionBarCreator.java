@@ -4,6 +4,7 @@ import cn.garymb.ygomobile.R;
 import android.content.Context;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,7 +12,7 @@ public class ActionBarCreator {
 
 	private Context mContext;
 
-	public ActionBarCreator(ActionBarActivity activity) {
+	public ActionBarCreator(AppCompatActivity activity) {
 		mContext = activity;
 	}
 
