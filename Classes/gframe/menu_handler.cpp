@@ -60,7 +60,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 					inet_ntop(AF_INET, &(((struct sockaddr_in *)servinfo->ai_addr)->sin_addr), ip, 20);
 				freeaddrinfo(servinfo);
 			#else
-				int status;
+				//int status;
 				char hostname[100];
 				char ip[20];
 				const wchar_t* pstr = mainGame->ebJoinIP->getText();
@@ -172,6 +172,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 				if(!ReplayMode::cur_replay.OpenReplay(mainGame->lstReplayList->getListItem(mainGame->lstReplayList->getSelected())))
 					break;
 				mainGame->imgCard->setImage(imageManager.tCover);
+				mainGame->imgCard->setScaleImage(true);
 				mainGame->wCardImg->setVisible(true);
 				mainGame->wInfos->setVisible(true);
 				mainGame->wReplay->setVisible(true);
@@ -223,6 +224,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 				mainGame->is_siding = false;
 				mainGame->wInfos->setVisible(true);
 				mainGame->wCardImg->setVisible(true);
+				mainGame->btnDBExit->setVisible(true);
 				mainGame->wDeckEdit->setVisible(true);
 				mainGame->wFilter->setVisible(true);
 				mainGame->btnSideOK->setVisible(false);

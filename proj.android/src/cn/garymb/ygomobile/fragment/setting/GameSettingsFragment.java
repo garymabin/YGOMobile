@@ -70,7 +70,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 	private Preference mCardBackDiyPreference;
 
 	private Preference mCardDBResetPreference;
-
+	
 	private Bundle mImageBundle;
 
 	@Override

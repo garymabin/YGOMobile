@@ -305,6 +305,7 @@ public:
 	irr::gui::IGUIButton* btnRepos;
 	irr::gui::IGUIButton* btnAttack;
 	irr::gui::IGUIButton* btnShowList;
+	irr::gui::IGUIButton* btnShuffle;
 	//chat window
 	irr::gui::IGUIWindow* wChat;
 	irr::gui::IGUIListBox* lstChatLog;
@@ -331,6 +332,7 @@ public:
 	irr::gui::IGUIButton* btnDBExit;
 	irr::gui::IGUIButton* btnSideOK;
 	irr::gui::IGUIEditBox* ebDeckname;
+	irr::gui::IGUIButton* btnDeleteDeck;
 	//filter
 	irr::gui::IGUIStaticText* wFilter;
 	irr::gui::IGUIScrollBar* scrFilter;
@@ -368,6 +370,7 @@ public:
 #ifdef _IRR_ANDROID_PLATFORM_
 	android_app* appMain;
 	int glversion;
+	bool isPSEnabled;
 	bool isNPOTSupported;
 	s32 ogles2Solid;
 	s32 ogles2TrasparentAlpha;
@@ -448,6 +451,7 @@ extern Game* mainGame;
 #define BUTTON_CMD_REPOS			245
 #define BUTTON_CMD_ATTACK			246
 #define BUTTON_CMD_SHOWLIST			247
+#define BUTTON_CMD_SHUFFLE			248
 #define BUTTON_ANNUMBER_OK			250
 #define BUTTON_ANCARD_OK			251
 #define EDITBOX_ANCARD				252
@@ -488,5 +492,6 @@ extern Game* mainGame;
 #define BUTTON_CANCEL_SINGLEPLAY	352
 #ifdef _IRR_ANDROID_PLATFORM_
 #define GUI_INFO_FPS 1000
+#define BUTTON_DELETE_DECK	1001
 #endif
 #endif // GAME_H

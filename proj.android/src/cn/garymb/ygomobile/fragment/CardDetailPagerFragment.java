@@ -126,6 +126,7 @@ public class CardDetailPagerFragment extends BaseFragment implements
 				.getYGOCardOT(mOT));
 		((TextView) view.findViewById(R.id.card_type)).setText(model
 				.getYGOCardType(mType));
+		((TextView) view.findViewById(R.id.card_code)).setText("[" + mID + "]");
 		if ((mType & YGOArrayStore.TYPE_MONSTER) > 0) {
 			((TextView) view.findViewById(R.id.card_race)).setText(model
 					.getYGOCardRace(mRace));

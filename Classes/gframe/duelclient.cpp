@@ -299,6 +299,7 @@ void DuelClient::HandleSTOCPacketLan(char* data, unsigned int len) {
 		mainGame->is_building = true;
 		mainGame->is_siding = true;
 		mainGame->wPhase->setVisible(false);
+		mainGame->btnDBExit->setVisible(false);
 		mainGame->wDeckEdit->setVisible(false);
 		mainGame->wFilter->setVisible(false);
 		mainGame->btnSideOK->setVisible(true);
@@ -396,7 +397,7 @@ void DuelClient::HandleSTOCPacketLan(char* data, unsigned int len) {
 		mainGame->stHostPrepDuelist[2]->setText(L"");
 		mainGame->stHostPrepDuelist[3]->setText(L"");
 		mainGame->stHostPrepOB->setText(L"");
-		mainGame->SetStaticText(mainGame->stHostPrepRule, 180,
+		mainGame->SetStaticText(mainGame->stHostPrepRule, 180 * mainGame->xScale,
 				mainGame->guiFont, (wchar_t*) str.c_str());
 		mainGame->RefreshDeck(mainGame->cbDeckSelect);
 		mainGame->cbDeckSelect->setEnabled(true);
@@ -493,8 +494,10 @@ void DuelClient::HandleSTOCPacketLan(char* data, unsigned int len) {
 		mainGame->btnBP->setVisible(false);
 		mainGame->btnM2->setVisible(false);
 		mainGame->btnEP->setVisible(false);
+		mainGame->btnShuffle->setVisible(false);
 		mainGame->wChat->setVisible(true);
 		mainGame->imgCard->setImage(imageManager.tCover);
+		mainGame->imgCard->setScaleImage(true);
 		mainGame->device->setEventReceiver(&mainGame->dField);
 		if (!mainGame->dInfo.isTag) {
 			if (selftype > 1) {
@@ -573,6 +576,9 @@ void DuelClient::HandleSTOCPacketLan(char* data, unsigned int len) {
 	}
 	case STOC_REPLAY: {
 		mainGame->gMutex.Lock();
+		mainGame->wPhase->setVisible(false);
+		if(mainGame->dInfo.player_type < 7)
+			mainGame->btnLeaveGame->setVisible(false);
 		mainGame->ebRSName->setText(L"");
 		mainGame->PopupElement(mainGame->wReplaySave);
 		mainGame->gMutex.Unlock();
@@ -1057,7 +1063,7 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 			if (pcard->location == LOCATION_EXTRA)
 				mainGame->dField.extra_act = true;
 			if (pcard->location == LOCATION_SZONE && pcard->sequence == 6)
-				mainGame->dField.pzone_act = true;
+				mainGame->dField.pzone_act[pcard->controler] = true;
 		}
 		mainGame->dField.reposable_cards.clear();
 		count = BufferIO::ReadInt8(pbuf);
@@ -1119,6 +1125,11 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 			mainGame->btnEP->setVisible(true);
 			mainGame->btnEP->setEnabled(true);
 			mainGame->btnEP->setPressed(false);
+		}
+		if (BufferIO::ReadInt8(pbuf)) {
+			mainGame->btnShuffle->setVisible(true);
+		} else {
+			mainGame->btnShuffle->setVisible(false);
 		}
 		return false;
 	}
@@ -1241,14 +1252,15 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 		int forced = BufferIO::ReadInt8(pbuf);
 		/*int hint0 = */BufferIO::ReadInt32(pbuf);
 		/*int hint1 = */BufferIO::ReadInt32(pbuf);
-		int c, l, s, ss, desc;
+		int code, c, l, s, ss, desc;
 		ClientCard* pcard;
 		bool panelmode = false;
 		mainGame->dField.chain_forced = (forced != 0);
 		mainGame->dField.activatable_cards.clear();
 		mainGame->dField.activatable_descs.clear();
+		mainGame->dField.conti_cards.clear();
 		for (int i = 0; i < count; ++i) {
-			/*code = */BufferIO::ReadInt32(pbuf);
+			code = BufferIO::ReadInt32(pbuf);
 			c = mainGame->LocalPlayer(BufferIO::ReadInt8(pbuf));
 			l = BufferIO::ReadInt8(pbuf);
 			s = BufferIO::ReadInt8(pbuf);
@@ -1257,15 +1269,26 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 			pcard = mainGame->dField.GetCard(c, l, s, ss);
 			mainGame->dField.activatable_cards.push_back(pcard);
 			mainGame->dField.activatable_descs.push_back(desc);
-			pcard->is_selectable = true;
 			pcard->is_selected = false;
-			pcard->cmdFlag |= COMMAND_ACTIVATE;
-			if (l == LOCATION_GRAVE)
-				mainGame->dField.grave_act = true;
-			if (l == LOCATION_REMOVED)
+			if(code >= 1000000000) {
+				pcard->is_conti = true;
+				pcard->chain_code = code % 1000000000;
+				mainGame->dField.conti_cards.push_back(pcard);
 				mainGame->dField.remove_act = true;
-			if (l & 0xc1)
-				panelmode = true;
+			}
+			else {
+				pcard->chain_code = code;
+				pcard->is_selectable = true;
+				pcard->cmdFlag |= COMMAND_ACTIVATE;
+				if(l == LOCATION_GRAVE)
+					mainGame->dField.grave_act = true;
+				if(l == LOCATION_REMOVED)
+					mainGame->dField.remove_act = true;
+				if(l == LOCATION_EXTRA)
+					mainGame->dField.extra_act = true;
+				if(l == LOCATION_OVERLAY)
+					panelmode = true;
+			}
 		}
 		if (!forced
 				&& (mainGame->ignore_chain
@@ -2156,10 +2179,9 @@ mainGame		->dField.sort_list.clear();
 					pcard->SetCode(code);
 				pcard->counters.clear();
 				pcard->ClearTarget();
-				ClientCard* olcard = mainGame->dField.GetCard(cc, cl & 0x7f,
-						cs);
-				if (mainGame->dInfo.isReplay
-						&& mainGame->dInfo.isReplaySkiping) {
+				pcard->is_showtarget = false;
+				ClientCard* olcard = mainGame->dField.GetCard(cc, cl & 0x7f, cs);
+				if(mainGame->dInfo.isReplay && mainGame->dInfo.isReplaySkiping) {
 					mainGame->dField.RemoveCard(pc, pl, ps);
 					olcard->overlayed.push_back(pcard);
 					mainGame->dField.overlay_cards.insert(pcard);

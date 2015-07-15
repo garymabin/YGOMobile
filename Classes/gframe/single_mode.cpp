@@ -36,6 +36,9 @@ int SingleMode::SinglePlayThread(void* param) {
 	mtrandom rnd;
 	time_t seed = time(0);
 	rnd.reset(seed);
+#ifdef _IRR_ANDROID_PLATFORM_
+	set_script_reader(irr::android::android_script_reader);
+#endif
 	set_card_reader((card_reader)DataManager::CardReader);
 	set_message_handler((message_handler)MessageHandler);
 	pduel = create_duel(rnd.rand());
@@ -167,7 +170,7 @@ bool SingleMode::SinglePlayAnalyze(char* msg, unsigned int len) {
 			count = BufferIO::ReadInt8(pbuf);
 			pbuf += count * 7;
 			count = BufferIO::ReadInt8(pbuf);
-			pbuf += count * 11 + 2;
+			pbuf += count * 11 + 3;
 			SinglePlayRefresh();
 			if(!DuelClient::ClientAnalyze(offset, pbuf - offset)) {
 				mainGame->singleSignal.Reset();

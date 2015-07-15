@@ -60,8 +60,8 @@ public class CardFilterSearchActionView extends SearchView implements ICardFilte
 						+ " = " + mFilterString + ")" + "OR ( " + YGOCards.Texts.NAME
 						+ " LIKE '%" + mFilterString + "%' ))";
 			} else {
-				return " ( " + YGOCards.Texts.NAME
-						+ " LIKE '%" + mFilterString + "%' )";
+				return "(( " + YGOCards.Texts.NAME
+						+ " LIKE '%" + mFilterString + "%' ) OR ( " + YGOCards.Texts.DESC + " LIKE '%" + mFilterString + "%' ))";
 			}
 		}
 	}
@@ -69,7 +69,7 @@ public class CardFilterSearchActionView extends SearchView implements ICardFilte
 	@Override
 	public boolean onQueryTextChange(String arg0) {
 		if (!mFilterString.equals(arg0)) {
-			mFilterString = arg0;
+			mFilterString = arg0.replace("'", "''").replace("[", "[[]").replace("_", "[_]".replace("%", "[%]"));
 			mListener.onChange(YGOCardSelectionBuilder.SELECTION_SEGMENT_SEARCH, buildSelection());
 		}
 		return true;

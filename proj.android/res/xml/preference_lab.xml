@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:key="pref_key_game_lab_pendulum_scale"
+        android:defaultValue="false"
+        android:summary="@string/settings_game_lab_pendulum_scale_des"
+        android:title="@string/settings_game_lab_pendulum_scale" />
+</PreferenceScreen>

@@ -15,7 +15,7 @@ import cn.garymb.ygomobile.utils.HttpUtils;
 public class OkHttpConector implements IBaseConnector {
 
 	private static final String TAG = "OkHttpConector";
-	private OkHttpClient mClient;
+	protected OkHttpClient mClient;
 
 	public OkHttpConector(OkHttpClient client) {
 		mClient = client;

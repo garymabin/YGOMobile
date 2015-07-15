@@ -84,7 +84,7 @@ public class PipeliningHttpConnector implements IBaseConnector {
 							.getInnerWrapper(i);
 					File targetFile = new File(
 							ImageItemInfoHelper
-									.getImageTempPath(((ImageDownloadJob) imageWrapper)
+									.getImageDownloadTempPath(((ImageDownloadJob) imageWrapper)
 											.getImageItem()));
 					ImageDownloadConsumer consumer = new ImageDownloadConsumer(
 							targetFile, imageWrapper);

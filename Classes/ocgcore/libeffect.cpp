@@ -40,7 +40,7 @@ int32 scriptlib::effect_clone(lua_State *L) {
 	*ceffect = *peffect;
 	ceffect->ref_handle = ref;
 	ceffect->handler = 0;
-	ceffect->effect_owner = PLAYER_NONE;
+	ceffect->effect_owner = peffect->effect_owner;
 	if(peffect->condition) {
 		lua_rawgeti(L, LUA_REGISTRYINDEX, peffect->condition);
 		ceffect->condition = luaL_ref(L, LUA_REGISTRYINDEX);
@@ -283,13 +283,16 @@ int32 scriptlib::effect_set_value(lua_State *L) {
 	return 0;
 }
 int32 scriptlib::effect_set_operation(lua_State *L) {
-	check_param_count(L, 1);
+	check_param_count(L, 2);
 	check_param(L, PARAM_TYPE_EFFECT, 1);
-	check_param(L, PARAM_TYPE_FUNCTION, 2);
 	effect* peffect = *(effect**) lua_touserdata(L, 1);
 	if(peffect->operation)
 		luaL_unref(L, LUA_REGISTRYINDEX, peffect->operation);
-	peffect->operation = interpreter::get_function_handle(L, 2);
+	if(!lua_isnil(L, 2)) {
+		check_param(L, PARAM_TYPE_FUNCTION, 2);
+		peffect->operation = interpreter::get_function_handle(L, 2);
+	} else
+		peffect->operation = 0;
 	return 0;
 }
 int32 scriptlib::effect_set_owner_player(lua_State *L) {

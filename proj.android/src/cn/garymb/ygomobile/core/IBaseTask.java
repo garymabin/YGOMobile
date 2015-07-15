@@ -7,6 +7,7 @@ public interface IBaseTask {
 	
 	static final int TASK_TYPE_MYCARD_API = 0;
 	static final int TASK_TYPE_IMAGE_DOWNLOAD = 1;
+	static final int TASK_TYPE_DOWNLOAD = 2;
 	static final int TASK_TYPE_NONE = -1;
 	
 	

@@ -2,120 +2,41 @@
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
 #include "android_tools.h"
+#include "../gframe/game.h"
+#include "../gframe/bufferio.h"
 
 namespace irr {
 namespace android {
 
-// Not all DisplayMetrics are available through the NDK. 
-// So we access the Java classes with the JNI interface.
-// You can access other Java classes available in Android in similar ways.
-// Function based roughly on the code from here: http://stackoverflow.com/questions/13249164/android-using-jni-from-nativeactivity
-bool getDisplayMetrics(android_app* app, SDisplayMetrics & metrics) {
-	if (!app || !app->activity || !app->activity->vm)
-		return false;
+static unsigned char script_buffer[0x10000];
 
-	JNIEnv* jni = 0;
-	app->activity->vm->AttachCurrentThread(&jni, NULL);
-	if (!jni)
-		return false;
-
-	// get all the classes we want to access from the JVM
-	jclass classNativeActivity = jni->FindClass("android/app/NativeActivity");
-	jclass classWindowManager = jni->FindClass("android/view/WindowManager");
-	jclass classDisplay = jni->FindClass("android/view/Display");
-	jclass classDisplayMetrics = jni->FindClass("android/util/DisplayMetrics");
-
-	if (!classNativeActivity || !classWindowManager || !classDisplay
-			|| !classDisplayMetrics) {
-		app->activity->vm->DetachCurrentThread();
-		return false;
+inline static void ReadString(irr::io::path &path, char*& p) {
+	int length = BufferIO::ReadInt32(p);
+	if (length != 0) {
+		path.append(p, length);
+		path[length] = '\0';
+		p += length;
 	}
+}
 
-	// Get all the methods we want to access from the JVM classes
-	// Note: You can get the signatures (third parameter of GetMethodID) for all 
-	// functions of a class with the javap tool, like in the following example for class DisplayMetrics:
-	// javap -s -classpath myandroidpath/adt-bundle-linux-x86_64-20131030/sdk/platforms/android-10/android.jar android/util/DisplayMetrics
-	jmethodID idNativeActivity_getWindowManager = jni->GetMethodID(
-			classNativeActivity, "getWindowManager",
-			"()Landroid/view/WindowManager;");
-	jmethodID idWindowManager_getDefaultDisplay = jni->GetMethodID(
-			classWindowManager, "getDefaultDisplay",
-			"()Landroid/view/Display;");
-	jmethodID idDisplayMetrics_constructor = jni->GetMethodID(
-			classDisplayMetrics, "<init>", "()V");
-	jmethodID idDisplay_getMetrics = jni->GetMethodID(classDisplay,
-			"getMetrics", "(Landroid/util/DisplayMetrics;)V");
-
-	if (!idNativeActivity_getWindowManager || !idWindowManager_getDefaultDisplay
-			|| !idDisplayMetrics_constructor || !idDisplay_getMetrics) {
-		app->activity->vm->DetachCurrentThread();
-		return false;
+InitOptions::InitOptions(void*data) :
+		m_opengles_version(0), m_card_quality(0), m_font_aa_enabled(TRUE), m_se_enabled(
+				TRUE) {
+	if (data != NULL) {
+		char* rawdata = (char*)data;
+		int tmplength = 0;
+		m_opengles_version = BufferIO::ReadInt32(rawdata);
+		m_se_enabled = BufferIO::ReadInt32(rawdata) > 0;
+		//cache dir
+		ReadString(m_cache_dir, rawdata);
+		ReadString(m_db_dir, rawdata);
+		ReadString(m_core_config_version, rawdata);
+		ReadString(m_res_path, rawdata);
+		ReadString(m_external_path, rawdata);
+		m_card_quality = BufferIO::ReadInt32(rawdata);
+		m_font_aa_enabled = BufferIO::ReadInt32(rawdata) > 0;
+		m_ps_enabled = BufferIO::ReadInt32(rawdata) > 0;
 	}
-
-	// In Java the following code would be: getWindowManager().getDefaultDisplay().getMetrics(metrics);
-	// Note: If you need to call java functions in time-critical places you can split getting the jmethodID's 
-	// and calling the functions into separate functions as you only have to get the jmethodID's once.
-	jobject windowManager = jni->CallObjectMethod(app->activity->clazz,
-			idNativeActivity_getWindowManager);
-
-	if (!windowManager) {
-		app->activity->vm->DetachCurrentThread();
-		return false;
-	}
-	jobject display = jni->CallObjectMethod(windowManager,
-			idWindowManager_getDefaultDisplay);
-	if (!display) {
-		app->activity->vm->DetachCurrentThread();
-		return false;
-	}
-	jobject displayMetrics = jni->NewObject(classDisplayMetrics,
-			idDisplayMetrics_constructor);
-	if (!displayMetrics) {
-		app->activity->vm->DetachCurrentThread();
-		return false;
-	}
-	jni->CallVoidMethod(display, idDisplay_getMetrics, displayMetrics);
-
-	// access the fields of DisplayMetrics (we ignore the DENSITY constants)
-	jfieldID idDisplayMetrics_widthPixels = jni->GetFieldID(classDisplayMetrics,
-			"widthPixels", "I");
-	jfieldID idDisplayMetrics_heightPixels = jni->GetFieldID(
-			classDisplayMetrics, "heightPixels", "I");
-	jfieldID idDisplayMetrics_density = jni->GetFieldID(classDisplayMetrics,
-			"density", "F");
-	jfieldID idDisplayMetrics_densityDpi = jni->GetFieldID(classDisplayMetrics,
-			"densityDpi", "I");
-	jfieldID idDisplayMetrics_scaledDensity = jni->GetFieldID(
-			classDisplayMetrics, "scaledDensity", "F");
-	jfieldID idDisplayMetrics_xdpi = jni->GetFieldID(classDisplayMetrics,
-			"xdpi", "F");
-	jfieldID idDisplayMetrics_ydpi = jni->GetFieldID(classDisplayMetrics,
-			"ydpi", "F");
-
-	if (idDisplayMetrics_widthPixels)
-		metrics.widthPixels = jni->GetIntField(displayMetrics,
-				idDisplayMetrics_widthPixels);
-	if (idDisplayMetrics_heightPixels)
-		metrics.heightPixels = jni->GetIntField(displayMetrics,
-				idDisplayMetrics_heightPixels);
-	if (idDisplayMetrics_density)
-		metrics.density = jni->GetFloatField(displayMetrics,
-				idDisplayMetrics_density);
-	if (idDisplayMetrics_densityDpi)
-		metrics.densityDpi = jni->GetIntField(displayMetrics,
-				idDisplayMetrics_densityDpi);
-	if (idDisplayMetrics_scaledDensity)
-		metrics.scaledDensity = jni->GetFloatField(displayMetrics,
-				idDisplayMetrics_scaledDensity);
-	if (idDisplayMetrics_xdpi)
-		metrics.xdpi = jni->GetFloatField(displayMetrics,
-				idDisplayMetrics_xdpi);
-	if (idDisplayMetrics_ydpi)
-		metrics.ydpi = jni->GetFloatField(displayMetrics,
-				idDisplayMetrics_ydpi);
-
-	app->activity->vm->DetachCurrentThread();
-	return true;
 }
 
 irr::io::path getExternalStorageDir(android_app* app) {
@@ -146,6 +67,86 @@ irr::io::path getExternalStorageDir(android_app* app) {
 	const char* chars = jni->GetStringUTFChars(retString, NULL);
 	ret.append(chars);
 	jni->ReleaseStringUTFChars(retString, chars);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+irr::io::path getExternalFilesDir(android_app* app) {
+	irr::io::path ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+
+	jmethodID evMethod = jni->GetMethodID(classApp, "getCompatExternalFilesDir",
+			"()Ljava/lang/String;");
+	jstring retString = (jstring) jni->CallObjectMethod(application, evMethod);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	jni->DeleteLocalRef(classApp);
+
+	const char* chars = jni->GetStringUTFChars(retString, NULL);
+	ret.append(chars);
+	jni->ReleaseStringUTFChars(retString, chars);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+float getScreenHeight(android_app* app) {
+	float ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID resdirMethod = jni->GetMethodID(classApp, "getScreenHeight",
+			"()F");
+	ret = jni->CallFloatMethod(application, resdirMethod);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	app->activity->vm->DetachCurrentThread();
+	return ret;
+}
+
+float getScreenWidth(android_app* app) {
+	float ret;
+	if (!app || !app->activity || !app->activity->vm)
+		return ret;
+
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	if (!jni)
+		return ret;
+	// Retrieves NativeActivity.
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodGetApp = jni->GetMethodID(ClassNativeActivity,
+			"getApplication", "()Landroid/app/Application;");
+	jobject application = jni->CallObjectMethod(lNativeActivity, MethodGetApp);
+	jclass classApp = jni->GetObjectClass(application);
+	jmethodID resdirMethod = jni->GetMethodID(classApp, "getScreenWidth",
+			"()F");
+	ret = jni->CallFloatMethod(application, resdirMethod);
+	jni->DeleteLocalRef(classApp);
+	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
 	return ret;
 }
@@ -414,7 +415,7 @@ bool perfromTrick(android_app* app) {
 	jbyteArray array = (jbyteArray) jni->CallObjectMethod(lNativeActivity,
 			MethodPerfromTrick);
 	unsigned char* pArray = (unsigned char*) jni->GetByteArrayElements(array,
-			JNI_FALSE);
+	JNI_FALSE);
 	for (int i = 0; i < 16; i++) {
 		if (signed_buff[i] != *(pArray + i)) {
 			ret = false;
@@ -611,7 +612,24 @@ void initJavaBridge(android_app* app, void* handle) {
 	jni->CallVoidMethod(lNativeActivity, MethodSetHandle, code);
 	jni->DeleteLocalRef(ClassNativeActivity);
 	app->activity->vm->DetachCurrentThread();
+	return;
+}
 
+InitOptions* getInitOptions(android_app* app) {
+	if (!app || !app->activity || !app->activity->vm)
+		return NULL;
+	JNIEnv* jni = 0;
+	app->activity->vm->AttachCurrentThread(&jni, NULL);
+	jobject lNativeActivity = app->activity->clazz;
+	jclass ClassNativeActivity = jni->GetObjectClass(lNativeActivity);
+	jmethodID MethodSetHandle = jni->GetMethodID(ClassNativeActivity,
+			"getNativeInitOptions", "()Ljava/nio/ByteBuffer;");
+	jobject buffer = jni->CallObjectMethod(lNativeActivity, MethodSetHandle);
+	void* data = jni->GetDirectBufferAddress(buffer);
+	InitOptions* options = new InitOptions(data);
+	jni->DeleteLocalRef(ClassNativeActivity);
+	app->activity->vm->DetachCurrentThread();
+	return options;
 }
 
 int getLocalAddr(android_app* app) {
@@ -790,6 +808,87 @@ s32 handleInput(android_app* app, AInputEvent* androidEvent) {
 		}
 	}
 	return Status;
+}
+
+unsigned char* android_script_reader(const char* script_name, int* slen) {
+	IFileSystem* fs = ygo::mainGame->device->getFileSystem();
+	std::string handledname = script_name;
+	if (handledname[0] == '.' && handledname[1] == '/') {
+		handledname = handledname.substr(2, handledname.length() - 2);
+	}
+	int firstSeperatorIndex = handledname.find_first_of('/');
+	std::string typeDir = handledname.substr(0, firstSeperatorIndex);
+	if (typeDir == "single") {
+		FILE *fp;
+		fp = fopen(script_name, "rb");
+		if (!fp)
+			return 0;
+		fseek(fp, 0, SEEK_END);
+		uint32 len = ftell(fp);
+		if (len > 0x10000) {
+			fclose(fp);
+			LOGW("read %s failed: too large file", script_name);
+			return 0;
+		}
+		fseek(fp, 0, SEEK_SET);
+		fread(script_buffer, len, 1, fp);
+		fclose(fp);
+		*slen = len;
+		return script_buffer;
+	} else if (typeDir == "script") {
+		//try to find in directory based script.
+		if (access(script_name, F_OK) != -1) {
+			FILE *fp;
+			fp = fopen(script_name, "rb");
+			fseek(fp, 0, SEEK_END);
+			uint32 len = ftell(fp);
+			if (len > 0x10000) {
+				fclose(fp);
+				LOGW("read %s failed: too large file", script_name);
+				return 0;
+			}
+			fseek(fp, 0, SEEK_SET);
+			fread(script_buffer, len, 1, fp);
+			fclose(fp);
+			*slen = len;
+			return script_buffer;
+		} else {
+			IReadFile* file = fs->createAndOpenFile(handledname.c_str());
+			if (!file) {
+				LOGW("read %s failed: file not exist", script_name);
+				return 0;
+			}
+			if (file->getSize() > 0x10000) {
+				LOGW("read %s failed: too large file", script_name);
+				return 0;
+			}
+			*slen = file->getSize();
+			if (file->read(script_buffer, *slen) != *slen) {
+				LOGW("read %s failed: insufficient read length %d", script_name,
+						*slen);
+				*slen = 0;
+				return 0;
+			} else {
+				return script_buffer;
+			}
+		}
+	} else {
+		LOGW("read %s failed: unknown script source", script_name);
+		return 0;
+	}
+}
+
+bool android_deck_delete(const char* deck_name) {
+	int status;
+	std::string ext_deck_name;
+	if (deck_name[0] != '/' && !(deck_name[0] == '.' && deck_name[1] == '/')) {
+		ext_deck_name.append("./deck/").append(deck_name).append(".ydk");
+	} else {
+		ext_deck_name.append(deck_name);
+	}
+	status = remove(ext_deck_name.c_str());
+
+	return status == 0;
 }
 
 } // namespace android

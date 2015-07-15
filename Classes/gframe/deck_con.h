@@ -9,6 +9,7 @@
 #include "config.h"
 #ifdef _IRR_ANDROID_PLATFORM_
 #include <android/TouchEventTransferAndroid.h>
+#include <android/android_tools.h>
 #endif
 
 namespace ygo {

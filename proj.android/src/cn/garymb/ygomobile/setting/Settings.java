@@ -12,6 +12,7 @@ public final class Settings {
 	
 	//about config
 	public static final String KEY_PREF_ABOUT_VERSION = "pref_key_about_version";
+	public static final String KEY_PREF_ABOUT_PROJ_LOC = "pref_key_about_project";
 	public static final String KEY_PREF_ABOUT_OPENSOURCE = "pref_key_opensource_cert";
 	public static final String KEY_PREF_ABOUT_CHECK_UPDATE = "pref_key_about_check_update";
 	
@@ -25,6 +26,8 @@ public final class Settings {
 	public static final String KEY_PREF_GAME_IMAGE_QUALITY = "pref_key_game_image_quality";
 	public static final String KEY_PREF_GAME_OGLES_CONFIG = "pref_key_game_ogles_config";
 	public static final String KEY_PREF_GAME_SOUND_EFFECT = "pref_key_game_sound_effect";
+	public static final String KEY_PREF_GAME_LABORATORY = "pref_key_game_lab";
+	public static final String KEY_PREF_GAME_LAB_PENDULUM_SCALE = "pref_key_game_lab_pendulum_scale";
 	
 	//game diy
 	public static final String KEY_PREF_GAME_FONT_NAME = "pref_key_game_font_name";
@@ -32,6 +35,7 @@ public final class Settings {
 	public static final String KEY_PREF_GAME_DIY_CARD_BACK = "settings_game_diy_card_back";
 	public static final String KEY_PREF_GAME_DIY_CARD_DB = "settings_game_diy_card_db";
 	public static final String KEY_PREF_GAME_RESET_CARD_DB = "settings_reset_card_db";
+	
 
 	/**
 	 * 

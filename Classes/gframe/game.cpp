@@ -26,7 +26,7 @@
 #include <COGLESDriver.h>
 #endif
 
-const unsigned short PRO_VERSION = 0x1332;
+const unsigned short PRO_VERSION = 0x1335;
 
 namespace ygo {
 
@@ -40,7 +40,8 @@ bool Game::Initialize() {
 	srand(time(0));
 	irr::SIrrlichtCreationParameters params = irr::SIrrlichtCreationParameters();
 #ifdef _IRR_ANDROID_PLATFORM_
-	glversion = android::getOpenglVersion(app);
+	android::InitOptions *options = android::getInitOptions(app);
+	glversion = options->getOpenglVersion();
 	if (glversion == 0) {
 		params.DriverType = irr::video::EDT_OGLES1;
 	} else{
@@ -67,22 +68,29 @@ bool Game::Initialize() {
 	}
 	android::initJavaBridge(app, device);
 	soundEffectPlayer = new AndroidSoundEffectPlayer(app);
-	soundEffectPlayer->setSEEnabled(android::isSoundEffectEnabled(app));
+	soundEffectPlayer->setSEEnabled(options->isSoundEffectEnabled());
 	app->onInputEvent = android::handleInput;
 	ILogger* logger = device->getLogger();
+//	logger->setLogLevel(ELL_WARNING);
+	isPSEnabled = options->isPendulumScaleEnabled();
 	IFileSystem * fs = device->getFileSystem();
-	android::SDisplayMetrics metrics;
-	android::getDisplayMetrics(app, metrics);
-	xScale = metrics.widthPixels / 1024.0;
-	yScale = metrics.heightPixels / 640.0;
-	char log_scale[256];
+	xScale = android::getScreenHeight(app) / 1024.0;
+	yScale = android::getScreenWidth(app) / 640.0;
+	char log_scale[256] = {0};
 	sprintf(log_scale, "xScale = %f, yScale = %f", xScale, yScale);
 	Printer::log(log_scale);
-	io::path cacheDir = irr::android::getCacheDir(appMain);
-	io::path databaseDir = irr::android::getDBDir(appMain);
-	io::path configVersion = irr::android::getCoreConfigVersion(appMain);
-	io::path workingDir = irr::android::getResourcePath(appMain);
+	io::path cacheDir = options->getCacheDir();
+	io::path databaseDir = options->getDBDir();
+	io::path configVersion = options->getCoreConfigVerDir();
+	io::path workingDir = options->getResPathDir();
+	char log_working[256] = {0};
+	sprintf(log_working, "workingDir= %s", workingDir.c_str());
+	Printer::log(log_working);
 	fs->changeWorkingDirectoryTo(workingDir);
+	io::path mainScriptPath = options->getExternalPathDir() + "/scripts/main.zip";
+	if(fs->addFileArchive(mainScriptPath, false, false, EFAT_ZIP)) {
+		os::Printer::log("add script arrchive");
+	}
 	/* Your media must be somewhere inside the assets folder. The assets folder is the root for the file system.
 	 This example copies the media in the Android.mk makefile. */
 	stringc mediaPath = "media/";
@@ -119,7 +127,7 @@ bool Game::Initialize() {
 	deckManager.LoadLFList((cacheDir + path("/core/") + configVersion + path("/config/lflist.conf")).c_str());
 	driver = device->getVideoDriver();
 #ifdef _IRR_ANDROID_PLATFORM_
-	int quality = android::getCardQuality(app);
+	int quality = options->getCardQualityOp();
 	if (driver->getDriverType() == EDT_OGLES2) {
 		isNPOTSupported = ((COGLES2Driver *) driver)->queryOpenGLFeature(COGLES2ExtensionHandler::IRR_OES_texture_npot);
 	} else {
@@ -151,7 +159,7 @@ bool Game::Initialize() {
 	if(!dataManager.LoadStrings((cacheDir + path("/core/") + configVersion + path("/config/strings.conf")).c_str()))
 		return false;
 	env = device->getGUIEnvironment();
-	bool isAntialias = android::getFontAntiAlias(app);
+	bool isAntialias = options->isFontAntiAliasEnabled();
 	numFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)16 * yScale, isAntialias, false);
 	adFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)12 * yScale, isAntialias, false);
 	lpcFont = irr::gui::CGUITTFont::createTTFont(driver, fs, gameConf.numfont, (int)48 * yScale, isAntialias, true);
@@ -430,6 +438,8 @@ bool Game::Initialize() {
 	btnM2->setVisible(false);
 	btnEP = env->addButton(rect<s32>(325 * xScale, 0 * yScale, 375 * xScale, 30 * yScale), wPhase, BUTTON_EP, L"\xff25\xff30");
 	btnEP->setVisible(false);
+	btnShuffle = env->addButton(rect<s32>(0, 0, 50 * xScale, 30 * yScale), wPhase, BUTTON_CMD_SHUFFLE, dataManager.GetSysString(1307));
+	btnShuffle->setVisible(false);
 #else
 	//phase
 	wPhase = env->addStaticText(L"", rect<s32>(475 * xScale, 310 * yScale, 850 * xScale, 330 * yScale));
@@ -452,6 +462,8 @@ bool Game::Initialize() {
 	btnM2->setVisible(false);
 	btnEP = env->addButton(rect<s32>(325 * xScale, 0 * yScale, 375 * xScale, 20 * yScale), wPhase, BUTTON_EP, L"\xff25\xff30");
 	btnEP->setVisible(false);
+	btnShuffle = env->addButton(rect<s32>(0, 0, 50 * xScale, 20 * yScale), wPhase, BUTTON_CMD_SHUFFLE, dataManager.GetSysString(1307));
+    btnShuffle->setVisible(false);
 #endif
 	//tab
 	wInfos = env->addTabControl(rect<s32>(1 * xScale, 275 * yScale, 301 * xScale, 639 * yScale), 0, true);
@@ -502,6 +514,7 @@ bool Game::Initialize() {
 	for(int i = 0; i < 3; ++i) {
 		btnHand[i] = env->addButton(rect<s32>((10 + 105 * i) * xScale, 10 * yScale, (105 + 105 * i)  * xScale, 144 * yScale), wHand, BUTTON_HAND1 + i, L"");
 		btnHand[i]->setImage(imageManager.tHand[i]);
+		btnHand[i]->setScaleImage(true);
 	}
 #ifdef _IRR_ANDROID_PLATFORM_
 	//
@@ -720,8 +733,10 @@ bool Game::Initialize() {
 	btnClearDeck = env->addButton(rect<s32>(240 * xScale, 95 * yScale, 290 * xScale, 116 * yScale), wDeckEdit, BUTTON_CLEAR_DECK, dataManager.GetSysString(1304));
 	btnSortDeck = env->addButton(rect<s32>(185 * xScale, 95 * yScale, 235 * xScale, 116 * yScale), wDeckEdit, BUTTON_SORT_DECK, dataManager.GetSysString(1305));
 	btnShuffleDeck = env->addButton(rect<s32>(130 * xScale, 95 * yScale, 180 * xScale, 116 * yScale), wDeckEdit, BUTTON_SHUFFLE_DECK, dataManager.GetSysString(1307));
-	btnDBExit = env->addButton(rect<s32>(10 * xScale, 95 * yScale, 90 * xScale, 116 * yScale), wDeckEdit, BUTTON_DBEXIT, dataManager.GetSysString(1306));
+	btnDeleteDeck = env->addButton(rect<s32>(10 * xScale, 95 * yScale, 75 * xScale, 116 * yScale), wDeckEdit, BUTTON_DELETE_DECK, dataManager.GetSysString(1308));
+	btnDBExit = env->addButton(rect<s32>(205 * xScale, 5 * yScale, 295 * xScale, 80 * yScale), 0, BUTTON_DBEXIT, dataManager.GetSysString(1306));
 	btnSideOK = env->addButton(rect<s32>(510 * xScale, 40 * yScale, 820 * xScale, 80 * yScale), 0, BUTTON_SIDE_OK, dataManager.GetSysString(1334));
+	btnDBExit->setVisible(false);
 	btnSideOK->setVisible(false);
 	//filters
 	wFilter = env->addStaticText(L"", rect<s32>(610 * xScale, 8 * yScale, 1020 * xScale, 130 * yScale), true, false, 0, -1, true);
@@ -940,6 +955,7 @@ IGUIStaticText *text = env->addStaticText(L"",
 #endif
 	hideChat = false;
 	hideChatTimer = 0;
+	delete options;
 	return true;
 }
 void Game::MainLoop() {
@@ -1112,12 +1128,6 @@ void Game::MainLoop() {
 			ignore_chain = false;
 		fps++;
 		cur_time = timer->getTime();
-		if(cur_time < fps * 17 - 20)
-#ifdef _WIN32
-			Sleep(20);
-#else
-			usleep(20000);
-#endif
 		if(cur_time >= 1000) {
 
 #ifdef _IRR_ANDROID_PLATFORM_
@@ -1127,6 +1137,12 @@ void Game::MainLoop() {
 				stat->setText ( str.c_str() );
 			}
 #else
+	       if(cur_time < fps * 17 - 20)
+#ifdef _WIN32
+				Sleep(20);
+#else
+				usleep(20000);
+#endif
 			myswprintf(cap, L"FPS: %d", fps);
 			device->setWindowCaption(cap);
 #endif

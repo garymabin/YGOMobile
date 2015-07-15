@@ -54,6 +54,7 @@
 #keep YGOMobileActivity's C++ called method
 -keep class cn.garymb.ygomobile.YGOMobileActivity {
     public void setNativeHandle(int);
+    public java.nio.ByteBuffer getNativeInitOptions();
     public void toggleIME(java.lang.String, boolean);
     public void showComboBoxCompat(java.lang.String[], boolean, int);
     public void performHapticFeedback();
@@ -64,6 +65,7 @@
 }
 #keep StaticApplication's C++ called method
 -keep class cn.garymb.ygomobile.StaticApplication {
+    public java.lang.String getCompatExternalFilesDir();
     public java.lang.String getCardImagePath();
     public java.lang.String getCoreConfigVersion();
     public java.lang.String getResourcePath();
@@ -72,11 +74,9 @@
     public java.lang.String getCacheDir();
     public java.lang.String getLastDeck();
     public void setLastDeck(java.lang.String);
-    public int getOpenglVersion();
-    public int getCardQuality();
-    public boolean getFontAntialias();
-    public boolean isSoundEffectEnabled();
     public void playSoundEffect(java.lang.String);
+    public float getScreenHeight();
+    public float getScreenWidth();
 }
 #keep settings
 -keep class cn.garymb.ygomobile.SettingsActivity
@@ -98,3 +98,8 @@ public static final int *;
 -dontwarn okio.**
 
 -keep class org.apache.commons.logging.** { *; }
+
+-keepclassmembers class ** { public void onEvent*(**); }
+-keepclassmembers class ** { public void onEvent(*); }
+
+

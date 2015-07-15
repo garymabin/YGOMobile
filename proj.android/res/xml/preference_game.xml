@@ -33,6 +33,12 @@
             android:key="pref_key_game_image_quality"
             android:persistent="true"
             android:title="@string/settings_game_card_quality" />
+
+        <PreferenceScreen
+            android:fragment="cn.garymb.ygomobile.fragment.setting.GameLabSettingsFragment"
+            android:key="pref_key_game_lab"
+            android:summary="@string/settings_game_laboratory_des"
+            android:title="@string/settings_game_laboratory" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_category_diy" >
         <cn.garymb.ygomobile.widget.preference.MyListPreference
@@ -48,12 +54,14 @@
             android:key="settings_game_diy_card_back"
             android:persistent="true"
             android:title="@string/settings_game_diy_card_back" />
+
         <cn.garymb.ygomobile.widget.preference.MyBooleanValuePreference
+            android:defaultValue="false"
             android:key="settings_game_diy_card_db"
             android:persistent="true"
-            android:defaultValue="false"
             android:summary="@string/settings_game_diy_card_db_des"
             android:title="@string/settings_game_diy_card_db" />
+
         <Preference
             android:key="settings_reset_card_db"
             android:persistent="true"

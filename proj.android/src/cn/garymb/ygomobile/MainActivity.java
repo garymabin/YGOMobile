@@ -5,13 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.umeng.update.UmengUpdateAgent;
+
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.controller.actionbar.ActionBarCreator;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.common.ImageDLAddTask;
 import cn.garymb.ygomobile.common.ImageDLCheckTask;
+import cn.garymb.ygomobile.common.ResCheckTask;
 import cn.garymb.ygomobile.common.ImageDLAddTask.ImageDLAddListener;
 import cn.garymb.ygomobile.common.ImageDLCheckTask.ImageDLCheckListener;
+import cn.garymb.ygomobile.common.ResCheckTask.ResCheckListener;
 import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.DownloadService;
 import cn.garymb.ygomobile.core.IBaseTask;
@@ -21,18 +26,14 @@ import cn.garymb.ygomobile.fragment.CardDetailFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
 import cn.garymb.ygomobile.fragment.ServerListFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
-import cn.garymb.ygomobile.fragment.ImageDLStatusDlgFragment;
+import cn.garymb.ygomobile.fragment.ProgressDlgFragment;
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.ygo.YGOServerInfo;
 
-import com.google.analytics.tracking.android.EasyTracker;
-import com.umeng.update.UmengUpdateAgent;
-
 import eu.inmite.android.lib.dialogs.ISimpleDialogListener;
 import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -52,9 +53,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,9 +70,10 @@ import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity implements
+public class MainActivity extends AppCompatActivity  implements
 		OnActionBarChangeCallback, Handler.Callback, Constants,
-		ISimpleDialogListener, ImageDLCheckListener {
+		ISimpleDialogListener, ImageDLCheckListener, ResCheckListener {
+	
 
 	public static class EventHandler extends Handler {
 		public EventHandler(Callback back) {
@@ -168,20 +170,14 @@ public class MainActivity extends ActionBarActivity implements
 		mToolBar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(mToolBar);
 		initActionBar();
-		UmengUpdateAgent.setDeltaUpdate(false);
 		UmengUpdateAgent.update(this);
-		boolean isFirstRun = checkFirstRunAfterInstall();
-		if (isFirstRun && !checkDiyCardDataBase()) {
-			SimpleDialogFragment.createBuilder(this, mFragmentManager)
-					.setMessage(R.string.card_img_check_hint)
-					.setTitle(R.string.card_img_update_title)
-					.setPositiveButtonText(R.string.button_update)
-					.setNegativeButtonText(R.string.button_cancel)
-					.setRequestCode(0).show();
+		ResCheckTask task = new ResCheckTask(this);
+		task.setResCheckListener(this);
+		if (Build.VERSION.SDK_INT >= 11) {
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			task.execute();
 		}
-		Intent service = new Intent(this, DownloadService.class);
-		bindService(service, mServiceConn, Context.BIND_AUTO_CREATE);
-		showImageDownloadStatus(getIntent());
 	}
 	
 	private void initActionBar() {
@@ -200,7 +196,7 @@ public class MainActivity extends ActionBarActivity implements
 	private void showImageDownloadStatus(Intent intent) {
 		String action = intent.getAction();
 		if (Constants.ACTION_VIEW_DOWNLOAD_STATUS.equals(action)) {
-			ImageDLStatusDlgFragment newFragment = ImageDLStatusDlgFragment
+			ProgressDlgFragment newFragment = ProgressDlgFragment
 					.newInstance(null, 1);
 			newFragment.show(mFragmentManager, "dialog");
 		}
@@ -367,8 +363,6 @@ public class MainActivity extends ActionBarActivity implements
 			} else if (action == FRAGMENT_ID_CARD_WIKI) {
 				mActionBarCreator = new ActionBarCreator(this).setFilter(true)
 						.setSearch(true, arg1).setReset(true);
-			} else {
-				mActionBarCreator = new ActionBarCreator(this);
 			}
 			break;
 		default:
@@ -551,5 +545,21 @@ public class MainActivity extends ActionBarActivity implements
 			mDrawerLayout.closeDrawers();
 			mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 		}
+	}
+
+	@Override
+	public void onResCheckFinished(int result) {
+		boolean isFirstRun = checkFirstRunAfterInstall();
+		if (isFirstRun && !checkDiyCardDataBase()) {
+			SimpleDialogFragment.createBuilder(this, mFragmentManager)
+					.setMessage(R.string.card_img_check_hint)
+					.setTitle(R.string.card_img_update_title)
+					.setPositiveButtonText(R.string.button_update)
+					.setNegativeButtonText(R.string.button_cancel)
+					.setRequestCode(0).show();
+		}
+		Intent service = new Intent(this, DownloadService.class);
+		bindService(service, mServiceConn, Context.BIND_AUTO_CREATE);
+		showImageDownloadStatus(getIntent());		
 	}
 }

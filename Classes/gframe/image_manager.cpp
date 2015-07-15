@@ -24,6 +24,19 @@ bool ImageManager::Initial(const path dir) {
 	tHand[2] = driver->getTexture((dir + path("/textures/f3.jpg")).c_str());
 	tBackGround = driver->getTexture((dir + path("/textures/bg.jpg")).c_str());
 	tField = driver->getTexture((dir + path("/textures/field2.png")).c_str());
+	int i = 0;
+	char buff[100];
+	for (; i < 14; i++) {
+		snprintf(buff, 100, "/textures/extra/rscale_%d.png", i);
+		tRScale[i] = driver->getTexture((dir + path(buff)).c_str());
+	}
+	for (i = 0; i < 14; i++) {
+		snprintf(buff, 100, "/textures/extra/lscale_%d.png", i);
+		tLScale[i] = driver->getTexture((dir + path(buff)).c_str());
+	}
+	support_types.push_back(std::string("jpg"));
+	support_types.push_back(std::string("png"));
+	support_types.push_back(std::string("bmp"));
 	return true;
 }
 void ImageManager::SetDevice(irr::IrrlichtDevice* dev) {
@@ -56,8 +69,15 @@ irr::video::ITexture* ImageManager::GetTexture(int code) {
 	auto tit = tMap.find(code);
 	if(tit == tMap.end()) {
 		char file[256];
-		sprintf(file, "%s/%d.jpg", irr::android::getCardImagePath(mainGame->appMain).c_str(), code);
-		irr::video::ITexture* img = driver->getTexture(file);
+		irr::video::ITexture* img = NULL;
+		std::list<std::string>::iterator iter;
+		for (iter = support_types.begin(); iter != support_types.end(); ++iter) {
+			sprintf(file, "%s/%d.%s", irr::android::getCardImagePath(mainGame->appMain).c_str(), code, iter->c_str());
+			img = driver->getTexture(file);
+			if (img != NULL) {
+				break;
+			}
+		}
 		if(img == NULL) {
 			tMap[code] = NULL;
 			return GetTextureThumb(code);

@@ -12,7 +12,7 @@
     </style>
 
     <style name="_AppTheme" parent="Theme.AppCompat.Light">
-        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="colorAccent">@color/less_trasparent_dark_purple</item>

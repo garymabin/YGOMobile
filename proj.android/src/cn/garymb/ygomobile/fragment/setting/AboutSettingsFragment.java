@@ -1,6 +1,9 @@
 package cn.garymb.ygomobile.fragment.setting;
 
 import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
@@ -9,6 +12,8 @@ import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.widget.BaseDialog;
 import cn.garymb.ygomobile.widget.WebViewDialog;
 import android.annotation.TargetApi;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -23,6 +28,7 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 
 	private Preference mVersionPref;
 	private Preference mOpensourcePref;
+	private Preference mProjectLocPref;
 	private Preference mCheckUpdatePref;
 
 	private static final int DIALOG_TYPE_VERSION = 0;
@@ -41,6 +47,8 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 		mOpensourcePref.setOnPreferenceClickListener(this);
 		mCheckUpdatePref = findPreference(Settings.KEY_PREF_ABOUT_CHECK_UPDATE);
 		mCheckUpdatePref.setOnPreferenceClickListener(this);
+		mProjectLocPref = findPreference(Settings.KEY_PREF_ABOUT_PROJ_LOC);
+		mProjectLocPref.setOnPreferenceClickListener(this);
 		mVersionPref.setSummary(StaticApplication.peekInstance()
 				.getVersionName());
 	}
@@ -59,7 +67,24 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 			bundle.putInt("titleRes", R.string.settings_about_change_log);
 			showDialog(DIALOG_TYPE_VERSION, bundle);
 		} else if (preference.equals(mCheckUpdatePref)) {
+			UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+			    @Override
+			    public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
+			        switch (updateStatus) {
+			        case UpdateStatus.No: // has no update
+			        	if (isAdded()) {
+			        		Toast.makeText(getActivity(), R.string.already_updated, Toast.LENGTH_SHORT).show();
+			        	}
+			            break;
+			        }
+			    }
+			});
 			UmengUpdateAgent.forceUpdate(getActivity());
+		} else if (preference.equals(mProjectLocPref)) {
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse((String) preference.getSummary()));
+			startActivity(intent);
 		}
 		return false;
 	}

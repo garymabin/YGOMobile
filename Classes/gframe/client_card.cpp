@@ -18,8 +18,10 @@ ClientCard::ClientCard() {
 	is_highlighting = false;
 	is_disabled = false;
 	is_reversed = false;
+	is_conti = false;
 	cmdFlag = 0;
 	code = 0;
+	chain_code = 0;
 	type = 0;
 	alias = 0;
 	level = 0;
@@ -72,7 +74,7 @@ void ClientCard::UpdateInfo(char* buf) {
 		type = BufferIO::ReadInt32(buf);
 	if(flag & QUERY_LEVEL) {
 		pdata = BufferIO::ReadInt32(buf);
-		if(pdata && level != (unsigned int)pdata) {
+		if(level != (unsigned int)pdata) {
 			level = pdata;
 			myswprintf(lvstring, L"L%d", level);
 		}

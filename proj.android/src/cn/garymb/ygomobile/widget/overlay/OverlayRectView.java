@@ -5,8 +5,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ToggleButton;
 
-import cn.garymb.ygomobile.Constants;
 import cn.garymb.ygomobile.R;
+import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.widget.overlay.OverlayOvalView.OnDuelOptionsSelectListener;
 
 import com.jawsware.core.share.OverlayView;

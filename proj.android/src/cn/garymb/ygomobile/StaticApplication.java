@@ -21,6 +21,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,11 +36,8 @@ import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.CrashSender;
-import cn.garymb.ygomobile.model.Model;
 import cn.garymb.ygomobile.net.defaulthttp.ThreadSafeHttpClientFactory;
 import cn.garymb.ygomobile.setting.Settings;
-import cn.garymb.ygomobile.utils.DatabaseUtils;
-import cn.garymb.ygomobile.utils.FileOpsUtils;
 
 import com.github.nativehandler.NativeCrashHandler;
 import com.squareup.okhttp.OkHttpClient;
@@ -53,13 +51,14 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
+import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.Pair;
+import android.view.Display;
+import android.view.WindowManager;
 
 @ReportsCrashes(formKey = "", // will not be used
 customReportContent = { APP_VERSION_NAME, ANDROID_VERSION, PHONE_MODEL,
@@ -82,8 +81,6 @@ resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, // optional. when
 resDialogOkToast = R.string.crash_dialog_ok_toast)
 public class StaticApplication extends Application {
 
-	public static final int CORE_CONFIG_COPY_COUNT = 3;
-
 	private static final String TAG = "StaticApplication";
 
 	public static Pair<String, String> sRootPair;
@@ -94,11 +91,7 @@ public class StaticApplication extends Application {
 
 	private SharedPreferences mSettingsPref;
 
-	private String mCoreConfigVersion;
-
 	private String mDataBasePath;
-
-	private String mCoreSkinPath;
 
 	private float mScreenWidth;
 
@@ -115,6 +108,8 @@ public class StaticApplication extends Application {
 	private ArrayList<String> mFontsPath = new ArrayList<String>();
 
 	private Map<String, Integer> mSoundIdMap;
+	
+	private String mCoreConfigVersion;
 
 	static {
 		System.loadLibrary("YGOMobile");
@@ -132,8 +127,6 @@ public class StaticApplication extends Application {
 		mHttpFactory = new ThreadSafeHttpClientFactory(this);
 		sRootPair = Pair
 				.create(getResources().getString(R.string.root_dir), "/"/* "Environment.getExternalStorageDirectory().getPath()" */);
-		mCoreSkinPath = getCacheDir() + File.separator
-				+ Constants.CORE_SKIN_PATH;
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(this);
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
 			mDataBasePath = getApplicationInfo().dataDir + "/databases/";
@@ -149,62 +142,12 @@ public class StaticApplication extends Application {
 			e.printStackTrace();
 		}
 		Controller.peekInstance();
-		loadCoreConfigVersion();
-		String newConfigVersion = null;
-		try {
-			newConfigVersion = getAssets().list(Constants.CORE_CONFIG_PATH)[0];
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		boolean needsUpdate = !mCoreConfigVersion.equals(newConfigVersion);
-		mCoreConfigVersion = newConfigVersion;
-		saveCoreConfigVersion();
-		checkAndCopyCoreConfig(needsUpdate);
-		checkAndCopyGameSkin();
-		initFontList();
-		DatabaseUtils.checkAndCopyFromInternalDatabase(this, mDataBasePath,
-				needsUpdate);
-		DisplayMetrics metrics = getResources().getDisplayMetrics();
-		mScreenWidth = metrics.widthPixels;
-		mScreenHeight = metrics.heightPixels;
 		initSoundEffectPool();
-	}
-
-	private void initFontList() {
-		File systemFontDir = new File(Constants.SYSTEM_FONT_DIR);
-		String[] fonts = systemFontDir.list();
-		for (String name : fonts) {
-			Log.i(TAG, "load system font : " + name);
-			mFontsPath.add(new File(systemFontDir, name).toString());
-		}
-		// load extra font
-		File extraDir = new File(getDefaultResPath() + Constants.FONT_DIRECTORY);
-		if (extraDir.exists() && extraDir.exists()) {
-			fonts = extraDir.list();
-			boolean isFontHit = false;
-			String currentFont = mSettingsPref.getString(
-					Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME);
-			for (String name : fonts) {
-				Log.i(TAG, "load user define font : " + name);
-				mFontsPath.add(new File(extraDir, name).toString());
-				if (currentFont.equals(name)) {
-					isFontHit = true;
-				}
-			}
-			// for update compatability.
-			if (isFontHit) {
-				mSettingsPref
-						.edit()
-						.putString(Settings.KEY_PREF_GAME_FONT_NAME,
-								new File(extraDir, currentFont).toString())
-						.commit();
-			}
-		} else {
-			mSettingsPref
-					.edit()
-					.putString(Settings.KEY_PREF_GAME_FONT_NAME,
-							Constants.DEFAULT_FONT_NAME).commit();
-		}
+		Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		Point screenResolution = new Point();
+		display.getRealSize(screenResolution);
+		mScreenWidth = screenResolution.x;
+		mScreenHeight = screenResolution.y;
 	}
 
 	@Override
@@ -237,74 +180,6 @@ public class StaticApplication extends Application {
 		}
 	}
 
-	private void checkAndCopyGameSkin() {
-		File coreSkinDir = new File(mCoreSkinPath);
-		if (coreSkinDir != null && coreSkinDir.exists()
-				&& coreSkinDir.isDirectory()) {
-			return;
-		}
-		if (coreSkinDir != null && coreSkinDir.exists()
-				&& !coreSkinDir.isDirectory()) {
-			coreSkinDir.delete();
-		}
-		// we need to copy from configs from assets;
-		int assetcopycount = 0;
-		while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
-			try {
-				FileOpsUtils.assetsCopy(this, Constants.CORE_SKIN_PATH,
-						coreSkinDir.getAbsolutePath(), false);
-				break;
-			} catch (IOException e) {
-				Log.w(TAG, "copy core skin failed, retry count = "
-						+ assetcopycount);
-				continue;
-			}
-		}
-	}
-
-	private void checkAndCopyCoreConfig(boolean needsUpdate) {
-		File internalCacheDir = getCacheDir();
-		if (internalCacheDir != null) {
-			File coreConfigDir = new File(internalCacheDir,
-					Constants.CORE_CONFIG_PATH);
-			if (coreConfigDir != null && coreConfigDir.exists()
-					&& coreConfigDir.isDirectory() && !needsUpdate) {
-				return;
-			}
-			if (needsUpdate
-					|| (coreConfigDir != null && coreConfigDir.exists() && !coreConfigDir
-							.isDirectory())) {
-				coreConfigDir.delete();
-			}
-			// we need to copy from configs from assets;
-			int assetcopycount = 0;
-			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
-				try {
-					FileOpsUtils.assetsCopy(this, Constants.CORE_CONFIG_PATH,
-							coreConfigDir.getAbsolutePath(), false);
-					break;
-				} catch (IOException e) {
-					Log.w(TAG, "copy core config failed, retry count = "
-							+ assetcopycount);
-					continue;
-				}
-			}
-		}
-	}
-
-	private void saveCoreConfigVersion() {
-		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE_COMMON,
-				Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sp.edit();
-		editor.putString(Constants.PREF_KEY_DATA_VERSION, mCoreConfigVersion);
-		editor.commit();
-	}
-
-	private void loadCoreConfigVersion() {
-		SharedPreferences sp = getSharedPreferences(Constants.PREF_FILE_COMMON,
-				Context.MODE_PRIVATE);
-		mCoreConfigVersion = sp.getString(Constants.PREF_KEY_DATA_VERSION, "");
-	}
 
 	public byte[] getSignInfo() {
 		try {
@@ -353,7 +228,16 @@ public class StaticApplication extends Application {
 	}
 
 	public String getCoreSkinPath() {
-		return mCoreSkinPath;
+		return getCacheDir() + File.separator
+				+ Constants.CORE_SKIN_PATH;
+	}
+	
+	public String getCoreConfigVersion() {
+		return mCoreConfigVersion;
+	}
+	
+	public void setCoreConfigVersion(String ver) {
+		mCoreConfigVersion = ver;
 	}
 
 	public String getDefaultFontName() {
@@ -373,6 +257,10 @@ public class StaticApplication extends Application {
 
 	public ArrayList<String> getFontList() {
 		return mFontsPath;
+	}
+	
+	public void setFontList(Collection<? extends String> list) {
+		mFontsPath.addAll(list);
 	}
 
 	public void setResourcePath(String path) {
@@ -409,21 +297,15 @@ public class StaticApplication extends Application {
 	public String getDataBasePath() {
 		return mDataBasePath;
 	}
-
-	public String getCoreConfigVersion() {
-		return mCoreConfigVersion;
-	}
-
-	public int getOpenglVersion() {
-		return Integer.parseInt(mSettingsPref.getString(
-				Settings.KEY_PREF_GAME_OGLES_CONFIG,
-				Constants.DEFAULT_OGLES_CONFIG));
-	}
-
-	public int getCardQuality() {
-		return Integer.parseInt(mSettingsPref.getString(
-				Settings.KEY_PREF_GAME_IMAGE_QUALITY,
-				Constants.DEFAULT_CARD_QUALITY_CONFIG));
+	
+	public String getCompatExternalFilesDir() {
+		File path = getExternalFilesDir(null);
+		if (path != null) {
+			String prefix = Environment.getExternalStorageDirectory().getPath();
+			return path.toString().replace(prefix, "/mnt/sdcard");
+		} else {
+			return "/mnt/sdcard/android/data/cn.garymb.ygomobile/files/";
+		}
 	}
 
 	public void setLastCheckTime(long time) {
@@ -442,11 +324,6 @@ public class StaticApplication extends Application {
 
 	public String getFontPath() {
 		return mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR  + Constants.DEFAULT_FONT_NAME);
-	}
-
-	public boolean getFontAntialias() {
-		return mSettingsPref.getBoolean(Settings.KEY_PREF_GAME_FONT_ANTIALIAS,
-				true);
 	}
 
 	public String getLastDeck() {
@@ -494,10 +371,5 @@ public class StaticApplication extends Application {
 
 	public String getVersionName() {
 		return mVersionName;
-	}
-
-	public boolean isSoundEffectEnabled() {
-		return mSettingsPref.getBoolean(Settings.KEY_PREF_GAME_SOUND_EFFECT,
-				true);
 	}
 }

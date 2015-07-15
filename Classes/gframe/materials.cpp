@@ -25,6 +25,10 @@ Materials::Materials() {
 	vSymbol[1] = S3DVertex(vector3df(0.35f, -0.35f, 0.01f), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(1, 0));
 	vSymbol[2] = S3DVertex(vector3df(-0.35f, 0.35f, 0.01f), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(0, 1));
 	vSymbol[3] = S3DVertex(vector3df(0.35f, 0.35f, 0.01f), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(1, 1));
+	vPScale[0] = S3DVertex(vector3df(-0.35f, -0.5f, 0), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(0, 0));
+	vPScale[1] = S3DVertex(vector3df(0.35f, -0.5f, 0), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(1, 0));
+	vPScale[2] = S3DVertex(vector3df(-0.35f, 0.5f, 0), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(0, 1));
+	vPScale[3] = S3DVertex(vector3df(0.35f, 0.5f, 0), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(1, 1));
 	vNegate[0] = S3DVertex(vector3df(-0.25f, -0.28f, 0.01f), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(0, 0));
 	vNegate[1] = S3DVertex(vector3df(0.25f, -0.28f, 0.01f), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(1, 0));
 	vNegate[2] = S3DVertex(vector3df(-0.25f, 0.22f, 0.01f), vector3df(0, 0, 1), SColor(255, 255, 255, 255), vector2df(0, 1));

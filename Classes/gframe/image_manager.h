@@ -4,6 +4,8 @@
 #include "config.h"
 #include "data_manager.h"
 #include <unordered_map>
+#include <list>
+#include <string>
 
 namespace ygo {
 
@@ -36,6 +38,9 @@ public:
 	irr::video::ITexture* tHand[3];
 	irr::video::ITexture* tBackGround;
 	irr::video::ITexture* tField;
+	irr::video::ITexture* tRScale[14];
+	irr::video::ITexture* tLScale[14];
+	std::list<std::string> support_types;
 };
 
 extern ImageManager imageManager;

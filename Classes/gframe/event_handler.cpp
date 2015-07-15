@@ -256,6 +256,12 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				mainGame->HideElement(mainGame->wANCard, true);
 				break;
 			}
+			case BUTTON_CMD_SHUFFLE: {
+				mainGame->btnShuffle->setVisible(false);
+				DuelClient::SetResponseI(8);
+				DuelClient::SendResponse();
+				break;
+			}
 			case BUTTON_CMD_ACTIVATE: {
 				mainGame->wCmdMenu->setVisible(false);
 				if(!list_command) {
@@ -303,6 +309,8 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 						for(size_t i = 0; i < remove[command_controler].size(); ++i)
 							if(remove[command_controler][i]->cmdFlag & COMMAND_ACTIVATE)
 								selectable_cards.push_back(remove[command_controler][i]);
+						selectable_cards.reserve(selectable_cards.size() + conti_cards.size());
+						selectable_cards.insert(selectable_cards.end(), conti_cards.begin(), conti_cards.end());
 						break;
 					}
 					case LOCATION_EXTRA: {
@@ -314,7 +322,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 					}
 					mainGame->wCardSelect->setText(dataManager.GetSysString(566));
 					list_command = COMMAND_ACTIVATE;
-					ShowSelectCard();
+					ShowSelectCard(true, true);
 				}
 				break;
 			}
@@ -767,7 +775,9 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				const wchar_t* pname = mainGame->ebANCard->getText();
 				int trycode = BufferIO::GetVal(pname);
 				CardString cstr;
-				if(dataManager.GetString(trycode, &cstr)) {
+				CardData cd;
+				if(dataManager.GetString(trycode, &cstr) && dataManager.GetData(trycode, &cd) 
+					&& (cd.code == 78734254 || cd.code == 13857930 || !cd.alias && !((cd.type & (TYPE_MONSTER + TYPE_TOKEN)) == (TYPE_MONSTER + TYPE_TOKEN)))) {
 					mainGame->lstANCard->clear();
 					ancard.clear();
 					mainGame->lstANCard->addItem(cstr.name);
@@ -781,7 +791,8 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				for(auto cit = dataManager._strings.begin(); cit != dataManager._strings.end(); ++cit) {
 					if(wcsstr(cit->second.name, pname) != 0) {
 						auto cp = dataManager.GetCodePointer(cit->first);
-						if(!cp->second.alias) {
+						if(cp->second.code == 78734254 || cp->second.code == 13857930 
+								|| !cp->second.alias && !((cp->second.type & (TYPE_MONSTER + TYPE_TOKEN)) == (TYPE_MONSTER + TYPE_TOKEN))) {
 							mainGame->lstANCard->addItem(cit->second.name);
 							ancard.push_back(cit->first);
 						}
@@ -798,7 +809,9 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				const wchar_t* pname = mainGame->ebANCard->getText();
 				int trycode = BufferIO::GetVal(pname);
 				CardString cstr;
-				if(dataManager.GetString(trycode, &cstr)) {
+				CardData cd;
+				if(dataManager.GetString(trycode, &cstr) && dataManager.GetData(trycode, &cd) 
+					&& (cd.code == 78734254 || cd.code == 13857930 || !cd.alias && !((cd.type & (TYPE_MONSTER + TYPE_TOKEN)) == (TYPE_MONSTER + TYPE_TOKEN)))) {
 					mainGame->lstANCard->clear();
 					ancard.clear();
 					mainGame->lstANCard->addItem(cstr.name);
@@ -811,8 +824,12 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				ancard.clear();
 				for(auto cit = dataManager._strings.begin(); cit != dataManager._strings.end(); ++cit) {
 					if(wcsstr(cit->second.name, pname) != 0) {
-						mainGame->lstANCard->addItem(cit->second.name);
-						ancard.push_back(cit->first);
+						auto cp = dataManager.GetCodePointer(cit->first);
+						if(cp->second.code == 78734254 || cp->second.code == 13857930 
+								|| !cp->second.alias && !((cp->second.type & (TYPE_MONSTER + TYPE_TOKEN)) == (TYPE_MONSTER + TYPE_TOKEN))) {
+							mainGame->lstANCard->addItem(cit->second.name);
+							ancard.push_back(cit->first);
+						}
 					}
 				}
 				break;
@@ -850,6 +867,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 					mainGame->ShowCardInfo(mcard->code);
 				} else {
 					mainGame->imgCard->setImage(imageManager.tCover);
+					mainGame->imgCard->setScaleImage(true);
 					mainGame->stName->setText(L"");
 					mainGame->stInfo->setText(L"");
 					mainGame->stDataInfo->setText(L"");
@@ -1021,11 +1039,14 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 				}
 				case LOCATION_REMOVED: {
 					int command_flag = 0;
-					if(remove[hovered_controler].size() == 0)
+					if(remove[hovered_controler].size() == 0 && conti_cards.size() == 0)
 						break;
 					for(size_t i = 0; i < remove[hovered_controler].size(); ++i)
 						command_flag |= remove[hovered_controler][i]->cmdFlag;
-					command_flag |= COMMAND_LIST;
+					if(conti_cards.size())
+						command_flag |= COMMAND_ACTIVATE;
+					if(remove[hovered_controler].size())
+						command_flag |= COMMAND_LIST;
 					list_command = 1;
 					ShowMenu(command_flag, x, y);
 					break;
@@ -1478,6 +1499,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 					} else {
 						mainGame->stTip->setVisible(false);
 						mainGame->imgCard->setImage(imageManager.tCover);
+						mainGame->imgCard->setScaleImage(true);
 						mainGame->stName->setText(L"");
 						mainGame->stInfo->setText(L"");
 						mainGame->stDataInfo->setText(L"");
@@ -1507,16 +1529,10 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 	case irr::EET_KEY_INPUT_EVENT: {
 		switch(event.KeyInput.Key) {
 		case irr::KEY_KEY_A: {
-			char log_a[512];
-			sprintf(log_a, "receive key a: %d", event.KeyInput.PressedDown);
-			Printer::log(log_a);
 			mainGame->always_chain = event.KeyInput.PressedDown;
 			break;
 		}
 		case irr::KEY_KEY_S: {
-			char log_a[512];
-			sprintf(log_a, "receive key s: %d", event.KeyInput.PressedDown);
-			Printer::log(log_a);
 			mainGame->ignore_chain = event.KeyInput.PressedDown;
 			break;
 		}
