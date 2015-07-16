@@ -15,6 +15,8 @@ public class CardFilterSearchActionView extends SearchView implements ICardFilte
 	private OnCardFilterChangeListener mListener;
 	
 	private String mFilterString = "";
+	
+	private boolean isCollapsed = false;
 
 	public CardFilterSearchActionView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -28,6 +30,18 @@ public class CardFilterSearchActionView extends SearchView implements ICardFilte
 	protected void onAttachedToWindow() {
 		super.onAttachedToWindow();
 		setOnQueryTextListener(this);
+	}
+	
+	@Override
+	public void onActionViewExpanded() {
+		isCollapsed = false;
+		super.onActionViewExpanded();
+	}
+	
+	@Override
+	public void onActionViewCollapsed() {
+		isCollapsed = true;
+		super.onActionViewCollapsed();
 	}
 	
 	@Override
@@ -68,7 +82,7 @@ public class CardFilterSearchActionView extends SearchView implements ICardFilte
 
 	@Override
 	public boolean onQueryTextChange(String arg0) {
-		if (!mFilterString.equals(arg0)) {
+		if (!mFilterString.equals(arg0) && !isCollapsed) {
 			mFilterString = arg0.replace("'", "''").replace("[", "[[]").replace("_", "[_]".replace("%", "[%]"));
 			mListener.onChange(YGOCardSelectionBuilder.SELECTION_SEGMENT_SEARCH, buildSelection());
 		}

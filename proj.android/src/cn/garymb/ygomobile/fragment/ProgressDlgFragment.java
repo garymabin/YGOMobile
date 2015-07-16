@@ -5,7 +5,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.avast.android.dialogs.core.BaseDialogFragment;
-import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.INegativeButtonDialogListener;
 import com.avast.android.dialogs.iface.IPositiveButtonDialogListener;
 

@@ -43,6 +43,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -123,6 +124,14 @@ public class CardWikiFragment extends BaseFragment implements
 			View searchPlate = mSearchView.findViewById(R.id.search_plate);
 			searchPlate.setBackgroundResource(R.drawable.apptheme_search_edit_text_holo_light);
 			mSearchView.setOnCardFilterListener(this);
+			mSearchView.setOnQueryTextFocusChangeListener(new OnFocusChangeListener() {
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					if (!hasFocus) {
+						MenuItemCompat.collapseActionView(mActivity.getMenu().findItem(R.id.action_search));
+					}
+				}
+			});
 			mSearchView.setQueryHint(mActivity.getResources().getString(R.string.card_search_hint));
 			break;
 		case Constants.ACTION_BAR_EVENT_TYPE_FILTER:
@@ -297,7 +306,7 @@ public class CardWikiFragment extends BaseFragment implements
 	@Override
 	public boolean onPrepareActionMode(ActionMode paramActionMode,
 			Menu paramMenu) {
-		mActivity.getToolbar().setVisibility(View.INVISIBLE);
+		mActivity.getToolbar().setVisibility(View.GONE);
 		return false;
 	}
 
