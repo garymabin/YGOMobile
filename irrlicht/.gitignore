@@ -1,2 +1,4 @@
 # ignore binary files
 lib/*
+source/Irrlicht/Android/obj/*
+source/Irrlicht/Android/lib/*
