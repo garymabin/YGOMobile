@@ -559,7 +559,7 @@ public class MainActivity extends AppCompatActivity  implements
 					.setTitle(R.string.card_img_update_title)
 					.setPositiveButtonText(R.string.button_update)
 					.setNegativeButtonText(R.string.button_cancel)
-					.setRequestCode(0).show();
+					.setRequestCode(0).showAllowingStateLoss();
 		}
 		Intent service = new Intent(this, DownloadService.class);
 		bindService(service, mServiceConn, Context.BIND_AUTO_CREATE);

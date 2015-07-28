@@ -14,7 +14,7 @@ public interface ResourcesConstants {
 	
 	public static final String SERVER_LIST_URL = "http://my-card.in/servers.json";
 	public static final String ROOM_LIST_URL = "ws://my-card.in/rooms.json";
-	public static final String FONTS_DOWNLOAD_URL = "https://github.com/garymabin/YGOMobile-misc/raw/master/WQYMicroHei.TTF";
+	public static final String FONTS_DOWNLOAD_URL = "http://7xito2.com1.z0.glb.clouddn.com/WQYMicroHei.TTF";
 	
 	public static final String UPDATE_SERVER_URL = "http://23.252.108.13";
 	

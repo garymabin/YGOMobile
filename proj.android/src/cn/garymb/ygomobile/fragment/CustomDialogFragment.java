@@ -116,7 +116,10 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mDialogMode = getArguments().getInt(MODE_OPTIONS, DIALOG_MODE_SIMPLE);
+		Bundle bundle = getArguments();
+		if (bundle != null) {
+			mDialogMode = getArguments().getInt(MODE_OPTIONS, DIALOG_MODE_SIMPLE);
+		}
 	}
 	
 	@Override

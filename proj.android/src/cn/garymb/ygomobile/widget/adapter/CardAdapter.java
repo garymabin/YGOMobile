@@ -100,19 +100,16 @@ public class CardAdapter extends CursorAdapter implements IDataObserver, OnScrol
 	private int thumbnailImageWidthInPixel;
 
 	private ListView mListView;
-	
+
 	private int mScrollState;
 
-	public CardAdapter(Context context, String[] projection, Cursor c,
-			int flags, ListView attachTarget) {
+	public CardAdapter(Context context, String[] projection, Cursor c, int flags, ListView attachTarget) {
 		super(context, c, flags);
 		initialized = false;
 		mColumnNames = Arrays.asList(projection);
 
-		thumbnailImageHeightInPixel = context.getResources()
-				.getDimensionPixelSize(R.dimen.card_thumbnail_height);
-		thumbnailImageWidthInPixel = context.getResources()
-				.getDimensionPixelSize(R.dimen.card_thumbnail_width);
+		thumbnailImageHeightInPixel = context.getResources().getDimensionPixelSize(R.dimen.card_thumbnail_height);
+		thumbnailImageWidthInPixel = context.getResources().getDimensionPixelSize(R.dimen.card_thumbnail_width);
 		mListView = attachTarget;
 		mListView.setOnScrollListener(this);
 	}
@@ -131,36 +128,26 @@ public class CardAdapter extends CursorAdapter implements IDataObserver, OnScrol
 		if (containerView != null && containerView.getTag() != null) {
 			ViewHolder holder = (ViewHolder) containerView.getTag();
 			String id = cursor.getString(mIDColumnId);
-			ImageItem item = new ImageItem(id, thumbnailImageHeightInPixel,
-					thumbnailImageWidthInPixel);
-			holder.mController = new CardImageItemController(context,
-					holder.mCardThumbnail);
+			ImageItem item = new ImageItem(id, thumbnailImageHeightInPixel, thumbnailImageWidthInPixel);
+			holder.mController = new CardImageItemController(context, holder.mCardThumbnail);
 
-			Bitmap thumbnail = Model.peekInstance().getBitmap(item,
-					Constants.IMAGE_TYPE_THUMNAIL);
+			Bitmap thumbnail = Model.peekInstance().getBitmap(item, Constants.IMAGE_TYPE_THUMNAIL);
 			if (thumbnail != null) {
 				holder.mController.setBitmap(thumbnail, false);
 			} else {
-				if (mScrollState != SCROLL_STATE_FLING) {
-					holder.mController.setImageItem(item);
-					requestImage(item, false);
-				} else {
-					
-				}
+				holder.mController.setImageItem(item);
+				requestImage(item, false);
 			}
 			holder.mNameText.setText(cursor.getString(mNameColumnId));
 			if ((cursor.getInt(mTypeColumnId) & YGOArrayStore.TYPE_MONSTER) > 0) {
 				int atk = cursor.getInt(mATKColumnId);
 				int def = cursor.getInt(mDEFColumnId);
 				int level = cursor.getInt(mLevelColumnId);
-				holder.mLevelText
-						.setText((level & YGOArrayStore.CARD_LEVEL_MASK) + "");
+				holder.mLevelText.setText((level & YGOArrayStore.CARD_LEVEL_MASK) + "");
 				holder.mAtkText.setText(atk >= 0 ? atk + "" : "?");
 				holder.mDefText.setText(def >= 0 ? def + "" : "?");
-				holder.mRaceText.setText(Model.peekInstance().getYGOCardRace(
-						cursor.getInt(mRaceColumnId)));
-				holder.mAttrText.setText(Model.peekInstance().getYGOCardAttr(
-						cursor.getInt(mAttrColumnId)));
+				holder.mRaceText.setText(Model.peekInstance().getYGOCardRace(cursor.getInt(mRaceColumnId)));
+				holder.mAttrText.setText(Model.peekInstance().getYGOCardAttr(cursor.getInt(mAttrColumnId)));
 			} else {
 				holder.mLevelText.setText("N/A");
 				holder.mAtkText.setText("N/A");
@@ -174,8 +161,7 @@ public class CardAdapter extends CursorAdapter implements IDataObserver, OnScrol
 
 	@Override
 	public View newView(Context arg0, Cursor arg1, ViewGroup arg2) {
-		View view = LayoutInflater.from(arg0).inflate(R.layout.card_list_item,
-				arg2, false);
+		View view = LayoutInflater.from(arg0).inflate(R.layout.card_list_item, arg2, false);
 		ViewHolder holder = new ViewHolder(view);
 		view.setTag(holder);
 		return view;
@@ -184,47 +170,36 @@ public class CardAdapter extends CursorAdapter implements IDataObserver, OnScrol
 	@Override
 	public Cursor swapCursor(Cursor newCursor) {
 		if (newCursor != null && !initialized) {
-			mIDColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(ID_INDEX));
-			mNameColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(NAME_INDEX));
-			mOTColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(OT_INDEX));
-			mTypeColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(TYPE_INDEX));
-			mATKColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(ATK_INDEX));
-			mDEFColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(DEF_INDEX));
-			mLevelColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(LEVEL_INDEX));
-			mRaceColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(RACE_INDEX));
-			mAttrColumnId = newCursor.getColumnIndexOrThrow(mColumnNames
-					.get(ATTR_INDEX));
+			mIDColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(ID_INDEX));
+			mNameColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(NAME_INDEX));
+			mOTColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(OT_INDEX));
+			mTypeColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(TYPE_INDEX));
+			mATKColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(ATK_INDEX));
+			mDEFColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(DEF_INDEX));
+			mLevelColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(LEVEL_INDEX));
+			mRaceColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(RACE_INDEX));
+			mAttrColumnId = newCursor.getColumnIndexOrThrow(mColumnNames.get(ATTR_INDEX));
 		}
 		return super.swapCursor(newCursor);
 	}
 
 	private void requestImage(ImageItem item, boolean isPreload) {
 		// 确定加载的类型
-		int type = isPreload ? Constants.BITMAP_LOAD_TYPE_PRELOAD
-				: Constants.BITMAP_LOAD_TYPE_LOAD;
+		int type = isPreload ? Constants.BITMAP_LOAD_TYPE_PRELOAD : Constants.BITMAP_LOAD_TYPE_LOAD;
 
 		// 已下载就加载
 		if (ImageItemInfoHelper.isImageExist(item)) {
-			Message msg = Controller.buildMessage(
-					Constants.REQUEST_TYPE_LOAD_BITMAP,
-					Constants.IMAGE_TYPE_THUMNAIL, type, item);
+			Message msg = Controller.buildMessage(Constants.REQUEST_TYPE_LOAD_BITMAP, Constants.IMAGE_TYPE_THUMNAIL,
+					type, item);
 			Controller.peekInstance().requestDataOperation(this, msg);
 		}
-//		} else {
-//			// 未下载则进行请求下载
-//			Message msg = Controller.buildMessage(
-//					Constants.REQUEST_TYPE_DOWNLOAD_IMAGE,
-//					Constants.IMAGE_TYPE_THUMNAIL, type, item);
-//			Controller.peekInstance().requestDataOperation(this, msg);
-//		}
+		// } else {
+		// // 未下载则进行请求下载
+		// Message msg = Controller.buildMessage(
+		// Constants.REQUEST_TYPE_DOWNLOAD_IMAGE,
+		// Constants.IMAGE_TYPE_THUMNAIL, type, item);
+		// Controller.peekInstance().requestDataOperation(this, msg);
+		// }
 	}
 
 	@Override
@@ -251,21 +226,18 @@ public class CardAdapter extends CursorAdapter implements IDataObserver, OnScrol
 
 		// 下载图片完成能够找到持有该item的ImageController才继续走异步加载图片的流程
 		if (findImageItemControllerByImageItem(item) != null) {
-			Message msg = Controller.buildMessage(
-					Constants.REQUEST_TYPE_LOAD_BITMAP, type,
+			Message msg = Controller.buildMessage(Constants.REQUEST_TYPE_LOAD_BITMAP, type,
 					Constants.BITMAP_LOAD_TYPE_LOAD, item);
 			Controller.peekInstance().requestDataOperation(this, msg);
 		}
 	}
 
-	private AbstractImageItemController findImageItemControllerByImageItem(
-			ImageItem item) {
+	private AbstractImageItemController findImageItemControllerByImageItem(ImageItem item) {
 		if (item == null)
 			return null;
 
 		if (mListView != null) {
-			final int count = mListView.getLastVisiblePosition()
-					- mListView.getFirstVisiblePosition() + 1;
+			final int count = mListView.getLastVisiblePosition() - mListView.getFirstVisiblePosition() + 1;
 			for (int i = 0; i < count; i++) {
 				View v = mListView.getChildAt(i);
 				if (v == null)
@@ -303,7 +275,6 @@ public class CardAdapter extends CursorAdapter implements IDataObserver, OnScrol
 	}
 
 	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem,
-			int visibleItemCount, int totalItemCount) {
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 	}
 }

@@ -3,7 +3,6 @@ package cn.garymb.ygomobile.controller.actionbar;
 import cn.garymb.ygomobile.R;
 import android.content.Context;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
@@ -63,13 +64,10 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		mApp = StaticApplication.peekInstance();
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(mApp);
 
-		View content = mContext.getLayoutInflater().inflate(
-				R.layout.image_dl_dialog, null);
-		mProgressUpdateDialog = new ProgressUpdateDialog(mContext, null, content,
-				null);
+		View content = mContext.getLayoutInflater().inflate(R.layout.image_dl_dialog, null);
+		mProgressUpdateDialog = new ProgressUpdateDialog(mContext, null, content, null);
 		mWaitDialog = new ProgressDialog(context);
-		mWaitDialog.setMessage(mApp.getResources().getString(
-				R.string.checking_resource));
+		mWaitDialog.setMessage(mApp.getResources().getString(R.string.checking_resource));
 		mWaitDialog.setCancelable(false);
 		mProgressUpdateDialog.setCancelable(false);
 	}
@@ -103,14 +101,11 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	protected Integer doInBackground(Void... params) {
 		String newConfigVersion = null, currentConfigVersion = null;
 		int oldCurrentVersion;
-		SharedPreferences sp = mApp.getSharedPreferences(
-				Constants.PREF_FILE_COMMON, Context.MODE_PRIVATE);
-		currentConfigVersion = sp
-				.getString(Constants.PREF_KEY_DATA_VERSION, "");
+		SharedPreferences sp = mApp.getSharedPreferences(Constants.PREF_FILE_COMMON, Context.MODE_PRIVATE);
+		currentConfigVersion = sp.getString(Constants.PREF_KEY_DATA_VERSION, "");
 		oldCurrentVersion = sp.getInt(Constants.PREF_KEY_EXTRA_VERSION, 1);
 		try {
-			newConfigVersion = mApp.getAssets()
-					.list(Constants.CORE_CONFIG_PATH)[0];
+			newConfigVersion = mApp.getAssets().list(Constants.CORE_CONFIG_PATH)[0];
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -125,10 +120,8 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_skin);
 		checkAndCopyGameSkin(mApp.getCoreSkinPath());
 		publishProgress(R.string.updating_card_data_base);
-		DatabaseUtils.checkAndCopyFromInternalDatabase(mApp,
-				mApp.getDataBasePath(), needsUpdate);
-		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE,
-				R.string.updating_scripts);
+		DatabaseUtils.checkAndCopyFromInternalDatabase(mApp, mApp.getDataBasePath(), needsUpdate);
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_scripts);
 		checkAndCopyScripts(needsUpdate);
 		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_dirs);
 		checkDirs();
@@ -139,17 +132,14 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		return 0;
 	}
 
-	private void checkAndCopyExtra(String targetPath, int oldversion,
-			int newversion) {
+	private void checkAndCopyExtra(String targetPath, int oldversion, int newversion) {
 		if (newversion > oldversion && newversion == 2) {
 			int assetcopycount = 0;
 			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
 				try {
-					FileOpsUtils
-							.assetsCopy(mApp, "extra/ps", targetPath, false);
+					FileOpsUtils.assetsCopy(mApp, "extra/ps", targetPath, false);
 				} catch (IOException e) {
-					Log.w(TAG, "copy scripts failed, retry count = "
-							+ assetcopycount);
+					Log.w(TAG, "copy scripts failed, retry count = " + assetcopycount);
 					continue;
 				}
 			}
@@ -178,11 +168,9 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			int assetcopycount = 0;
 			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
 				try {
-					FileOpsUtils.assetsCopy(mApp, "main.zip",
-							scriptFile.toString(), false);
+					FileOpsUtils.assetsCopy(mApp, "main.zip", scriptFile.toString(), false);
 				} catch (IOException e) {
-					Log.w(TAG, "copy scripts failed, retry count = "
-							+ assetcopycount);
+					Log.w(TAG, "copy scripts failed, retry count = " + assetcopycount);
 					continue;
 				}
 			}
@@ -211,8 +199,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	}
 
 	private void checkAndCopyNewDeckFiles(boolean isUpdateNeeded) {
-		File deckDir = new File(mApp.getResourcePath(),
-				Constants.CORE_DECK_PATH);
+		File deckDir = new File(mApp.getResourcePath(), Constants.CORE_DECK_PATH);
 		if (!deckDir.exists()) {
 			deckDir.mkdirs();
 		}
@@ -220,11 +207,9 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			int assetcopycount = 0;
 			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
 				try {
-					FileOpsUtils.assetsCopy(mApp, Constants.CORE_DECK_PATH,
-							deckDir.toString(), false);
+					FileOpsUtils.assetsCopy(mApp, Constants.CORE_DECK_PATH, deckDir.toString(), false);
 				} catch (IOException e) {
-					Log.w(TAG, "copy core skin failed, retry count = "
-							+ assetcopycount);
+					Log.w(TAG, "copy core skin failed, retry count = " + assetcopycount);
 					continue;
 				}
 			}
@@ -240,22 +225,20 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			fontsPath.add(new File(systemFontDir, name).toString());
 		}
 		// load extra font
-		File extraDir = new File(mApp.getDefaultResPath()
-				+ Constants.FONT_DIRECTORY);
+		File extraDir = new File(mApp.getDefaultResPath() + Constants.FONT_DIRECTORY);
 		if (extraDir.exists()) {
 			fonts = extraDir.list(new FilenameFilter() {
 				@Override
 				public boolean accept(File dir, String filename) {
-					if (filename.endsWith("ttf") || filename.endsWith(".otf")) {
+					if (filename.endsWith("ttf") || filename.endsWith("TTF") || filename.endsWith(".otf")
+							|| filename.endsWith(".OTF")) {
 						return true;
 					}
 					return false;
 				}
 			});
 			boolean isFontHit = false;
-			String currentFont = mSettingsPref.getString(
-					Settings.KEY_PREF_GAME_FONT_NAME, Constants.SYSTEM_FONT_DIR
-							+ Constants.DEFAULT_FONT_NAME);
+			String currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME, "");
 			for (String name : fonts) {
 				fontsPath.add(new File(extraDir, name).toString());
 			}
@@ -267,23 +250,15 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			}
 			// for update compatability.
 			if (isFontHit) {
-				mSettingsPref
-						.edit()
-						.putString(Settings.KEY_PREF_GAME_FONT_NAME, currentFont)
-						.commit();
+				mSettingsPref.edit().putString(Settings.KEY_PREF_GAME_FONT_NAME, currentFont).commit();
 			} else {
 				requestDownloadExtraFont(extraDir);
 			}
 		} else {
-			File defaultFont = new File(Constants.SYSTEM_FONT_DIR
-					+ Constants.DEFAULT_FONT_NAME);
+			File defaultFont = new File(Constants.SYSTEM_FONT_DIR + Constants.DEFAULT_FONT_NAME);
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && defaultFont.exists()) {
-				mSettingsPref
-						.edit()
-						.putString(
-								Settings.KEY_PREF_GAME_FONT_NAME,
-								Constants.SYSTEM_FONT_DIR
-										+ Constants.DEFAULT_FONT_NAME).commit();
+				mSettingsPref.edit().putString(Settings.KEY_PREF_GAME_FONT_NAME,
+						Constants.SYSTEM_FONT_DIR + Constants.DEFAULT_FONT_NAME).commit();
 			} else {
 				requestDownloadExtraFont(extraDir);
 			}
@@ -293,12 +268,9 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	}
 
 	private void requestDownloadExtraFont(File extraDir) {
-		File wqyFont = new File(extraDir, "WQYMicroHei.TTF");
-		SimpleDownloadJob job = new SimpleDownloadJob(
-				ResourcesConstants.FONTS_DOWNLOAD_URL,
-				wqyFont.getAbsolutePath());
-		SimpleDownloadTask task = new SimpleDownloadTask(
-				StaticApplication.peekInstance().getOkHttpClient());
+		final File wqyFont = new File(extraDir, "WQYMicroHei.TTF");
+		SimpleDownloadJob job = new SimpleDownloadJob(ResourcesConstants.FONTS_DOWNLOAD_URL, wqyFont.getAbsolutePath());
+		SimpleDownloadTask task = new SimpleDownloadTask(StaticApplication.peekInstance().getOkHttpClient());
 		ProgressUpdateDialogController c = (ProgressUpdateDialogController) mProgressUpdateDialog.getController();
 		EventBus.getDefault().register(c);
 		c.setCurrentTask(task);
@@ -307,15 +279,17 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			public void onTaskFinish(int type, int result) {
 				synchronized (mLock) {
 					mLock.notifyAll();
-					publishProgress(RES_CHECK_TYPE_PROGRESS_UPDATE,
-							0);
+					publishProgress(RES_CHECK_TYPE_PROGRESS_UPDATE, 0);
 					EventBus.getDefault().unregister(mProgressUpdateDialog.getController());
+					mSettingsPref.edit().putString(Settings.KEY_PREF_GAME_FONT_NAME, wqyFont.getAbsolutePath())
+							.commit();
+					addToFontList(wqyFont.getAbsolutePath());
 				}
 				if (result != IBaseJob.STATUS_SUCCESS) {
 					mContext.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							Toast.makeText(mContext, R.string.font_downloading, Toast.LENGTH_SHORT);							
+							Toast.makeText(mContext, R.string.font_download_failed, Toast.LENGTH_SHORT);
 						}
 					});
 				}
@@ -331,13 +305,16 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				e.printStackTrace();
 			}
 		}
-		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE,
-				R.string.no_avail_font_file);
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.no_avail_font_file);
+	}
+
+	protected void addToFontList(String absolutePath) {
+		List<String> fonts = mApp.getFontList();
+		fonts.add(absolutePath);
 	}
 
 	private void saveCoreConfigVersion(String version) {
-		SharedPreferences sp = mApp.getSharedPreferences(
-				Constants.PREF_FILE_COMMON, Context.MODE_PRIVATE);
+		SharedPreferences sp = mApp.getSharedPreferences(Constants.PREF_FILE_COMMON, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
 		editor.putString(Constants.PREF_KEY_DATA_VERSION, version);
 		editor.commit();
@@ -347,27 +324,21 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	private void checkAndCopyCoreConfig(boolean needsUpdate) {
 		File internalCacheDir = mApp.getCacheDir();
 		if (internalCacheDir != null) {
-			File coreConfigDir = new File(internalCacheDir,
-					Constants.CORE_CONFIG_PATH);
-			if (coreConfigDir != null && coreConfigDir.exists()
-					&& coreConfigDir.isDirectory() && !needsUpdate) {
+			File coreConfigDir = new File(internalCacheDir, Constants.CORE_CONFIG_PATH);
+			if (coreConfigDir != null && coreConfigDir.exists() && coreConfigDir.isDirectory() && !needsUpdate) {
 				return;
 			}
-			if (needsUpdate
-					|| (coreConfigDir != null && coreConfigDir.exists() && !coreConfigDir
-							.isDirectory())) {
+			if (needsUpdate || (coreConfigDir != null && coreConfigDir.exists() && !coreConfigDir.isDirectory())) {
 				coreConfigDir.delete();
 			}
 			// we need to copy from configs from assets;
 			int assetcopycount = 0;
 			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
 				try {
-					FileOpsUtils.assetsCopy(mApp, Constants.CORE_CONFIG_PATH,
-							coreConfigDir.getAbsolutePath(), false);
+					FileOpsUtils.assetsCopy(mApp, Constants.CORE_CONFIG_PATH, coreConfigDir.getAbsolutePath(), false);
 					break;
 				} catch (IOException e) {
-					Log.w(TAG, "copy core config failed, retry count = "
-							+ assetcopycount);
+					Log.w(TAG, "copy core config failed, retry count = " + assetcopycount);
 					continue;
 				}
 			}
@@ -376,24 +347,20 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 
 	private void checkAndCopyGameSkin(String path) {
 		File coreSkinDir = new File(path);
-		if (coreSkinDir != null && coreSkinDir.exists()
-				&& coreSkinDir.isDirectory()) {
+		if (coreSkinDir != null && coreSkinDir.exists() && coreSkinDir.isDirectory()) {
 			return;
 		}
-		if (coreSkinDir != null && coreSkinDir.exists()
-				&& !coreSkinDir.isDirectory()) {
+		if (coreSkinDir != null && coreSkinDir.exists() && !coreSkinDir.isDirectory()) {
 			coreSkinDir.delete();
 		}
 		// we need to copy from configs from assets;
 		int assetcopycount = 0;
 		while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
 			try {
-				FileOpsUtils.assetsCopy(mApp, Constants.CORE_SKIN_PATH,
-						coreSkinDir.getAbsolutePath(), false);
+				FileOpsUtils.assetsCopy(mApp, Constants.CORE_SKIN_PATH, coreSkinDir.getAbsolutePath(), false);
 				break;
 			} catch (IOException e) {
-				Log.w(TAG, "copy core skin failed, retry count = "
-						+ assetcopycount);
+				Log.w(TAG, "copy core skin failed, retry count = " + assetcopycount);
 				continue;
 			}
 		}

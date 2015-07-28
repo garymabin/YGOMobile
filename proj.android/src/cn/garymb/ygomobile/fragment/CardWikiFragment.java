@@ -306,7 +306,11 @@ public class CardWikiFragment extends BaseFragment implements
 	@Override
 	public boolean onPrepareActionMode(ActionMode paramActionMode,
 			Menu paramMenu) {
-		mActivity.getToolbar().setVisibility(View.GONE);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			mActivity.getToolbar().setVisibility(View.GONE);
+		} else {
+			mActivity.getToolbar().setVisibility(View.INVISIBLE);
+		}
 		return false;
 	}
 

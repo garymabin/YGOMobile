@@ -128,7 +128,6 @@ public class DuelFragment extends BaseFragment {
 		Controller.peekInstance().unregisterForActionPlay(mHandler);
 	}
 	
-	@Override
 	public void onDetach() {
 		super.onDetach();
 	}
