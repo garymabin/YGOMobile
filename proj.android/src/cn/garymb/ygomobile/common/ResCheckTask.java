@@ -8,10 +8,12 @@ import java.util.List;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.StaticApplication;
+import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.BaseTask.TaskStatusCallback;
 import cn.garymb.ygomobile.core.SimpleDownloadTask;
 import cn.garymb.ygomobile.data.wrapper.IBaseJob;
 import cn.garymb.ygomobile.data.wrapper.SimpleDownloadJob;
+
 import cn.garymb.ygomobile.model.data.ResourcesConstants;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DatabaseUtils;
@@ -27,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -37,6 +40,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 
 	private static final int RES_CHECK_TYPE_MESSAGE_UPDATE = 1;
 	private static final int RES_CHECK_TYPE_PROGRESS_UPDATE = 2;
+	private static final int RES_CHECK_TYPE_DOWNLOAD_HINT = 3;
 
 	public interface ResCheckListener {
 		void onResCheckFinished(int result);
@@ -59,7 +63,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 
 	private Object mLock = new Object();
 
-	public ResCheckTask(Activity context) {
+	public ResCheckTask(Activity context, FragmentManager manager) {
 		mContext = context;
 		mApp = StaticApplication.peekInstance();
 		mSettingsPref = PreferenceManager.getDefaultSharedPreferences(mApp);
@@ -99,11 +103,9 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 
 	@Override
 	protected Integer doInBackground(Void... params) {
-		String newConfigVersion = null, currentConfigVersion = null;
-		int oldCurrentVersion;
+		String newConfigVersion = null, currentConfigVersion = null;	
 		SharedPreferences sp = mApp.getSharedPreferences(Constants.PREF_FILE_COMMON, Context.MODE_PRIVATE);
 		currentConfigVersion = sp.getString(Constants.PREF_KEY_DATA_VERSION, "");
-		oldCurrentVersion = sp.getInt(Constants.PREF_KEY_EXTRA_VERSION, 1);
 		try {
 			newConfigVersion = mApp.getAssets().list(Constants.CORE_CONFIG_PATH)[0];
 		} catch (IOException e) {
@@ -125,25 +127,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		checkAndCopyScripts(needsUpdate);
 		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_dirs);
 		checkDirs();
-		// publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE,
-		// R.string.checking_extra);
-		// checkAndCopyExtra(mApp.getCoreSkinPath() + "extra",
-		// oldCurrentVersion, ASSET_EXTRA_VERSION);
 		return 0;
-	}
-
-	private void checkAndCopyExtra(String targetPath, int oldversion, int newversion) {
-		if (newversion > oldversion && newversion == 2) {
-			int assetcopycount = 0;
-			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
-				try {
-					FileOpsUtils.assetsCopy(mApp, "extra/ps", targetPath, false);
-				} catch (IOException e) {
-					Log.w(TAG, "copy scripts failed, retry count = " + assetcopycount);
-					continue;
-				}
-			}
-		}
 	}
 
 	private void checkDirs() {
@@ -194,7 +178,8 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				}
 				mWaitDialog.show();
 			}
-
+		} else if (values[0] == RES_CHECK_TYPE_DOWNLOAD_HINT) {
+			Toast.makeText(mContext, R.string.font_download_via_mobile_not_allowed, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -238,7 +223,8 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				}
 			});
 			boolean isFontHit = false;
-			String currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME, "");
+			String currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME,
+					Constants.SYSTEM_FONT_DIR + Constants.DEFAULT_FONT_NAME);
 			for (String name : fonts) {
 				fontsPath.add(new File(extraDir, name).toString());
 			}
@@ -249,7 +235,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				}
 			}
 			// for update compatability.
-			if (isFontHit) {
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && isFontHit) {
 				mSettingsPref.edit().putString(Settings.KEY_PREF_GAME_FONT_NAME, currentFont).commit();
 			} else {
 				requestDownloadExtraFont(extraDir);
@@ -268,6 +254,10 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 	}
 
 	private void requestDownloadExtraFont(File extraDir) {
+		if (!Controller.peekInstance().isWifiConnected() && StaticApplication.peekInstance().getMobileNetworkPref()) {
+			publishProgress(RES_CHECK_TYPE_DOWNLOAD_HINT);
+			return;
+		}
 		final File wqyFont = new File(extraDir, "WQYMicroHei.TTF");
 		SimpleDownloadJob job = new SimpleDownloadJob(ResourcesConstants.FONTS_DOWNLOAD_URL, wqyFont.getAbsolutePath());
 		SimpleDownloadTask task = new SimpleDownloadTask(StaticApplication.peekInstance().getOkHttpClient());

@@ -9,7 +9,6 @@ import java.util.zip.GZIPInputStream;
 import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
 
-import android.os.Message;
 import android.util.Log;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.model.data.DownloadProgressEvent;

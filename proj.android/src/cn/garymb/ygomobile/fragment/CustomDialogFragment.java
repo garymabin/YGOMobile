@@ -327,7 +327,6 @@ public class CustomDialogFragment extends SimpleDialogFragment implements OnClic
 				Class<? extends SimpleDialogFragment> clazz) {
 			super(context, fragmentManager, clazz);
 		}
-		
 	}
 
 }

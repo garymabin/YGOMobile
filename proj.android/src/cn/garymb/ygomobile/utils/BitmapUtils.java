@@ -120,11 +120,11 @@ public class BitmapUtils {
 		int requestWidth = width;
 		int requestHeight = height;
 		int bmpWidth = options.outWidth;
-		float inSampleSize =  (float)bmpWidth / (float)requestWidth;
-		if (inSampleSize > 1.0 && inSampleSize < 2.0) {
+		float wScaleFactor =  (float)bmpWidth / (float)requestWidth;
+		if (wScaleFactor > 1.0 && wScaleFactor < 2.0) {
 			options.inSampleSize = 2;// 设置缩放比例
-		} else if (inSampleSize >= 2.0) {
-			options.inSampleSize = (int)inSampleSize;
+		} else if (wScaleFactor >= 2.0) {
+			options.inSampleSize = (int)wScaleFactor;
 		}
 		options.inJustDecodeBounds = false;
 
@@ -138,14 +138,15 @@ public class BitmapUtils {
 		try {  
 			bitmap = BitmapFactory.decodeStream(is, null, options);
 			if (bitmap != null) {
-				 float scale = ((float) requestWidth / options.outWidth);
+				 float xScale = ((float) requestWidth / options.outWidth);
+				 float yScale = ((float) requestHeight / options.outHeight);
 				 Matrix matrix = new Matrix();
-				 matrix.setScale(scale, scale);
+				 matrix.setScale(xScale, yScale);
 				 //以下3种情况执行矩阵变换；
 				 //1.缩放
 				 //2.强制变换到所需大小（一般用于缩略图）
 				 //3.前面为了减少图片质量，将图片缩小到了所需size之下，需要变换放大来还原
-				 if (scale < 1.0 || forceResize || (inSampleSize > 1.0 && inSampleSize < 2.0)) {
+				 if (xScale < 1.0f  && yScale < 1.0f || forceResize || (wScaleFactor > 1.0f && wScaleFactor < 2.0f)) {
 					 bitmap = Bitmap.createBitmap(bitmap, 0, 0, options.outWidth, options.outHeight, matrix, true);
 				 }	
 				 if (requestHeight != -1 && bitmap.getHeight() > requestHeight) {

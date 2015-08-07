@@ -190,7 +190,7 @@
     <string name="settings_about">关于</string>
     <string name="settings_common_sub_common">常规</string>
     <string name="settings_about_sub_about">关于</string>
-    <string name="settings_common_card_image_network_pref">2/3G网络下不下载卡图</string>
+    <string name="settings_common_card_image_network_pref">2/3G网络下不进行下载</string>
     <string name="settings_game_enable_sound_effect">开启音效</string>
     <string name="settings_game_screen_orientation">游戏中锁定屏幕方向</string>
     <string name="settings_game_font_antialias">开启字体抗锯齿</string>
@@ -261,6 +261,7 @@
     <string name="no_avail_font_file">无可用字体文件！</string>
     <string name="font_downloading">字体下载</string>
     <string name="font_download_failed">字体文件下载失败</string>
+    <string name="font_download_via_mobile_not_allowed">当前为移动网络，字体文件不会自动下载!</string>
     
     <string name="reseting_card_db">正在重置卡片数据库</string>
     

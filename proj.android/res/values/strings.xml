@@ -258,6 +258,8 @@
     <string name="font_downloading">Font File Downloading</string>
     <string name="font_download_failed">Font file download failed!</string>
     
+    <string name="font_download_via_mobile_not_allowed">Font file will not downloaded under mobile network!</string>
+    
     <string name="reseting_card_db">Restoring card database</string>
     
     <string name="reset_card_success">"Restore success，please restart app！"</string>

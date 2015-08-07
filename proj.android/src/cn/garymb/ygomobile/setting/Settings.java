@@ -17,7 +17,7 @@ public final class Settings {
 	public static final String KEY_PREF_ABOUT_CHECK_UPDATE = "pref_key_about_check_update";
 	
 	//common config
-	public static final String KEY_PREF_COMMON_IMAGE_DOWNLOAD_VIA_GPRS = "pref_key_common_card_image_download";
+	public static final String KEY_PREF_COMMON_NOT_DOWNLOAD_VIA_GPRS = "pref_key_common_download_condition";
 	
 	//game config
 	public static final String KEY_PREF_GAME_SCREEN_ORIENTATION = "pref_key_game_screen_orientation";

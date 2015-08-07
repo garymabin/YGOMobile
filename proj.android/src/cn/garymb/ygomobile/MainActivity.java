@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity  implements
 		setSupportActionBar(mToolBar);
 		initActionBar();
 		UmengUpdateAgent.update(this);
-		ResCheckTask task = new ResCheckTask(this);
+		ResCheckTask task = new ResCheckTask(this, getSupportFragmentManager());
 		task.setResCheckListener(this);
 		if (Build.VERSION.SDK_INT >= 11) {
 			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -4,7 +4,7 @@
     <PreferenceCategory android:title="@string/settings_common_sub_common" >
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="pref_key_common_card_image_download"
+            android:key="pref_key_common_download_condition"
             android:persistent="true"
             android:title="@string/settings_common_card_image_network_pref" />
 

@@ -281,7 +281,7 @@ public class StaticApplication extends Application {
 
 	public boolean getMobileNetworkPref() {
 		return mSettingsPref.getBoolean(
-				Settings.KEY_PREF_COMMON_IMAGE_DOWNLOAD_VIA_GPRS, true);
+				Settings.KEY_PREF_COMMON_NOT_DOWNLOAD_VIA_GPRS, true);
 	}
 
 	public int getGameScreenOritation() {
