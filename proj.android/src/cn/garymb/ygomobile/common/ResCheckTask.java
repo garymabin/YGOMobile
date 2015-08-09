@@ -223,8 +223,13 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				}
 			});
 			boolean isFontHit = false;
-			String currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME,
+			String currentFont;
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+				currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME,
 					Constants.SYSTEM_FONT_DIR + Constants.DEFAULT_FONT_NAME);
+			} else {
+				currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME, "");
+			}
 			for (String name : fonts) {
 				fontsPath.add(new File(extraDir, name).toString());
 			}
@@ -235,7 +240,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				}
 			}
 			// for update compatability.
-			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && isFontHit) {
+			if (isFontHit) {
 				mSettingsPref.edit().putString(Settings.KEY_PREF_GAME_FONT_NAME, currentFont).commit();
 			} else {
 				requestDownloadExtraFont(extraDir);

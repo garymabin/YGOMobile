@@ -8,13 +8,16 @@ public interface ResourcesConstants {
 	
 	public static final String FORUM_URL = "https://forum.my-card.in/";
 	
-	public static final String IMAGE_URL = "http://images-en.my-card.in/lq/";
-	
 	public static final String WIKI_SEARCH_URL = "http://www.ourocg.cn/S.aspx?key=";
 	
 	public static final String SERVER_LIST_URL = "http://my-card.in/servers.json";
 	public static final String ROOM_LIST_URL = "ws://my-card.in/rooms.json";
-	public static final String FONTS_DOWNLOAD_URL = "http://7xito2.com1.z0.glb.clouddn.com/WQYMicroHei.TTF";
+	
+	public static final String DOWNLOAD_BASE_URL = "http://7xito2.com1.z0.glb.clouddn.com/";
+	
+	public static final String FONTS_DOWNLOAD_URL = DOWNLOAD_BASE_URL + "WQYMicroHei.TTF";
+	
+	public static final String CARD_IMAGE_DOWNLOAD_URL = DOWNLOAD_BASE_URL + "card_images/";
 	
 	public static final String UPDATE_SERVER_URL = "http://23.252.108.13";
 	

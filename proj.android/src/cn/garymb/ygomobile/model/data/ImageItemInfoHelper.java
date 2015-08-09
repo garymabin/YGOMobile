@@ -31,7 +31,7 @@ public final class ImageItemInfoHelper {
 
 	private static final String TMP_SUFFIX = ".tmp";
 
-	private static String BASE_URL = ResourcesConstants.IMAGE_URL;
+	private static String BASE_URL = ResourcesConstants.CARD_IMAGE_DOWNLOAD_URL;
 
 	public static void init(String url) {
 		int index = url.lastIndexOf(':');

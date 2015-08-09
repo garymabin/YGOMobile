@@ -23,7 +23,6 @@ import android.support.v4.util.SparseArrayCompat;
 public class MyCardTracker extends Handler implements TaskStatusCallback {
 
 	public static final int STATE_INITIAL = 0;
-	public static final int STATE_RETRIVING_API = 1;
 	public static final int STATE_PREPARED = 2;
 	public static final int STATE_FAILED = 3;
 
@@ -44,12 +43,13 @@ public class MyCardTracker extends Handler implements TaskStatusCallback {
 		mOkHttpClient = mApp.getOkHttpClient();
 		mTasks = new SparseArrayCompat<BaseTask>();
 		mStore = store;
-		setState(STATE_INITIAL);
+		
+		setState(STATE_PREPARED);
 	}
 
 	private void setState(int state) {
 		if (mState != state) {
-			mState = STATE_INITIAL;
+			mState = state;
 		}
 	}
 
@@ -99,7 +99,7 @@ public class MyCardTracker extends Handler implements TaskStatusCallback {
 			task.setNextTask(type);
 			task.setTaskStatusCallback(this);
 			task.execute();
-			setState(STATE_RETRIVING_API);
+			setState(STATE_PREPARED);
 			return;
 		} else if (mState == STATE_PREPARED) {
 			BaseTask task = getTask(type);

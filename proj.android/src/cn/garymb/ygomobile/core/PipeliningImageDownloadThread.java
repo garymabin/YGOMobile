@@ -91,7 +91,7 @@ public class PipeliningImageDownloadThread extends BaseThread {
 
 	private List<AbstractAsyncResponseConsumer<BaseRequestJob>> mConsumer;
 
-	private static final int MAX_PIPELINE_COUNT = 100;
+	private static final int MAX_PIPELINE_COUNT = 200;
 	
 	public PipeliningImageDownloadThread(BlockingQueue<BaseRequestJob> queue,
 			JobStatusCallback callback, CloseableHttpPipeliningClient client) {
