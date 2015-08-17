@@ -228,7 +228,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME,
 					Constants.SYSTEM_FONT_DIR + Constants.DEFAULT_FONT_NAME);
 			} else {
-				currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME, "");
+				currentFont = mSettingsPref.getString(Settings.KEY_PREF_GAME_FONT_NAME, fonts.length == 0 ? "" : new File(extraDir, fonts[0]).toString());
 			}
 			for (String name : fonts) {
 				fontsPath.add(new File(extraDir, name).toString());
