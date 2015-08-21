@@ -107,7 +107,7 @@ public abstract class EventDialogPreferenceFragment extends PreferenceFragment
 		if (!mShowsDialog) {
 			return;
 		}
-		mDialog = onCreateDialog(mDialogType, null);
+		mDialog = onCreateDialog(mDialogType, null);	
 		mDialog.setOnDismissListener(this);
 		Log.i("wtf", "onActivityCreated, shows dialog");
 		if (savedInstanceState != null) {
@@ -132,6 +132,7 @@ public abstract class EventDialogPreferenceFragment extends PreferenceFragment
 
 	protected void showDialog(int type, Bundle param) {
 		mDialog = onCreateDialog(type, param);
+		mDialog.setOnDismissListener(this);
 		mDialog.show();
 		mShowsDialog = true;
 	}
@@ -142,6 +143,7 @@ public abstract class EventDialogPreferenceFragment extends PreferenceFragment
 		if (mDialog != null) {
 			mDialog.dismiss();
 			mDialog = null;
+			mDialog.setOnDismissListener(null);
 			mShowsDialog = false;
 		}
 	}
@@ -149,6 +151,7 @@ public abstract class EventDialogPreferenceFragment extends PreferenceFragment
 	protected void dismissDialog() {
 		if (mDialog != null) {
 			mDialog.dismiss();
+			mDialog.setOnDismissListener(null);
 			mShowsDialog = false;
 		}
 	}

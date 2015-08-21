@@ -12,8 +12,8 @@ import cn.garymb.ygomobile.common.CardDBCopyTask.CardDBCopyListener;
 import cn.garymb.ygomobile.common.CardDBResetTask;
 import cn.garymb.ygomobile.common.CardDBResetTask.CardDBResetListener;
 import cn.garymb.ygomobile.common.Constants;
-import cn.garymb.ygomobile.common.ImageCopyTask;
-import cn.garymb.ygomobile.common.ImageCopyTask.ImageCopyListener;
+import cn.garymb.ygomobile.common.ImageResizeCopyTask;
+import cn.garymb.ygomobile.common.ImageResizeCopyTask.ImageCopyListener;
 import cn.garymb.ygomobile.model.data.ImageItemInfoHelper;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
@@ -47,7 +47,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class GameSettingsFragment extends EventDialogPreferenceFragment
 		implements OnPreferenceChangeListener, OnPreferenceClickListener,
 		OnClickListener, android.content.DialogInterface.OnClickListener,
@@ -153,6 +152,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 					+ Constants.CORE_SKIN_COVER);
 			bundle.putInt("title_res", R.string.settings_game_cover);
 			bundle.putIntArray("orig_size", Constants.CORE_SKIN_COVER_SIZE);
+			bundle.putBoolean("force_resize", false);
 			mImageBundle = bundle;
 			showDialog(DIALOG_TYPE_IMAGE_PREVIEW, bundle);
 		} else if (preference.getKey().equals(
@@ -171,6 +171,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 					.getCoreSkinPath()
 					+ File.separator
 					+ Constants.CORE_SKIN_CARD_BACK);
+			bundle.putBoolean("force_resize", true);
 			bundle.putInt("title_res", R.string.settings_game_card_back);
 			bundle.putIntArray("orig_size", Constants.CORE_SKIN_CARD_BACK_SIZE);
 			mImageBundle = bundle;
@@ -267,7 +268,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 				}
 			}
 		}
-		ImageCopyTask task = new ImageCopyTask(getActivity());
+		ImageResizeCopyTask task = new ImageResizeCopyTask(getActivity());
 		task.setImageCopyListener(this);
 		param.putString("src_url", path);
 		if (Build.VERSION.SDK_INT >= 11) {

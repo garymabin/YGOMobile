@@ -8,10 +8,8 @@ import cn.garymb.ygomobile.widget.BaseDialog;
 import cn.garymb.ygomobile.widget.FileChooseController;
 import cn.garymb.ygomobile.widget.FileChooseDialog;
 
-import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -19,7 +17,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class CommonSettingsFragment extends EventDialogPreferenceFragment implements
 		OnPreferenceClickListener, OnClickListener {
 

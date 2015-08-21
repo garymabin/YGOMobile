@@ -22,7 +22,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AboutSettingsFragment extends EventDialogPreferenceFragment
 		implements OnPreferenceClickListener {
 
