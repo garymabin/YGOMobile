@@ -26,7 +26,6 @@ import cn.garymb.ygomobile.widget.filebrowser.FileBrowser;
 import cn.garymb.ygomobile.widget.preference.MyBooleanValuePreference;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;

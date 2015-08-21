@@ -142,8 +142,8 @@ public abstract class EventDialogPreferenceFragment extends PreferenceFragment
 		super.onDestroyView();
 		if (mDialog != null) {
 			mDialog.dismiss();
-			mDialog = null;
 			mDialog.setOnDismissListener(null);
+			mDialog = null;
 			mShowsDialog = false;
 		}
 	}

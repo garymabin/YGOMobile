@@ -6,14 +6,13 @@ import java.io.IOException;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.model.Model;
-import cn.garymb.ygomobile.utils.BitmapUtils;
 import cn.garymb.ygomobile.utils.FileOpsUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 
