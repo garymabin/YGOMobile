@@ -13,6 +13,7 @@ import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.controller.NetworkController;
 import cn.garymb.ygomobile.core.IrrlichtBridge;
+import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.utils.DeviceUtils;
 import cn.garymb.ygomobile.widget.ComboBoxCompat;
 import cn.garymb.ygomobile.widget.EditWindowCompat;
@@ -202,9 +203,10 @@ public class YGOMobileActivity extends NativeActivity implements
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-		// TODO Auto-generated method stub
 		if (hasFocus) {
-			if (currentApiVersion >= Build.VERSION_CODES.KITKAT) {
+			if (currentApiVersion >= Build.VERSION_CODES.KITKAT &&
+					StaticApplication.peekInstance().getApplicationSettings().
+					getBoolean(Settings.KEY_PREF_GAME_IMMERSIVE_MODE, false)) {
 				getWindow().getDecorView().setSystemUiVisibility(
 						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 								| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION

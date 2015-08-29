@@ -185,6 +185,9 @@
     <string name="settings_game_reset_card_db_des">Use internal database</string>
     <string name="settings_game_diy_card_db_des">User custom databse</string>
     <string name="settings_game_diy_des">Current image：</string>
+    <string name="settings_game_immersive_mode_summary">Hide virtual navigation key in game</string>
+    <string name="settings_game_immersive_mode">Immersive Mode</string>
+    <string name="settings_about_feedback">Feed back</string>
     
     <string name="settings_game_diy_history_des">History images：</string>
     <string name="settings_game_cover">Background</string>

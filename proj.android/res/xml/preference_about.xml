@@ -22,6 +22,9 @@
             android:key="pref_key_about_check_update"
             android:persistent="true"
             android:title="@string/settings_about_check_update" />
+        <Preference
+            android:key="pref_key_feed_back"
+            android:title="@string/settings_about_feedback"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

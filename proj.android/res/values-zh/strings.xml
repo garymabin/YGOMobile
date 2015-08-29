@@ -223,6 +223,9 @@
     <string name="settings_game_diy_history_des">历史图片：</string>
     <string name="settings_game_cover">背景图</string>
     <string name="settings_game_card_back">卡背图</string>
+    <string name="settings_game_immersive_mode_summary">游戏中隐藏虚拟按键（需要Android4.4+）</string>
+    <string name="settings_game_immersive_mode">沉浸模式</string>
+    <string name="settings_about_feedback">用户反馈</string>
     
    
     <string name="image_not_load_toast">无法加载指定图片</string>

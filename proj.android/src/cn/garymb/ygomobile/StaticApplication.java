@@ -41,6 +41,7 @@ import cn.garymb.ygomobile.setting.Settings;
 
 import com.github.nativehandler.NativeCrashHandler;
 import com.squareup.okhttp.OkHttpClient;
+import com.umeng.fb.FeedbackAgent;
 
 import android.app.Application;
 import android.content.Context;
@@ -108,8 +109,9 @@ public class StaticApplication extends Application {
 	private ArrayList<String> mFontsPath = new ArrayList<String>();
 
 	private Map<String, Integer> mSoundIdMap;
-	
 	private String mCoreConfigVersion;
+	
+	private FeedbackAgent mFeedbackAgent;
 
 	static {
 		System.loadLibrary("YGOMobile");

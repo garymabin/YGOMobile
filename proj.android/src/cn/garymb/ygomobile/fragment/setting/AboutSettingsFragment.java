@@ -1,5 +1,6 @@
 package cn.garymb.ygomobile.fragment.setting;
 
+import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
@@ -11,10 +12,8 @@ import cn.garymb.ygomobile.model.data.VersionInfo;
 import cn.garymb.ygomobile.setting.Settings;
 import cn.garymb.ygomobile.widget.BaseDialog;
 import cn.garymb.ygomobile.widget.WebViewDialog;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.preference.Preference;
@@ -29,6 +28,7 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 	private Preference mOpensourcePref;
 	private Preference mProjectLocPref;
 	private Preference mCheckUpdatePref;
+	private Preference mFeedBackPerf;
 
 	private static final int DIALOG_TYPE_VERSION = 0;
 	private static final int DIALOG_TYPE_OPEN_SOURCE = 1;
@@ -48,6 +48,8 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 		mCheckUpdatePref.setOnPreferenceClickListener(this);
 		mProjectLocPref = findPreference(Settings.KEY_PREF_ABOUT_PROJ_LOC);
 		mProjectLocPref.setOnPreferenceClickListener(this);
+		mFeedBackPerf = findPreference(Settings.KEY_PREF_ABOUT_FEED_BACK);
+		mFeedBackPerf.setOnPreferenceClickListener(this);
 		mVersionPref.setSummary(StaticApplication.peekInstance()
 				.getVersionName());
 	}
@@ -84,6 +86,10 @@ public class AboutSettingsFragment extends EventDialogPreferenceFragment
 			intent.setAction(Intent.ACTION_VIEW);
 			intent.setData(Uri.parse((String) preference.getSummary()));
 			startActivity(intent);
+		} else if (preference.equals(mFeedBackPerf)) {
+			FeedbackAgent agent = new FeedbackAgent(getActivity());
+			agent.openFeedbackPush();
+			agent.startFeedbackActivity();
 		}
 		return false;
 	}

@@ -18,6 +18,12 @@
             android:persistent="true"
             android:summary="@string/settings_game_font_antialias_summary"
             android:title="@string/settings_game_font_antialias" />
+        <CheckBoxPreference 
+            android:defaultValue="false"
+            android:key="pref_key_immersive_mode"
+            android:persistent="true"
+            android:summary="@string/settings_game_immersive_mode_summary"
+            android:title="@string/settings_game_immersive_mode"/>
 
         <cn.garymb.ygomobile.widget.preference.MyListPreference
             android:defaultValue="@integer/default_ogles_config"

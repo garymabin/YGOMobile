@@ -8,6 +8,9 @@ import java.util.Map;
 import com.avast.android.dialogs.iface.INegativeButtonDialogListener;
 import com.avast.android.dialogs.iface.IPositiveButtonDialogListener;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.umeng.fb.FeedbackAgent;
+import com.umeng.fb.push.FeedbackPush;
+import com.umeng.message.PushAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import cn.garymb.ygomobile.R;
@@ -172,6 +175,9 @@ public class MainActivity extends AppCompatActivity  implements
 		setSupportActionBar(mToolBar);
 		initActionBar();
 		UmengUpdateAgent.update(this);
+		FeedbackAgent agent = new FeedbackAgent(this);
+		agent.sync();
+		agent.openFeedbackPush();
 		ResCheckTask task = new ResCheckTask(this, getSupportFragmentManager());
 		task.setResCheckListener(this);
 		if (Build.VERSION.SDK_INT >= 11) {
