@@ -99,4 +99,7 @@ $(call import-module,gframe/lzma)
 
 $(call import-module,android/native_app_glue)
 
+$(shell mkdir -p $(IRRLICHT_PROJECT_PATH)/assets/media/Shaders)
+$(shell cp $(IRRLICHT_PROJECT_PATH)/../../media/Shaders/*.* $(IRRLICHT_PROJECT_PATH)/assets/media/Shaders/)
+
 

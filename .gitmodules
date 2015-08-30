@@ -1,0 +1,3 @@
+[submodule "irrlicht"]
+	path = irrlicht
+	url = git@github.com:garymabin/irrlicht.git
