@@ -102,6 +102,11 @@ public:
 	int LocalPlayer(int player);
 	const wchar_t* LocalName(int local_player);
 
+	bool HasFocus(EGUI_ELEMENT_TYPE type) const {
+		irr::gui::IGUIElement* focus = env->getFocus();
+		return focus && focus->hasType(type);
+	}
+
 	Mutex gMutex;
 	Mutex gBuffer;
 	Signal frameSignal;
@@ -172,12 +177,14 @@ public:
 	irr::gui::IGUIStaticText* stName;
 	irr::gui::IGUIStaticText* stInfo;
 	irr::gui::IGUIStaticText* stDataInfo;
+	irr::gui::IGUIStaticText* stSetName;
 	irr::gui::IGUIStaticText* stText;
-	irr::gui::IGUIScrollBar *scrCardText;
+	irr::gui::IGUIScrollBar* scrCardText;
 	irr::gui::IGUICheckBox* chkAutoPos;
 	irr::gui::IGUICheckBox* chkRandomPos;
 	irr::gui::IGUICheckBox* chkAutoChain;
 	irr::gui::IGUICheckBox* chkWaitChain;
+	irr::gui::IGUICheckBox* chkHideSetname;
 	irr::gui::IGUIListBox* lstLog;
 	irr::gui::IGUIButton* btnClearLog;
 	irr::gui::IGUIButton* btnSaveLog;
@@ -278,6 +285,12 @@ public:
 	irr::gui::IGUIStaticText *stCardPos[5];
 	irr::gui::IGUIScrollBar *scrCardList;
 	irr::gui::IGUIButton* btnSelectOK;
+	//card display
+	irr::gui::IGUIWindow* wCardDisplay;
+	irr::gui::CGUIImageButton* btnCardDisplay[5];
+	irr::gui::IGUIStaticText *stDisplayPos[5];
+	irr::gui::IGUIScrollBar *scrDisplayList;
+	irr::gui::IGUIButton* btnDisplayOK;
 	//announce number
 	irr::gui::IGUIWindow* wANNumber;
 	irr::gui::IGUIComboBox* cbANNumber;
@@ -292,9 +305,7 @@ public:
 	irr::gui::IGUICheckBox* chkAttribute[7];
 	//announce race
 	irr::gui::IGUIWindow* wANRace;
-	//merge 0f2fb4
 	irr::gui::IGUICheckBox* chkRace[24];
-//	irr::gui::IGUICheckBox* chkRace[23];
 	//cmd menu
 	irr::gui::IGUIWindow* wCmdMenu;
 	irr::gui::IGUIButton* btnActivate;
@@ -465,6 +476,13 @@ extern Game* mainGame;
 #define BUTTON_CLEAR_LOG			270
 #define LISTBOX_LOG					271
 #define SCROLL_CARDTEXT				280
+#define BUTTON_DISPLAY_0			290
+#define BUTTON_DISPLAY_1			291
+#define BUTTON_DISPLAY_2			292
+#define BUTTON_DISPLAY_3			293
+#define BUTTON_DISPLAY_4			294
+#define SCROLL_CARD_DISPLAY			295
+#define BUTTON_CARD_DISP_OK			296
 #define BUTTON_CATEGORY_OK			300
 #define COMBOBOX_DBLFLIST			301
 #define COMBOBOX_DBDECKS			302

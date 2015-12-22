@@ -26,7 +26,7 @@
 #include <COGLESDriver.h>
 #endif
 
-const unsigned short PRO_VERSION = 0x1336;
+const unsigned short PRO_VERSION = 0x1338;
 
 namespace ygo {
 
@@ -785,7 +785,6 @@ bool Game::Initialize() {
 	cbRace = env->addComboBox(rect<s32>(60 * xScale, 49 * yScale, 190 * xScale, 69 * yScale), wFilter, -1);
 #endif
 	cbRace->addItem(dataManager.GetSysString(1310), 0);
-	//merge 8933d0
 	for(int filter = 0x1; filter != 0x1000000; filter <<= 1)
 		cbRace->addItem(dataManager.FormatRace(filter), filter);
 	env->addStaticText(dataManager.GetSysString(1322), rect<s32>(205 * xScale, 28 * yScale, 280 * xScale, 48 * yScale), false, false, wFilter);
@@ -1352,38 +1351,55 @@ void Game::ShowCardInfo(int code) {
 		myswprintf(formatBuffer, L"%ls[%08d]", dataManager.GetName(cd.alias), cd.alias);
 	else myswprintf(formatBuffer, L"%ls[%08d]", dataManager.GetName(code), code);
 	stName->setText(formatBuffer);
+	int offset = 0;
+	if(true) {
+		unsigned long long sc = cd.setcode;
+		if(cd.alias) {
+			auto aptr = dataManager._datas.find(cd.alias);
+			if(aptr != dataManager._datas.end())
+				sc = aptr->second.setcode;
+		}
+		if(sc) {
+			offset = 23;
+			myswprintf(formatBuffer, L"%ls%ls", dataManager.GetSysString(1329), dataManager.FormatSetName(sc));
+			stSetName->setText(formatBuffer);
+		} else
+			stSetName->setText(L"");
+	} else {
+		stSetName->setText(L"");
+	}
 	if(cd.type & TYPE_MONSTER) {
 		myswprintf(formatBuffer, L"[%ls] %ls/%ls", dataManager.FormatType(cd.type), dataManager.FormatRace(cd.race), dataManager.FormatAttribute(cd.attribute));
 		stInfo->setText(formatBuffer);
-		formatBuffer[0] = L'[';
-		for(unsigned int i = 1; i <= cd.level; ++i)
-			formatBuffer[i] = 0x2605;
-		formatBuffer[cd.level + 1] = L']';
-		formatBuffer[cd.level + 2] = L' ';
+		int form = 0x2605;
+		if(cd.type & TYPE_XYZ) ++form ;
+		myswprintf(formatBuffer, L"[%c%d] ",form,cd.level);
+		wchar_t adBuffer[16];
 		if(cd.attack < 0 && cd.defence < 0)
-			myswprintf(&formatBuffer[cd.level + 3], L"?/?");
+			myswprintf(adBuffer, L"?/?");
 		else if(cd.attack < 0)
-			myswprintf(&formatBuffer[cd.level + 3], L"?/%d", cd.defence);
+			myswprintf(adBuffer, L"?/%d", cd.defence);
 		else if(cd.defence < 0)
-			myswprintf(&formatBuffer[cd.level + 3], L"%d/?", cd.attack);
+			myswprintf(adBuffer, L"%d/?", cd.attack);
 		else
-			myswprintf(&formatBuffer[cd.level + 3], L"%d/%d", cd.attack, cd.defence);
+			myswprintf(adBuffer, L"%d/%d", cd.attack, cd.defence);
+		wcscat(formatBuffer, adBuffer);
 		if(cd.type & TYPE_PENDULUM) {
 			wchar_t scaleBuffer[16];
-			//merge c8eaaf
 			myswprintf(scaleBuffer, L"   %d/%d", cd.lscale, cd.rscale);
-//			myswprintf(scaleBuffer, L" %d/%d", cd.lscale, cd.rscale);
 			wcscat(formatBuffer, scaleBuffer);
 		}
 		stDataInfo->setText(formatBuffer);
-		stText->setRelativePosition(rect<s32>(15 * xScale, 83  * yScale, 287 * xScale, 324  * yScale));
-		scrCardText->setRelativePosition(rect<s32>(267 * xScale, 83 * yScale, 287 * xScale, 324 * yScale));
+		stSetName->setRelativePosition(rect<s32>(15 * xScale, 83 * yScale, 296 * xScale, 106 * yScale));
+		stText->setRelativePosition(rect<s32>(15 * xScale, (83 + offset) * yScale, 287 * xScale, 324  * yScale));
+		scrCardText->setRelativePosition(rect<s32>(267 * xScale, (83 + offset) * yScale, 287 * xScale, 324 * yScale));
 	} else {
 		myswprintf(formatBuffer, L"[%ls]", dataManager.FormatType(cd.type));
 		stInfo->setText(formatBuffer);
 		stDataInfo->setText(L"");
-		stText->setRelativePosition(rect<s32>(15 * xScale, 60 * yScale, 287 * xScale, 324 * yScale));
-		scrCardText->setRelativePosition(rect<s32>(267 * xScale, 60 * yScale, 287 * xScale, 324 * yScale));
+		stSetName->setRelativePosition(rect<s32>(15 * xScale, 60 * yScale, 296 * xScale, 83 * yScale));
+		stText->setRelativePosition(rect<s32>(15 * xScale, (60 + offset) * yScale, 287 * xScale, 324 * yScale));
+		scrCardText->setRelativePosition(rect<s32>(267 * xScale, (60 + offset) * yScale, 287 * xScale, 324 * yScale));
 	}
 	showingtext = dataManager.GetText(code);
 	const auto& tsize = stText->getRelativePosition();
@@ -1428,7 +1444,6 @@ void Game::AddChatMsg(wchar_t* msg, int player) {
 	default: //from watcher or unknown
 		if(player < 11 || player > 19)
 			chatMsg[0].append(L"[---]: ");
-		break;
 	}
 	chatMsg[0].append(msg);
 }
@@ -1437,11 +1452,10 @@ void Game::ClearTextures() {
 	mainGame->imgCard->setImage(0);
 	mainGame->btnPSAU->setImage();
 	mainGame->btnPSDU->setImage();
-	mainGame->btnCardSelect[0]->setImage();
-	mainGame->btnCardSelect[1]->setImage();
-	mainGame->btnCardSelect[2]->setImage();
-	mainGame->btnCardSelect[3]->setImage();
-	mainGame->btnCardSelect[4]->setImage();
+	for(int i=0; i<=4; ++i) {
+		mainGame->btnCardSelect[i]->setImage();
+		mainGame->btnCardDisplay[i]->setImage();
+	}
 	imageManager.ClearTexture();
 }
 void Game::CloseDuelWindow() {
@@ -1456,6 +1470,7 @@ void Game::CloseDuelWindow() {
 	wANRace->setVisible(false);
 	wCardImg->setVisible(false);
 	wCardSelect->setVisible(false);
+	wCardDisplay->setVisible(false);
 	wCmdMenu->setVisible(false);
 	wFTSelect->setVisible(false);
 	wHand->setVisible(false);

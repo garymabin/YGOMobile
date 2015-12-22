@@ -322,11 +322,9 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 					mainGame->cbCardType2->addItem(dataManager.GetSysString(1056), TYPE_MONSTER + TYPE_FUSION);
 					mainGame->cbCardType2->addItem(dataManager.GetSysString(1057), TYPE_MONSTER + TYPE_RITUAL);
 					mainGame->cbCardType2->addItem(dataManager.GetSysString(1063), TYPE_MONSTER + TYPE_SYNCHRO);
-					//merge 8933d0
 					myswprintf(syntuner, L"%ls|%ls", dataManager.GetSysString(1063), dataManager.GetSysString(1062));
 					mainGame->cbCardType2->addItem(syntuner, TYPE_MONSTER + TYPE_SYNCHRO + TYPE_TUNER);
 					mainGame->cbCardType2->addItem(dataManager.GetSysString(1073), TYPE_MONSTER + TYPE_XYZ);
-					//merge 3daf86
 					mainGame->cbCardType2->addItem(dataManager.GetSysString(1074), TYPE_MONSTER + TYPE_PENDULUM);
 					mainGame->cbCardType2->addItem(dataManager.GetSysString(1062), TYPE_MONSTER + TYPE_TUNER);
 					mainGame->cbCardType2->addItem(dataManager.GetSysString(1061), TYPE_MONSTER + TYPE_DUAL);
@@ -386,6 +384,8 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 			dragx = event.MouseInput.X;
 			dragy = event.MouseInput.Y;
 			draging_pointer = dataManager.GetCodePointer(hovered_code);
+			if(draging_pointer == dataManager._datas.end())
+				break;
 			unsigned int limitcode = draging_pointer->second.alias ? draging_pointer->second.alias : draging_pointer->first;
 			if(hovered_pos == 4) {
 				int limit = 3;
@@ -488,6 +488,8 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				if(hovered_pos == 0 || hovered_seq == -1)
 					break;
 				draging_pointer = dataManager.GetCodePointer(hovered_code);
+				if(draging_pointer == dataManager._datas.end())
+					break;
 				if(hovered_pos == 1) {
 					if(deckManager.current_deck.side.size() < 20) {
 						deckManager.current_deck.main.erase(deckManager.current_deck.main.begin() + hovered_seq);
@@ -514,8 +516,11 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				break;
 			if(hovered_pos == 0 || hovered_seq == -1)
 				break;
-			if(!is_draging)
+			if(!is_draging) {
 				draging_pointer = dataManager.GetCodePointer(hovered_code);
+				if(draging_pointer == dataManager._datas.end())
+					break;
+			}
 			if(hovered_pos == 1) {
 				if(!is_draging)
 					deckManager.current_deck.main.erase(deckManager.current_deck.main.begin() + hovered_seq);
@@ -675,12 +680,13 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 	case irr::EET_KEY_INPUT_EVENT: {
 		switch(event.KeyInput.Key) {
 		case irr::KEY_KEY_R: {
-			if(!event.KeyInput.PressedDown)
+			if(!event.KeyInput.PressedDown && !mainGame->HasFocus(EGUIET_EDIT_BOX))
 				mainGame->textFont->setTransparency(true);
 			break;
 		}
 		case irr::KEY_ESCAPE: {
-			mainGame->device->minimizeWindow();
+			if(!mainGame->HasFocus(EGUIET_EDIT_BOX))
+				mainGame->device->minimizeWindow();
 			break;
 		}
 		default: break;
@@ -696,14 +702,17 @@ void DeckBuilder::FilterCards() {
 	const wchar_t* pstr = mainGame->ebCardName->getText();
 	int trycode = BufferIO::GetVal(pstr);
 	if(dataManager.GetData(trycode, 0)) {
-		auto ptr = dataManager.GetCodePointer(trycode);
+		auto ptr = dataManager.GetCodePointer(trycode);	// verified by GetData()
 		results.push_back(ptr);
 		mainGame->scrFilter->setVisible(false);
 		mainGame->scrFilter->setPos(0);
 		myswprintf(result_string, L"%d", results.size());
 		return;
 	}
-	if(pstr[0] == 0 || (pstr[0] == L'$' && pstr[1] == 0))
+	unsigned int set_code = 0;
+	if(pstr[0] == L'@')
+		set_code = dataManager.GetSetCode(&pstr[1]);
+	if(pstr[0] == 0 || (pstr[0] == L'$' && pstr[1] == 0) || (pstr[0] == L'@' && pstr[1] == 0))
 		pstr = 0;
 	auto strpointer = dataManager._strings.begin();
 	for(code_pointer ptr = dataManager._datas.begin(); ptr != dataManager._datas.end(); ++ptr, ++strpointer) {
@@ -769,8 +778,23 @@ void DeckBuilder::FilterCards() {
 			if(pstr[0] == L'$') {
 				if(wcsstr(text.name, &pstr[1]) == 0)
 					continue;
-			}
-			else {
+			} else if(pstr[0] == L'@' && set_code) {
+				unsigned long long sc = data.setcode;
+				if(data.alias) {
+					auto aptr = dataManager._datas.find(data.alias);
+					if(aptr != dataManager._datas.end())
+						sc = aptr->second.setcode;
+				}
+				bool res = false;
+				int settype = set_code & 0xfff;
+				int setsubtype = set_code & 0xf000;
+				while(sc) {
+					if ((sc & 0xfff) == settype && (sc & 0xf000 & setsubtype) == setsubtype)
+						res = true;
+					sc = sc >> 16;
+				}
+				if(!res) continue;
+			} else {
 				if(wcsstr(text.name, pstr) == 0 && wcsstr(text.text, pstr) == 0)
 					continue;
 			}

@@ -21,7 +21,10 @@ public:
 	static int32 card_get_code(lua_State *L);
 	static int32 card_get_origin_code(lua_State *L);
 	static int32 card_get_origin_code_rule(lua_State *L);
+	static int32 card_is_fusion_code(lua_State *L);
 	static int32 card_is_set_card(lua_State *L);
+	static int32 card_is_pre_set_card(lua_State *L);
+	static int32 card_is_fusion_set_card(lua_State *L);
 	static int32 card_get_type(lua_State *L);
 	static int32 card_get_origin_type(lua_State *L);
 	static int32 card_get_level(lua_State *L);
@@ -136,6 +139,7 @@ public:
 	static int32 card_is_relate_to_card(lua_State *L);
 	static int32 card_is_relate_to_battle(lua_State *L);
 	static int32 card_copy_effect(lua_State *L);
+	static int32 card_enable_unsummonable(lua_State *L);
 	static int32 card_enable_revive_limit(lua_State *L);
 	static int32 card_complete_procedure(lua_State *L);
 	static int32 card_is_disabled(lua_State *L);
@@ -263,6 +267,7 @@ public:
 	static int32 effect_is_has_category(lua_State *L);
 	static int32 effect_is_has_type(lua_State *L);
 	static int32 effect_is_activatable(lua_State *L);
+	static int32 effect_is_activated(lua_State *L);
 	static int32 effect_get_activate_location(lua_State *L);
 
 	//Group functions
@@ -325,6 +330,7 @@ public:
 	static int32 duel_special_summon_complete(lua_State *L);
 	static int32 duel_sendto_hand(lua_State *L);
 	static int32 duel_sendto_deck(lua_State *L);
+	static int32 duel_sendto_extra(lua_State *L);
 	static int32 duel_get_operated_group(lua_State *L);
 	static int32 duel_remove_counter(lua_State *L);
 	static int32 duel_is_can_remove_counter(lua_State *L);
