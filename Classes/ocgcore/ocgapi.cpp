@@ -81,20 +81,22 @@ extern "C" DECL_DLLEXPORT void start_duel(ptr pduel, int options) {
 		pd->game_field->draw(0, REASON_RULE, PLAYER_NONE, 1, pd->game_field->player[1].start_count);
 	if(options & DUEL_TAG_MODE) {
 		for(int i = 0; i < pd->game_field->player[0].start_count && pd->game_field->player[0].tag_list_main.size(); ++i) {
-			card* pcard = *pd->game_field->player[0].tag_list_main.rbegin();
+			card* pcard = pd->game_field->player[0].tag_list_main.back();
 			pd->game_field->player[0].tag_list_main.pop_back();
 			pd->game_field->player[0].tag_list_hand.push_back(pcard);
 			pcard->current.controler = 0;
 			pcard->current.location = LOCATION_HAND;
 			pcard->current.sequence = pd->game_field->player[0].tag_list_hand.size() - 1;
+			pcard->current.position = POS_FACEDOWN;
 		}
 		for(int i = 0; i < pd->game_field->player[1].start_count && pd->game_field->player[1].tag_list_main.size(); ++i) {
-			card* pcard = *pd->game_field->player[1].tag_list_main.rbegin();
+			card* pcard = pd->game_field->player[1].tag_list_main.back();
 			pd->game_field->player[1].tag_list_main.pop_back();
 			pd->game_field->player[1].tag_list_hand.push_back(pcard);
 			pcard->current.controler = 1;
 			pcard->current.location = LOCATION_HAND;
 			pcard->current.sequence = pd->game_field->player[1].tag_list_hand.size() - 1;
+			pcard->current.position = POS_FACEDOWN;
 		}
 	}
 	pd->game_field->add_process(PROCESSOR_TURN, 0, 0, 0, 0, 0);
@@ -159,6 +161,7 @@ extern "C" DECL_DLLEXPORT void new_tag_card(ptr pduel, uint32 code, uint8 owner,
 		pcard->current.controler = owner;
 		pcard->current.location = LOCATION_DECK;
 		pcard->current.sequence = ptduel->game_field->player[owner].tag_list_main.size() - 1;
+		pcard->current.position = POS_FACEDOWN_DEFENCE;
 		break;
 	case LOCATION_EXTRA:
 		ptduel->game_field->player[owner].tag_list_extra.push_back(pcard);
@@ -166,6 +169,7 @@ extern "C" DECL_DLLEXPORT void new_tag_card(ptr pduel, uint32 code, uint8 owner,
 		pcard->current.controler = owner;
 		pcard->current.location = LOCATION_EXTRA;
 		pcard->current.sequence = ptduel->game_field->player[owner].tag_list_extra.size() - 1;
+		pcard->current.position = POS_FACEDOWN_DEFENCE;
 		break;
 	}
 }
@@ -315,6 +319,7 @@ extern "C" DECL_DLLEXPORT int32 query_field_info(ptr pduel, byte* buf) {
 		*buf++ = ptduel->game_field->player[playerid].list_grave.size();
 		*buf++ = ptduel->game_field->player[playerid].list_remove.size();
 		*buf++ = ptduel->game_field->player[playerid].list_extra.size();
+		*buf++ = ptduel->game_field->player[playerid].extra_p_count;
 	}
 	*buf++ = ptduel->game_field->core.current_chain.size();
 	for(auto chit = ptduel->game_field->core.current_chain.begin(); chit != ptduel->game_field->core.current_chain.end(); ++chit) {
