@@ -217,6 +217,7 @@ uint32 card::get_info_location() {
 		return c + (l << 8) + (s << 16) + (ss << 24);
 	}
 }
+// get the current code
 uint32 card::get_code() {
 	if(assume_type == ASSUME_CODE)
 		return assume_value;
@@ -245,6 +246,7 @@ uint32 card::get_code() {
 	}
 	return code;
 }
+// get the current second-code
 uint32 card::get_another_code() {
 	if(is_affected_by_effect(EFFECT_CHANGE_CODE))
 		return 0;
@@ -2446,7 +2448,7 @@ int32 card::is_can_be_fusion_material(uint8 ignore_mon) {
 int32 card::is_can_be_synchro_material(card* scard, card* tuner) {
 	if(data.type & TYPE_XYZ)
 		return FALSE;
-	if(!(get_type()&TYPE_MONSTER))
+	if(!(get_type() & TYPE_MONSTER))
 		return FALSE;
 	if(scard && current.location == LOCATION_MZONE && current.controler != scard->current.controler && !is_affected_by_effect(EFFECT_SYNCHRO_MATERIAL))
 		return FALSE;
@@ -2480,7 +2482,7 @@ int32 card::is_can_be_ritual_material(card* scard) {
 int32 card::is_can_be_xyz_material(card* scard) {
 	if(data.type & TYPE_TOKEN)
 		return FALSE;
-	if(!(get_type()&TYPE_MONSTER))
+	if(!(get_type() & TYPE_MONSTER))
 		return FALSE;
 	if(is_affected_by_effect(EFFECT_FORBIDDEN))
 		return FALSE;

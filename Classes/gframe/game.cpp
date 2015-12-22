@@ -785,7 +785,6 @@ bool Game::Initialize() {
 	cbRace = env->addComboBox(rect<s32>(60 * xScale, 49 * yScale, 190 * xScale, 69 * yScale), wFilter, -1);
 #endif
 	cbRace->addItem(dataManager.GetSysString(1310), 0);
-	//merge 8933d0
 	for(int filter = 0x1; filter != 0x1000000; filter <<= 1)
 		cbRace->addItem(dataManager.FormatRace(filter), filter);
 	env->addStaticText(dataManager.GetSysString(1322), rect<s32>(205 * xScale, 28 * yScale, 280 * xScale, 48 * yScale), false, false, wFilter);
@@ -1370,9 +1369,7 @@ void Game::ShowCardInfo(int code) {
 			myswprintf(&formatBuffer[cd.level + 3], L"%d/%d", cd.attack, cd.defence);
 		if(cd.type & TYPE_PENDULUM) {
 			wchar_t scaleBuffer[16];
-			//merge c8eaaf
 			myswprintf(scaleBuffer, L"   %d/%d", cd.lscale, cd.rscale);
-//			myswprintf(scaleBuffer, L" %d/%d", cd.lscale, cd.rscale);
 			wcscat(formatBuffer, scaleBuffer);
 		}
 		stDataInfo->setText(formatBuffer);
@@ -1428,7 +1425,6 @@ void Game::AddChatMsg(wchar_t* msg, int player) {
 	default: //from watcher or unknown
 		if(player < 11 || player > 19)
 			chatMsg[0].append(L"[---]: ");
-		break;
 	}
 	chatMsg[0].append(msg);
 }

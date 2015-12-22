@@ -785,9 +785,7 @@ int SingleDuel::Analyze(char* msgbuffer, unsigned int len) {
 			NetServer::SendBufferToPlayer(players[1 - player], STOC_GAME_MSG, offset, pbuf - offset);
 			for(auto oit = observers.begin(); oit != observers.end(); ++oit)
 				NetServer::ReSendToPlayer(*oit);
-			//merge 03b11d
 			RefreshHand(player, 0x781fff, 0);
-//			RefreshHand(player, 0x181fff, 0);
 			break;
 		}
 		case MSG_REFRESH_DECK: {

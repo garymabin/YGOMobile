@@ -84,7 +84,7 @@ struct player_info {
 };
 struct field_effect {
 	typedef std::multimap<uint32, effect*> effect_container;
-	typedef std::map<effect*, effect_container::iterator > effect_indexer;
+	typedef std::map<effect*, effect_container::iterator> effect_indexer;
 	typedef std::map<effect*, effect*> oath_effects;
 	typedef std::set<effect*> effect_collection;
 
