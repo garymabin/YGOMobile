@@ -65,6 +65,7 @@ int SingleMode::SinglePlayThread(void* param) {
 	mainGame->stName->setText(L"");
 	mainGame->stInfo->setText(L"");
 	mainGame->stDataInfo->setText(L"");
+	mainGame->stSetName->setText(L"");
 	mainGame->stText->setText(L"");
 	mainGame->scrCardText->setVisible(false);
 	mainGame->wPhase->setVisible(true);
@@ -265,6 +266,8 @@ bool SingleMode::SinglePlayAnalyze(char* msg, unsigned int len) {
 			pbuf += 6;
 			count = BufferIO::ReadInt8(pbuf);
 			pbuf += count * 11;
+			count = BufferIO::ReadInt8(pbuf);
+			pbuf += count * 11;
 			if(!DuelClient::ClientAnalyze(offset, pbuf - offset)) {
 				mainGame->singleSignal.Reset();
 				mainGame->singleSignal.Wait();
@@ -341,7 +344,7 @@ bool SingleMode::SinglePlayAnalyze(char* msg, unsigned int len) {
 			break;
 		}
 		case MSG_NEW_PHASE: {
-			pbuf++;
+			pbuf += 2;
 			DuelClient::ClientAnalyze(offset, pbuf - offset);
 			SinglePlayRefresh();
 			break;
@@ -584,6 +587,7 @@ bool SingleMode::SinglePlayAnalyze(char* msg, unsigned int len) {
 		}
 		case MSG_ANNOUNCE_CARD: {
 			player = BufferIO::ReadInt8(pbuf);
+			pbuf += 4;
 			if(!DuelClient::ClientAnalyze(offset, pbuf - offset)) {
 				mainGame->singleSignal.Reset();
 				mainGame->singleSignal.Wait();
@@ -607,7 +611,7 @@ bool SingleMode::SinglePlayAnalyze(char* msg, unsigned int len) {
 		}
 		case MSG_TAG_SWAP: {
 			player = pbuf[0];
-			pbuf += pbuf[3] * 4 + 8;
+			pbuf += pbuf[2] * 4 + pbuf[4] * 4 + 9;
 			DuelClient::ClientAnalyze(offset, pbuf - offset);
 			SinglePlayRefreshDeck(player);
 			SinglePlayRefreshExtra(player);
@@ -676,6 +680,8 @@ bool SingleMode::SinglePlayAnalyze(char* msg, unsigned int len) {
 					ClientCard* ccard = new ClientCard;
 					mainGame->dField.AddCard(ccard, p, LOCATION_EXTRA, seq);
 				}
+				val = BufferIO::ReadInt8(pbuf);
+				mainGame->dField.extra_p_count[p] = val;
 			}
 			BufferIO::ReadInt8(pbuf); //chain count, always 0
 			SinglePlayReload();
