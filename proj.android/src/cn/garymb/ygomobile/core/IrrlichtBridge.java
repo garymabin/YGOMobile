@@ -31,6 +31,10 @@ public final class IrrlichtBridge {
 	
 	private static native void nativeJoinGame(int handle, ByteBuffer buffer, int length);
 	
+	public static native String getAccessKey();
+	
+	public static native String getSecretKey();
+	
 	public static void cancelChain() {
 		nativeCancelChain(sNativeHandle);
 	}

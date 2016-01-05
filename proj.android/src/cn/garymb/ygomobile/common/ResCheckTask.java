@@ -121,6 +121,8 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 		checkAndCopyCoreConfig(needsUpdate);
 		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_skin);
 		checkAndCopyGameSkin(mApp.getCoreSkinPath());
+		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_single);
+		checkAndrCopyNewSingleFiles(needsUpdate);
 		publishProgress(R.string.updating_card_data_base);
 		DatabaseUtils.checkAndCopyFromInternalDatabase(mApp, mApp.getDataBasePath(), needsUpdate);
 		publishProgress(RES_CHECK_TYPE_MESSAGE_UPDATE, R.string.updating_scripts);
@@ -182,6 +184,26 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			Toast.makeText(mContext, R.string.font_download_via_mobile_not_allowed, Toast.LENGTH_SHORT).show();
 		}
 	}
+	
+	
+	private void checkAndrCopyNewSingleFiles(boolean isUpdateNeeded) {
+		File deckDir = new File(mApp.getResourcePath(), Constants.CORE_SINGLE_PATH);
+		if (!deckDir.exists()) {
+			deckDir.mkdirs();
+		}
+		if (isUpdateNeeded) {
+			int assetcopycount = 0;
+			while (assetcopycount++ < CORE_CONFIG_COPY_COUNT) {
+				try {
+					FileOpsUtils.assetsCopy(mApp, Constants.CORE_SINGLE_PATH, deckDir.toString(), false);
+				} catch (IOException e) {
+					Log.w(TAG, "copy single files failed, retry count = " + assetcopycount);
+					continue;
+				}
+			}
+		}
+
+	}
 
 	private void checkAndCopyNewDeckFiles(boolean isUpdateNeeded) {
 		File deckDir = new File(mApp.getResourcePath(), Constants.CORE_DECK_PATH);
@@ -194,7 +216,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 				try {
 					FileOpsUtils.assetsCopy(mApp, Constants.CORE_DECK_PATH, deckDir.toString(), false);
 				} catch (IOException e) {
-					Log.w(TAG, "copy core skin failed, retry count = " + assetcopycount);
+					Log.w(TAG, "copy deck files failed, retry count = " + assetcopycount);
 					continue;
 				}
 			}
@@ -264,7 +286,7 @@ public class ResCheckTask extends AsyncTask<Void, Integer, Integer> {
 			return;
 		}
 		final File wqyFont = new File(extraDir, "WQYMicroHei.TTF");
-		SimpleDownloadJob job = new SimpleDownloadJob(ResourcesConstants.FONTS_DOWNLOAD_URL, wqyFont.getAbsolutePath());
+		SimpleDownloadJob job = new SimpleDownloadJob(FileDownloadHelper.getPrivateDownloadUrl(ResourcesConstants.FONTS_DOWNLOAD_URL), wqyFont.getAbsolutePath());
 		SimpleDownloadTask task = new SimpleDownloadTask(StaticApplication.peekInstance().getOkHttpClient());
 		ProgressUpdateDialogController c = (ProgressUpdateDialogController) mProgressUpdateDialog.getController();
 		EventBus.getDefault().register(c);

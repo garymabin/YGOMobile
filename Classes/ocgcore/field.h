@@ -44,7 +44,7 @@ struct optarget {
 	int32 op_param;
 };
 struct chain {
-	typedef std::map<uint32, optarget > opmap;
+	typedef std::unordered_map<uint32, optarget> opmap;
 	uint16 chain_id;
 	uint8 chain_count;
 	uint8 triggering_player;
@@ -71,6 +71,8 @@ struct player_info {
 	int32 draw_count;
 	uint32 used_location;
 	uint32 disabled_location;
+	uint32 extra_p_count;
+	uint32 tag_extra_p_count;
 	card_vector list_mzone;
 	card_vector list_szone;
 	card_vector list_main;
@@ -84,9 +86,9 @@ struct player_info {
 };
 struct field_effect {
 	typedef std::multimap<uint32, effect*> effect_container;
-	typedef std::map<effect*, effect_container::iterator > effect_indexer;
-	typedef std::map<effect*, effect*> oath_effects;
-	typedef std::set<effect*> effect_collection;
+	typedef std::unordered_map<effect*, effect_container::iterator> effect_indexer;
+	typedef std::unordered_map<effect*, effect*> oath_effects;
+	typedef std::unordered_set<effect*> effect_collection;
 
 	effect_container aura_effect;
 	effect_container ignition_effect;
@@ -104,17 +106,17 @@ struct field_effect {
 	effect_collection spsummon_count_eff;
 	
 	std::list<card*> disable_check_list;
-	std::set<card*, card_sort> disable_check_set;
+	std::unordered_set<card*> disable_check_set;
 };
 struct field_info {
 	int32 field_id;
 	int16 copy_id;
 	int16 turn_id;
 	int16 card_id;
-	uint8 phase;
+	uint16 phase;
 	uint8 turn_player;
 	uint8 priorities[2];
-	uint8 shuffle_count;
+	uint8 can_shuffle;
 };
 struct lpcost {
 	int32 count;
@@ -146,7 +148,6 @@ struct processor {
 	typedef std::vector<chain> chain_array;
 	typedef std::list<processor_unit> processor_list;
 	typedef std::set<card*, card_sort> card_set;
-	typedef std::set<effect*> effect_collection;
 	typedef std::set<std::pair<effect*, tevent> > delayed_effect_collection;
 
 	processor_list units;
@@ -161,6 +162,7 @@ struct processor {
 	card_vector attackable_cards;
 	effect_vector select_effects;
 	option_vector select_options;
+	card_vector must_select_cards;
 	event_list point_event;
 	event_list instant_event;
 	event_list queue_event;
@@ -242,8 +244,10 @@ struct processor {
 	card* attack_target;
 	card* sub_attack_target;
 	card* limit_tuner;
-	group* limit_xyz;
 	group* limit_syn;
+	group* limit_xyz;
+	int32 limit_xyz_minc;
+	int32 limit_xyz_maxc;
 	uint8 attack_cancelable;
 	uint8 attack_rollback;
 	uint8 effect_damage_step;
@@ -297,7 +301,6 @@ struct processor {
 class field {
 public:
 	typedef std::multimap<uint32, effect*> effect_container;
-	typedef std::map<effect*, effect_container::iterator> effect_indexer;
 	typedef std::set<card*, card_sort> card_set;
 	typedef std::vector<effect*> effect_vector;
 	typedef std::vector<card*> card_vector;
@@ -307,7 +310,6 @@ public:
 	typedef std::map<effect*, chain> instant_f_list;
 	typedef std::vector<chain> chain_array;
 	typedef std::list<processor_unit> processor_list;
-	typedef std::map<effect*, effect*> oath_effects;
 
 	duel* pduel;
 	player_info player[2];
@@ -361,7 +363,7 @@ public:
 	int32 get_draw_count(uint8 playerid);
 	void get_ritual_material(uint8 playerid, effect* peffect, card_set* material);
 	void ritual_release(card_set* material);
-	void get_xyz_material(card* scard, int32 findex, uint32 lv, int32 maxc);
+	void get_xyz_material(card* scard, int32 findex, uint32 lv, int32 maxc, group* mg);
 	void get_overlay_group(uint8 self, uint8 s, uint8 o, card_set* pset);
 	int32 get_overlay_count(uint8 self, uint8 s, uint8 o);
 	void update_disable_check_list(effect* peffect);
@@ -388,7 +390,8 @@ public:
 	void attack_all_target_check();
 	int32 check_synchro_material(card* pcard, int32 findex1, int32 findex2, int32 min, int32 max, card* smat, group* mg);
 	int32 check_tuner_material(card* pcard, card* tuner, int32 findex1, int32 findex2, int32 min, int32 max, card* smat, group* mg);
-	int32 check_with_sum_limit(card_vector* mats, int32 acc, int32 index, int32 count, int32 min, int32 max);
+	static int32 check_with_sum_limit(const card_vector& mats, int32 acc, int32 index, int32 count, int32 min, int32 max);
+	static int32 check_with_sum_limit_m(const card_vector& mats, int32 acc, int32 index, int32 min, int32 max, int32 must_count);
 	int32 check_xyz_material(card* pcard, int32 findex, int32 lv, int32 min, int32 max, group* mg);
 	
 	int32 is_player_can_draw(uint8 playerid);
@@ -530,7 +533,7 @@ public:
 	int32 sort_card(int16 step, uint8 playerid, uint8 is_chain);
 	int32 announce_race(int16 step, uint8 playerid, int32 count, int32 available);
 	int32 announce_attribute(int16 step, uint8 playerid, int32 count, int32 available);
-	int32 announce_card(int16 step, uint8 playerid);
+	int32 announce_card(int16 step, uint8 playerid, uint32 ttype);
 	int32 announce_number(int16 step, uint8 playerid);
 };
 
