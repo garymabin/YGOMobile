@@ -157,10 +157,7 @@ public class GameSettingsFragment extends EventDialogPreferenceFragment
 		} else if (preference.getKey().equals(
 				Settings.KEY_PREF_GAME_DIY_CARD_DB)) {
 			Bundle bundle = new Bundle();
-			bundle.putString("root", "/"/*
-										 * Environment.getExternalStorageDirectory
-										 * ().getAbsolutePath()
-										 */);
+			bundle.putString("root", StaticApplication.peekInstance().getResourcePath());
 			bundle.putInt("mode", FileBrowser.BROWSE_MODE_FILES);
 			showDialog(DIALOG_TYPE_CARD_DB_DIY, bundle);
 		} else if (preference.getKey().equals(

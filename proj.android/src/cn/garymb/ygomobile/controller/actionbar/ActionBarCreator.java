@@ -15,7 +15,7 @@ public class ActionBarCreator {
 		mContext = activity;
 	}
 
-	private boolean mDownloadImage = true;
+	private boolean mDownloadImage = false;
 
 	private boolean mLoading = false;
 

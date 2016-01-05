@@ -19,7 +19,11 @@ static const struct luaL_Reg cardlib[] = {
 	{ "GetCode", scriptlib::card_get_code },
 	{ "GetOriginalCode", scriptlib::card_get_origin_code },
 	{ "GetOriginalCodeRule", scriptlib::card_get_origin_code_rule },
+	{ "GetFusionCode", scriptlib::card_get_fusion_code },
+	{ "IsFusionCode", scriptlib::card_is_fusion_code },
 	{ "IsSetCard", scriptlib::card_is_set_card },
+	{ "IsPreviousSetCard", scriptlib::card_is_pre_set_card },
+	{ "IsFusionSetCard", scriptlib::card_is_fusion_set_card },
 	{ "GetType", scriptlib::card_get_type },
 	{ "GetOriginalType", scriptlib::card_get_origin_type },
 	{ "GetLevel", scriptlib::card_get_level },
@@ -131,9 +135,12 @@ static const struct luaL_Reg cardlib[] = {
 	{ "ReleaseEffectRelation", scriptlib::card_release_effect_relation },
 	{ "ClearEffectRelation", scriptlib::card_clear_effect_relation },
 	{ "IsRelateToEffect", scriptlib::card_is_relate_to_effect },
+	{ "IsRelateToChain", scriptlib::card_is_relate_to_chain },
 	{ "IsRelateToCard", scriptlib::card_is_relate_to_card },
 	{ "IsRelateToBattle", scriptlib::card_is_relate_to_battle },
 	{ "CopyEffect", scriptlib::card_copy_effect },
+	{ "ReplaceEffect", scriptlib::card_replace_effect },
+	{ "EnableUnsummonable", scriptlib::card_enable_unsummonable },
 	{ "EnableReviveLimit", scriptlib::card_enable_revive_limit },
 	{ "CompleteProcedure", scriptlib::card_complete_procedure },
 	{ "IsDisabled", scriptlib::card_is_disabled },
@@ -263,6 +270,7 @@ static const struct luaL_Reg effectlib[] = {
 	{ "IsHasCategory", scriptlib::effect_is_has_category },
 	{ "IsHasType", scriptlib::effect_is_has_type },
 	{ "IsActivatable", scriptlib::effect_is_activatable },
+	{ "IsActivated", scriptlib::effect_is_activated },
 	{ "GetActivateLocation", scriptlib::effect_get_activate_location },
 	{ NULL, NULL }
 };
@@ -319,6 +327,7 @@ static const struct luaL_Reg duellib[] = {
 	{ "SendtoGrave", scriptlib::duel_sendto_grave },
 	{ "SendtoHand", scriptlib::duel_sendto_hand },
 	{ "SendtoDeck", scriptlib::duel_sendto_deck },
+	{ "PSendtoExtra", scriptlib::duel_sendto_extra },
 	{ "GetOperatedGroup", scriptlib::duel_get_operated_group },
 	{ "Summon", scriptlib::duel_summon },
 	{ "SpecialSummonRule", scriptlib::duel_special_summon_rule },
@@ -599,7 +608,7 @@ void interpreter::unregister_effect(effect *peffect) {
 		luaL_unref(lua_state, LUA_REGISTRYINDEX, peffect->target);
 	if(peffect->operation)
 		luaL_unref(lua_state, LUA_REGISTRYINDEX, peffect->operation);
-	if(peffect->value && (peffect->flag & EFFECT_FLAG_FUNC_VALUE))
+	if(peffect->value && (peffect->is_flag(EFFECT_FLAG_FUNC_VALUE)))
 		luaL_unref(lua_state, LUA_REGISTRYINDEX, peffect->value);
 	luaL_unref(lua_state, LUA_REGISTRYINDEX, peffect->ref_handle);
 	peffect->ref_handle = 0;
@@ -668,15 +677,15 @@ int32 interpreter::load_card_script(uint32 code) {
 }
 void interpreter::add_param(void *param, int32 type, bool front) {
 	if(front)
-		params.push_front(make_pair(param, type));
+		params.push_front(std::make_pair(param, type));
 	else
-		params.push_back(make_pair(param, type));
+		params.push_back(std::make_pair(param, type));
 }
 void interpreter::add_param(ptr param, int32 type, bool front) {
 	if(front)
-		params.push_front(make_pair((void*)param, type));
+		params.push_front(std::make_pair((void*)param, type));
 	else
-		params.push_back(make_pair((void*)param, type));
+		params.push_back(std::make_pair((void*)param, type));
 }
 void interpreter::push_param(lua_State* L, bool is_coroutine) {
 	uint32 type;
@@ -1011,7 +1020,7 @@ int32 interpreter::call_coroutine(int32 f, uint32 param_count, uint32 * yield_va
 			return OPERATION_FAIL;
 		}
 		call_depth++;
-		coroutines.insert(make_pair(f, rthread));
+		coroutines.insert(std::make_pair(f, rthread));
 	} else {
 		rthread = it->second;
 		if(step == 0) {

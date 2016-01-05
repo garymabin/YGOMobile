@@ -22,40 +22,33 @@ void DeckManager::LoadLFList(const char* path) {
 			if (linebuf[0] == '#')
 				continue;
 			int p = 0, sa = 0, code, count;
-			if (linebuf[0] == '!') {
-				sa = BufferIO::DecodeUTF8((const char*) (&linebuf[1]),
-						strBuffer);
-				while (strBuffer[sa - 1] == L'\r' || strBuffer[sa - 1] == L'\n')
-					sa--;
+			if(linebuf[0] == '!') {
+				sa = BufferIO::DecodeUTF8((const char*)(&linebuf[1]), strBuffer);
+				while(strBuffer[sa - 1] == L'\r' || strBuffer[sa - 1] == L'\n' ) sa--;
 				LFList newlist;
 				_lfList.push_back(newlist);
 				cur = &_lfList[_lfList.size() - 1];
-				memcpy(cur->listName, (const void*) strBuffer, 40);
+				memcpy(cur->listName, (const void*)strBuffer, 40);
 				cur->listName[sa] = 0;
 				cur->content = new std::unordered_map<int, int>;
 				cur->hash = 0x7dfcee6a;
 				continue;
 			}
-			while (linebuf[p] != ' ' && linebuf[p] != '\t' && linebuf[p] != 0)
-				p++;
-			if (linebuf[p] == 0)
+			while(linebuf[p] != ' ' && linebuf[p] != '\t' && linebuf[p] != 0) p++;
+			if(linebuf[p] == 0)
 				continue;
 			linebuf[p++] = 0;
 			sa = p;
 			code = atoi(linebuf);
-			if (code == 0)
+			if(code == 0)
 				continue;
-			while (linebuf[p] == ' ' || linebuf[p] == '\t')
-				p++;
-			while (linebuf[p] != ' ' && linebuf[p] != '\t' && linebuf[p] != 0)
-				p++;
+			while(linebuf[p] == ' ' || linebuf[p] == '\t') p++;
+			while(linebuf[p] != ' ' && linebuf[p] != '\t' && linebuf[p] != 0) p++;
 			linebuf[p] = 0;
 			count = atoi(&linebuf[sa]);
-			if (cur == NULL)
-				continue;
+			if(cur == NULL) continue;
 			(*cur->content)[code] = count;
-			cur->hash = cur->hash ^ ((code << 18) | (code >> 14))
-					^ ((code << (27 + count)) | (code >> (5 - count)));
+			cur->hash = cur->hash ^ ((code << 18) | (code >> 14)) ^ ((code << (27 + count)) | (code >> (5 - count)));
 		}
 		fclose(fp);
 	}
@@ -66,38 +59,32 @@ void DeckManager::LoadLFList(const char* path) {
 	_lfList.push_back(nolimit);
 }
 wchar_t* DeckManager::GetLFListName(int lfhash) {
-	std::vector<LFList>::iterator iter;
-	for (iter = _lfList.begin(); iter != _lfList.end(); iter++) {
-		if ((*iter).hash == (unsigned int) lfhash) {
-			return (*iter).listName;
+	for(size_t i = 0; i < _lfList.size(); ++i) {
+		if(_lfList[i].hash == (unsigned int)lfhash) {
+			return _lfList[i].listName;
 		}
 	}
 	return (wchar_t*) dataManager.unknown_string;
 }
-int DeckManager::CheckLFList(Deck& deck, int lfhash, bool allow_ocg,
-		bool allow_tcg) {
+int DeckManager::CheckLFList(Deck& deck, int lfhash, bool allow_ocg, bool allow_tcg) {
 	std::unordered_map<int, int> ccount;
 	std::unordered_map<int, int>* list = 0;
-	std::vector<LFList>::iterator iter;
-	for (iter = _lfList.begin(); iter != _lfList.end(); iter++) {
-		if ((*iter).hash == (unsigned int) lfhash) {
-			list = (*iter).content;
+	for(size_t i = 0; i < _lfList.size(); ++i) {
+		if(_lfList[i].hash == (unsigned int)lfhash) {
+			list = _lfList[i].content;
 			break;
 		}
 	}
-	if (!list)
+	if(!list)
 		return 0;
 	int dc = 0;
-	if (deck.main.size() < 40 || deck.main.size() > 60 || deck.extra.size() > 15
-			|| deck.side.size() > 15)
+	if(deck.main.size() < 40 || deck.main.size() > 60 || deck.extra.size() > 15 || deck.side.size() > 15)
 		return 1;
-	for (size_t i = 0; i < deck.main.size(); ++i) {
+	for(size_t i = 0; i < deck.main.size(); ++i) {
 		code_pointer cit = deck.main[i];
-		if ((!allow_ocg && (cit->second.ot == 0x1))
-				|| (!allow_tcg && (cit->second.ot == 0x2)))
+		if((!allow_ocg && (cit->second.ot == 0x1)) || (!allow_tcg && (cit->second.ot == 0x2)))
 			return cit->first;
-		if (cit->second.type
-				& (TYPE_FUSION | TYPE_SYNCHRO | TYPE_XYZ | TYPE_TOKEN))
+		if(cit->second.type & (TYPE_FUSION | TYPE_SYNCHRO | TYPE_XYZ | TYPE_TOKEN))
 			return 1;
 		int code = cit->second.alias ? cit->second.alias : cit->first;
 		ccount[code]++;
@@ -108,8 +95,7 @@ int DeckManager::CheckLFList(Deck& deck, int lfhash, bool allow_ocg,
 	}
 	for (size_t i = 0; i < deck.extra.size(); ++i) {
 		code_pointer cit = deck.extra[i];
-		if ((!allow_ocg && (cit->second.ot == 0x1))
-				|| (!allow_tcg && (cit->second.ot == 0x2)))
+		if((!allow_ocg && (cit->second.ot == 0x1)) || (!allow_tcg && (cit->second.ot == 0x2)))
 			return cit->first;
 		int code = cit->second.alias ? cit->second.alias : cit->first;
 		ccount[code]++;
@@ -120,8 +106,7 @@ int DeckManager::CheckLFList(Deck& deck, int lfhash, bool allow_ocg,
 	}
 	for (size_t i = 0; i < deck.side.size(); ++i) {
 		code_pointer cit = deck.side[i];
-		if ((!allow_ocg && (cit->second.ot == 0x1))
-				|| (!allow_tcg && (cit->second.ot == 0x2)))
+		if((!allow_ocg && (cit->second.ot == 0x1)) || (!allow_tcg && (cit->second.ot == 0x2)))
 			return cit->first;
 		int code = cit->second.alias ? cit->second.alias : cit->first;
 		ccount[code]++;
@@ -142,9 +127,9 @@ void DeckManager::LoadDeck(Deck& deck, int* dbuf, int mainc, int sidec) {
 			continue;
 		if (cd.type & TYPE_TOKEN)
 			continue;
-		else if ((cd.type & 0x802040) && deck.extra.size() < 15) {
-			deck.extra.push_back(dataManager.GetCodePointer(code));
-		} else if (deck.main.size() < 60) {
+		else if(cd.type & 0x802040 && deck.extra.size() < 15) {
+			deck.extra.push_back(dataManager.GetCodePointer(code));	//verified by GetData()
+		} else if(deck.main.size() < 60) {
 			deck.main.push_back(dataManager.GetCodePointer(code));
 		}
 	}
@@ -161,26 +146,24 @@ void DeckManager::LoadDeck(Deck& deck, int* dbuf, int mainc, int sidec) {
 bool DeckManager::LoadSide(Deck& deck, int* dbuf, int mainc, int sidec) {
 	std::unordered_map<int, int> pcount;
 	std::unordered_map<int, int> ncount;
-	std::vector<code_pointer>::iterator iter;
-	for (iter = deck.main.begin(); iter != deck.main.end(); iter++)
-		pcount[(*iter)->first]++;
-	for (iter = deck.extra.begin(); iter != deck.extra.end(); iter++)
-		pcount[(*iter)->first]++;
-	for (iter = deck.side.begin(); iter != deck.side.end(); iter++)
-		pcount[(*iter)->first]++;
+	for(size_t i = 0; i < deck.main.size(); ++i)
+		pcount[deck.main[i]->first]++;
+	for(size_t i = 0; i < deck.extra.size(); ++i)
+		pcount[deck.extra[i]->first]++;
+	for(size_t i = 0; i < deck.side.size(); ++i)
+		pcount[deck.side[i]->first]++;
 	Deck ndeck;
 	LoadDeck(ndeck, dbuf, mainc, sidec);
-	if (ndeck.main.size() != deck.main.size()
-			|| ndeck.extra.size() != deck.extra.size())
+	if(ndeck.main.size() != deck.main.size() || ndeck.extra.size() != deck.extra.size())
 		return false;
-	for (iter = ndeck.main.begin(); iter != ndeck.main.end(); iter++)
-		ncount[(*iter)->first]++;
-	for (iter = ndeck.extra.begin(); iter != ndeck.extra.end(); iter++)
-		ncount[(*iter)->first]++;
-	for (iter = ndeck.side.begin(); iter != ndeck.side.end(); iter++)
-		ncount[(*iter)->first]++;
-	for (auto cdit = ncount.begin(); cdit != ncount.end(); ++cdit)
-		if (cdit->second != pcount[cdit->first])
+	for(size_t i = 0; i < ndeck.main.size(); ++i)
+		ncount[ndeck.main[i]->first]++;
+	for(size_t i = 0; i < ndeck.extra.size(); ++i)
+		ncount[ndeck.extra[i]->first]++;
+	for(size_t i = 0; i < ndeck.side.size(); ++i)
+		ncount[ndeck.side[i]->first]++;
+	for(auto cdit = ncount.begin(); cdit != ncount.end(); ++cdit)
+		if(cdit->second != pcount[cdit->first])
 			return false;
 	deck = ndeck;
 	return true;
@@ -217,15 +200,12 @@ bool DeckManager::LoadDeck(const wchar_t* file) {
 		if (linebuf[0] < '0' || linebuf[0] > '9')
 			continue;
 		sp = 0;
-		while (linebuf[sp] >= '0' && linebuf[sp] <= '9')
-			sp++;
+		while(linebuf[sp] >= '0' && linebuf[sp] <= '9') sp++;
 		linebuf[sp] = 0;
 		code = atoi(linebuf);
 		cardlist[ct++] = code;
-		if (is_side)
-			sidec++;
-		else
-			mainc++;
+		if(is_side) sidec++;
+		else mainc++;
 	}
 	fclose(fp);
 	LoadDeck(current_deck, cardlist, mainc, sidec);
@@ -241,18 +221,17 @@ bool DeckManager::SaveDeck(Deck& deck, const wchar_t* name) {
 	BufferIO::EncodeUTF8(file, filefn);
 	FILE* fp = fopen(filefn, "w");
 #endif
-	if (!fp)
+	if(!fp)
 		return false;
 	fprintf(fp, "#created by ...\n#main\n");
-	std::vector<code_pointer>::iterator iter;
-	for (iter = deck.main.begin(); iter != deck.main.end(); iter++)
-		fprintf(fp, "%d\n", (*iter)->first);
+	for(size_t i = 0; i < deck.main.size(); ++i)
+		fprintf(fp, "%d\n", deck.main[i]->first);
 	fprintf(fp, "#extra\n");
-	for (iter = deck.extra.begin(); iter != deck.extra.end(); iter++)
-		fprintf(fp, "%d\n", (*iter)->first);
+	for(size_t i = 0; i < deck.extra.size(); ++i)
+		fprintf(fp, "%d\n", deck.extra[i]->first);
 	fprintf(fp, "!side\n");
-	for (iter = deck.side.begin(); iter != deck.side.end(); iter++)
-		fprintf(fp, "%d\n", (*iter)->first);
+	for(size_t i = 0; i < deck.side.size(); ++i)
+		fprintf(fp, "%d\n", deck.side[i]->first);
 	fclose(fp);
 	return true;
 }

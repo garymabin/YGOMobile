@@ -14,6 +14,10 @@ using namespace gui;
 extern "C" {
 
 static void* s_init_param_buffer = NULL;
+
+const static char access_key[] = "Cr0uGhF9SgYio-NN9N4qDhpNsZNTeTAkm2LAmKmg";
+const static char secret_key[] = "O2zMfI3gqJYYJSAuCeUkH9J_vm5S_A4Yn8fhrjU3";
+
 /*
  * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
  * Method:    nativeInsertText
@@ -146,7 +150,7 @@ static void* join_game_thread(void* param) {
 
 	wmemset(wbuff, 0, 256);
 
-	bool bRoomCreate  = options.formatGameParams(wbuff);
+	bool bRoomCreate = options.formatGameParams(wbuff);
 	if (bRoomCreate) {
 		BufferIO::EncodeUTF8(wbuff, linelog);
 		irr::os::Printer::log(linelog);
@@ -285,9 +289,28 @@ static void* cancel_chain_thread(void* param) {
 	pthread_t joinGameThread;
 	pthread_attr_t joinGameAttr;
 	pthread_attr_init(&joinGameAttr);
-	pthread_create(&joinGameThread, &joinGameAttr, join_game_thread, s_init_param_buffer);
+	pthread_create(&joinGameThread, &joinGameAttr, join_game_thread,
+			s_init_param_buffer);
 	pthread_attr_destroy(&joinGameAttr);
 	pthread_detach(joinGameThread);
+}
+
+/*
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
+ * Method:    getAccessKey
+ * Signature: (V)Ljvava/lang/String
+ */JNIEXPORT jstring JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_getAccessKey(
+		JNIEnv* env, jclass clazz) {
+	return env->NewStringUTF(access_key);
+}
+
+/*
+ * Class:     cn_garymb_ygomobile_core_IrrlichtBridge
+ * Method:    getSecretKey
+ * Signature: (V)Ljvava/lang/String
+ */JNIEXPORT jstring JNICALL Java_cn_garymb_ygomobile_core_IrrlichtBridge_getSecretKey(
+		JNIEnv* env, jclass clazz) {
+	return env->NewStringUTF(secret_key);
 }
 
 jint JNI_OnLoad(JavaVM* vm, void* reserved) {

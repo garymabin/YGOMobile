@@ -9,18 +9,16 @@ import com.avast.android.dialogs.iface.INegativeButtonDialogListener;
 import com.avast.android.dialogs.iface.IPositiveButtonDialogListener;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.umeng.fb.FeedbackAgent;
-import com.umeng.fb.push.FeedbackPush;
-import com.umeng.message.PushAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import cn.garymb.ygomobile.R;
 import cn.garymb.ygomobile.controller.actionbar.ActionBarCreator;
 import cn.garymb.ygomobile.common.Constants;
 import cn.garymb.ygomobile.common.ImageDLAddTask;
-import cn.garymb.ygomobile.common.ImageDLCheckTask;
+import cn.garymb.ygomobile.common.ImageCopyCheckTask;
 import cn.garymb.ygomobile.common.ResCheckTask;
 import cn.garymb.ygomobile.common.ImageDLAddTask.ImageDLAddListener;
-import cn.garymb.ygomobile.common.ImageDLCheckTask.ImageDLCheckListener;
+import cn.garymb.ygomobile.common.ImageCopyCheckTask.ImageCheckListener;
 import cn.garymb.ygomobile.common.ResCheckTask.ResCheckListener;
 import cn.garymb.ygomobile.controller.Controller;
 import cn.garymb.ygomobile.core.DownloadService;
@@ -29,7 +27,6 @@ import cn.garymb.ygomobile.fragment.BaseFragment;
 import cn.garymb.ygomobile.fragment.CardDeckFragment;
 import cn.garymb.ygomobile.fragment.CardDetailFragment;
 import cn.garymb.ygomobile.fragment.CardWikiFragment;
-import cn.garymb.ygomobile.fragment.CustomDialogFragment;
 import cn.garymb.ygomobile.fragment.ServerListFragment;
 import cn.garymb.ygomobile.fragment.BaseFragment.OnActionBarChangeCallback;
 import cn.garymb.ygomobile.fragment.ProgressDlgFragment;
@@ -76,7 +73,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity  implements
 		OnActionBarChangeCallback, Handler.Callback, Constants,
-		IPositiveButtonDialogListener, INegativeButtonDialogListener, ImageDLCheckListener, ResCheckListener {
+		IPositiveButtonDialogListener, INegativeButtonDialogListener, ImageCheckListener, ResCheckListener {
 	
 
 	public static class EventHandler extends Handler {
@@ -178,6 +175,10 @@ public class MainActivity extends AppCompatActivity  implements
 		FeedbackAgent agent = new FeedbackAgent(this);
 		agent.sync();
 		agent.openFeedbackPush();
+		checkResourceDownload();
+	}
+
+	private void checkResourceDownload() {
 		ResCheckTask task = new ResCheckTask(this, getSupportFragmentManager());
 		task.setResCheckListener(this);
 		if (Build.VERSION.SDK_INT >= 11) {
@@ -394,13 +395,7 @@ public class MainActivity extends AppCompatActivity  implements
 				IBaseTask connection = Controller.peekInstance()
 						.createOrGetDownloadConnection();
 				if (!connection.isRunning()) {
-					ImageDLCheckTask task = new ImageDLCheckTask(this);
-					task.setImageDLCheckListener(this);
-					if (Build.VERSION.SDK_INT >= 11) {
-						task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-					} else {
-						task.execute();
-					}
+					runImageCheckTask();
 				} else {
 					Toast.makeText(this,
 							R.string.card_image_already_downloading_hint,
@@ -482,14 +477,18 @@ public class MainActivity extends AppCompatActivity  implements
 	@Override
 	public void onPositiveButtonClicked(int requestCode) {
 		if (requestCode == 0) {
-			ImageDLCheckTask task = new ImageDLCheckTask(this);
-			task.setImageDLCheckListener(this);
-			if (Build.VERSION.SDK_INT >= 11) {
-				task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-			} else {
-				task.execute();
-			}
+			runImageCheckTask();
 		} else if (requestCode == 1) {
+		}
+	}
+
+	private void runImageCheckTask() {
+		ImageCopyCheckTask task = new ImageCopyCheckTask(this);
+		task.setImageDLCheckListener(this);
+		if (Build.VERSION.SDK_INT >= 11) {
+			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		} else {
+			task.execute();
 		}
 	}
 
@@ -505,28 +504,28 @@ public class MainActivity extends AppCompatActivity  implements
 	}
 
 	@Override
-	public void onDLCheckComplete(Bundle result) {
-		if (result != null) {
-			ImageDLAddTask task = new ImageDLAddTask(this, Controller
-					.peekInstance().createOrGetDownloadConnection());
-			task.setImageDLAddListener(new ImageDLAddListener() {
-				@Override
-				public void onDLAddComplete(Bundle result) {
-					Intent intent = new Intent();
-					intent.setClass(MainActivity.this, DownloadService.class);
-					intent.setAction(DownloadService.ACTION_START_BATCH_TASK);
-					startService(intent);
-				}
-			});
-			if (Build.VERSION.SDK_INT >= 11) {
-				task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, result);
-			} else {
-				task.execute(result);
-			}
-		} else {
-			Toast.makeText(this, R.string.card_image_already_updated,
-					Toast.LENGTH_SHORT).show();
-		}
+	public void onCheckComplete(Bundle result) {
+//		if (result != null) {
+//			ImageDLAddTask task = new ImageDLAddTask(this, Controller
+//					.peekInstance().createOrGetDownloadConnection());
+//			task.setImageDLAddListener(new ImageDLAddListener() {
+//				@Override
+//				public void onDLAddComplete(Bundle result) {
+//					Intent intent = new Intent();
+//					intent.setClass(MainActivity.this, DownloadService.class);
+//					intent.setAction(DownloadService.ACTION_START_BATCH_TASK);
+//					startService(intent);
+//				}
+//			});
+//			if (Build.VERSION.SDK_INT >= 11) {
+//				task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, result);
+//			} else {
+//				task.execute(result);
+//			}
+//		} else {
+//			Toast.makeText(this, R.string.card_image_already_updated,
+//					Toast.LENGTH_SHORT).show();
+//		}
 	}
 
 	public YGOServerInfo getServer() {
@@ -558,17 +557,18 @@ public class MainActivity extends AppCompatActivity  implements
 
 	@Override
 	public void onResCheckFinished(int result) {
-		boolean isFirstRun = checkFirstRunAfterInstall();
-		if (isFirstRun && !checkDiyCardDataBase()) {
-			CustomDialogFragment.createBuilder(this, mFragmentManager)
-					.setMessage(R.string.card_img_check_hint)
-					.setTitle(R.string.card_img_update_title)
-					.setPositiveButtonText(R.string.button_update)
-					.setNegativeButtonText(R.string.button_cancel)
-					.setRequestCode(0).showAllowingStateLoss();
-		}
+//		boolean isFirstRun = checkFirstRunAfterInstall();
+//		if (isFirstRun && !checkDiyCardDataBase()) {
+//			CustomDialogFragment.createBuilder(this, mFragmentManager)
+//					.setMessage(R.string.card_img_check_hint)
+//					.setTitle(R.string.card_img_update_title)
+//					.setPositiveButtonText(R.string.button_update)
+//					.setNegativeButtonText(R.string.button_cancel)
+//					.setRequestCode(0).showAllowingStateLoss();
+//		}
 		Intent service = new Intent(this, DownloadService.class);
 		bindService(service, mServiceConn, Context.BIND_AUTO_CREATE);
-		showImageDownloadStatus(getIntent());		
+//		runImageCheckTask();
+//		showImageDownloadStatus(getIntent());		
 	}
 }

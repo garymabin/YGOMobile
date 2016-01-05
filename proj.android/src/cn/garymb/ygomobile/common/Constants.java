@@ -55,6 +55,8 @@ public interface Constants {
 	
 	public static final String CORE_DECK_PATH = "deck";
 	
+	public static final String CORE_SINGLE_PATH = "single";
+	
 	public static final String CORE_SKIN_COVER = "bg.jpg";
 	public static final String CORE_SKIN_CARD_BACK = "cover.jpg";
 	public static final int[]  CORE_SKIN_COVER_SIZE = new int[]{1024, 640};
