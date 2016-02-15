@@ -78,7 +78,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				break;
 			}
 			case BUTTON_DELETE_DECK: {
-				mainGame->SetStaticText(mainGame->stQMessage, 331, mainGame->textFont,
+				mainGame->SetStaticText(mainGame->stQMessage, 331 * mainGame->xScale, mainGame->textFont,
 								(wchar_t*) dataManager.GetDesc(1338));
 				mainGame->PopupElement(mainGame->wQuery);
 				break;
@@ -266,7 +266,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 			switch(id) {
 			case SCROLL_CARDTEXT: {
 				u32 pos = mainGame->scrCardText->getPos();
-				mainGame->SetStaticText(mainGame->stText, mainGame->stText->getRelativePosition().getWidth()-25, mainGame->textFont, mainGame->showingtext, pos);
+				mainGame->SetStaticText(mainGame->stText, mainGame->stText->getRelativePosition().getWidth() - 25 * mainGame->xScale, mainGame->textFont, mainGame->showingtext, pos);
 				break;
 			}
 			break;

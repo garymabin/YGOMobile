@@ -964,7 +964,9 @@ void Game::DrawDeckBd() {
 			myswprintf(textBuffer, L"%ls", dataManager.GetName(ptr->first));
 			textFont->draw(textBuffer, recti(904 * mainGame->xScale, (164 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (185 + i * 66) * mainGame->yScale), 0xff000000, false, false);
 			textFont->draw(textBuffer, recti(904 * mainGame->xScale, (165 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (185 + i * 66) * mainGame->yScale), 0xffffffff, false, false);
-			myswprintf(textBuffer, L"%ls/%ls %c%d", dataManager.FormatAttribute(ptr->second.attribute), dataManager.FormatRace(ptr->second.race), ptr->second.level);
+			int len = myswprintf(textBuffer, L"%ls/%ls ", dataManager.FormatAttribute(ptr->second.attribute), dataManager.FormatRace(ptr->second.race));
+			textBuffer[len] = form;
+			myswprintf((wchar_t *)&textBuffer[len+1], L"%d", ptr->second.level);
 			textFont->draw(textBuffer, recti(904 * mainGame->xScale, (186 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (207 + i * 66) * mainGame->yScale), 0xff000000, false, false);
 			textFont->draw(textBuffer, recti(905 * mainGame->xScale, (187 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (207 + i * 66) * mainGame->yScale), 0xffffffff, false, false);
 			if(ptr->second.attack < 0 && ptr->second.defence < 0)
@@ -977,14 +979,14 @@ void Game::DrawDeckBd() {
 			if(ptr->second.type & TYPE_PENDULUM) {
 				wchar_t scaleBuffer[16];
 				myswprintf(scaleBuffer, L" %d/%d", ptr->second.lscale, ptr->second.rscale);
-				wcscat(textBuffer, scaleBuffer);
+				mywcscat(textBuffer, scaleBuffer);
 			}
 			if((ptr->second.ot & 0x3) == 1)
-				wcscat(textBuffer, L" [OCG]");
+				mywcscat(textBuffer, L" [OCG]");
 			else if((ptr->second.ot & 0x3) == 2)
-				wcscat(textBuffer, L" [TCG]");
+				mywcscat(textBuffer, L" [TCG]");
 			else if((ptr->second.ot & 0x7) == 4)
-				wcscat(textBuffer, L" [Custom]");
+				mywcscat(textBuffer, L" [Custom]");
 			textFont->draw(textBuffer, recti(904 * mainGame->xScale, (208 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (229 + i * 66) * mainGame->yScale), 0xff000000, false, false);
 			textFont->draw(textBuffer, recti(905 * mainGame->xScale, (209 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (229 + i * 66) * mainGame->yScale), 0xffffffff, false, false);
 		} else {
@@ -996,11 +998,11 @@ void Game::DrawDeckBd() {
 			textFont->draw(ptype, recti(905 * mainGame->xScale, (187 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (207 + i * 66) * mainGame->yScale), 0xffffffff, false, false);
 			textBuffer[0] = 0;
 			if((ptr->second.ot & 0x3) == 1)
-				wcscat(textBuffer, L"[OCG]");
+				mywcscat(textBuffer, L"[OCG]");
 			else if((ptr->second.ot & 0x3) == 2)
-				wcscat(textBuffer, L"[TCG]");
+				mywcscat(textBuffer, L"[TCG]");
 			else if((ptr->second.ot & 0x7) == 4)
-				wcscat(textBuffer, L"[Custom]");
+				mywcscat(textBuffer, L"[Custom]");
 			textFont->draw(textBuffer, recti(904 * mainGame->xScale, (208 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (229 + i * 66) * mainGame->yScale), 0xff000000, false, false);
 			textFont->draw(textBuffer, recti(905 * mainGame->xScale, (209 + i * 66) * mainGame->yScale, 1000 * mainGame->xScale, (229 + i * 66) * mainGame->yScale), 0xffffffff, false, false);
 		}

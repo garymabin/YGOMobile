@@ -297,7 +297,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 					myswprintf(infobuf, L"%ls\n===VS===\n%ls\n", namebuf[0], namebuf[1]);
 				repinfo.append(infobuf);
 				mainGame->ebRepStartTurn->setText(L"1");
-				mainGame->SetStaticText(mainGame->stReplayInfo, 180, mainGame->guiFont, (wchar_t*)repinfo.c_str());
+				mainGame->SetStaticText(mainGame->stReplayInfo, 180 * mainGame->xScale, mainGame->guiFont, (wchar_t*)repinfo.c_str());
 				break;
 			}
 			}

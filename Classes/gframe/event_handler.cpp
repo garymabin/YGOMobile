@@ -810,7 +810,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 			}
 			case SCROLL_CARDTEXT: {
 				u32 pos = mainGame->scrCardText->getPos();
-				mainGame->SetStaticText(mainGame->stText, mainGame->stText->getRelativePosition().getWidth()-25, mainGame->textFont, mainGame->showingtext, pos);
+				mainGame->SetStaticText(mainGame->stText, mainGame->stText->getRelativePosition().getWidth() - int(25 * mainGame->xScale), mainGame->textFont, mainGame->showingtext, pos);
 				break;
 			}
 			break;
@@ -1521,7 +1521,7 @@ bool ClientField::OnEvent(const irr::SEvent& event) {
 							}
 							mainGame->stTip->setVisible(true);
 							irr::core::dimension2d<unsigned int> dtip = mainGame->textFont->getDimension(str.c_str());
-							mainGame->stTip->setRelativePosition(recti(x - (10 + dtip.Width)  * mainGame->xScale, y - (10 + dtip.Height)  * mainGame->yScale, x, y));
+							mainGame->stTip->setRelativePosition(recti(x - dtip.Width - 10 * mainGame->xScale, y  - dtip.Height - 10 * mainGame->yScale, x, y));
 							mainGame->stTip->setText(str.c_str());
 						}
 					} else {

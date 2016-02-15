@@ -50,8 +50,10 @@
 #include <android/xstring.h>
 #define myswprintf(buf, fmt, ...) swprintf_x(buf, 4096, fmt, ##__VA_ARGS__)
 #define _wtoi wtoi_x
+#define mywcscat wcscat_x
 #else
 #define myswprintf(buf, fmt, ...) swprintf(buf, 4096, fmt, ##__VA_ARGS__)
+#define mywcscat wcscat
 inline int _wtoi(const wchar_t * s) {
 	wchar_t * endptr;
 	return (int)wcstol(s, &endptr, 10);

@@ -514,12 +514,12 @@ bool SingleMode::SinglePlayAnalyze(char* msg, unsigned int len) {
 			break;
 		}
 		case MSG_ADD_COUNTER: {
-			pbuf += 7;
+			pbuf += 6;
 			DuelClient::ClientAnalyze(offset, pbuf - offset);
 			break;
 		}
 		case MSG_REMOVE_COUNTER: {
-			pbuf += 7;
+			pbuf += 6;
 			DuelClient::ClientAnalyze(offset, pbuf - offset);
 			break;
 		}
@@ -708,7 +708,7 @@ bool SingleMode::SinglePlayAnalyze(char* msg, unsigned int len) {
 			memcpy(msgbuf, begin, len + 1);
 			BufferIO::DecodeUTF8(msgbuf, msg);
 			mainGame->gMutex.Lock();
-			mainGame->SetStaticText(mainGame->stMessage, 310, mainGame->textFont, msg);
+			mainGame->SetStaticText(mainGame->stMessage, 310 * mainGame->xScale, mainGame->textFont, msg);
 			mainGame->PopupElement(mainGame->wMessage);
 			mainGame->gMutex.Unlock();
 			mainGame->actionSignal.Reset();

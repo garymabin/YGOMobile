@@ -264,7 +264,7 @@ public:
 	irr::gui::IGUIButton* btnSinglePlayCancel;
 	//hand
 	irr::gui::IGUIWindow* wHand;
-	irr::gui::IGUIButton* btnHand[3];
+	irr::gui::CGUIImageButton* btnHand[3];
 	//
 	irr::gui::IGUIWindow* wFTSelect;
 	irr::gui::IGUIButton* btnFirst;

@@ -9,9 +9,7 @@
 #include "netserver.h"
 #include "single_mode.h"
 
-#ifdef _WIN32
-#include <io.h>
-#else
+#ifndef _WIN32
 #include <sys/types.h>
 #include <dirent.h>
 #endif
@@ -417,6 +415,7 @@ bool Game::Initialize() {
 	wCardImg->setBackgroundColor(0xc0c0c0c0);
 	wCardImg->setVisible(false);
 	imgCard = env->addImage(rect<s32>(9 * xScale, 9 * yScale, 187 * xScale, 262 * yScale), wCardImg);
+	imgCard->setScaleImage(true);
 	imgCard->setUseAlphaChannel(true);
 #ifdef _IRR_ANDROID_PLATFORM_
 	//phase
@@ -482,7 +481,7 @@ bool Game::Initialize() {
 	stSetName->setOverrideColor(SColor(255, 0, 0, 255));
 	stText = env->addStaticText(L"", rect<s32>(15 * xScale, 106 * yScale, 287 * xScale, 324 * yScale), false, true, tabInfo, -1, false);
 #ifdef _IRR_ANDROID_PLATFORM_
-	scrCardText = env->addScrollBar(false, rect<s32>(247 * xScale, 106 * yScale, 287 * xScale, 324 * yScale), tabInfo, SCROLL_CARDTEXT);
+	scrCardText = env->addScrollBar(false, rect<s32>(425 * xScale, 106 * yScale, 495 * xScale, 580 * yScale), tabInfo, SCROLL_CARDTEXT);
 #else
 	scrCardText = env->addScrollBar(false, rect<s32>(267 * xScale, 106 * yScale, 287 * xScale, 324 * yScale), tabInfo, SCROLL_CARDTEXT);
 #endif
@@ -518,9 +517,9 @@ bool Game::Initialize() {
 	wHand->setDrawTitlebar(false);
 	wHand->setVisible(false);
 	for(int i = 0; i < 3; ++i) {
-		btnHand[i] = env->addButton(rect<s32>((10 + 105 * i) * xScale, 10 * yScale, (105 + 105 * i)  * xScale, 144 * yScale), wHand, BUTTON_HAND1 + i, L"");
+		btnHand[i] = irr::gui::CGUIImageButton::addImageButton(env, rect<s32>((10 + 105 * i) * xScale, 10 * yScale, (105 + 105 * i)  * xScale, 144 * yScale), wHand, BUTTON_HAND1 + i);
 		btnHand[i]->setImage(imageManager.tHand[i]);
-		btnHand[i]->setScaleImage(true);
+		btnHand[i]->setImageScale(core::vector2df(xScale, yScale));
 	}
 #ifdef _IRR_ANDROID_PLATFORM_
 	//
@@ -737,9 +736,8 @@ bool Game::Initialize() {
 #else
 	cbDBDecks = env->addComboBox(rect<s32>(80 * xScale, 35 * yScale, 220 * xScale, 60 * yScale), wDeckEdit, COMBOBOX_DBDECKS);
 #endif
-	for (iter = deckManager._lfList.begin(); iter != deckManager._lfList.end(); iter++) {
-		cbDBLFList->addItem((*iter).listName);
-	}
+	for(unsigned int i = 0; i < deckManager._lfList.size(); ++i)
+		cbDBLFList->addItem(deckManager._lfList[i].listName);
 	btnSaveDeck = env->addButton(rect<s32>(225 * xScale, 35 * yScale, 290 * xScale, 60 * yScale), wDeckEdit, BUTTON_SAVE_DECK, dataManager.GetSysString(1302));
 #ifdef _IRR_ANDROID_PLATFORM_
 	ebDeckname = CAndroidGUIEditBox::addAndroidEditBox(L"", true, env, rect<s32>(80 * xScale, 65 * yScale, 220 * xScale, 90 * yScale), wDeckEdit, -1);
@@ -1205,7 +1203,7 @@ void Game::InitStaticText(irr::gui::IGUIStaticText* pControl, u32 cWidth, u32 cH
 		scrCardText->setVisible(false);
 		return;
 	}
-	SetStaticText(pControl, cWidth - 40 * xScale, font, text);
+	SetStaticText(pControl, cWidth - int(25 * xScale), font, text);
 	u32 fontheight = font->getDimension(L"A").Height + font->getKerningHeight();
 	u32 step = (font->getDimension(dataManager.strBuffer).Height - cHeight) / fontheight + 1;
 	scrCardText->setVisible(true);
@@ -1373,7 +1371,6 @@ void Game::ShowCardInfo(int code) {
 	if(!dataManager.GetData(code, &cd))
 		memset(&cd, 0, sizeof(CardData));
 	imgCard->setImage(imageManager.GetTexture(code));
-	imgCard->setScaleImage(true);
 	if(cd.alias != 0 && (cd.alias - code < 10 || code - cd.alias < 10))
 		myswprintf(formatBuffer, L"%ls[%08d]", dataManager.GetName(cd.alias), cd.alias);
 	else myswprintf(formatBuffer, L"%ls[%08d]", dataManager.GetName(code), code);
@@ -1400,7 +1397,9 @@ void Game::ShowCardInfo(int code) {
 		stInfo->setText(formatBuffer);
 		int form = 0x2605;
 		if(cd.type & TYPE_XYZ) ++form ;
-		myswprintf(formatBuffer, L"[%c%d] ",form,cd.level);
+		formatBuffer[0] = L'[';
+		formatBuffer[1] = form;
+		myswprintf((wchar_t*)&formatBuffer[2], L"%d]",cd.level);
 		wchar_t adBuffer[16];
 		if(cd.attack < 0 && cd.defence < 0)
 			myswprintf(adBuffer, L"?/?");
@@ -1410,18 +1409,16 @@ void Game::ShowCardInfo(int code) {
 			myswprintf(adBuffer, L"%d/?", cd.attack);
 		else
 			myswprintf(adBuffer, L"%d/%d", cd.attack, cd.defence);
-		wcscat(formatBuffer, adBuffer);
+		mywcscat(formatBuffer, adBuffer);
 		if(cd.type & TYPE_PENDULUM) {
 			wchar_t scaleBuffer[16];
-			//merge c8eaaf
 			myswprintf(scaleBuffer, L"   %d/%d", cd.lscale, cd.rscale);
-//			myswprintf(scaleBuffer, L" %d/%d", cd.lscale, cd.rscale);
-			wcscat(formatBuffer, scaleBuffer);
+			mywcscat(formatBuffer, scaleBuffer);
 		}
 		stDataInfo->setText(formatBuffer);
 		stSetName->setRelativePosition(rect<s32>(15 * xScale, 83 * yScale, 296 * xScale, 106 * yScale));
 		stText->setRelativePosition(rect<s32>(15 * xScale, (83 + offset) * yScale, 287 * xScale, 324 * yScale));
-		scrCardText->setRelativePosition(rect<s32>(267, 83 + offset, 287, 324));
+		scrCardText->setRelativePosition(rect<s32>(267 * xScale, (83 + offset) * yScale, 287 * xScale, 324 * yScale));
 	} else {
 		myswprintf(formatBuffer, L"[%ls]", dataManager.FormatType(cd.type));
 		stInfo->setText(formatBuffer);
