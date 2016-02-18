@@ -3,7 +3,7 @@ IRRLICHT_PROJECT_PATH := $(LOCAL_PATH)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := Irrlicht
-LOCAL_SRC_FILES := $(IRRLICHT_PROJECT_PATH)/../irrlicht/lib/Android/$(TARGET_ARCH_ABI)/libIrrlicht.a
+LOCAL_SRC_FILES := $(IRRLICHT_PROJECT_PATH)/../build/android/Irrlicht/$(TARGET_ARCH_ABI)/libIrrlicht.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
