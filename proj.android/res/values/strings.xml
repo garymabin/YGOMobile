@@ -41,8 +41,27 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_hide">Hide</string>
     <string name="button_stop">Stop</string>
+    <string name="button_join">Join</string>
+    <string name="card_limit">Limit</string>
     <string name="cancel">Cancel</string>
+    <string name="create_room">Create Room</string>
+    <string name="draw_count">Draw count</string>
+    <string name="duel_info">Duel Info</string>
+    <string name="duel_mode">Duel Mode</string>
+    <string name="init_hands">Initial Hands</string>
+    <string name="init_lp">Initial Lifepoints</string>
+    <string name="input_invalid_msg">用户名与密码长度之和不能超过<xliff>%1$d</xliff>个字符</string>
     <string name="combobox_choose_item">Select one item</string>
+    <string name="life_point_hint">Life point</string>
+    <string name="ongoing">On Going</string>
+    <string name="pending">Pending</string>
+    <string name="loading">Loading...</string>
+    <string name="quick_join">Quick Join</string>
+    <string name="quick_join_error">Quck Join error</string>
+    <string name="quick_join_hint">Roomname$password</string>
+    <string name="room_advanced_options">Show Advance</string>
+    <string name="room_name">Room name</string>
+    <string name="show_password">Show password</string>
     
     <!-- actionbar与卡片筛选相关 -->
     <string name="action_settings">Settings</string>
@@ -194,42 +213,16 @@
     <string name="copying_image">Copying image...</string>
     <string name="searching_image_directory">正在扫描卡图目录...</string>
     <string name="adding_image_download_task">正在添加卡图下载队列...</string>
-    <string name="access_denied">Access Denied!</string>
-    <string name="choose_folder">Choose a folder:</string>
-    <string name="root_dir">Root dir</string>
-    <string name="server_user_name">User name:</string>
-    <string name="server_name">Name:</string>
-    <string name="server_info">Host passwd(optional):</string>
     <string name="password">Password</string>
-    <string name="server_ip">IP Address:</string>
     <string name="server_ip_hint">0.0.0.0</string>
-    <string name="server_port">Port:</string>
-    <string name="range_to">to</string>
-    <string name="action_new_server">Add new server</string>
-    <string name="action_edit_server">Edit server</string>
-    <string name="item_des_text">Card Info：</string>
-    <string name="item_wiki_text">Card Wiki：</string>
-    <string name="wiki_hint_text">&lt;&lt;p>&lt;a href="wiki">&lt;u>来自ourocg.cn的链接&lt;/u>&lt;/a></string>
-    <string name="item_type_text">Card Type：</string>
-    <string name="item_ot_text">TCG/OCG：</string>
-    <string name="action_delete">Delete</string>
-    <string name="action_edit">Edit</string>
-    <string name="action_connect">Connect</string>
-    <string name="toast_delete">%1$s deleted</string>
-    <string name="exit_hint">"Press back again to quit YGOMobile!"</string>
     <string name="title_activity_crop">CropActivity</string>
     <string name="title_activity_image_dladd">ImageDLAddActivity</string>
     <string name="hello_world">Hello world!</string>
 
-    <string name="settings_game_diy_history_des">History image：</string>
-    <string name="settings_game_cover">Game cover</string>
     <string name="settings_game_card_back">Card back</string>
     
    
     <string name="image_not_load_toast">Unable to load specified image</string>
-    <string name="copying_image">Copying image</string>
-    <string name="searching_image_directory">Scanning card image folder...</string>
-    <string name="adding_image_download_task">Add to download list...</string>
     <string name="adding_image_download_count_task">Add to download list.(%1$d/%2$d)</string>
     <string name="image_is_downloading">%1$d images is download, Click to view</string>
     <string name="image_download_label">Card image download</string>
@@ -268,7 +261,6 @@
     
     <string name="reset_card_success">"Restore success，please restart app！"</string>
     <string name="reset_card_failed">"Restore failed"</string>
-    <string name="server_ip_hint">"0.0.0.0"</string>
     <string name="settings_about_project_address">https://github.com/garymabin/YGOMobile</string>
     <string name="settings_game_opengl">OpenGL</string>
     <string name="action_filter_string_ot">OCG/TCG</string>

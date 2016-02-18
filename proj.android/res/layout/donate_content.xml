@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/support_us_des"
             android:textAlignment="viewStart"
+            android:layout_gravity="start"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 

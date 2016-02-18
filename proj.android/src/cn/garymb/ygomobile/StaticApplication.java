@@ -28,7 +28,6 @@ import java.util.Map;
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
-import org.apache.http.client.HttpClient;
 import org.apache.http.HC4.impl.nio.client.CloseableHttpPipeliningClient;
 import org.apache.http.HC4.impl.nio.client.HttpAsyncClients;
 
@@ -42,7 +41,8 @@ import cn.garymb.ygomobile.setting.Settings;
 import com.github.nativehandler.NativeCrashHandler;
 import com.squareup.okhttp.OkHttpClient;
 import com.umeng.fb.FeedbackAgent;
-
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -55,6 +55,7 @@ import android.content.res.AssetManager;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Pair;
@@ -117,6 +118,8 @@ public class StaticApplication extends Application {
 		System.loadLibrary("YGOMobile");
 	}
 
+	@SuppressLint("SdCardPath")
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -147,7 +150,11 @@ public class StaticApplication extends Application {
 		initSoundEffectPool();
 		Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 		Point screenResolution = new Point();
-		display.getRealSize(screenResolution);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+			display.getRealSize(screenResolution);
+		} else {
+			display.getSize(screenResolution);
+		}
 		mScreenWidth = screenResolution.x;
 		mScreenHeight = screenResolution.y;
 	}
@@ -206,10 +213,6 @@ public class StaticApplication extends Application {
 		} catch (Exception e) {
 		}
 		return null;
-	}
-
-	public HttpClient getHttpClient() {
-		return mHttpFactory.getHttpClient();
 	}
 
 	public OkHttpClient getOkHttpClient() {

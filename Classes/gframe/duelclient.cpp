@@ -2814,7 +2814,7 @@ mainGame		->dField.sort_list.clear();
 	}
 	case MSG_ADD_COUNTER: {
 		mainGame->soundEffectPlayer->doAddCounterEffect();
-		int type = BufferIO::ReadInt8(pbuf);
+		int type = BufferIO::ReadInt16(pbuf);
 		int c = mainGame->LocalPlayer(BufferIO::ReadInt8(pbuf));
 		int l = BufferIO::ReadInt8(pbuf);
 		int s = BufferIO::ReadInt8(pbuf);
@@ -2839,7 +2839,7 @@ mainGame		->dField.sort_list.clear();
 	}
 	case MSG_REMOVE_COUNTER: {
 		mainGame->soundEffectPlayer->doRemoveCounterEffect();
-		int type = BufferIO::ReadInt8(pbuf);
+		int type = BufferIO::ReadInt16(pbuf);
 		int c = mainGame->LocalPlayer(BufferIO::ReadInt8(pbuf));
 		int l = BufferIO::ReadInt8(pbuf);
 		int s = BufferIO::ReadInt8(pbuf);

@@ -26,6 +26,7 @@
  */
 package org.apache.http.HC4.impl.auth;
 
+import android.annotation.SuppressLint;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -74,6 +75,7 @@ import org.apache.http.HC4.util.EncodingUtils;
  *
  * @since 4.0
  */
+@SuppressLint("TrulyRandom")
 @NotThreadSafe
 public class DigestScheme extends RFC2617Scheme {
 

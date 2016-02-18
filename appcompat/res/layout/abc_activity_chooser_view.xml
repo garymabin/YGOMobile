@@ -33,7 +33,7 @@
         android:addStatesFromChildren="true"
         android:background="?attr/actionBarItemBackground">
 
-        <ImageView android:id="@+id/image"
+        <ImageView
             android:layout_width="32dip"
             android:layout_height="32dip"
             android:layout_gravity="center"
@@ -55,7 +55,7 @@
         android:addStatesFromChildren="true"
         android:background="?attr/actionBarItemBackground">
 
-        <ImageView android:id="@+id/image"
+        <ImageView
             android:layout_width="32dip"
             android:layout_height="32dip"
             android:layout_gravity="center"
