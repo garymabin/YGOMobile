@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
@@ -14,9 +16,9 @@
             android:id="@+id/donate_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:text="@string/support_us_des"
             android:textAlignment="viewStart"
-            android:layout_gravity="start"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
@@ -57,9 +59,9 @@
                 android:layout_height="200dip"
                 android:layout_below="@id/donate_extra"
                 android:layout_centerHorizontal="true"
+                android:contentDescription="@string/app_name"
                 android:scaleType="centerInside"
-                android:src="@drawable/qrcode" 
-                android:contentDescription="@string/app_name"/>
+                android:src="@drawable/qrcode" />
         </RelativeLayout>
     </LinearLayout>
 

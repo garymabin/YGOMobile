@@ -2,7 +2,7 @@ package cn.garymb.ygomobile.fragment;
 
 import java.util.List;
 
-import com.viewpagerindicator.TabPageIndicator;
+//import com.viewpagerindicator.TabPageIndicator;
 
 import cn.garymb.ygodata.YGOGameOptions;
 import cn.garymb.ygomobile.R;
@@ -97,7 +97,7 @@ public class DuelFragment extends BaseFragment {
 
 	private ViewPager mViewPager;
 	
-	private TabPageIndicator mTabIndicator;
+//	private TabPageIndicator mTabIndicator;
 
 	private SparseArrayCompat<RoomPageFragment> mFragments = new SparseArrayCompat<RoomPageFragment>(3);
 
@@ -138,8 +138,8 @@ public class DuelFragment extends BaseFragment {
 		View view = inflater.inflate(R.layout.duel_panel, container, false);
 		mViewPager = (ViewPager) view.findViewById(R.id.mViewPager);
 		mViewPager.setAdapter(new RoomTabPageAdapter(getChildFragmentManager()));
-		mTabIndicator = (TabPageIndicator) view.findViewById(R.id.tabs);
-		mTabIndicator.setViewPager(mViewPager, 0);
+//		mTabIndicator = (TabPageIndicator) view.findViewById(R.id.tabs);
+//		mTabIndicator.setViewPager(mViewPager, 0);
 		return view;
 	}
 

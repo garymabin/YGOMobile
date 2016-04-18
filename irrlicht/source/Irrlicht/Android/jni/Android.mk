@@ -348,11 +348,14 @@ $(call import-module,android/native_app_glue)
 
 ifeq ($(HOST_OS),cygwin)
 CP := $(CYGWIN_PATH)/bin/cp
+MKDIR := $(CYGWIN_PATH/bin/mkdir)
 else
 CP := cp
+MKDIR := mkdir
 endif
 
 all: $(IRRLICHT_LIB_PATH)
 $(IRRLICHT_LIB_PATH) : $(TARGET_OUT)/$(IRRLICHT_LIB_NAME)
+	$(MKDIR) -p $(IRRLICHT_LIB_PATH)
 	$(CP) $< $@
 
