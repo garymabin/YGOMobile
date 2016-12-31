@@ -1,0 +1,14 @@
+See file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/compileYGOMobileX86DebugSharedLibraryYGOMobileX86DebugSharedLibraryMainC/output.txt for all output for compileYGOMobileX86DebugSharedLibraryYGOMobileX86DebugSharedLibraryMainC.
+compiling Alloc.c successful.
+
+compiling LzmaLib.c successful.
+
+compiling LzFind.c successful.
+
+compiling LzmaDec.c successful.
+
+compiling android_native_app_glue.c successful.
+
+compiling LzmaEnc.c successful.
+
+Finished compileYGOMobileX86DebugSharedLibraryYGOMobileX86DebugSharedLibraryMainC, see full log file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/compileYGOMobileX86DebugSharedLibraryYGOMobileX86DebugSharedLibraryMainC/output.txt.

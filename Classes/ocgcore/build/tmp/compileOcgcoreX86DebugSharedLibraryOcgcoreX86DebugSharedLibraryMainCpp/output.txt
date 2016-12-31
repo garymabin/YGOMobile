@@ -1,0 +1,2 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/ocgcore/build/tmp/compileOcgcoreX86DebugSharedLibraryOcgcoreX86DebugSharedLibraryMainCpp/output.txt for all output for compileOcgcoreX86DebugSharedLibraryOcgcoreX86DebugSharedLibraryMainCpp.
+Finished compileOcgcoreX86DebugSharedLibraryOcgcoreX86DebugSharedLibraryMainCpp, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/ocgcore/build/tmp/compileOcgcoreX86DebugSharedLibraryOcgcoreX86DebugSharedLibraryMainCpp/output.txt.

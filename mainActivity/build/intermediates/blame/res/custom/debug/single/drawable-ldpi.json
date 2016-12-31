@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_action.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_action.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_drawer_duel_pressed.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_drawer_duel_pressed.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_drawer_duel_default.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_drawer_duel_default.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_drawer_card_wiki_pressed.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_drawer_card_wiki_pressed.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_download_statusbar.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_download_statusbar.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_drawer_card_deck_default.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_drawer_card_deck_default.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_drawer_card_image_default.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_drawer_card_image_default.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_drawer_card_image_pressed.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_drawer_card_image_pressed.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_drawer_card_deck_pressed.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_drawer_card_deck_pressed.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-ldpi/ic_drawer_card_wiki_default.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/drawable-ldpi/ic_drawer_card_wiki_default.png"
+    }
+]

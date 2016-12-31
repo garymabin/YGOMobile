@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/xml/preference_lab.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/xml/preference_lab.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/xml/preference_headers_legacy.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/xml/preference_headers_legacy.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/xml/preference_about.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/xml/preference_about.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/xml/preference_headers.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/xml/preference_headers.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/xml/preference_common.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/xml/preference_common.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/xml/preference_game.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/xml/preference_game.xml"
+    }
+]

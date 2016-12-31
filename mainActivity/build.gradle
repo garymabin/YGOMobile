@@ -1,0 +1,85 @@
+apply plugin: 'com.android.model.application'
+
+model {
+    android {
+        compileSdkVersion 23
+        buildToolsVersion "23.0.2"
+
+        ndk {
+            moduleName "YGOMobile-Compat"
+            cppFlags.addAll([
+                    "-D_IRR_ANDROID_PLATFORM_", "-D_ANDROID", "-pipe", "-fno-rtti",
+                    "-fno-exceptions", "-Wno-error=format-security", "-std=gnu++11", "-fpermissive", "-fstrict-aliasing", "-fPIC"])
+            cppFlags.addAll([
+                    "-I${file("../Classes/freetype/include")}".toString(),
+                    "-I${file("../Classes/libevent/android")}".toString(),
+                    "-I${file("../Classes/libevent/include")}".toString(),
+                    "-I${file("../Classes/sqlite3")}".toString(),
+                    "-I${file("../irrlicht/include")}".toString(),
+                    "-I${file("../irrlicht/source/Irrlicht")}".toString(),
+                    "-I${file("../Classes/gframe")}".toString(),
+                    "-I${file("../YGOMobile-Native/native_app_glue")}".toString(),
+                    "-I${file("../YGOMobile-Native")}".toString()])
+            ldLibs.addAll(['log','android'])
+            stl = 'gnustl_shared'
+        }
+
+        defaultConfig.with {
+            applicationId "cn.garymb.ygomobile"
+            minSdkVersion.apiLevel 14
+            targetSdkVersion.apiLevel 23
+        }
+
+        productFlavors {
+            create("custom") {
+                ndk {
+                    abiFilters.add("armeabi-v7a")
+                    abiFilters.add("x86")
+                }
+            }
+            create("fat")
+        }
+    }
+
+    android.compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    android.packagingOptions {
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.properties'
+    }
+
+    android.buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles.add(file('proguard-project.txt'))
+        }
+    }
+
+    android.sources {
+        main {
+            jni {
+                dependencies {
+                    project ":YGOMobile-Native" linkage "shared"
+                }
+                source {
+                    srcDir "src/main/jni"
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    compile project(':androidstyleddialogs')
+    compile project(':yGOData')
+    compile project(':cropimage')
+    compile project(':apacheasynchttpHC4')
+    compile project(':viewPageIndicator')
+    compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.squareup.okhttp3:okhttp:3.0.1'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}

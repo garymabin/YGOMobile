@@ -31,3 +31,5 @@ proguard/
 *.ipr
 *.iws
 .idea/
+# intermediates
+*/intermediates/*

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="2dip"
+        android:layout_gravity="center"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="2dip"
+        android:background="@drawable/card_like_bg"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent" >
+
+        <ImageView
+            android:id="@+id/card_image"
+            android:layout_width="@dimen/card_thumbnail_width"
+            android:layout_height="@dimen/card_thumbnail_height"
+            android:scaleType="centerInside"
+            android:layout_marginRight="6dip"
+            android:src="@drawable/unknown"
+            android:contentDescription="@string/app_name" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_name_text"
+                    android:textColor="@color/file_name_text_color"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/file_name_text_color"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/linearLayout1"
+                android:layout_below="@id/linearLayout1"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_level_text"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/item_level"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="@string/item_race_text"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/item_race"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="@string/item_attr_text"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/item_attr"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/linearLayout1"
+                android:layout_below="@id/linearLayout2"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_atk_text"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/item_atk"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="@string/item_def_text"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/item_def"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/file_property_text_color"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/menu/crop.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/menu/crop.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/menu/filter_type.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/menu/filter_type.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/menu/filter_menu.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/menu/filter_menu.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/menu/filter_property.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/menu/filter_property.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/menu/filter_race.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/menu/filter_race.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/menu/filter_ot.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/menu/filter_ot.xml"
+    }
+]

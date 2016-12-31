@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="card_quality">
+        <item>Speed</item>
+        <item>Quality</item>
+    </string-array>
+    <string-array name="duel_mode">
+        <item>Single-game mode</item>
+        <item>Match mode</item>
+        <item>Tag mode</item>
+    </string-array>
+
+    <string-array name="fragment_items">
+        <item>Duel</item>
+        <item>Card Wiki</item>
+        <item>Card Deck</item>
+    </string-array>
+
+    <integer-array name="duel_mode_type">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+
+    <string-array name="duel_list">
+        <item>Duel</item>
+        <item>Cards</item>
+        <item>Deck</item>
+        <item>Images</item>
+    </string-array>
+
+    <string-array name="free_mode">
+        <item>Servers</item>
+        <item>Lan</item>
+    </string-array>
+
+    <string-array name="card_race">
+        <item>（无）</item>
+        <item>战士</item>
+        <item>魔法使</item>
+        <item>天使</item>
+        <item>恶魔</item>
+        <item>不死</item>
+        <item>机械</item>
+        <item>水</item>
+        <item>炎</item>
+        <item>岩石</item>
+        <item>鸟兽</item>
+        <item>植物</item>
+        <item>昆虫</item>
+        <item>雷</item>
+        <item>龙</item>
+        <item>兽</item>
+        <item>兽战士</item>
+        <item>恐龙</item>
+        <item>鱼</item>
+        <item>海龙</item>
+        <item>爬虫</item>
+        <item>念动力</item>
+        <item>幻神兽</item>
+        <item>创造神</item>
+        <item>幻龙</item>
+    </string-array>
+
+    <string-array name="card_level">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="card_effect">
+        <item>魔陷破坏</item>
+        <item>怪兽破坏</item>
+        <item>卡片除外</item>
+        <item>送去墓地</item>
+        <item>返回手牌</item>
+        <item>返回卡组</item>
+        <item>手牌破坏</item>
+        <item>卡组破坏</item>
+        <item>抽卡辅助</item>
+        <item>卡组检索</item>
+        <item>卡片回收</item>
+        <item>表示形式</item>
+        <item>控制权</item>
+        <item>攻守变化</item>
+        <item>穿刺伤害</item>
+        <item>多次攻击</item>
+        <item>攻击限制</item>
+        <item>直接攻击</item>
+        <item>特殊召唤</item>
+        <item>衍生物</item>
+        <item>种族相关</item>
+        <item>属性相关</item>
+        <item>LP伤害</item>
+        <item>LP回复</item>
+        <item>破坏耐性</item>
+        <item>效果耐性</item>
+        <item>指示物</item>
+        <item>幸运</item>
+        <item>融合相关</item>
+        <item>同调相关</item>
+        <item>超量相关</item>
+        <item>效果无效</item>
+    </string-array>
+
+    <string-array name="card_attr">
+        <item>（无）</item>
+        <item>地</item>
+        <item>水</item>
+        <item>炎</item>
+        <item>风</item>
+        <item>光</item>
+        <item>暗</item>
+        <item>神</item>
+    </string-array>
+
+    <string-array name="card_limit">
+        <item>(none)</item>
+        <item>OCG</item>
+        <item>TCG</item>
+        <item>OCG/TCG</item>
+    </string-array>
+
+    <string-array name="opengl_version">
+        <item>OpenGL ES 1.X</item>
+        <item>OpenGL ES 2.0 fixed shaders</item>
+        <item>OpenGL ES 2.0 builtin shaders</item>
+    </string-array>
+
+    <string-array name="opengl_version_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="card_quality_value">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="card_type_none">
+        <item>（无）</item>
+    </string-array>
+
+    <string-array name="card_type">
+        <item>（无）</item>
+        <item>Monster</item>
+        <item>Spell</item>
+        <item>Trap</item>
+    </string-array>
+
+    <string-array name="card_monster_type">
+        <item>Monster</item>
+        <item>Monster｜Normal</item>
+        <item>Monster｜Effect</item>
+        <item>Monster｜Synchro</item>
+        <item>Monster｜Turnner</item>
+        <item>Monster｜XYZ</item>
+        <item>Monster｜Fusion</item>
+        <item>Monster｜Ritual</item>
+        <item>Monster｜Spirit</item>
+        <item>Monster｜Flap</item>
+        <item>Monster｜Gemini</item>
+        <item>Monster｜Union</item>
+        <item>Monster｜Token</item>
+        <item>Monster｜Toon</item>
+        <item>Monster｜Pendulum</item>
+    </string-array>
+
+    <string-array name="card_spell_type">
+        <item>Spell</item>
+        <item>Spell｜Normal</item>
+        <item>Spell｜Quick Play</item>
+        <item>Spell｜Continous</item>
+        <item>Spell｜Equip</item>
+        <item>Spell｜Field</item>
+        <item>Spell｜Ritual</item>
+    </string-array>
+
+    <string-array name="card_trap_type">
+        <item>Trap</item>
+        <item>Trap｜Normal</item>
+        <item>Trap｜Continous</item>
+        <item>Trap｜Counter</item>
+    </string-array>
+
+    <string-array name="card_mix_type">
+        <item>怪兽</item>
+        <item>魔法</item>
+        <item>陷阱</item>
+        <item>？？？</item>
+        <item>通常</item>
+        <item>效果</item>
+        <item>融合</item>
+        <item>仪式</item>
+        <item>陷阱怪兽</item>
+        <item>灵魂</item>
+        <item>同盟</item>
+        <item>二重</item>
+        <item>调整</item>
+        <item>同调</item>
+        <item>衍生物</item>
+        <item>？？？</item>
+        <item>速攻</item>
+        <item>永续</item>
+        <item>装备</item>
+        <item>场地</item>
+        <item>反击</item>
+        <item>反转</item>
+        <item>卡通</item>
+        <item>超量</item>
+        <item>摇摆</item>
+    </string-array>
+
+    <string-array name="duel_options">
+        <item>Cancel</item>
+        <item>R</item>
+        <item>S</item>
+        <item>A</item>
+    </string-array>
+
+</resources>

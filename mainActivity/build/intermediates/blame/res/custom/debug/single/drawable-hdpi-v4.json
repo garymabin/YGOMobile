@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/vpi__tab_unselected_focused_holo.9.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/res/drawable-hdpi-v4/vpi__tab_unselected_focused_holo.9.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/vpi__tab_selected_focused_holo.9.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/res/drawable-hdpi-v4/vpi__tab_selected_focused_holo.9.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/vpi__tab_selected_pressed_holo.9.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/res/drawable-hdpi-v4/vpi__tab_selected_pressed_holo.9.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/vpi__tab_unselected_pressed_holo.9.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/res/drawable-hdpi-v4/vpi__tab_unselected_pressed_holo.9.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/crop__divider.9.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/cropimage/unspecified/res/drawable-hdpi-v4/crop__divider.9.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/crop__ic_cancel.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/cropimage/unspecified/res/drawable-hdpi-v4/crop__ic_cancel.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/crop__ic_done.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/cropimage/unspecified/res/drawable-hdpi-v4/crop__ic_done.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/vpi__tab_selected_holo.9.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/res/drawable-hdpi-v4/vpi__tab_selected_holo.9.png"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/drawable-hdpi-v4/vpi__tab_unselected_holo.9.png",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/res/drawable-hdpi-v4/vpi__tab_unselected_holo.9.png"
+    }
+]

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    <LinearLayout
+        android:id="@+id/duel_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="15dip"
+        android:paddingRight="20dip"
+        android:paddingTop="15dip" >
+
+        <LinearLayout
+            android:id="@+id/duel_info_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+            <LinearLayout
+                android:id="@+id/l_room_name"
+                style="@style/room_item" >
+
+                <TextView
+                    style="@style/room_item_label"
+                    android:text="@string/room_name" />
+
+                <TextView
+                    android:id="@+id/room_name_text"
+                    style="@style/room_item_content"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l_dual_mode"
+                style="@style/room_item" >
+
+                <TextView
+                    style="@style/room_item_label"
+                    android:text="@string/duel_mode" />
+
+                <TextView
+                    android:id="@+id/duel_mode_text"
+                    style="@style/room_item_content"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l_card_limit"
+                style="@style/room_item" >
+
+                <TextView
+                    style="@style/room_item_label"
+                    android:text="@string/card_limit" />
+
+                <TextView
+                    android:id="@+id/card_limit_text"
+                    style="@style/room_item_content"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l_init_lp"
+                style="@style/room_item" >
+
+                <TextView
+                    style="@style/room_item_label"
+                    android:text="@string/init_lp" />
+
+                <TextView
+                    android:id="@+id/init_lp_text"
+                    style="@style/room_item_content"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l_init_hands"
+                style="@style/room_item" >
+
+                <TextView
+                    style="@style/room_item_label"
+                    android:text="@string/init_hands" />
+
+                <TextView
+                    android:id="@+id/init_hands_text"
+                    style="@style/room_item_content"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l_draw_count"
+                style="@style/room_item" >
+
+                <TextView
+                    style="@style/room_item_label"
+                    android:text="@string/draw_count" />
+
+                <TextView
+                    android:id="@+id/draw_count_text"
+                    style="@style/room_item_content"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/le_room_name"
+            style="@style/room_item"
+            android:visibility="gone" >
+
+            <TextView
+                style="@style/room_item_label"
+                android:text="@string/room_name" />
+
+            <EditText
+                android:id="@+id/room_name_editbox"
+                style="@style/room_item_edit_text"
+                android:inputType="number"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ls_duel_mode"
+            style="@style/room_item"
+            android:visibility="gone" >
+
+            <TextView
+                style="@style/room_item_label"
+                android:text="@string/duel_mode" />
+
+            <Spinner
+                android:id="@+id/duel_mode_spinner"
+                style="@style/room_item_spinner"
+                android:spinnerMode="dropdown"
+                android:entries="@array/duel_mode"
+                android:prompt="@string/duel_mode" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/room_password_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/le_room_password"
+                style="@style/room_item" >
+
+                <TextView
+                    style="@style/room_item_label"
+                    android:text="@string/password" />
+
+                <EditText
+                    android:id="@+id/room_passwd_editbox"
+                    style="@style/room_item_edit_text"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/show_password_layout"
+                style="@style/room_item" >
+
+                <TextView style="@style/room_item_label" />
+
+                <CheckBox
+                    android:id="@+id/room_show_password"
+                    style="@style/room_item_checkbox"
+                    android:text="@string/show_password"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/advanced_options_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout style="@style/room_item" >
+
+                <CheckBox
+                    android:id="@+id/room_advanced_toggle"
+                    style="@style/room_item_checkbox"
+                    android:checked="false"
+                    android:text="@string/room_advanced_options"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/room_advanced_fields"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:id="@+id/ls_card_limit"
+                    style="@style/room_item" >
+
+                    <TextView
+                        style="@style/room_item_label"
+                        android:text="@string/card_limit" />
+
+                    <Spinner
+                        android:id="@+id/card_limit_spinner"
+                        style="@style/room_item_spinner"
+                        android:spinnerMode="dropdown"
+                        android:entries="@array/card_limit"
+                        android:prompt="@string/card_limit" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/le_init_lp"
+                    style="@style/room_item" >
+
+                    <TextView
+                        style="@style/room_item_label"
+                        android:text="@string/init_lp" />
+
+                    <EditText
+                        android:id="@+id/init_lp_edittext"
+                        style="@style/room_item_edit_text"
+                        android:hint="@string/life_point_hint"
+                        android:inputType="number" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

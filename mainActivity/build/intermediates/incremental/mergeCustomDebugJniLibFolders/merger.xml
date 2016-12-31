@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/jniLibs"/></dataSet><dataSet config="custom"><source path="/Users/binma/Documents/projects/YGOMobile/mainActivity/src/custom/jniLibs"/></dataSet><dataSet config="debug"><source path="/Users/binma/Documents/projects/YGOMobile/mainActivity/src/debug/jniLibs"/></dataSet><dataSet config="customDebug"><source path="/Users/binma/Documents/projects/YGOMobile/mainActivity/src/customDebug/jniLibs"/></dataSet></merger>

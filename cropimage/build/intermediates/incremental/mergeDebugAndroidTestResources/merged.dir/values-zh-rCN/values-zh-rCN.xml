@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <string name="crop__cancel" ns1:ignore="ButtonCase">取消</string>
+    <string name="crop__done">裁剪</string>
+    <string name="crop__pick_error">源图片不可用</string>
+    <string name="crop__saving">保存图片中…</string>
+    <string name="crop__wait">请等待…</string>
+</resources>

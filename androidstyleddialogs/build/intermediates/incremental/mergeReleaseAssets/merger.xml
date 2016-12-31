@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/assets"/><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/release/assets"/></dataSet></merger>

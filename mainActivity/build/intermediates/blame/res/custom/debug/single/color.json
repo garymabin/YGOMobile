@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/switch_thumb_material_light.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/vpi__dark_theme.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/res/color/vpi__dark_theme.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/abc_primary_text_material_light.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/drawer_text_color_list.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/color/drawer_text_color_list.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/abc_secondary_text_material_light.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/abc_primary_text_material_dark.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/abc_secondary_text_material_dark.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/switch_thumb_material_dark.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/abc_search_url_text.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/text_color_list.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/color/text_color_list.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/vpi__light_theme.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/res/color/vpi__light_theme.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/color/abc_primary_text_disable_only_material_dark.xml"
+    }
+]

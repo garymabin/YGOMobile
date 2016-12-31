@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <cn.garymb.ygomobile.widget.filebrowser.FolderNavigator
+        android:id="@+id/folder_navigator"
+        android:layout_width="wrap_content"
+        android:layout_height="41.34dip"
+        android:layout_alignParentTop="true" >
+        <cn.garymb.ygomobile.widget.HorizontalListView
+            android:id="@+id/horizontalListView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_dir_list_bg"
+            android:paddingLeft="4.67dip" >
+        </cn.garymb.ygomobile.widget.HorizontalListView>
+    </cn.garymb.ygomobile.widget.filebrowser.FolderNavigator>
+
+    <cn.garymb.ygomobile.widget.filebrowser.FileBrowser
+        xmlns:join="http://github.com/joinAero/AndroidWebServ/"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/file_browser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/folder_navigator"
+        android:divider="@color/file_line_divider_color"
+        android:dividerHeight="0.67dip"
+        android:fadingEdge="none"
+        android:scrollingCache="false"
+        join:back_resp="true"
+        join:file_def="@drawable/ic_file"
+        join:folder_def="@drawable/ic_dir" />
+
+    <cn.garymb.ygomobile.widget.filebrowser.FileTreeItem
+        android:id="@+id/fileTreeItem1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="89dp"
+        android:layout_marginLeft="28dp" >
+    </cn.garymb.ygomobile.widget.filebrowser.FileTreeItem>
+
+</RelativeLayout>

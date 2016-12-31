@@ -1,0 +1,4 @@
+#Sat Dec 31 18:35:35 AEDT 2016
+base.0=/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/transforms/dex/custom/debug/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/transforms/dex/custom/debug/folders/1000/1f/main/classes.dex

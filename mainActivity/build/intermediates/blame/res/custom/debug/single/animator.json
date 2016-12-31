@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/animator/slide_out_left.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/animator/slide_out_left.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/animator/slide_in_right.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/animator/slide_in_right.xml"
+    }
+]

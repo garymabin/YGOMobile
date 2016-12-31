@@ -249,7 +249,8 @@ void CIrrDeviceAndroid::handleAndroidCommand(android_app* app, int32_t cmd)
 		          s32 surfaceWidth = ANativeWindow_getWidth(app->window);
 		          s32 surfaceHeight = ANativeWindow_getHeight(app->window);
 				  char log_focus_window[256];
-				  sprintf(log_focus_window, "focus window: width = %d, height = %d", surfaceWidth, surfaceHeight);
+				  sprintf(log_focus_window, "focus window: width = %d, height = %d, WindowSize.Width = %d, WindowSize.Height = %d",
+						  surfaceWidth, surfaceHeight, device->CreationParams.WindowSize.Width, device->CreationParams.WindowSize.Height);
 				  os::Printer::log(log_focus_window);
 		          if (device->CreationParams.WindowSize.Width != surfaceWidth || device->CreationParams.WindowSize.Height != surfaceHeight)
 		          {

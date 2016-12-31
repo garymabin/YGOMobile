@@ -1,0 +1,14 @@
+See file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/compileYGOMobileArmeabi-v7aDebugSharedLibraryYGOMobileArmeabi-v7aDebugSharedLibraryMainC/output.txt for all output for compileYGOMobileArmeabi-v7aDebugSharedLibraryYGOMobileArmeabi-v7aDebugSharedLibraryMainC.
+compiling Alloc.c successful.
+
+compiling LzmaLib.c successful.
+
+compiling LzFind.c successful.
+
+compiling LzmaDec.c successful.
+
+compiling android_native_app_glue.c successful.
+
+compiling LzmaEnc.c successful.
+
+Finished compileYGOMobileArmeabi-v7aDebugSharedLibraryYGOMobileArmeabi-v7aDebugSharedLibraryMainC, see full log file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/compileYGOMobileArmeabi-v7aDebugSharedLibraryYGOMobileArmeabi-v7aDebugSharedLibraryMainC/output.txt.

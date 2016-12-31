@@ -1,0 +1,2 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/build/tmp/compileSqliteX86DebugStaticLibrarySqliteX86DebugStaticLibraryMainC/output.txt for all output for compileSqliteX86DebugStaticLibrarySqliteX86DebugStaticLibraryMainC.
+Finished compileSqliteX86DebugStaticLibrarySqliteX86DebugStaticLibraryMainC, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/build/tmp/compileSqliteX86DebugStaticLibrarySqliteX86DebugStaticLibraryMainC/output.txt.

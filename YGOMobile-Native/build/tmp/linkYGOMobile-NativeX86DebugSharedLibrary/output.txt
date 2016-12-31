@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/linkYGOMobile-NativeX86DebugSharedLibrary/output.txt for all output for linkYGOMobile-NativeX86DebugSharedLibrary.
+linking libYGOMobile-Native.so successful.
+
+Finished linkYGOMobile-NativeX86DebugSharedLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/linkYGOMobile-NativeX86DebugSharedLibrary/output.txt.

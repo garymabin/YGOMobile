@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/gframe/lzma/build/tmp/createLzmaX86DebugStaticLibrary/output.txt for all output for createLzmaX86DebugStaticLibrary.
+archiving liblzma.a successful.
+
+Finished createLzmaX86DebugStaticLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/gframe/lzma/build/tmp/createLzmaX86DebugStaticLibrary/output.txt.

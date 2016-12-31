@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/lua/build/tmp/createLuaArmeabi-v7aDebugStaticLibrary/output.txt for all output for createLuaArmeabi-v7aDebugStaticLibrary.
+archiving liblua.a successful.
+
+Finished createLuaArmeabi-v7aDebugStaticLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/lua/build/tmp/createLuaArmeabi-v7aDebugStaticLibrary/output.txt.

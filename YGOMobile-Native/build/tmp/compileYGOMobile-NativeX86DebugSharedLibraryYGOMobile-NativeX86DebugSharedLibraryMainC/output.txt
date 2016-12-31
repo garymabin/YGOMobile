@@ -1,0 +1,2 @@
+See file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/compileYGOMobile-NativeX86DebugSharedLibraryYGOMobile-NativeX86DebugSharedLibraryMainC/output.txt for all output for compileYGOMobile-NativeX86DebugSharedLibraryYGOMobile-NativeX86DebugSharedLibraryMainC.
+Finished compileYGOMobile-NativeX86DebugSharedLibraryYGOMobile-NativeX86DebugSharedLibraryMainC, see full log file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/compileYGOMobile-NativeX86DebugSharedLibraryYGOMobile-NativeX86DebugSharedLibraryMainC/output.txt.

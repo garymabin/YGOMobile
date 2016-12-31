@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/ocgcore/build/tmp/linkOcgcoreArmeabi-v7aDebugSharedLibrary/output.txt for all output for linkOcgcoreArmeabi-v7aDebugSharedLibrary.
+linking libocgcore.so successful.
+
+Finished linkOcgcoreArmeabi-v7aDebugSharedLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/ocgcore/build/tmp/linkOcgcoreArmeabi-v7aDebugSharedLibrary/output.txt.

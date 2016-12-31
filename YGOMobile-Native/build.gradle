@@ -1,0 +1,93 @@
+apply plugin: 'com.android.model.native'
+
+model {
+    android {
+        compileSdkVersion 23
+        buildToolsVersion "23.0.2"
+    }
+
+    android.ndk {
+        moduleName "YGOMobile"
+        cppFlags.addAll([
+                "-D_IRR_ANDROID_PLATFORM_", "-D_ANDROID", "-pipe", "-fno-rtti",
+                "-fno-exceptions", "-Wno-error=format-security", "-std=gnu++11", "-fpermissive", "-fstrict-aliasing", "-fPIC"])
+        cppFlags.addAll([
+                "-I${file("../Classes/freetype/include")}".toString(),
+                "-I${file("../Classes/libevent/android")}".toString(),
+                "-I${file("../Classes/libevent/include")}".toString(),
+                "-I${file("../Classes/sqlite3")}".toString(),
+                "-I${file("../irrlicht/include")}".toString(),
+                "-I${file("../irrlicht/source/Irrlicht")}".toString(),
+                "-I${file("../Classes/gframe")}".toString(),
+                "-I${file(".")}".toString(),
+                "-I${file("android")}".toString(),
+                "-I${file("native_app_glue")}".toString()])
+        ldLibs.addAll(['log', 'EGL', 'GLESv1_CM', 'GLESv2', 'z', 'android', 'OpenSLES'])
+        stl = 'gnustl_shared'
+    }
+
+    android.sources {
+        main {
+            jni {
+                dependencies {
+                    library "irrlicht" linkage "static"
+                    library "umeng" linkage "shared"
+                    library "freetype" linkage "static"
+                    library "ssl" linkage "static"
+                    library "crypto" linkage "static"
+                    library "event2" linkage "static"
+                    project ":Classes/ocgcore" linkage "shared"
+                    project ":Classes/gframe/lzma" linkage "static"
+                    project ":Classes/sqlite3" linkage "static"
+                }
+                source {
+                    srcDirs "../Classes/gframe", "."
+                    exclude "../Classes/gframe/lzma/*"
+                }
+            }
+        }
+    }
+
+    repositories {
+        libs(PrebuiltLibraries) {
+            irrlicht {
+                def irrlichtRepoPath = '../irrlicht'
+                headers.srcDirs.add( irrlichtRepoPath + "/include")
+                headers.srcDirs.add( irrlichtRepoPath + "/source/Irrlicht")
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("prebuilts/${targetPlatform.getName()}/libIrrlicht.a")
+                }
+            }
+
+            umeng {
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("prebuilts/${targetPlatform.getName()}/libbspatch.so")
+                }
+            }
+
+            freetype {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("prebuilts/${targetPlatform.getName()}/libft2.a")
+                }
+            }
+
+            ssl {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("prebuilts/${targetPlatform.getName()}/libssl_static.a")
+                }
+            }
+
+            crypto {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("prebuilts/${targetPlatform.getName()}/libcrypto_static.a")
+                }
+            }
+
+            event2 {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("prebuilts/${targetPlatform.getName()}/libevent2.a")
+                }
+            }
+        }
+    }
+}

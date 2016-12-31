@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.garymb.ygomobile.widget.filebrowser.NavigatorListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:focusableInTouchMode="false">
+
+    <TextView
+        android:id="@+id/navigator_folder_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:clickable="false"
+        android:text="Medium Text"
+        android:paddingLeft="8dip"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14.67sp"
+        android:focusableInTouchMode="false" />
+
+    <ImageView
+        android:id="@+id/navigator_arow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/navigator_folder_name"
+        android:paddingLeft="8dip"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/ic_dir_divider" />
+
+</cn.garymb.ygomobile.widget.filebrowser.NavigatorListItem>

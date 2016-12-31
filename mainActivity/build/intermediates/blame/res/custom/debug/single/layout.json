@@ -1,0 +1,442 @@
+[
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_popup_menu_item_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/sdl_datepicker.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/res/layout/sdl_datepicker.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_image_dialog.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_image_dialog.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_reply_item_text.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_reply_item_text.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/common_expanable_list.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/common_expanable_list.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/room_list_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/room_list_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/support_simple_spinner_dropdown_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/crop__layout_done_cancel.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/cropimage/unspecified/res/layout/crop__layout_done_cancel.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/select_dialog_item_material.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_item_material.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/loading_progress.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/loading_progress.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_action_bar_view_list_nav_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_search_dropdown_item_icons_2line.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_fragment_question.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_fragment_question.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/drawer_list_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/drawer_list_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_input_conversation_audio.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_input_conversation_audio.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/sdl_progress.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/res/layout/sdl_progress.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/tab_fragment.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/tab_fragment.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_filter_actionbar_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_filter_actionbar_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/notification_template_big_media_narrow.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/overlay_oval.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/overlay_oval.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/settings_toolbar.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/settings_toolbar.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_deck_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_deck_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_action_menu_item_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/notification_media_cancel_action.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_list_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_list_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/overlay_rect.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/overlay_rect.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/sdl_list_item_singlechoice.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/res/layout/sdl_list_item_singlechoice.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/room_spinner_dropdown_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/room_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_input_conversation.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_input_conversation.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_filter_actionbar_range_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_filter_actionbar_range_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_screen_simple_overlay_action_mode.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_reply_item_audio.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_reply_item_audio.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/actionbar_loading_progress.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/actionbar_loading_progress.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/common_list_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/common_list_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/room_detail_content.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/room_detail_content.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/global_toolbar.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/global_toolbar.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/notification_template_media.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_media.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/sdl_list_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/res/layout/sdl_list_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_input_contact.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_input_contact.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/grid_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/grid_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_activity_help.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_activity_help.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_activity_conversation.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_activity_conversation.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/activity_crop.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/activity_crop.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/grid_slection_dialog_content.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/grid_slection_dialog_content.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/nav_radiogroup_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/nav_radiogroup_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_action_mode_close_item_material.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_list_menu_item_icon.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/donate_content.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/donate_content.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_screen_content_include.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_content_include.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_screen_toolbar.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/sdl_dialog.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/res/layout/sdl_dialog.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/image_dl_dialog.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/image_dl_dialog.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/range_dialog_content.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/range_dialog_content.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_alert_dialog_button_bar_material.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/select_dialog_singlechoice_material.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_activity_chooser_view_list_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_detail.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_detail.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/crop__activity_crop.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/cropimage/unspecified/res/layout/crop__activity_crop.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_welcome_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_welcome_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_activity_chooser_view.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_expanded_menu_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/image_preview_content.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/image_preview_content.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/activity_settings.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/activity_settings.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/file_browser_list_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/file_browser_list_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/common_list.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/common_list.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_detail_pager.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_detail_pager.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/custom_actionbar_view.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/custom_actionbar_view.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/sdl_timepicker.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/res/layout/sdl_timepicker.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_screen_simple.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_list_menu_item_radio.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/server_ops_expand_view.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/server_ops_expand_view.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/notification_media_action.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/text_input_compat_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/text_input_compat_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_select_dialog_material.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_search_view.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_view.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/notification_template_part_time.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/activity_main.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/donate_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/donate_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/navigator.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/navigator.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_action_bar_up_container.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_contact.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_contact.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_action_mode_bar.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_update_dialog.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_update_dialog.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/file_browser_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/file_browser_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_dialog_title_material.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/duel_panel.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/duel_panel.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_audio_dialog.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_audio_dialog.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_action_menu_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/server_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/server_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_list_menu_item_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/combobox_compat_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/combobox_compat_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/notification_template_big_media.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_fragment.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_fragment.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_reply_item_image.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_reply_item_image.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_filter_actionbar_searchview.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_filter_actionbar_searchview.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_filter_actionbar_grid_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_filter_actionbar_grid_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/select_dialog_multichoice_material.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/create_server_content.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/create_server_content.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/umeng_fb_contact_spinner.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/umeng_fb_contact_spinner.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/card_filter_actionbar_menu_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/card_filter_actionbar_menu_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/notification_template_lines.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_lines.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/navigator_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/navigator_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/custom_spinner.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/custom_spinner.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_alert_dialog_material.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/abc_action_bar_title_item.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/app_update_content.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/app_update_content.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/fonts_extra_layout.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/src/main/res/layout/fonts_extra_layout.xml"
+    },
+    {
+        "merged": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/res/merged/custom/debug/layout/sdl_list_item_multichoice.xml",
+        "source": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/res/layout/sdl_list_item_multichoice.xml"
+    }
+]

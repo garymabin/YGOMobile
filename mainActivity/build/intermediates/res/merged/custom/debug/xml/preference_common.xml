@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/settings_common_sub_common" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_key_common_download_condition"
+            android:persistent="true"
+            android:title="@string/settings_common_card_image_network_pref" />
+
+        <Preference
+            android:key="pref_key_game_res_path"
+            android:persistent="true"
+            android:title="@string/settings_game_res_path" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

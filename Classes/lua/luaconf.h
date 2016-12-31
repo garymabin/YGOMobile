@@ -4,6 +4,11 @@
 ** See Copyright Notice in lua.h
 */
 
+#if ANDROID
+#define getlocaledecpoint() '.'
+#elif !defined(getlocaledecpoint)
+#define getlocaledecpoint() (localeconv()->decimal_point[0])
+#endif
 
 #ifndef lconfig_h
 #define lconfig_h

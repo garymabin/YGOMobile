@@ -1,0 +1,27 @@
+apply plugin: "com.android.model.native"
+
+model {
+    android {
+        compileSdkVersion 23
+        ndk {
+            moduleName "sqlite"
+            CFlags.addAll([
+                    "-O2", "-Wall"])
+            CFlags.add(
+                    "-I${file(".")}".toString())
+        }
+        sources {
+            main {
+                jni {
+                    exportedHeaders {
+                        srcDirs.add(".")
+                    }
+                    source {
+                        srcDir "."
+                        exclude "shell.c"
+                    }
+                }
+            }
+        }
+    }
+}

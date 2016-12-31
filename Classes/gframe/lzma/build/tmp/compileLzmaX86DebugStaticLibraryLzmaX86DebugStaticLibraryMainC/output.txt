@@ -1,0 +1,2 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/gframe/lzma/build/tmp/compileLzmaX86DebugStaticLibraryLzmaX86DebugStaticLibraryMainC/output.txt for all output for compileLzmaX86DebugStaticLibraryLzmaX86DebugStaticLibraryMainC.
+Finished compileLzmaX86DebugStaticLibraryLzmaX86DebugStaticLibraryMainC, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/gframe/lzma/build/tmp/compileLzmaX86DebugStaticLibraryLzmaX86DebugStaticLibraryMainC/output.txt.

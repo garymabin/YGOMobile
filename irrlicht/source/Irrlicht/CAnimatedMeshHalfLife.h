@@ -593,7 +593,7 @@ namespace scene
 
 #ifdef HL_TEXTURE_ATLAS
 		STextureAtlas TextureAtlas;
-//		video::ITexture *TextureMaster;
+		video::ITexture *TextureMaster;
 #endif
 
 	};

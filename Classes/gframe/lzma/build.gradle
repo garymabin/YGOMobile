@@ -1,0 +1,22 @@
+apply plugin: "com.android.model.native"
+
+model {
+    android {
+        compileSdkVersion 23
+        ndk {
+            moduleName "lzma"
+            CFlags.add("-O2")
+            CFlags.add(
+                    "-I${file(".")}".toString())
+        }
+        sources {
+            main {
+                jni {
+                    source {
+                        srcDir "."
+                    }
+                }
+            }
+        }
+    }
+}

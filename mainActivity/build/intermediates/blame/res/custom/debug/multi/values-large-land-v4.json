@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/incremental/mergeCustomDebugResources/merged.dir/values-large-land-v4/values-large-land-v4.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 47,
+                    "endOffset": 98
+                },
+                "from": {
+                    "file": "/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/cropimage/unspecified/res/values-large-land-v4/values-large-land-v4.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 47,
+                        "endOffset": 98
+                    }
+                }
+            }
+        ]
+    }
+]

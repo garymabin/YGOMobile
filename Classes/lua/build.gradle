@@ -1,0 +1,28 @@
+apply plugin: "com.android.model.native"
+
+model {
+    android {
+        compileSdkVersion 23
+        ndk {
+            moduleName "lua"
+            CFlags.addAll([
+                    "-O2", "-DLUA_USE_POSIX", "-DLUA_COMPAT_ALL", "-DANDROID", "-Wno-psabi"])
+        }
+        sources {
+            main {
+                jni {
+                    exportedHeaders {
+                        srcDirs.add(".")
+                    }
+                    source {
+                        srcDir "."
+                        exclude "lualib.c"
+                        exclude "luac.c"
+                        exclude "lualib.c"
+                        exclude "lua.c"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <Preference
+        android:key="pref_key_common_settings"
+        android:title="@string/settings_common" >
+    </Preference>
+    <Preference
+        android:key="pref_key_game_settings"
+        android:title="@string/settings_game" >
+    </Preference>
+    <Preference
+        android:key="pref_key_about_settings"
+        android:summary="@string/app_name"
+        android:title="@string/settings_about" >
+    </Preference>
+
+</PreferenceScreen>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/com.umeng.fb.5.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="993055275c65a58d47e98493d8028a74a0e1c06e">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/com.umeng.fb.5.4.0_114846b0aa6ea7577f3fed545b170bfb7b6c4cd1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/com.android.support-appcompat-v7-23.1.1_b50d040e27fb9569ca2e15dd738044d6cfa9a3d3.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/com.android.support-support-v4-23.1.1_f2ef52232b47721802a6bbf65cea9dccfebd3827.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/yGOData/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="fda31ebbe7ccd910b3b99f15fbb046dfe294e5af">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-yGOData-unspecified_df8599e4d69fc731ad8a2543eb2ecfeb42594c11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/apacheasynchttpHC4/unspecified/jars/libs/commons-codec-1.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="552cd54385c88e92eeb4bbb619a94a5c883d72ab">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/commons-codec-1.6_3a793484f4b3eee1b09737883f388c1d290de887.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="2b9959a34b50908c2c6445487cee02ba2e3930ba">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-androidstyleddialogs-unspecified_b0eb6784e495ae81cf45c65f8d4bbb108cf968e3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/eventbus-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/eventbus-2.4.0_9ef76dc4e616a4cf1abfbb21630bd2fc5cff7a47.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/com.umeng.message.lib_v2.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="2e43bd4164f510a6b4be65f569356d79237b36ed">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/com.umeng.message.lib_v2.4.1_106a84141317d7a98be0d202f26452a8ae8234b5.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/acra-4.5.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="44a5eb946e0d83eed4a0128d877ca1fd8168b83a">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/acra-4.5.0_44f84b73bcf99628927128a227a9a532403bf67f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/NativeCrashHandler-v1.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="53d717247a5a94e403f5efc0322935078c17b97d">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/NativeCrashHandler-v1.2_456d8c6755e913b08f9cf0f4ecdf1d884069297b.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/umeng-update-v2.4.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="ee700e317f574886dc0a236b801f219df6fbd26d">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/umeng-update-v2.4.2_637e7d29c4a72642b66502399de6d2b058a1424c.jar" />
+    </item>
+    <item
+        jar="/Users/binma/.gradle/caches/modules-2/files-2.1/org.jbundle.util.osgi.wrapped/org.jbundle.util.osgi.wrapped.org.apache.http.client/4.1.2/98c86e42679fe7ac066f6c242e0d14f0bce0bb7c/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="98c86e42679fe7ac066f6c242e0d14f0bce0bb7c">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2_76e1fee9f9c77f2a75be5174c38834f80c939ee8.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/cropimage/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="520acccda9c845971afb2b2fd84547ac1d6e91e2">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-cropimage-unspecified_5cf89ff340b1f3ef1fdb5311921c88bdde3d6fb6.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/libGoogleAnalyticsServices.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="db1e65d9e3ee616f871cb23120fbea8f18ad3e4c">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/libGoogleAnalyticsServices_3f9ecc6770994faee33f598df12c9f443f4221ad.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/internal_impl-23.1.1_fdedb23a54243b56f0cff8fbb77a72612b29f947.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/apacheasynchttpHC4/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="60355caf206a2171b89c983bec2d9e25cc93fabf">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-apacheasynchttpHC4-unspecified_104d1b1a6ed496cd345218323e50cbce8179a865.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/com.umeng.message.lib_v2.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="2e43bd4164f510a6b4be65f569356d79237b36ed">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/com.umeng.message.lib_v2.4.1_106a84141317d7a98be0d202f26452a8ae8234b5.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/NativeCrashHandler-v1.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="53d717247a5a94e403f5efc0322935078c17b97d">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/NativeCrashHandler-v1.2_456d8c6755e913b08f9cf0f4ecdf1d884069297b.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/eventbus-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/eventbus-2.4.0_9ef76dc4e616a4cf1abfbb21630bd2fc5cff7a47.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/java_websocket.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="4a10c9399b1d16ab717c3819c3a6ff42fddbe089">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/java_websocket_1cac2d6a840160fa2a5f57926667fa1e03b539fc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/acra-4.5.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="44a5eb946e0d83eed4a0128d877ca1fd8168b83a">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/acra-4.5.0_44f84b73bcf99628927128a227a9a532403bf67f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/.gradle/caches/modules-2/files-2.1/org.jbundle.util.osgi.wrapped/org.jbundle.util.osgi.wrapped.org.apache.http.client/4.1.2/98c86e42679fe7ac066f6c242e0d14f0bce0bb7c/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="98c86e42679fe7ac066f6c242e0d14f0bce0bb7c">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2_76e1fee9f9c77f2a75be5174c38834f80c939ee8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/java_websocket.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="4a10c9399b1d16ab717c3819c3a6ff42fddbe089">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/java_websocket_1cac2d6a840160fa2a5f57926667fa1e03b539fc.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="145dc46bbe88b65438e94cdd1515ec28fd7127d4">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-viewPageIndicator-unspecified_cf5428fd429d6b0a9105c4c4b7fdd3034d54af15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/umeng-update-v2.4.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="ee700e317f574886dc0a236b801f219df6fbd26d">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/umeng-update-v2.4.2_637e7d29c4a72642b66502399de6d2b058a1424c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/support-annotations-23.1.1_1049c24524d24a5969e25c3fac2987f41ccaec77.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/cropimage/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="2bc2147d0766dd00a9dd0f4453294175075fb04c">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-cropimage-unspecified_5cf89ff340b1f3ef1fdb5311921c88bdde3d6fb6.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/apacheasynchttpHC4/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="56cb0fe196d4e5800ffaf659a6b8c9e7d5b417b0">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-apacheasynchttpHC4-unspecified_104d1b1a6ed496cd345218323e50cbce8179a865.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.0.1/b34c1f2d993044656e87f88970b6818e99e886ba/okhttp-3.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="b34c1f2d993044656e87f88970b6818e99e886ba">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/okhttp-3.0.1_7965c562ce40b98948da3c526d177b2ef87f8cf7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/com.android.support-support-v4-23.1.1_f2ef52232b47721802a6bbf65cea9dccfebd3827.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/okio-1.6.0_3b5cf67e7f167d910b60db2cd3ade678f29ad713.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/androidstyleddialogs/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="0aee2bb1f8a20b8090d8d7706e583345486bc193">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-androidstyleddialogs-unspecified_b0eb6784e495ae81cf45c65f8d4bbb108cf968e3.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/com.umeng.fb.5.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="993055275c65a58d47e98493d8028a74a0e1c06e">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/com.umeng.fb.5.4.0_114846b0aa6ea7577f3fed545b170bfb7b6c4cd1.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/com.android.support-appcompat-v7-23.1.1_b50d040e27fb9569ca2e15dd738044d6cfa9a3d3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/libs/libGoogleAnalyticsServices.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="db1e65d9e3ee616f871cb23120fbea8f18ad3e4c">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/libGoogleAnalyticsServices_3f9ecc6770994faee33f598df12c9f443f4221ad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/internal_impl-23.1.1_fdedb23a54243b56f0cff8fbb77a72612b29f947.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/support-annotations-23.1.1_1049c24524d24a5969e25c3fac2987f41ccaec77.jar" />
+    </item>
+    <item
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/apacheasynchttpHC4/unspecified/jars/libs/commons-codec-1.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="cc1fa6224bc81f1103005fa921c84532b167ea7a">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/commons-codec-1.6_3a793484f4b3eee1b09737883f388c1d290de887.jar" />
+    </item>
+    <item
+        jar="/Users/binma/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.0.1/b34c1f2d993044656e87f88970b6818e99e886ba/okhttp-3.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="b34c1f2d993044656e87f88970b6818e99e886ba">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/okhttp-3.0.1_7965c562ce40b98948da3c526d177b2ef87f8cf7.jar" />
+    </item>
+    <item
+        jar="/Users/binma/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/okio-1.6.0_3b5cf67e7f167d910b60db2cd3ade678f29ad713.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/viewPageIndicator/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="05269d17fdf13e04689571ac1ab7582ab25a744d">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-viewPageIndicator-unspecified_cf5428fd429d6b0a9105c4c4b7fdd3034d54af15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/exploded-aar/YGOMobile/yGOData/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="9bfb38465138c1a1bd563d7088aa9ec2caa541ef">
+        <dex dex="/Users/binma/Documents/projects/YGOMobile/mainActivity/build/intermediates/pre-dexed/custom/debug/YGOMobile-yGOData-unspecified_df8599e4d69fc731ad8a2543eb2ecfeb42594c11.jar" />
+    </item>
+
+</items>

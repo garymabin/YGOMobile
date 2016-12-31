@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/build/tmp/createSqliteX86DebugStaticLibrary/output.txt for all output for createSqliteX86DebugStaticLibrary.
+archiving libsqlite.a successful.
+
+Finished createSqliteX86DebugStaticLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/build/tmp/createSqliteX86DebugStaticLibrary/output.txt.

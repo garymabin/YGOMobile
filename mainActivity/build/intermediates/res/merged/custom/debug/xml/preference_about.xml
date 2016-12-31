@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/settings_about_sub_about" >
+        <Preference
+            android:key="pref_key_about_author"
+            android:summary="garymabin@gmail.com"
+            android:title="@string/settings_about_author_pref" />
+        <Preference
+            android:key="pref_key_about_version"
+            android:persistent="true"
+            android:title="@string/settings_about_version_pref" />
+        <Preference
+            android:key="pref_key_about_project"
+            android:summary="@string/settings_about_project_address"
+            android:title="@string/settings_about_proj_loc" />
+        <Preference
+            android:key="pref_key_opensource_cert"
+            android:persistent="true"
+            android:title="@string/settings_about_opensource_pref" />
+        <Preference
+            android:key="pref_key_about_check_update"
+            android:persistent="true"
+            android:title="@string/settings_about_check_update" />
+        <Preference
+            android:key="pref_key_feed_back"
+            android:title="@string/settings_about_feedback"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,32 @@
+apply plugin: "com.android.model.native"
+
+model {
+    android {
+        compileSdkVersion 23
+        ndk {
+            moduleName "ocgcore"
+            cppFlags.addAll([
+                    "-O2", "-frtti", "-std=gnu++0x", "-D_IRR_ANDROID_PLATFORM_"])
+            cppFlags.add(
+                    "-I${file(".")}".toString())
+            cppFlags.add(
+                    "-I${file("../lua")}".toString())
+            stl = 'gnustl_shared'
+        }
+        sources {
+            main {
+                jni {
+                    exportedHeaders {
+                        srcDirs.add(".")
+                    }
+                    source {
+                        srcDir "."
+                    }
+                    dependencies {
+                        project ":Classes/lua" linkage "static"
+                    }
+                }
+            }
+        }
+    }
+}

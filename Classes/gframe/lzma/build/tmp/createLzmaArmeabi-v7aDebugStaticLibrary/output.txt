@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/gframe/lzma/build/tmp/createLzmaArmeabi-v7aDebugStaticLibrary/output.txt for all output for createLzmaArmeabi-v7aDebugStaticLibrary.
+archiving liblzma.a successful.
+
+Finished createLzmaArmeabi-v7aDebugStaticLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/gframe/lzma/build/tmp/createLzmaArmeabi-v7aDebugStaticLibrary/output.txt.

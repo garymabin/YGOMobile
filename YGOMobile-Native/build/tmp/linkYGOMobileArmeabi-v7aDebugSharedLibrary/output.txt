@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/linkYGOMobileArmeabi-v7aDebugSharedLibrary/output.txt for all output for linkYGOMobileArmeabi-v7aDebugSharedLibrary.
+linking libYGOMobile.so successful.
+
+Finished linkYGOMobileArmeabi-v7aDebugSharedLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/linkYGOMobileArmeabi-v7aDebugSharedLibrary/output.txt.

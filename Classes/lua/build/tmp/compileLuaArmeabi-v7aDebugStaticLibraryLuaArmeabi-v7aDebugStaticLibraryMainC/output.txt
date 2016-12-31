@@ -1,0 +1,70 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/lua/build/tmp/compileLuaArmeabi-v7aDebugStaticLibraryLuaArmeabi-v7aDebugStaticLibraryMainC/output.txt for all output for compileLuaArmeabi-v7aDebugStaticLibraryLuaArmeabi-v7aDebugStaticLibraryMainC.
+compiling lbitlib.c successful.
+
+compiling lbaselib.c successful.
+
+compiling lcorolib.c successful.
+
+compiling lctype.c successful.
+
+compiling lauxlib.c successful.
+
+compiling ldblib.c successful.
+
+compiling lapi.c successful.
+
+compiling lcode.c successful.
+
+compiling lfunc.c successful.
+
+compiling ldump.c successful.
+
+compiling ldebug.c successful.
+
+compiling linit.c successful.
+
+compiling ldo.c successful.
+
+compiling lmathlib.c successful.
+
+compiling lmem.c successful.
+
+compiling liolib.c successful.
+
+compiling llex.c successful.
+/Users/binma/Documents/projects/YGOMobile/Classes/lua/llex.c: In function 'trydecpoint':
+/Users/binma/Documents/projects/YGOMobile/Classes/lua/llex.c:220:16: warning: assignment makes integer from pointer without a cast
+   ls->decpoint = ".";
+                ^
+
+compiling lobject.c successful.
+
+compiling lopcodes.c successful.
+
+compiling loadlib.c successful.
+
+compiling lgc.c successful.
+
+compiling loslib.c successful.
+
+compiling lstate.c successful.
+
+compiling lstring.c successful.
+
+compiling ltablib.c successful.
+
+compiling ltm.c successful.
+
+compiling ltable.c successful.
+
+compiling lundump.c successful.
+
+compiling lzio.c successful.
+
+compiling lstrlib.c successful.
+
+compiling lparser.c successful.
+
+compiling lvm.c successful.
+
+Finished compileLuaArmeabi-v7aDebugStaticLibraryLuaArmeabi-v7aDebugStaticLibraryMainC, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/lua/build/tmp/compileLuaArmeabi-v7aDebugStaticLibraryLuaArmeabi-v7aDebugStaticLibraryMainC/output.txt.

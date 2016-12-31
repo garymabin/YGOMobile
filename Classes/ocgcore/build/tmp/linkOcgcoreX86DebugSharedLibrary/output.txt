@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/ocgcore/build/tmp/linkOcgcoreX86DebugSharedLibrary/output.txt for all output for linkOcgcoreX86DebugSharedLibrary.
+linking libocgcore.so successful.
+
+Finished linkOcgcoreX86DebugSharedLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/ocgcore/build/tmp/linkOcgcoreX86DebugSharedLibrary/output.txt.

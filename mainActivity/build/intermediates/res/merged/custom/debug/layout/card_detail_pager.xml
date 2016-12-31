@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dip" >
+
+    <RelativeLayout
+        android:id="@+id/card_info_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/card_image_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/list_selector"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip" >
+
+            <ImageView
+                android:id="@+id/card_image"
+                android:layout_width="@dimen/card_image_width"
+                android:layout_height="@dimen/card_image_height"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/card_code"
+                style="@style/card_item_content"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/card_image_panel"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <LinearLayout style="@style/card_item" >
+
+                <TextView
+                    style="@style/card_item_content"
+                    android:text="@string/item_ot_text" />
+
+                <TextView
+                    android:id="@+id/card_ot"
+                    style="@style/card_item_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/card_item" >
+
+                <TextView
+                    style="@style/card_item_content"
+                    android:text="@string/item_type_text" />
+
+                <TextView
+                    android:id="@+id/card_type"
+                    style="@style/card_item_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/card_item" >
+
+                <TextView
+                    style="@style/card_item_content"
+                    android:text="@string/item_level_text" />
+
+                <TextView
+                    android:id="@+id/card_level"
+                    style="@style/card_item_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/card_item" >
+
+                <TextView
+                    style="@style/card_item_content"
+                    android:text="@string/item_race_text" />
+
+                <TextView
+                    android:id="@+id/card_race"
+                    style="@style/card_item_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/card_item" >
+
+                <TextView
+                    style="@style/card_item_content"
+                    android:text="@string/item_attr_text" />
+
+                <TextView
+                    android:id="@+id/card_attr"
+                    style="@style/card_item_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/card_item" >
+
+                <TextView
+                    style="@style/card_item_content"
+                    android:text="@string/item_atk_text" />
+
+                <TextView
+                    android:id="@+id/card_atk"
+                    style="@style/card_item_content" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/card_item" >
+
+                <TextView
+                    style="@style/card_item_content"
+                    android:text="@string/item_def_text" />
+
+                <TextView
+                    android:id="@+id/card_def"
+                    style="@style/card_item_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_info_panel"
+        android:layout_margin="10dip" >
+
+        <LinearLayout
+            android:id="@+id/card_des_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/card_item_content"
+                android:text="@string/item_des_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/card_des"
+                style="@style/card_item_content" />
+
+            <TextView
+                style="@style/card_item_content"
+                android:layout_marginTop="10dip"
+                android:text="@string/item_wiki_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/card_wiki"
+                style="@style/card_item_content"
+                android:autoLink="web"
+                android:background="@drawable/list_selector"
+                android:clickable="true"
+                android:singleLine="true"
+                android:text="@string/wiki_hint_text"
+                android:textColorLink="@color/apptheme_color" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

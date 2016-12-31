@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/build/tmp/createSqliteArmeabi-v7aDebugStaticLibrary/output.txt for all output for createSqliteArmeabi-v7aDebugStaticLibrary.
+archiving libsqlite.a successful.
+
+Finished createSqliteArmeabi-v7aDebugStaticLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/build/tmp/createSqliteArmeabi-v7aDebugStaticLibrary/output.txt.

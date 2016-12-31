@@ -1,0 +1,267 @@
+See file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/compileYGOMobileX86DebugSharedLibraryYGOMobileX86DebugSharedLibraryMainCpp/output.txt for all output for compileYGOMobileX86DebugSharedLibraryYGOMobileX86DebugSharedLibraryMainCpp.
+compiling CGUIButton.cpp successful.
+
+compiling CGUIComboBox.cpp successful.
+
+compiling CGUIEditBox.cpp successful.
+
+compiling CAnimatedMeshHalfLife.cpp successful.
+
+compiling CGUITTFont.cpp successful.
+
+compiling CGUIImageButton.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/game.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/CGUIImageButton.cpp:7:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling client_card.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/client_card.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/client_card.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling data_manager.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/data_manager.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/data_manager.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling client_field.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/client_field.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/client_field.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling deck_con.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/deck_con.cpp:1:0:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling deck_manager.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/deck_manager.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/deck_manager.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling drawing.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/game.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/drawing.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling game.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/game.cpp:1:0:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling event_handler.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/event_handler.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/event_handler.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling duelclient.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/duelclient.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/duelclient.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling gframe.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/gframe.cpp:1:0:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling materials.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/materials.h:1:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/materials.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling image_manager.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/game.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/image_manager.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling menu_handler.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/menu_handler.cpp:1:0:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling netserver.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/netserver.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/netserver.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling replay.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/replay.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/replay.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling replay_mode.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/replay_mode.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/replay_mode.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling single_duel.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/single_duel.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/single_duel.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling single_mode.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/single_mode.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/single_mode.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling AndroidSoundEffectPlayer.cpp successful.
+
+compiling android_tools.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../gframe/game.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/android_tools.cpp:5:
+/Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/android_tools.cpp: In function 'bool irr::android::perfromTrick(android_app*)':
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/android_tools.cpp:426:56: warning: invalid conversion from 'unsigned char*' to 'jbyte* {aka signed char*}' [-fpermissive]
+  jni->ReleaseByteArrayElements(array, pArray, JNI_FALSE);
+                                                        ^
+In file included from /Users/binma/Downloads/android-ndk-r10e/platforms/android-21/arch-x86/usr/include/android/native_activity.h:24:0,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/native_app_glue/android_native_app_glue.h:27,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/android_tools.h:8,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/android_tools.cpp:4:
+/Users/binma/Downloads/android-ndk-r10e/platforms/android-21/arch-x86/usr/include/jni.h:935:10: note: initializing argument 2 of 'void _JNIEnv::ReleaseByteArrayElements(jbyteArray, jbyte*, jint)'
+     void ReleaseByteArrayElements(jbyteArray array, jbyte* elems,
+          ^
+
+compiling tag_duel.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/tag_duel.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/Classes/gframe/tag_duel.cpp:1:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling CAndroidGUISkin.cpp successful.
+
+compiling CAndroidGUIListBox.cpp successful.
+
+compiling CAndroidGUIComboBox.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../gframe/game.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/CAndroidGUIComboBox.cpp:10:
+/Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling CustomShaderConstantSetCallBack.cpp successful.
+
+compiling OpenSLSoundTracker.cpp successful.
+
+compiling CAndroidGUIEditBox.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../gframe/game.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/CAndroidGUIEditBox.cpp:10:
+/Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling xstring.cpp successful.
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/xstring.cpp:1018:128: warning: narrowing conversion of '4194836608ul' from 'long unsigned int' to 'const UTF32 {aka const wchar_t}' inside { } [-Wnarrowing]
+ static const UTF32 offsetsFromUTF8[6] = { 0x00000000UL, 0x00003080UL, 0x000E2080UL,   0x03C82080UL, 0xFA082080UL, 0x82082080UL };
+                                                                                                                                ^
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/xstring.cpp:1018:128: warning: narrowing conversion of '2181570688ul' from 'long unsigned int' to 'const UTF32 {aka const wchar_t}' inside { } [-Wnarrowing]
+
+compiling SoundPoolWrapperTracker.cpp successful.
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/SoundPoolWrapperTracker.cpp: In function 'void* ygo::audioPlayThread(void*)':
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/SoundPoolWrapperTracker.cpp:42:38: warning: invalid conversion from 'const android_app*' to 'android_app*' [-fpermissive]
+  android_app* app = spwt->getMainApp();
+                                      ^
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/SoundPoolWrapperTracker.cpp:43:39: warning: invalid conversion from 'const Signal*' to 'Signal*' [-fpermissive]
+  Signal* signal = spwt->getPlaySignal();
+                                       ^
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/SoundPoolWrapperTracker.cpp:46:53: warning: invalid conversion from 'const std::list<irr::core::string<char> >*' to 'std::list<irr::core::string<char> >*' [-fpermissive]
+  std::list<irr::io::path>* sounds = spwt->getSounds();
+                                                     ^
+
+compiling TouchEventTransferAndroid.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../gframe/game.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/TouchEventTransferAndroid.cpp:9:
+/Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/TouchEventTransferAndroid.cpp: In static member function 'static void irr::android::TouchEventTransferAndroid::set_long_click_handler(int)':
+/Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/TouchEventTransferAndroid.cpp:175:28: warning: invalid conversion from 'int' to 'void*' [-fpermissive]
+  sev.sigev_value.sival_ptr = mode;
+                            ^
+
+compiling YGOGameOptions.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/YGOGameOptions.h:12:0,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/YGOGameOptions.cpp:8:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling cn_garymb_ygomobile_core_IrrlichtBridge.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/android/../android/YGOGameOptions.h:12:0,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/cn_garymb_ygomobile_core_IrrlichtBridge.cpp:8:
+/Users/binma/Documents/projects/YGOMobile/Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+compiling NativeCrashHandler.cpp successful.
+In file included from /Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../../Classes/gframe/game.h:4:0,
+                 from /Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/NativeCrashHandler.cpp:24:
+/Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/../../Classes/gframe/config.h:8:0: warning: "_IRR_ANDROID_PLATFORM_" redefined
+ #define _IRR_ANDROID_PLATFORM_
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+
+Finished compileYGOMobileX86DebugSharedLibraryYGOMobileX86DebugSharedLibraryMainCpp, see full log file:///Users/binma/Documents/projects/YGOMobile/YGOMobile-Native/build/tmp/compileYGOMobileX86DebugSharedLibraryYGOMobileX86DebugSharedLibraryMainCpp/output.txt.

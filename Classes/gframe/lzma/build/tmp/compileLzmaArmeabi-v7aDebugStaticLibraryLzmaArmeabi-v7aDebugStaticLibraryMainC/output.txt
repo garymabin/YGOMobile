@@ -1,0 +1,2 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/gframe/lzma/build/tmp/compileLzmaArmeabi-v7aDebugStaticLibraryLzmaArmeabi-v7aDebugStaticLibraryMainC/output.txt for all output for compileLzmaArmeabi-v7aDebugStaticLibraryLzmaArmeabi-v7aDebugStaticLibraryMainC.
+Finished compileLzmaArmeabi-v7aDebugStaticLibraryLzmaArmeabi-v7aDebugStaticLibraryMainC, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/gframe/lzma/build/tmp/compileLzmaArmeabi-v7aDebugStaticLibraryLzmaArmeabi-v7aDebugStaticLibraryMainC/output.txt.

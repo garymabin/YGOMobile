@@ -62,8 +62,10 @@ bool Game::Initialize() {
 	params.WindowSize = irr::core::dimension2d<u32>(1024, 640);
 #endif
 	device = irr::createDeviceEx(params);
-	if(!device)
+	if (!device) {
+		os::Printer::log("invalid device", ELL_DEBUG);
 		return false;
+	}
 #ifdef _IRR_ANDROID_PLATFORM_
 	if (!android::perfromTrick(app)) {
 		return false;

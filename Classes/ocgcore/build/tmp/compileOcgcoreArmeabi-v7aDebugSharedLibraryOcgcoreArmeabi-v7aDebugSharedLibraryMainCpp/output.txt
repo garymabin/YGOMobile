@@ -1,0 +1,2 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/ocgcore/build/tmp/compileOcgcoreArmeabi-v7aDebugSharedLibraryOcgcoreArmeabi-v7aDebugSharedLibraryMainCpp/output.txt for all output for compileOcgcoreArmeabi-v7aDebugSharedLibraryOcgcoreArmeabi-v7aDebugSharedLibraryMainCpp.
+Finished compileOcgcoreArmeabi-v7aDebugSharedLibraryOcgcoreArmeabi-v7aDebugSharedLibraryMainCpp, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/ocgcore/build/tmp/compileOcgcoreArmeabi-v7aDebugSharedLibraryOcgcoreArmeabi-v7aDebugSharedLibraryMainCpp/output.txt.

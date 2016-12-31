@@ -1,0 +1,2 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/build/tmp/compileSqliteArmeabi-v7aDebugStaticLibrarySqliteArmeabi-v7aDebugStaticLibraryMainC/output.txt for all output for compileSqliteArmeabi-v7aDebugStaticLibrarySqliteArmeabi-v7aDebugStaticLibraryMainC.
+Finished compileSqliteArmeabi-v7aDebugStaticLibrarySqliteArmeabi-v7aDebugStaticLibraryMainC, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/sqlite3/build/tmp/compileSqliteArmeabi-v7aDebugStaticLibrarySqliteArmeabi-v7aDebugStaticLibraryMainC/output.txt.

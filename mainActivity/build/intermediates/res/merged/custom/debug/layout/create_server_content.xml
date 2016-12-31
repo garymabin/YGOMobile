@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="15dip"
+        android:paddingRight="20dip"
+        android:paddingTop="15dip" >
+
+        <LinearLayout
+            android:id="@+id/le_server_name"
+            style="@style/room_item" >
+
+            <TextView
+                style="@style/room_item_label"
+                android:text="@string/server_name" />
+
+            <EditText
+                android:id="@+id/server_name_edit_text"
+                style="@style/room_item_edit_text"
+                android:inputType="textNoSuggestions" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/le_server_user_name"
+            style="@style/room_item" >
+
+            <TextView
+                style="@style/room_item_label"
+                android:text="@string/server_user_name" />
+
+            <EditText
+                android:id="@+id/server_user_name_edit_text"
+                style="@style/room_item_edit_text"
+                android:inputType="textNoSuggestions" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/le_server_info"
+            style="@style/room_item" >
+
+            <TextView
+                style="@style/room_item_label"
+                android:text="@string/server_info" />
+
+            <EditText
+                android:id="@+id/server_info_edit_text"
+                style="@style/room_item_edit_text"
+                android:inputType="textNoSuggestions" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/le_server_addr"
+            style="@style/room_item" >
+
+            <TextView
+                style="@style/room_item_label"
+                android:text="@string/server_ip" />
+
+            <EditText
+                android:id="@+id/server_addr_edit_text"
+                style="@style/room_item_edit_text"
+                android:hint="@string/server_ip_hint"
+                android:inputType="textNoSuggestions"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/le_server_port"
+            style="@style/room_item" >
+
+            <TextView
+                style="@style/room_item_label"
+                android:text="@string/server_port" />
+
+            <EditText
+                android:id="@+id/server_port_edit_text"
+                style="@style/room_item_edit_text"
+                android:inputType="number" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

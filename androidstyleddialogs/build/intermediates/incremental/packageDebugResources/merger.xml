@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3" xmlns:ns1="http://schemas.android.com/tools"><dataSet config="main$Generated" generated="true"><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res"/><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/build/generated/res/rs/debug"/><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/build/generated/res/resValues/debug"/></dataSet><dataSet config="debug$Generated" generated="true"><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/debug/res"/></dataSet><dataSet config="main" generated-set="main$Generated"><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res"><file name="sdl_background" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_background.xml" qualifiers="" type="drawable"/><file name="sdl_background_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_background_dark.xml" qualifiers="" type="drawable"/><file name="sdl_button" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_button.xml" qualifiers="" type="drawable"/><file name="sdl_button_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_button_dark.xml" qualifiers="" type="drawable"/><file name="sdl_button_normal" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_button_normal.xml" qualifiers="" type="drawable"/><file name="sdl_button_pressed" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_button_pressed.xml" qualifiers="" type="drawable"/><file name="sdl_button_pressed_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_button_pressed_dark.xml" qualifiers="" type="drawable"/><file name="sdl_list" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_list.xml" qualifiers="" type="drawable"/><file name="sdl_list_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_list_dark.xml" qualifiers="" type="drawable"/><file name="sdl_list_normal" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_list_normal.xml" qualifiers="" type="drawable"/><file name="sdl_list_pressed" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_list_pressed.xml" qualifiers="" type="drawable"/><file name="sdl_list_pressed_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable/sdl_list_pressed_dark.xml" qualifiers="" type="drawable"/><file name="sdl_button" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable-v21/sdl_button.xml" qualifiers="v21" type="drawable"/><file name="sdl_button_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable-v21/sdl_button_dark.xml" qualifiers="v21" type="drawable"/><file name="sdl_button_selector" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable-v21/sdl_button_selector.xml" qualifiers="v21" type="drawable"/><file name="sdl_button_selector_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable-v21/sdl_button_selector_dark.xml" qualifiers="v21" type="drawable"/><file name="sdl_list" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable-v21/sdl_list.xml" qualifiers="v21" type="drawable"/><file name="sdl_list_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable-v21/sdl_list_dark.xml" qualifiers="v21" type="drawable"/><file name="sdl_list_selector" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable-v21/sdl_list_selector.xml" qualifiers="v21" type="drawable"/><file name="sdl_list_selector_dark" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/drawable-v21/sdl_list_selector_dark.xml" qualifiers="v21" type="drawable"/><file name="sdl_datepicker" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/layout/sdl_datepicker.xml" qualifiers="" type="layout"/><file name="sdl_dialog" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/layout/sdl_dialog.xml" qualifiers="" type="layout"/><file name="sdl_list_item" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/layout/sdl_list_item.xml" qualifiers="" type="layout"/><file name="sdl_list_item_multichoice" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/layout/sdl_list_item_multichoice.xml" qualifiers="" type="layout"/><file name="sdl_list_item_singlechoice" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/layout/sdl_list_item_singlechoice.xml" qualifiers="" type="layout"/><file name="sdl_progress" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/layout/sdl_progress.xml" qualifiers="" type="layout"/><file name="sdl_timepicker" path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/layout/sdl_timepicker.xml" qualifiers="" type="layout"/><file path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/values/sdl_attrs.xml" qualifiers=""><declare-styleable name="StyledDialogs">
+        <attr format="color|reference" name="sdlTextPrimaryColor"/>
+        <attr format="color|reference" name="sdlTextSecondaryColor"/>
+        <attr format="color|reference" name="sdlDividerColor"/>
+        <attr format="color|reference" name="sdlPressedColor"/>
+        <attr format="reference" name="sdlButtonBackground"/>
+        <attr format="reference" name="sdlListSelector"/>
+    </declare-styleable></file><file path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/values/sdl_colors.xml" qualifiers=""><color name="sdl_text_primary_dark">#FFFFFFFF</color><color name="sdl_divider_dark">#1FFFFFFF</color><color name="sdl_background_dark">#ff424242</color><color name="sdl_text_secondary_light">#8A000000</color><color name="sdl_background_light">#ffeeeeee</color><color name="sdl_pressed_dark">#29FFFFFF</color><color name="sdl_text_secondary_dark">#B3FFFFFF</color><color name="sdl_divider_light">#1F000000</color><color name="sdl_text_primary_light">#DE000000</color><color name="sdl_pressed_light">#29000000</color></file><file path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/values/sdl_dimens.xml" qualifiers=""><dimen name="grid_27">108dp</dimen><dimen name="grid_28">112dp</dimen><dimen name="grid_90">360dp</dimen><dimen name="grid_12">48dp</dimen><dimen name="grid_13">52dp</dimen><dimen name="grid_57">228dp</dimen><dimen name="grid_14">56dp</dimen><dimen name="grid_58">232dp</dimen><dimen name="grid_15">60dp</dimen><dimen name="grid_10">40dp</dimen><dimen name="grid_11">44dp</dimen><dimen name="grid_55">220dp</dimen><dimen name="grid_2">8dp</dimen><dimen name="grid_1">4dp</dimen><dimen name="grid_16">64dp</dimen><dimen name="grid_17">68dp</dimen><dimen name="grid_18">72dp</dimen><dimen name="grid_9">36dp</dimen><dimen name="grid_8">32dp</dimen><dimen name="grid_7">28dp</dimen><dimen name="grid_6">24dp</dimen><dimen name="grid_5">20dp</dimen><dimen name="grid_4">16dp</dimen><dimen name="grid_3">12dp</dimen><dimen name="grid_45">180dp</dimen><dimen name="grid_46">184dp</dimen><dimen name="grid_26">104dp</dimen><dimen name="grid_20">80dp</dimen><dimen name="grid_43">172dp</dimen><dimen name="grid_44">176dp</dimen></file><file path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/values/sdl_styles.xml" qualifiers=""><style name="SDL.ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:listSelector">?sdlListSelector</item>
+    </style><style name="SDL.ListItemControl">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:clickable">false</item>
+        <item name="android:minHeight">@dimen/grid_13</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/grid_6</item>
+        <item name="android:paddingRight">0dp</item>
+    </style><style name="SDL.Space.ButtonsBottom">
+        <item name="android:layout_height">@dimen/grid_2</item>
+    </style><style name="SDL.TextView.ListItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/grid_13</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?sdlTextPrimaryColor</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/grid_6</item>
+        <item name="android:paddingRight">@dimen/grid_6</item>
+    </style><style name="SDL.ListItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:descendantFocusability">blocksDescendants</item>
+        <item name="android:paddingLeft">@dimen/grid_6</item>
+        <item name="android:paddingRight">@dimen/grid_6</item>
+    </style><style name="SDL.Layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style><style name="SDL.Layout.Content">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style><style name="SDL.Layout.Buttons.Right">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style><style name="SDL.Button.Stacked">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/grid_12</item>
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:paddingRight">@dimen/grid_8</item>
+        <item name="android:paddingLeft">@dimen/grid_8</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+    </style><style name="SDL.Layout.Buttons.Stacked">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style><style name="SDL.TextView.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">?sdlTextPrimaryColor</item>
+        
+    </style><style name="SDL.Layout.Custom">
+        <item name="android:layout_height">wrap_content</item>
+    </style><style name="SDL.TextView.Message.Progress">
+        <item name="android:paddingRight">@dimen/grid_4</item>
+    </style><style name="SDL.Layout.Progress">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style><style name="SDL.DatePicker">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:spinnersShown" ns1:ignore="NewApi">true</item>
+        <item name="android:calendarViewShown" ns1:ignore="NewApi">false</item>
+    </style><style name="SDL.Button.Neutral" parent="@style/SDL.Button">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style><style name="SDL.ScrollView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style><style name="SDL.TextView.Message">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?sdlTextSecondaryColor</item>
+        
+    </style><style name="SDL.Dialog" parent="android:Theme">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowActionBar" ns1:ignore="NewApi">false</item>
+        <item name="android:windowActionModeOverlay" ns1:ignore="NewApi">true</item>
+        <item name="android:windowCloseOnTouchOutside" ns1:ignore="NewApi">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowBackground">@drawable/sdl_background</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/abc_btn_radio_material</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/abc_btn_check_material</item>
+        <item name="sdlTextPrimaryColor">@color/sdl_text_primary_light</item>
+        <item name="sdlTextSecondaryColor">@color/sdl_text_secondary_light</item>
+        <item name="sdlDividerColor">@color/sdl_divider_light</item>
+        <item name="sdlPressedColor">@color/sdl_pressed_light</item>
+        <item name="sdlButtonBackground">@drawable/sdl_button</item>
+        <item name="sdlListSelector">@drawable/sdl_list</item>
+    </style><style name="SDL.Progress" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/grid_1</item>
+        <item name="android:layout_marginLeft">@dimen/grid_4</item>
+        <item name="android:layout_marginTop">@dimen/grid_4</item>
+        <item name="android:layout_marginBottom">@dimen/grid_4</item>
+    </style><style name="SDL.TextView" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style><style name="SDL.Space">
+        <item name="android:layout_width">match_parent</item>
+    </style><style name="SDL.Expander">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style><style name="SDL"/><style name="SDL.Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?sdlDividerColor</item>
+    </style><style name="SDL.Layout.Buttons">
+        <item name="android:layout_height">@dimen/grid_12</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">@dimen/grid_3</item>
+        <item name="android:paddingRight">@dimen/grid_3</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center_vertical</item>
+    </style><style name="SDL.Dialog.Dark">
+        <item name="android:windowBackground">@drawable/sdl_background_dark</item>
+        <item name="sdlTextPrimaryColor">@color/sdl_text_primary_dark</item>
+        <item name="sdlTextSecondaryColor">@color/sdl_text_secondary_dark</item>
+        <item name="sdlDividerColor">@color/sdl_divider_dark</item>
+        <item name="sdlPressedColor">@color/sdl_pressed_dark</item>
+        <item name="sdlButtonBackground">@drawable/sdl_button_dark</item>
+        <item name="sdlListSelector">@drawable/sdl_list_dark</item>
+    </style><style name="SDL.Button">
+        <item name="android:background">?sdlButtonBackground</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">@dimen/grid_16</item>
+        <item name="android:layout_height">@dimen/grid_9</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingRight">@dimen/grid_2</item>
+        <item name="android:paddingLeft">@dimen/grid_2</item>
+        <item name="android:layout_marginRight">@dimen/grid_1</item>
+        <item name="android:layout_marginLeft">@dimen/grid_1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps" ns1:ignore="NewApi">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">?colorAccent</item>
+    </style><style name="SDL.TextView.MultiChoice">
+        <item name="android:minHeight">@dimen/grid_13</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?sdlTextPrimaryColor</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingRight">@dimen/grid_6</item>
+    </style></file><file path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/main/res/values-v21/sdl_styles.xml" qualifiers="v21"><style name="SDL.Dialog" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:colorAccent">?colorAccent</item>
+        <item name="android:colorPrimary">?colorPrimary</item>
+
+        <item name="sdlTextPrimaryColor">@color/sdl_text_primary_light</item>
+        <item name="sdlTextSecondaryColor">@color/sdl_text_secondary_light</item>
+        <item name="sdlDividerColor">@color/sdl_divider_light</item>
+        <item name="sdlPressedColor">@color/sdl_pressed_light</item>
+        <item name="sdlButtonBackground">@drawable/sdl_button</item>
+        <item name="sdlListSelector">@drawable/sdl_list</item>
+    </style><style name="SDL.Dialog.Dark" parent="android:Theme.Material.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:colorAccent">?colorAccent</item>
+        <item name="android:colorPrimary">?colorPrimary</item>
+
+        <item name="sdlTextPrimaryColor">@color/sdl_text_primary_dark</item>
+        <item name="sdlTextSecondaryColor">@color/sdl_text_secondary_dark</item>
+        <item name="sdlDividerColor">@color/sdl_divider_dark</item>
+        <item name="sdlPressedColor">@color/sdl_pressed_dark</item>
+        <item name="sdlButtonBackground">@drawable/sdl_button_dark</item>
+        <item name="sdlListSelector">@drawable/sdl_list_dark</item>
+    </style></file></source><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/build/generated/res/rs/debug"/><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/build/generated/res/resValues/debug"/></dataSet><dataSet config="debug" generated-set="debug$Generated"><source path="/Users/binma/Documents/projects/YGOMobile/androidstyleddialogs/src/debug/res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="StyledDialogs"><attr format="color|reference" name="sdlTextPrimaryColor"/><attr format="color|reference" name="sdlTextSecondaryColor"/><attr format="color|reference" name="sdlDividerColor"/><attr format="color|reference" name="sdlPressedColor"/><attr format="reference" name="sdlButtonBackground"/><attr format="reference" name="sdlListSelector"/></declare-styleable></configuration></mergedItems></merger>

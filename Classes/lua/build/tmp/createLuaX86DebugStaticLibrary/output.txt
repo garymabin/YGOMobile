@@ -1,0 +1,4 @@
+See file:///Users/binma/Documents/projects/YGOMobile/Classes/lua/build/tmp/createLuaX86DebugStaticLibrary/output.txt for all output for createLuaX86DebugStaticLibrary.
+archiving liblua.a successful.
+
+Finished createLuaX86DebugStaticLibrary, see full log file:///Users/binma/Documents/projects/YGOMobile/Classes/lua/build/tmp/createLuaX86DebugStaticLibrary/output.txt.
